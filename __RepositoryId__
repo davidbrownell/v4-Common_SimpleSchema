@@ -1,0 +1,10 @@
+This file is used to uniquely identify this repository for the purposes of dependency management.
+Other repositories that depend on this one will search for this file upon initial setup and
+generate information that is used when activating development environments.
+
+**** PLEASE DO NOT MODIFY, REMOVE, OR RENAME THIS FILE, AS DOING SO WILL LIKELY BREAK OTHER REPOSITORIES! ****
+
+Friendly Name:      Common_SimpleSchema
+Id:                 e4e86299-f511-45a1-8f24-212a312e6c2b
+
+Version 4.0.0
