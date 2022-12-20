@@ -15,11 +15,24 @@
 # ----------------------------------------------------------------------
 """Contains the Identifier object"""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from enum import auto, Enum
 from functools import cached_property
+from typing import Optional
 
-from SimpleSchema.Schema.Impl.Common.Element import Element
+from Common_Foundation.Types import overridemethod
+
+from SimpleSchema.Schema.Impl.Common.Element import Element, SimpleElement
 from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
+
+
+# ----------------------------------------------------------------------
+class Visibility(Enum):
+    """Access restriction associated with an Identifier"""
+
+    Public                                  = auto()
+    Protected                               = auto()
+    Private                                 = auto()
 
 
 # ----------------------------------------------------------------------
@@ -28,22 +41,32 @@ class Identifier(Element):
     """Mixin for IdentifierType and IdentifierExpression objects"""
 
     # ----------------------------------------------------------------------
-    value: str
+    id: SimpleElement[str]
+    visibility: SimpleElement[Visibility]
+
+    _first_char: str                        = field(init=False)
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
-        if (
-            not self.value
-            or self.value == "_"
-            or not (
-                'a' <= self._first_char <= 'z'
-                or 'A' <= self._first_char <= 'Z'
-            )
-        ):
+        first_char = self.__class__._GetFirstChar(self.id.value)  # pylint: disable=protected-access
+
+        if first_char is None:
             raise SimpleSchemaException(
-                "'{}' is not a valid identifier.".format(self.value),
+                "'{}' is not a valid identifier.".format(self.id.value),
                 self.range,
             )
+
+        if not (
+            ('a' <= first_char <= 'z')
+            or ('A' <= first_char <= 'Z')
+        ):
+            raise SimpleSchemaException(
+                "'{}' is not a valid identifier.".format(self.id.value),
+                self.range,
+            )
+
+        # Commit
+        object.__setattr__(self, "_first_char", first_char)
 
     # ----------------------------------------------------------------------
     @cached_property
@@ -57,9 +80,18 @@ class Identifier(Element):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    @cached_property
-    def _first_char(self) -> str:
-        if self.value.startswith("_"):
-            return self.value[1]
+    @staticmethod
+    def _GetFirstChar(
+        value: str,
+    ) -> Optional[str]:
+        for char in value:
+            if char not in ['_', '@', '$', '&']:
+                return char
 
-        return self.value[0]
+        return None
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "id", self.id
+        yield "visibility", self.visibility

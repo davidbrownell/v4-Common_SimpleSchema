@@ -19,6 +19,7 @@ import re
 import sys
 
 from pathlib import Path
+from unittest import mock
 
 import pytest
 
@@ -32,20 +33,36 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Impl.Common.Range import Range
     from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Impl.Types.VariantType import VariantType, IdentifierType
+    from SimpleSchema.Schema.Impl.Types.VariantType import VariantType, Type
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
-    i1 = IdentifierType(Range.Create(Path("variant_file"), 1, 1, 2, 1), "ID1")
-    i2 = IdentifierType(Range.Create(Path("variant_file"), 2, 1, 3, 1), "ID2")
+    i1 = Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
+    i2 = Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
 
-    t = VariantType(Range.Create(Path("variant_file"), 1, 1, 3, 1), [i1])
+    cardinality = mock.MagicMock()
+    metadata = mock.MagicMock()
+
+    t = VariantType(
+        Range.Create(Path("variant_file"), 1, 1, 3, 1),
+        cardinality,
+        metadata,
+        [i1],
+    )
 
     assert t.range == Range.Create(Path("variant_file"), 1, 1, 3, 1)
+    assert t.cardinality is cardinality
+    assert t.metadata is metadata
     assert t.types == [i1]
 
-    t = VariantType(Range.Create(Path("variant_file"), 1, 1, 3, 1), [i1, i2])
+    t = VariantType(
+        mock.MagicMock(),
+        mock.MagicMock(),
+        mock.MagicMock(),
+        [i1, i2],
+    )
+
     assert t.types == [i1, i2]
 
 
@@ -55,25 +72,34 @@ def test_ErrorEmpty():
         SimpleSchemaException,
         match=re.escape("No types were provided. (file <[1, 2] -> [3, 4]>)"),
     ):
-        VariantType(Range.Create(Path("file"), 1, 2, 3, 4), [])
+        VariantType(
+            Range.Create(Path("file"), 1, 2, 3, 4),
+            mock.MagicMock(),
+            mock.MagicMock(),
+            [],
+        )
 
 
 # ----------------------------------------------------------------------
 def test_ErrorInvalidTypes():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("Nested variant types must be identifier types. (invalid_variant_file <[10, 20] -> [30, 40]>)"),
+        match=re.escape("Nested variant types are not supported. (invalid_variant_file <[10, 20] -> [30, 40]>)"),
     ):
         VariantType(
             Range.Create(Path("file"), 1, 2, 3, 4),
+            mock.MagicMock(),
+            mock.MagicMock(),
             [
-                IdentifierType(Range.Create(Path("id_file"), 1, 2, 3, 4), "ID1"),
+                Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock()),
                 VariantType(
                     Range.Create(Path("invalid_variant_file"), 10, 20, 30, 40),
+                    mock.MagicMock(),
+                    mock.MagicMock(),
                     [
-                        IdentifierType(Range.Create(Path("id_file"), 1, 2, 3, 4), "ID2"),
+                        mock.MagicMock(),
                     ],
                 ),
-                IdentifierType(Range.Create(Path("id_file"), 1, 2, 3, 4), "ID3"),
+                Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock()),
             ],
         )

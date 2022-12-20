@@ -84,6 +84,7 @@ def GetConfigurations() -> Union[
                 {
                     "Python": common_python_libraries + [
                         Configuration.VersionInfo("cx_freeze", SemVer("6.13.1")),
+                        Configuration.VersionInfo("rtyaml", SemVer("1.0.0")),
                     ],
                 },                             # libraries
             ),

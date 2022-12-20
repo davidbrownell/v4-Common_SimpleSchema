@@ -19,6 +19,7 @@ import re
 import sys
 
 from pathlib import Path
+from unittest import mock
 
 import pytest
 
@@ -29,8 +30,8 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Impl.Common.Element import Element
-    from SimpleSchema.Schema.Impl.Common.Identifier import Identifier
+    from SimpleSchema.Schema.Impl.Common.Element import Element, SimpleElement
+    from SimpleSchema.Schema.Impl.Common.Identifier import Identifier, Visibility
     from SimpleSchema.Schema.Impl.Common.Range import Range
     from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
 
@@ -39,15 +40,19 @@ with ExitStack(lambda: sys.path.pop(0)):
 
 # ----------------------------------------------------------------------
 def test_ExtensionStatementKeywordArg():
+    range1 = Range.Create(Path("keyword arg file"), 11, 22, 33, 44)
+    range2 = Range.Create(Path("element_file"), 1, 2, 3, 4)
+
     arg = ExtensionStatementKeywordArg(
-        Range.Create(Path("keyword arg file"), 11, 22, 33, 44),
-        Identifier(Range.Create(Path("id"), 1, 2, 3, 4), "id_value"),
-        Element(Range.Create(Path("element"), 2, 4, 6, 8)),
+        range1,
+        Identifier(mock.MagicMock(), SimpleElement(mock.MagicMock(), "id_value"), SimpleElement(mock.MagicMock(), Visibility.Public)),
+        Element(range2),
     )
 
-    assert arg.range == Range.Create(Path("keyword arg file"), 11, 22, 33, 44)
-    assert arg.name.value == "id_value"
-    assert arg.value.range.filename == Path("element")
+    assert arg.range is range1
+    assert arg.name.id.value == "id_value"
+    assert arg.name.visibility.value == Visibility.Public
+    assert arg.value.range is range2
 
 
 # ----------------------------------------------------------------------
@@ -56,13 +61,18 @@ class TestExtensionStatement(object):
     def test_Empty(self):
         e = ExtensionStatement(
             Range.Create(Path("extension"), 1, 2, 3, 4),
-            Identifier(Range.Create(Path("id"), 11, 22, 33, 44), "id"),
+            Identifier(
+                mock.MagicMock(),
+                SimpleElement(mock.MagicMock(), "id"),
+                SimpleElement(mock.MagicMock(), Visibility.Private),
+            ),
             [],
             [],
         )
 
         assert e.range == Range.Create(Path("extension"), 1, 2, 3, 4)
-        assert e.name.value == "id"
+        assert e.name.id.value == "id"
+        assert e.name.visibility.value == Visibility.Private
         assert e.positional_args == []
         assert e.keyword_args == {}
 
@@ -73,31 +83,51 @@ class TestExtensionStatement(object):
 
         keyword_args = {
             "foo": ExtensionStatementKeywordArg(
-                Range.Create(Path("foo"), 1, 2, 3, 4),
-                Identifier(Range.Create(Path("foo_id"), 1, 2, 3, 4), "foo"),
-                Element(Range.Create(Path("foo_value"), 1, 2, 3, 4)),
+                mock.MagicMock(),
+                Identifier(
+                    mock.MagicMock(),
+                    SimpleElement(mock.MagicMock(), "foo"),
+                    SimpleElement(mock.MagicMock(), Visibility.Protected),
+                ),
+                Element(mock.MagicMock()),
             ),
             "bar": ExtensionStatementKeywordArg(
-                Range.Create(Path("bar"), 1, 2, 3, 4),
-                Identifier(Range.Create(Path("bar_id"), 1, 2, 3, 4), "bar"),
-                Element(Range.Create(Path("bar_value"), 1, 2, 3, 4)),
+                mock.MagicMock(),
+                Identifier(
+                    mock.MagicMock(),
+                    SimpleElement(mock.MagicMock(), "bar"),
+                    SimpleElement(mock.MagicMock(), mock.MagicMock()),
+                ),
+                Element(mock.MagicMock()),
             ),
             "baz": ExtensionStatementKeywordArg(
-                Range.Create(Path("baz"), 1, 2, 3, 4),
-                Identifier(Range.Create(Path("baz_id"), 1, 2, 3, 4), "baz"),
-                Element(Range.Create(Path("baz_value"), 1, 2, 3, 4)),
+                mock.MagicMock(),
+                Identifier(
+                    mock.MagicMock(),
+                    SimpleElement(mock.MagicMock(), "baz"),
+                    SimpleElement(mock.MagicMock(), mock.MagicMock()),
+                ),
+                Element(mock.MagicMock()),
             ),
         }
 
+        range1 = Range.Create(Path("extension"), 1, 2, 3, 4)
+
         e = ExtensionStatement(
-            Range.Create(Path("extension"), 1, 2, 3, 4),
-            Identifier(Range.Create(Path("extension"), 1, 2, 3, 4), "extension_name"),
+            range1,
+            Identifier(
+                mock.MagicMock(),
+                SimpleElement(mock.MagicMock(), "extension_name"),
+                SimpleElement(mock.MagicMock(), Visibility.Private),
+            ),
             [p1, p2],
             list(keyword_args.values()),
         )
 
-        assert e.range == Range.Create(Path("extension"), 1, 2, 3, 4)
-        assert e.name.value == "extension_name"
+        assert e.range is range1
+        assert e.name.id.value == "extension_name"
+        assert e.name.visibility.value == Visibility.Private
+
         assert e.positional_args == [p1, p2]
         assert e.keyword_args == keyword_args
 
@@ -108,19 +138,31 @@ class TestExtensionStatement(object):
             match=re.escape("An argument for the parameter 'id' has already been provided at <[10, 20] -> [30, 40]>. (bar_id <[11, 22] -> [33, 44]>)"),
         ):
             ExtensionStatement(
-                Range.Create(Path("extension"), 1, 2, 3, 4),
-                Identifier(Range.Create(Path("extension"), 1, 2, 3, 4), "extension_name"),
+                mock.MagicMock(),
+                Identifier(
+                    mock.MagicMock(),
+                    SimpleElement(mock.MagicMock(), "extension_name"),
+                    SimpleElement(mock.MagicMock(), mock.MagicMock()),
+                ),
                 [],
                 [
                     ExtensionStatementKeywordArg(
-                        Range.Create(Path("foo"), 1, 2, 3, 4),
-                        Identifier(Range.Create(Path("foo_id"), 10, 20, 30, 40), "id"),
-                        Element(Range.Create(Path("foo_value"), 1, 2, 3, 4)),
+                        mock.MagicMock(),
+                        Identifier(
+                            Range.Create(Path("foo_id"), 10, 20, 30, 40),
+                            SimpleElement(mock.MagicMock(), "id"),
+                            SimpleElement(mock.MagicMock(), mock.MagicMock()),
+                        ),
+                        Element(mock.MagicMock()),
                     ),
                     ExtensionStatementKeywordArg(
-                        Range.Create(Path("bar"), 1, 2, 3, 4),
-                        Identifier(Range.Create(Path("bar_id"), 11, 22, 33, 44), "id"),
-                        Element(Range.Create(Path("bar_value"), 1, 2, 3, 4)),
+                        mock.MagicMock(),
+                        Identifier(
+                            Range.Create(Path("bar_id"), 11, 22, 33, 44),
+                            SimpleElement(mock.MagicMock(), "id"),
+                            SimpleElement(mock.MagicMock(), mock.MagicMock()),
+                        ),
+                        Element(mock.MagicMock()),
                     ),
                 ],
             )

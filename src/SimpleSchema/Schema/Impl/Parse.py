@@ -30,7 +30,11 @@ from Common_Foundation.Streams.DoneManager import DoneManager
 
 from Common_FoundationEx import ExecuteTasks
 
+from SimpleSchema.Schema.Impl.Common.Cardinality import Cardinality
+from SimpleSchema.Schema.Impl.Common.Element import SimpleElement
+from SimpleSchema.Schema.Impl.Common.Identifier import Visibility
 from SimpleSchema.Schema.Impl.Common.Location import Location
+from SimpleSchema.Schema.Impl.Common.Metadata import Metadata, MetadataItem
 from SimpleSchema.Schema.Impl.Common.Range import Range
 
 from SimpleSchema.Schema.Impl.Common.Element import Element
@@ -41,16 +45,15 @@ from SimpleSchema.Schema.Impl.Expressions.BooleanExpression import BooleanExpres
 from SimpleSchema.Schema.Impl.Expressions.Expression import Expression
 from SimpleSchema.Schema.Impl.Expressions.IdentifierExpression import IdentifierExpression
 from SimpleSchema.Schema.Impl.Expressions.IntegerExpression import IntegerExpression
-from SimpleSchema.Schema.Impl.Expressions.MetadataExpression import MetadataExpression, MetadataExpressionItem
-from SimpleSchema.Schema.Impl.Expressions.NoneExpression import NoneExpression
+from SimpleSchema.Schema.Impl.Expressions.ListExpression import ListExpression
 from SimpleSchema.Schema.Impl.Expressions.NumberExpression import NumberExpression
 from SimpleSchema.Schema.Impl.Expressions.StringExpression import StringExpression
 
-from SimpleSchema.Schema.Impl.Statements.CompoundStatement import CompoundStatement
-from SimpleSchema.Schema.Impl.Statements.DataMemberStatement import DataMemberStatement
 from SimpleSchema.Schema.Impl.Statements.ExtensionStatement import ExtensionStatement, ExtensionStatementKeywordArg
+from SimpleSchema.Schema.Impl.Statements.ItemStatement import ItemStatement
 from SimpleSchema.Schema.Impl.Statements.RootStatement import RootStatement
 from SimpleSchema.Schema.Impl.Statements.Statement import Statement
+from SimpleSchema.Schema.Impl.Statements.StructureStatement import StructureStatement
 
 from SimpleSchema.Schema.Impl.Types.Type import Type
 from SimpleSchema.Schema.Impl.Types.IdentifierType import IdentifierType
@@ -83,18 +86,18 @@ class AntlrException(Exception):
         column: int,
         ex: Optional[antlr4.RecognitionException],
     ):
+        location = Location(line, column)
+
         super(AntlrException, self).__init__(
-            "{msg} ({source} [{line}, {column}])".format(
+            "{msg} ({source} {location})".format(
                 msg=msg,
                 source=source,
-                line=line,
-                column=column,
+                location=location.ToString(),
             ),
         )
 
         self.source                         = source
-        self.line                           = line
-        self.column                         = column
+        self.location                       = location
         self.ex                             = ex
 
 
@@ -237,9 +240,35 @@ def Parse(
 # |  Private Types
 # |
 # ----------------------------------------------------------------------
+class _ErrorListener(antlr4.DiagnosticErrorListener):
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        source: Path,
+        *args,
+        **kwargs,
+    ):
+        super(_ErrorListener, self).__init__(*args, **kwargs)
+
+        self._source                        = source
+
+    # ----------------------------------------------------------------------
+    def syntaxError(
+        self,
+        recognizer: SimpleSchemaParser,     # pylint: disable=unused-argument
+        offendingSymbol: antlr4.Token,      # pylint: disable=unused-argument
+        line: int,
+        column: int,
+        msg: str,
+        e: antlr4.RecognitionException,
+    ) -> Any:
+        raise AntlrException(msg, self._source, line, column + 1, e)
+
+
+# ----------------------------------------------------------------------
 class _VisitorMixin(object):
     # ----------------------------------------------------------------------
-    def ToRange(
+    def CreateRange(
         self,
         ctx: antlr4.ParserRuleContext,
     ) -> Range:
@@ -324,7 +353,7 @@ class _VisitorMixin(object):
         if not self._stack:
             range_value = Range(self.filename, Location(1, 1), Location(1, 1))
         else:
-            range_value = Range(self.filename, self._stack[0].range.start, self._stack[-1].range.end)
+            range_value = Range(self.filename, self._stack[0].range.begin, self._stack[-1].range.end)
 
         return RootStatement(range_value, cast(List[Statement], self._stack))
 
@@ -350,32 +379,6 @@ class _VisitorMixin(object):
 
 
 # ----------------------------------------------------------------------
-class _ErrorListener(antlr4.DiagnosticErrorListener):
-    # ----------------------------------------------------------------------
-    def __init__(
-        self,
-        source: Path,
-        *args,
-        **kwargs,
-    ):
-        super(_ErrorListener, self).__init__(*args, **kwargs)
-
-        self._source                        = source
-
-    # ----------------------------------------------------------------------
-    def syntaxError(
-        self,
-        recognizer: SimpleSchemaParser,     # pylint: disable=unused-argument
-        offendingSymbol: antlr4.Token,      # pylint: disable=unused-argument
-        line: int,
-        column: int,
-        msg: str,
-        e: antlr4.RecognitionException,
-    ) -> Any:
-        raise AntlrException(msg, self._source, line, column + 1, e)
-
-
-# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
@@ -385,44 +388,136 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
     # ----------------------------------------------------------------------
     def visitIdentifier(self, ctx:SimpleSchemaParser.IdentifierContext):
-        symbol = ctx.IDENTIFIER().symbol
-        self._stack.append(Identifier(self.ToRange(ctx), symbol.text))
+        id_value = ctx.IDENTIFIER().symbol.text
+        id_range = self.CreateRange(ctx)
+
+        if id_value.startswith("_"):
+            visibility = Visibility.Private
+            visibility_range = Range(
+                id_range.filename,
+                id_range.begin,
+                Location(id_range.begin.line, id_range.begin.column + 1),
+            )
+
+        elif id_value[0] in ["@", "$", "&"]:
+            visibility = Visibility.Protected
+            visibility_range = Range(
+                id_range.filename,
+                id_range.begin,
+                Location(id_range.begin.line, id_range.begin.column + 1),
+            )
+
+        else:
+            visibility = Visibility.Public
+            visibility_range = id_range
+
+        self._stack.append(
+            Identifier(
+                self.CreateRange(ctx),
+                SimpleElement[str](id_range, id_value),
+                SimpleElement[Visibility](visibility_range, visibility),
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def visitCardinality_clause_optional(self, ctx:SimpleSchemaParser.Cardinality_clause_optionalContext):
+        range_value = self.CreateRange(ctx)
+
+        self._stack.append(
+            Cardinality(
+                range_value,
+                IntegerExpression(range_value, 0),
+                IntegerExpression(range_value, 1),
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def visitCardinality_clause_zero_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_zero_or_moreContext):
+        range_value = self.CreateRange(ctx)
+
+        self._stack.append(Cardinality(range_value, IntegerExpression(range_value, 0), None))
+
+    # ----------------------------------------------------------------------
+    def visitCardinality_clause_one_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_one_or_moreContext):
+        range_value = self.CreateRange(ctx)
+
+        self._stack.append(Cardinality(range_value, IntegerExpression(range_value, 1), None))
+
+    # ----------------------------------------------------------------------
+    def visitCardinality_clause_fixed(self, ctx:SimpleSchemaParser.Cardinality_clause_fixedContext):
+        children = self._GetChildren(ctx)
+
+        assert len(children) == 1, children
+        assert isinstance(children[0], IntegerExpression), children
+
+        value_expression = cast(IntegerExpression, children[0])
+
+        self._stack.append(Cardinality(self.CreateRange(ctx), value_expression, value_expression))
+
+    # ----------------------------------------------------------------------
+    def visitCardinality_clause_range(self, ctx:SimpleSchemaParser.Cardinality_clause_rangeContext):
+        children = self._GetChildren(ctx)
+
+        assert len(children) == 2, children
+        assert all(isinstance(child, IntegerExpression) for child in children), children
+
+        min_expression = cast(IntegerExpression, children[0])
+        max_expression = cast(IntegerExpression, children[1])
+
+        self._stack.append(Cardinality(self.CreateRange(ctx), min_expression, max_expression))
+
+    # ----------------------------------------------------------------------
+    def visitMetadata_clause_item(self, ctx:SimpleSchemaParser.Metadata_clause_itemContext):
+        children = self._GetChildren(ctx)
+
+        assert len(children) == 2, children
+        assert isinstance(children[0], IdentifierExpression), children
+        assert isinstance(children[1], Expression), children
+
+        name_expression = cast(IdentifierExpression, children[0])
+        value_expression = cast(Expression, children[1])
+
+        self._stack.append(MetadataItem(self.CreateRange(ctx), name_expression, value_expression))
+
+    # ----------------------------------------------------------------------
+    def visitMetadata_clause(self, ctx:SimpleSchemaParser.Metadata_clauseContext):
+        children = self._GetChildren(ctx)
+        assert all(isinstance(child, MetadataItem) for child in children), children
+
+        metadata_items = cast(List[MetadataItem], children)
+
+        self._stack.append(Metadata(self.CreateRange(ctx), metadata_items))
 
     # ----------------------------------------------------------------------
     def visitIdentifier_expression(self, ctx:SimpleSchemaParser.Identifier_expressionContext):
         children = self._GetChildren(ctx)
-        assert len(children) == 1
 
-        child = children[0]
-        assert isinstance(child, Identifier), child
+        assert len(children) == 1, children
+        assert isinstance(children[0], Identifier), children
 
-        self._stack.append(IdentifierExpression(child.range, child.value))
+        identifier = cast(Identifier, children[0])
+
+        self._stack.append(IdentifierExpression(identifier.range, identifier.id, identifier.visibility))
 
     # ----------------------------------------------------------------------
     def visitNumber_expression(self, ctx:SimpleSchemaParser.Number_expressionContext):
-        symbol = ctx.NUMBER().symbol
-        self._stack.append(NumberExpression(self.ToRange(ctx), float(symbol.text)))
+        self._stack.append(NumberExpression(self.CreateRange(ctx), float(ctx.NUMBER().symbol.text)))
 
     # ----------------------------------------------------------------------
     def visitInteger_expression(self, ctx:SimpleSchemaParser.Integer_expressionContext):
-        symbol = ctx.INTEGER().symbol
-        self._stack.append(IntegerExpression(self.ToRange(ctx), int(symbol.text)))
+        self._stack.append(IntegerExpression(self.CreateRange(ctx), int(ctx.INTEGER().symbol.text)))
 
     # ----------------------------------------------------------------------
     def visitTrue_expression(self, ctx:SimpleSchemaParser.True_expressionContext):
-        self._stack.append(BooleanExpression(self.ToRange(ctx), True))
+        self._stack.append(BooleanExpression(self.CreateRange(ctx), True))
 
     # ----------------------------------------------------------------------
     def visitFalse_expression(self, ctx:SimpleSchemaParser.False_expressionContext):
-        self._stack.append(BooleanExpression(self.ToRange(ctx), False))
-
-    # ----------------------------------------------------------------------
-    def visitNone_expression(self, ctx:SimpleSchemaParser.None_expressionContext):
-        self._stack.append(NoneExpression(self.ToRange(ctx)))
+        self._stack.append(BooleanExpression(self.CreateRange(ctx), False))
 
     # ----------------------------------------------------------------------
     def visitBasic_string_expression(self, ctx:SimpleSchemaParser.Basic_string_expressionContext):
-        return self.visitString_expression(ctx)
+        self.visitString_expression(ctx)
 
     # ----------------------------------------------------------------------
     def visitString_expression(self, ctx:SimpleSchemaParser.String_expressionContext):
@@ -476,7 +571,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             initial_line = lines[0].rstrip()
             if len(initial_line) != 3:
                 raise AntlrException(
-                    "Triple-quote delimiters that initiate multiline strings must not have any trailing content.",
+                    "Triple-quote delimiters that initiate multiline strings cannot have any content on the same line.",
                     self.filename,
                     ctx.start.line,
                     ctx.start.column + 1 + 3,
@@ -486,7 +581,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             final_line = lines[-1]
             if len(TrimPrefix(final_line, len(lines))) != 3:
                 raise AntlrException(
-                    "Triple-quote delimiters that terminate multiline strings must not have any preceding content.",
+                    "Triple-quote delimiters that terminate multiline strings cannot have any content on the same line.",
                     self.filename,
                     ctx.start.line + len(lines) - 1,
                     ctx.start.column + 1,
@@ -506,210 +601,289 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         else:
             assert False, value  # pragma: no cover
 
-        self._stack.append(StringExpression(self.ToRange(ctx), value))
+        self._stack.append(StringExpression(self.CreateRange(ctx), value))
 
     # ----------------------------------------------------------------------
-    def visitMetadata_group_expression(self, ctx:SimpleSchemaParser.Metadata_group_expressionContext):
+    def visitList_expression(self, ctx:SimpleSchemaParser.List_expressionContext):
         children = self._GetChildren(ctx)
-        assert all(isinstance(child, MetadataExpressionItem) for child in children), children
+        assert all(isinstance(child, Expression) for child in children)
 
-        self._stack.append(
-            MetadataExpression(
-                self.ToRange(ctx),
-                cast(List[MetadataExpressionItem], children),
-            ),
-        )
+        items = cast(List[Expression], children)
 
-        self._OnProgress(ctx)
-
-    # ----------------------------------------------------------------------
-    def visitMetadata_expression(self, ctx:SimpleSchemaParser.Metadata_expressionContext):
-        children = self._GetChildren(ctx)
-        assert len(children) == 2
-
-        name = children[0]
-        assert isinstance(name, IdentifierExpression), name
-
-        value = children[1]
-        assert isinstance(name, Expression), name
-
-        self._stack.append(MetadataExpressionItem(self.ToRange(ctx), name, value))
-
-    # ----------------------------------------------------------------------
-    def visitIdentifier_type(self, ctx:SimpleSchemaParser.Identifier_typeContext):
-        children = self._GetChildren(ctx)
-        assert len(children) == 1
-
-        child = children[0]
-        assert isinstance(child, Identifier), child
-
-        self._stack.append(IdentifierType(child.range, child.value))
-
-    # ----------------------------------------------------------------------
-    def visitTuple_type(self, ctx:SimpleSchemaParser.Tuple_typeContext):
-        children = self._GetChildren(ctx)
-
-        assert all(isinstance(child, Type) for child in children)
-        children = cast(List[Type], children)
-
-        self._stack.append(TupleType(self.ToRange(ctx), children))
-
-    # ----------------------------------------------------------------------
-    def visitVariant_type(self, ctx:SimpleSchemaParser.Variant_typeContext):
-        children = self._GetChildren(ctx)
-
-        assert all(isinstance(child, Type) for child in children)
-        children = cast(List[Type], children)
-
-        self._stack.append(VariantType(self.ToRange(ctx), children))
+        self._stack.append(ListExpression(self.CreateRange(ctx), items))
 
     # ----------------------------------------------------------------------
     def visitInclude_statement(self, ctx:SimpleSchemaParser.Include_statementContext):
-        children = self._GetChildren(ctx)
-        assert len(children) == 1, children
-
-        child = children[0]
-        assert isinstance(child, StringExpression), child
-
-        self._on_include_func(self.filename, child)
-
-    # ----------------------------------------------------------------------
-    def visitCompound_statement(self, ctx:SimpleSchemaParser.Compound_statementContext):
-        children = self._GetChildren(ctx)
-
-        num_children = len(children)
-        assert 2 <= num_children <= 4
-
-        name = children[0]
-        assert isinstance(name, Identifier), name
-
-        base_type: Optional[Type] = None
-        metadata: Optional[MetadataExpression] = None
-        statements: Optional[List[Statement]] = None
-
-        for index in range(1, num_children):
-            child = children[index]
-
-            if isinstance(child, Type):
-                assert base_type is None, base_type
-                base_type = child
-            elif isinstance(child, MetadataExpression):
-                assert metadata is None, metadata
-                metadata = child
-            elif isinstance(child, list):
-                assert all(isinstance(statement, Statement) for statement in child), child
-                assert statements is None, statements
-                statements = child
-            else:
-                assert False, child  # pragma: no cover
-
-        assert statements is not None
-
-        self._stack.append(
-            CompoundStatement(self.ToRange(ctx), name, base_type, metadata, statements),
-        )
-
-        self._OnProgress(ctx)
-
-    # ----------------------------------------------------------------------
-    def visitCompound_statement_single_line(
-        self,
-        ctx:SimpleSchemaParser.Compound_statement_single_lineContext,  # pylint: disable=unused-argument
-    ):
-        # pass is the only thing that can appear on a single line, so it is safe to generate an empty list
-        self._stack.append([])
-
-    # ----------------------------------------------------------------------
-    def visitCompound_statement_multi_line(self, ctx:SimpleSchemaParser.Compound_statement_multi_lineContext):
-        children = self._GetChildren(ctx)
-        assert all(isinstance(child, Statement) for child in children), children
-
-        self._stack.append(children)
-
-    # ----------------------------------------------------------------------
-    def visitData_member_statement(self, ctx:SimpleSchemaParser.Data_member_statementContext):
-        children = self._GetChildren(ctx)
-        assert 2 <= len(children) <= 3
-
-        name = children[0]
-        assert isinstance(name, IdentifierExpression), name
-
-        the_type = children[1]
-        assert isinstance(the_type, Type), the_type
-
-        if len(children) == 3:
-            metadata = children[2]
-            assert isinstance(metadata, MetadataExpression), metadata
-        else:
-            metadata = None
-
-        self._stack.append(DataMemberStatement(self.ToRange(ctx), name, the_type, metadata))
-
-        self._OnProgress(ctx)
+        # TODO
+        return self.visitChildren(ctx)
 
     # ----------------------------------------------------------------------
     def visitExtension_statement(self, ctx:SimpleSchemaParser.Extension_statementContext):
         children = self._GetChildren(ctx)
+
         num_children = len(children)
+        assert 1 <= num_children <= 3, children
 
-        assert 1 <= num_children <= 3
+        assert isinstance(children[0], Identifier), children
+        name = cast(Identifier, children[0])
 
-        name = children[0]
-        assert isinstance(name, Identifier), name
-
-        positional_arguments: Optional[List[Element]] = None
-        keyword_arguments: Optional[List[ExtensionStatementKeywordArg]] = None
+        positional_args: Optional[List[Element]] = None
+        keyword_args: Optional[List[ExtensionStatementKeywordArg]] = None
 
         for index in range(1, num_children):
-            arguments = children[index]
+            child = children[index]
+            assert isinstance(child, list) and child, child
 
-            assert isinstance(arguments, list) and arguments
-
-            if isinstance(arguments[0], ExtensionStatementKeywordArg):
-                assert keyword_arguments is None
-                keyword_arguments = arguments
-            elif isinstance(arguments[0], Element):
-                assert positional_arguments is None
-                positional_arguments = arguments
+            if isinstance(child[0], ExtensionStatementKeywordArg):
+                assert keyword_args is None, (keyword_args, child)
+                keyword_args = child
             else:
-                assert False, arguments  # pragma: no cover
+                assert positional_args is None, (positional_args, child)
+                positional_args = child
 
         self._stack.append(
             ExtensionStatement(
-                self.ToRange(ctx),
+                self.CreateRange(ctx),
                 name,
-                positional_arguments or [],
-                keyword_arguments or [],
+                positional_args or [],
+                keyword_args or [],
             ),
         )
-
-        self._OnProgress(ctx)
 
     # ----------------------------------------------------------------------
     def visitExtension_statement_positional_args(self, ctx:SimpleSchemaParser.Extension_statement_positional_argsContext):
         children = self._GetChildren(ctx)
-        assert children
-        assert all(isinstance(child, Element) for child in children)
+        assert all(isinstance(child, Element) for child in children), children
 
         self._stack.append(children)
 
     # ----------------------------------------------------------------------
     def visitExtension_statement_keyword_args(self, ctx:SimpleSchemaParser.Extension_statement_keyword_argsContext):
         children = self._GetChildren(ctx)
-        assert children
-        assert all(isinstance(child, ExtensionStatementKeywordArg) for child in children)
+        assert all(isinstance(child, ExtensionStatementKeywordArg) for child in children), children
 
         self._stack.append(children)
 
     # ----------------------------------------------------------------------
     def visitExtension_statement_keyword_arg(self, ctx:SimpleSchemaParser.Extension_statement_keyword_argContext):
         children = self._GetChildren(ctx)
+
+        assert len(children) == 2, children
+        assert isinstance(children[0], Identifier), children
+        assert isinstance(children[1], Expression), children
+
+        name = cast(Identifier, children[0])
+        value = cast(Expression, children[1])
+
+        self._stack.append(ExtensionStatementKeywordArg(self.CreateRange(ctx), name, value))
+
+    # ----------------------------------------------------------------------
+    def visitItem_statement(self, ctx:SimpleSchemaParser.Item_statementContext):
+        children = self._GetChildren(ctx)
         assert len(children) == 2
 
-        name = children[0]
-        assert isinstance(name, Identifier), name
+        name = cast(Identifier, children[0])
+        the_type = cast(Type, children[1])
 
-        value = children[1]
-        assert isinstance(value, Element), value
+        self._stack.append(ItemStatement(self.CreateRange(ctx), name, the_type))
 
-        self._stack.append(ExtensionStatementKeywordArg(self.ToRange(ctx), name, value))
+    # ----------------------------------------------------------------------
+    def visitStructure_statement(self, ctx:SimpleSchemaParser.Structure_statementContext):
+        children = self._GetChildren(ctx)
+
+        num_children = len(children)
+        assert 2 <= num_children <= 4, children
+
+        assert isinstance(children[0], Identifier), children
+        name = cast(Identifier, children[0])
+
+        base_type: Optional[Type] = None
+        cardinality: Optional[Cardinality] = None
+        metadata: Optional[Metadata] = None
+        statements: Optional[List[Statement]] = None
+
+        for index in range(1, num_children):
+            child = children[index]
+
+            if isinstance(child, Type):
+                assert base_type is None, (base_type, child)
+                base_type = child
+            elif isinstance(child, Cardinality):
+                assert cardinality is None, (cardinality, child)
+                cardinality = child
+            elif isinstance(child, Metadata):
+                assert metadata is None, (metadata, child)
+                metadata = child
+            elif isinstance(child, list):
+                assert statements is None, (statements, child)
+                statements = child
+            else:
+                assert False, child  # pragma: no cover
+
+        range_value = self.CreateRange(ctx)
+
+        # If we have a base class, extract the cardinality and metadata from that object and add it
+        # to this one.
+        if base_type is not None:
+            assert cardinality is None, cardinality
+            assert metadata is None, metadata
+
+            if (
+                (base_type.cardinality and not base_type.cardinality.is_single)
+                or base_type.metadata
+            ):
+                cardinality = base_type.cardinality
+                metadata = base_type.metadata
+
+                # Update the base_type's info
+
+                # This isn't perfect, as the updated range will include any whitespace
+                # that separates the type information and the cardinality/metadata.
+                object.__setattr__(base_type.range, "end", (cardinality or metadata).range.begin)
+
+                object.__setattr__(
+                    base_type,
+                    "cardinality",
+                    Cardinality(
+                        base_type.range,
+                        IntegerExpression(base_type.range, 1),
+                        IntegerExpression(base_type.range, 1),
+                    ),
+                )
+
+                object.__setattr__(base_type, "metadata", None)
+
+                # Update the current range to account for the new info
+                object.__setattr__(range_value, "end", (metadata or cardinality).range.end)
+
+        assert statements is not None, children
+
+        if cardinality is None:
+            cardinality = Cardinality(range_value, None, None)
+
+        self._stack.append(
+            StructureStatement(
+                range_value,
+                name,
+                base_type,
+                cardinality,
+                metadata,
+                statements,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def visitStructure_statement_single_line(
+        self,
+        ctx:SimpleSchemaParser.Structure_statement_single_lineContext,  # pylint: disable=unused-argument
+    ):
+        # Single line implies pass, so there are no statements
+        self._stack.append([])
+
+    # ----------------------------------------------------------------------
+    def visitStructure_statement_multi_line(self, ctx:SimpleSchemaParser.Structure_statement_multi_lineContext):
+        children = self._GetChildren(ctx)
+        assert all(isinstance(child, Statement) for child in children), children
+
+        self._stack.append(children)
+
+    # ----------------------------------------------------------------------
+    def visitIdentifier_type(self, ctx:SimpleSchemaParser.Identifier_typeContext):
+        children = self._GetChildren(ctx)
+
+        assert len(children) >= 1, children
+
+        identifiers: List[Identifier] = []
+        identifier_type_element: Optional[Range] = None
+        cardinality: Optional[Cardinality] = None
+        metadata: Optional[Metadata] = None
+
+        for child in children:
+            if isinstance(child, Identifier):
+                identifiers.append(child)
+            elif isinstance(child, Range):
+                assert identifier_type_element is None, (identifier_type_element, child)
+                identifier_type_element = child
+            elif isinstance(child, Cardinality):
+                assert cardinality is None, (cardinality, child)
+                cardinality = child
+            elif isinstance(child, Metadata):
+                assert metadata is None, (metadata, child)
+                metadata = child
+            else:
+                assert False, child  # pragma: no cover
+
+        assert identifiers, children
+
+        range_value = self.CreateRange(ctx)
+
+        if cardinality is None:
+            cardinality = Cardinality(range_value, None, None)
+
+        self._stack.append(
+            IdentifierType(range_value, cardinality, metadata, identifiers, identifier_type_element),
+        )
+
+    # ----------------------------------------------------------------------
+    def visitIdentifier_type_element(self, ctx:SimpleSchemaParser.Identifier_type_elementContext):
+        # It is enough to add a range value as that will signal that the modifier exists when
+        # creating the IdentifierType.
+        self._stack.append(self.CreateRange(ctx))
+
+    # ----------------------------------------------------------------------
+    def visitTuple_type(self, ctx:SimpleSchemaParser.Tuple_typeContext):
+        children = self._GetChildren(ctx)
+
+        types: List[Type] = []
+        cardinality: Optional[Cardinality] = None
+        metadata: Optional[Metadata] = None
+
+        for child in children:
+            if isinstance(child, Type):
+                types.append(child)
+            elif isinstance(child, Cardinality):
+                assert cardinality is None, (cardinality, child)
+                cardinality = child
+            elif isinstance(child, Metadata):
+                assert metadata is None, (metadata, child)
+                metadata = child
+            else:
+                assert False, child  # pragma: no cover
+
+        assert types
+
+        range_value = self.CreateRange(ctx)
+
+        if cardinality is None:
+            cardinality = Cardinality(range_value, None, None)
+
+        self._stack.append(TupleType(range_value, cardinality, metadata, types))
+
+    # ----------------------------------------------------------------------
+    def visitVariant_type(self, ctx:SimpleSchemaParser.Variant_typeContext):
+        children = self._GetChildren(ctx)
+
+        types: List[Type] = []
+        cardinality: Optional[Cardinality] = None
+        metadata: Optional[Metadata] = None
+
+        for child in children:
+            if isinstance(child, Type):
+                types.append(child)
+            elif isinstance(child, Cardinality):
+                assert cardinality is None, (cardinality, child)
+                cardinality = child
+            elif isinstance(child, Metadata):
+                assert metadata is None, (metadata, child)
+                metadata = child
+            else:
+                assert False, child  # pragma: no cover
+
+        assert types
+
+        range_value = self.CreateRange(ctx)
+
+        if cardinality is None:
+            cardinality = Cardinality(range_value, None, None)
+
+        self._stack.append(VariantType(range_value, cardinality, metadata, types))

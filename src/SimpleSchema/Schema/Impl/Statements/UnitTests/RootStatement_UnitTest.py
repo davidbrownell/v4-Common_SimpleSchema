@@ -19,6 +19,7 @@ import re
 import sys
 
 from pathlib import Path
+from unittest import mock
 
 import pytest
 
@@ -29,35 +30,43 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
+    from SimpleSchema.Schema.Impl.Common.Identifier import Identifier, SimpleElement
     from SimpleSchema.Schema.Impl.Common.Range import Range
     from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Impl.Statements.DataMemberStatement import DataMemberStatement, IdentifierExpression
+    from SimpleSchema.Schema.Impl.Statements.ItemStatement import ItemStatement
     from SimpleSchema.Schema.Impl.Statements.RootStatement import RootStatement
 
-    from SimpleSchema.Schema.Impl.Types.IdentifierType import IdentifierType
+    from SimpleSchema.Schema.Impl.Types.Type import Type
 
 
 # ----------------------------------------------------------------------
 def test_Empty():
-    r = RootStatement(Range.Create(Path("root_file"), 1, 2, 3, 4), [])
+    range = mock.MagicMock()
 
-    assert r.range == Range.Create(Path("root_file"), 1, 2, 3, 4)
+    r = RootStatement(range, [])
+
+    assert r.range is range
     assert r.statements == []
 
 
 # ----------------------------------------------------------------------
 def test_WithStatements():
-    s1 = DataMemberStatement(
-        Range.Create(Path("data_file"), 10, 20, 30, 40),
-        IdentifierExpression(Range.Create(Path("id_file"), 1, 2, 3, 4), "foo"),
-        IdentifierType(Range.Create(Path("type_file"), 1, 2, 3, 4), "Bar"),
-        None,
+    range1 = mock.MagicMock()
+
+    s1 = ItemStatement(
+        mock.MagicMock(),
+        Identifier(
+            mock.MagicMock(),
+            SimpleElement(range1, "foo"),
+            SimpleElement(mock.MagicMock(), mock.MagicMock()),
+        ),
+        Type(mock.MagicMock(), mock.MagicMock(), None),
     )
 
-    r = RootStatement(Range.Create(Path("root_file"), 1, 2, 3, 4), [s1, s1])
+    r = RootStatement(range1, [s1, s1])
 
-    assert r.range == Range.Create(Path("root_file"), 1, 2, 3, 4)
+    assert r.range is range1
     assert r.statements == [s1, s1]
 
 
@@ -68,7 +77,7 @@ def test_ErrorNestedRoot():
         match=re.escape("Root statements may not contain nested root statements. (invalid_root <[10, 20] -> [30, 40]>)"),
     ):
         RootStatement(
-            Range.Create(Path("root"), 1, 2, 3, 4),
+            mock.MagicMock(),
             [
                 RootStatement(Range.Create(Path("invalid_root"), 10, 20, 30, 40), []),
             ],

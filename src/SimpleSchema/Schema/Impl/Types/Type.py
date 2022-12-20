@@ -16,8 +16,13 @@
 """Contains the Type object"""
 
 from dataclasses import dataclass
+from typing import Optional
 
+from Common_Foundation.Types import overridemethod
+
+from SimpleSchema.Schema.Impl.Common.Cardinality import Cardinality
 from SimpleSchema.Schema.Impl.Common.Element import Element
+from SimpleSchema.Schema.Impl.Common.Metadata import Metadata
 
 
 # ----------------------------------------------------------------------
@@ -25,4 +30,15 @@ from SimpleSchema.Schema.Impl.Common.Element import Element
 class Type(Element):
     """Abstract base class for types"""
 
-    pass
+    cardinality: Cardinality
+    metadata: Optional[Metadata]
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "cardinality", self.cardinality
+
+        if self.metadata:
+            yield "metadata", self.metadata

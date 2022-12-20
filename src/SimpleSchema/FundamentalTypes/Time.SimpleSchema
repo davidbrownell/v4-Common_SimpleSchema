@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  NoneExpression.py
+# |  Time.SimpleSchema
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-13 11:58:28
+# |      2022-12-15 13:37:53
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,16 +13,6 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the NoneExpression object"""
 
-from dataclasses import dataclass
-
-from SimpleSchema.Schema.Impl.Expressions.Expression import Expression
-
-
-# ----------------------------------------------------------------------
-@dataclass(frozen=True)
-class NoneExpression(Expression):
-    """Encapsulates the concept of None"""
-
+Time: Type ->
     pass

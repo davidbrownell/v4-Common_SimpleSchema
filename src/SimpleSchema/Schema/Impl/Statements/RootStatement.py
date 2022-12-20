@@ -18,6 +18,9 @@
 from dataclasses import dataclass
 from typing import List
 
+from Common_Foundation.Types import overridemethod
+
+from SimpleSchema.Schema.Impl.Common.Element import Element
 from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
 from SimpleSchema.Schema.Impl.Statements.Statement import Statement
 
@@ -26,6 +29,8 @@ from SimpleSchema.Schema.Impl.Statements.Statement import Statement
 @dataclass(frozen=True)
 class RootStatement(Statement):
     """Collection of statements associated with a translation unit/file"""
+
+    CHILDREN_NAME                           = "statements"
 
     # ----------------------------------------------------------------------
     statements: List[Statement]
@@ -38,3 +43,10 @@ class RootStatement(Statement):
                     "Root statements may not contain nested root statements.",
                     statement.range,
                 )
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptChildren(self) -> Element._GenerateAcceptChildrenGeneratorType:  # pragma: no coverage
+        yield from self.statements

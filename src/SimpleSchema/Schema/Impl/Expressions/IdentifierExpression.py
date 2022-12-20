@@ -33,4 +33,4 @@ class IdentifierExpression(Identifier, Expression):
         Identifier.__post_init__(self)
 
         if not self.is_expression:
-            raise SimpleSchemaException("'{}' is not a valid expression; identifier expressions must begin with a lowercase letter.".format(self.value), self.range)
+            raise SimpleSchemaException("'{}' is not a valid expression; identifier expressions must begin with a lowercase letter.".format(self.id.value), self.range)
