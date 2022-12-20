@@ -18,6 +18,8 @@
 from dataclasses import dataclass, field, InitVar
 from typing import Dict, List
 
+from Common_Foundation.Types import overridemethod
+
 from SimpleSchema.Schema.Impl.Common.Element import Element
 from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
 
@@ -33,6 +35,14 @@ class ExtensionStatementKeywordArg(Element):
     # ----------------------------------------------------------------------
     name: Identifier
     value: Element
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "name", self.name
+        yield "value", self.value
 
 
 # ----------------------------------------------------------------------
@@ -55,7 +65,7 @@ class ExtensionStatement(Statement):
         keyword_args: Dict[str, ExtensionStatementKeywordArg] = {}
 
         for keyword_arg in keyword_args_param:
-            key = keyword_arg.name.value
+            key = keyword_arg.name.id.value
 
             prev_value = keyword_args.get(key, None)
             if prev_value is not None:
@@ -70,3 +80,12 @@ class ExtensionStatement(Statement):
             keyword_args[key] = keyword_arg
 
         object.__setattr__(self, "keyword_args", keyword_args)
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "name", self.name
+        yield "positional_args", self.positional_args
+        yield "keyword_args", list(self.keyword_args.values())

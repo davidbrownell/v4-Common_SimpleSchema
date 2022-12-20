@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  CompoundStatement_UnitTest.py
+# |  StructureStatement_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-15 11:12:33
+# |      2022-12-19 12:42:09
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for CompoundStatement.py"""
+"""Unit tests for StructureStatement.py"""
 
 import sys
 
@@ -27,31 +27,33 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Impl.Statements.CompoundStatement import CompoundStatement
+    from SimpleSchema.Schema.Impl.Statements.StructureStatement import StructureStatement
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = mock.MagicMock()
     name_mock = mock.MagicMock()
+    cardinality_mock = mock.MagicMock()
 
-    s = CompoundStatement(range_mock, name_mock, None, None, [])
+    s = StructureStatement(range_mock, name_mock, None, cardinality_mock, None, [])
 
     assert s.range is range_mock
     assert s.name is name_mock
     assert s.base is None
     assert s.metadata is None
-    assert s.statements == []
+    assert s.children == []
 
     base_mock = mock.MagicMock()
     metadata_mock = mock.MagicMock()
     statement1_mock = mock.MagicMock()
     statement2_mock = mock.MagicMock()
 
-    s = CompoundStatement(range_mock, name_mock, base_mock, metadata_mock, [statement1_mock, statement2_mock])
+    s = StructureStatement(range_mock, name_mock, base_mock, cardinality_mock, metadata_mock, [statement1_mock, statement2_mock])
 
     assert s.range is range_mock
     assert s.name is name_mock
     assert s.base is base_mock
+    assert s.cardinality is cardinality_mock
     assert s.metadata is metadata_mock
-    assert s.statements == [statement1_mock, statement2_mock]
+    assert s.children == [statement1_mock, statement2_mock]

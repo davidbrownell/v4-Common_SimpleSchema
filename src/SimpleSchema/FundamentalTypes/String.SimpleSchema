@@ -1,0 +1,20 @@
+# ----------------------------------------------------------------------
+# |
+# |  String.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2022-12-15 13:35:52
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2022
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+String: Type ->
+    min_length: Integer? { min: 0, default: 1 }
+    max_length: Integer? { min: 1 }
+    validation_expression: String?

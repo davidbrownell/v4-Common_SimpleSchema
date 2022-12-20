@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  MetadataExpression.py
+# |  Metadata.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-13 09:54:30
+# |      2022-12-16 09:17:54
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,46 +13,56 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the MetadataExpression and MetadataExpressionItem objects"""
+"""Contains the Metadata and MetadataItem objects"""
 
 from dataclasses import dataclass, field, InitVar
 from typing import Dict, List
 
+from Common_Foundation.Types import overridemethod
+
 from SimpleSchema.Schema.Impl.Common.Element import Element
 from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
-
-from SimpleSchema.Schema.Impl.Expressions.Expression import Expression
-from SimpleSchema.Schema.Impl.Expressions.IdentifierExpression import IdentifierExpression
+from SimpleSchema.Schema.Impl.Expressions.IdentifierExpression import IdentifierExpression, Expression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class MetadataExpressionItem(Element):
+class MetadataItem(Element):
     """Individual metadata item within a collection of metadata items"""
 
     # ----------------------------------------------------------------------
     name: IdentifierExpression
-    value: Element
+    value: Expression
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "name", self.name
+        yield "value", self.value
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class MetadataExpression(Expression):
-    """Collection of names and values"""
+class Metadata(Element):
+    """Collection of metadata items"""
+
+    CHILDREN_NAME                           = "items"
 
     # ----------------------------------------------------------------------
-    items_param: InitVar[List[MetadataExpressionItem]]
-    items: Dict[str, MetadataExpressionItem]            = field(init=False)
+    items_param: InitVar[List[MetadataItem]]
+    items: Dict[str, MetadataItem]          = field(init=False)
 
     # ----------------------------------------------------------------------
     def __post_init__(
         self,
-        items_param: List[MetadataExpressionItem],
+        items_param: List[MetadataItem],
     ) -> None:
-        items: Dict[str, MetadataExpressionItem] = {}
+        items: Dict[str, MetadataItem] = {}
 
         for item in items_param:
-            key = item.name.value
+            key = item.name.id.value
 
             prev_value = items.get(key, None)
             if prev_value is not None:
@@ -67,3 +77,10 @@ class MetadataExpression(Expression):
             items[key] = item
 
         object.__setattr__(self, "items", items)
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptChildren(self) -> Element._GenerateAcceptChildrenGeneratorType:  # pragma: no cover
+        yield from self.items.values()

@@ -1,0 +1,32 @@
+# ----------------------------------------------------------------------
+# |
+# |  CollectionType.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2022-12-15 13:49:10
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2022
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# These metadata items may be applied to any type that has a cardinality whose
+# max value is greater than 1.
+
+CollectionType ->
+    # If true, the list of values should be treated as a dictionary. `key_data_name` must also
+    # be defined within the Type's metadata.
+    dictionary: Boolean? { default: false }
+
+    # Name of the attribute that must be unique across all items within the collection.
+    key_data_name: String?
+
+    # Name of the attribute that should be considered the "value" when creating dictionaries
+    # based on the list of items. If this value is not provided, the entire instance will be
+    # used as the value.
+    value_data_name: String?

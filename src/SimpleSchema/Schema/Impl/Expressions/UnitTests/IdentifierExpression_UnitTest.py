@@ -19,6 +19,7 @@ import re
 import sys
 
 from pathlib import Path
+from unittest import mock
 
 import pytest
 
@@ -29,6 +30,7 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
+    from SimpleSchema.Schema.Impl.Common.Identifier import SimpleElement, Visibility
     from SimpleSchema.Schema.Impl.Common.Range import Range
     from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
     from SimpleSchema.Schema.Impl.Expressions.IdentifierExpression import IdentifierExpression
@@ -36,10 +38,21 @@ with ExitStack(lambda: sys.path.pop(0)):
 
 # ----------------------------------------------------------------------
 def test_Standard():
-    i = IdentifierExpression(Range.Create(Path("i_file"), 2, 4, 6, 8), "the_value")
+    r1 = Range.Create(Path("i_file"), 2, 4, 6, 8)
+    r2 = Range.Create(Path("r2"), 1, 2, 3, 4)
+    r3 = Range.Create(Path("r3"), 10, 20, 30, 40)
 
-    assert i.range == Range.Create(Path("i_file"), 2, 4, 6, 8)
-    assert i.value == "the_value"
+    i = IdentifierExpression(
+        r1,
+        SimpleElement(r2, "the_value"),
+        SimpleElement(r3, Visibility.Protected),
+    )
+
+    assert i.range is r1
+    assert i.id.value == "the_value"
+    assert i.id.range is r2
+    assert i.visibility.value == Visibility.Protected
+    assert i.visibility.range is r3
 
 
 # ----------------------------------------------------------------------
@@ -52,4 +65,8 @@ def test_Invalid():
             SimpleSchemaException,
             match=re.escape("'{}' is not a valid expression; identifier expressions must begin with a lowercase letter. (file_for_invalid_content <[1, 2] -> [3, 4]>)".format(invalid_value)),
         ):
-            IdentifierExpression(Range.Create(Path("file_for_invalid_content"), 1, 2, 3, 4), invalid_value)
+            IdentifierExpression(
+                Range.Create(Path("file_for_invalid_content"), 1, 2, 3, 4),
+                SimpleElement(mock.MagicMock(), invalid_value),
+                SimpleElement(mock.MagicMock(), mock.MagicMock()),
+            )

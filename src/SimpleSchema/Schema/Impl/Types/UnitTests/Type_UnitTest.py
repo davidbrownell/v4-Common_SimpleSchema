@@ -18,6 +18,7 @@
 import sys
 
 from pathlib import Path
+from unittest import mock
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation import PathEx
@@ -32,6 +33,18 @@ with ExitStack(lambda: sys.path.pop(0)):
 
 # ----------------------------------------------------------------------
 def test_Standard():
-    t = Type(Range.Create(Path("type_file"), 1, 2, 3, 4))
+    range_mock = mock.MagicMock()
+    cardinality_mock = mock.MagicMock()
+    metadata_mock = mock.MagicMock()
 
-    assert t.range == Range.Create(Path("type_file"), 1, 2, 3, 4)
+    t = Type(range_mock, cardinality_mock, None)
+
+    assert t.range is range_mock
+    assert t.cardinality is cardinality_mock
+    assert t.metadata is None
+
+    t = Type(range_mock, cardinality_mock, metadata_mock)
+
+    assert t.range is range_mock
+    assert t.cardinality is cardinality_mock
+    assert t.metadata is metadata_mock

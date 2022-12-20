@@ -18,7 +18,11 @@
 from dataclasses import dataclass
 from typing import List
 
-from SimpleSchema.Schema.Impl.Types.IdentifierType import IdentifierType, SimpleSchemaException, Type
+from Common_Foundation.Types import overridemethod
+
+from SimpleSchema.Schema.Impl.Common.Element import Element
+from SimpleSchema.Schema.Impl.Common.SimpleSchemaException import SimpleSchemaException
+from SimpleSchema.Schema.Impl.Types.Type import Type
 
 
 # ----------------------------------------------------------------------
@@ -35,5 +39,14 @@ class VariantType(Type):
             raise SimpleSchemaException("No types were provided.", self.range)
 
         for the_type in self.types:
-            if not isinstance(the_type, IdentifierType):
-                raise SimpleSchemaException("Nested variant types must be identifier types.", the_type.range)
+            if isinstance(the_type, VariantType):
+                raise SimpleSchemaException("Nested variant types are not supported.", the_type.range)
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "types", self.types
+
+        yield from super(VariantType, self)._GenerateAcceptDetails()

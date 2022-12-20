@@ -17,7 +17,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Union
+from typing import TextIO, Union
 
 from SimpleSchema.Schema.Impl.Common.Location import Location
 
@@ -29,7 +29,7 @@ class Range(object):
 
     # ----------------------------------------------------------------------
     filename: Path
-    start: Location
+    begin: Location
     end: Location
 
     # ----------------------------------------------------------------------
@@ -37,20 +37,20 @@ class Range(object):
     def Create(
         cls,
         filename: Path,
-        start_line: int,
-        start_column: int,
-        stop_line: int,
-        stop_column: int,
+        begin_line: int,
+        begin_column: int,
+        end_line: int,
+        end_column: int,
     ) -> "Range":
         return cls(
             filename,
-            Location(start_line, start_column),
-            Location(stop_line, stop_column),
+            Location(begin_line, begin_column),
+            Location(end_line, end_column),
         )
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
-        if self.end < self.start:
+        if self.end < self.begin:
             raise ValueError("Invalid end")
 
     # ----------------------------------------------------------------------
@@ -61,7 +61,7 @@ class Range(object):
     ) -> str:
         return "{}<{} -> {}>".format(
             "{} ".format(self.filename) if include_filename else "",
-            self.start.ToString(),
+            self.begin.ToString(),
             self.end.ToString(),
         )
 
@@ -74,7 +74,7 @@ class Range(object):
         if this.filename != that.filename:
             return -1 if this.filename < that.filename else 1
 
-        result = Location.Compare(this.start, that.start)
+        result = Location.Compare(this.begin, that.begin)
         if result != 0:
             return result
 
@@ -98,12 +98,12 @@ class Range(object):
         location_or_range: Union[Location, "Range"],
     ) -> bool:
         if isinstance(location_or_range, Location):
-            return self.start <= location_or_range <= self.end
+            return self.begin <= location_or_range <= self.end
 
         if isinstance(location_or_range, Range):
             return (
                 self.filename == location_or_range.filename
-                and self.start <= location_or_range.start
+                and self.begin <= location_or_range.begin
                 and location_or_range.end <= self.end
             )
 

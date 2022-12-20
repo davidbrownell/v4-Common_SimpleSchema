@@ -37,7 +37,7 @@ def test_Standard():
     r = Range(Path("the filename"), Location(1, 2), Location(3, 4))
 
     assert r.filename == Path("the filename")
-    assert r.start == Location(1, 2)
+    assert r.begin == Location(1, 2)
     assert r.end == Location(3, 4)
 
 
@@ -46,7 +46,7 @@ def test_Create():
     r = Range.Create(Path("another filename"), 1, 2, 3, 4)
 
     assert r.filename == Path("another filename")
-    assert r.start == Location(1, 2)
+    assert r.begin == Location(1, 2)
     assert r.end == Location(3, 4)
 
 
