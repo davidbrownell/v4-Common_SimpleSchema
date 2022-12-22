@@ -74,6 +74,26 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SimpleSchemaParser#include_statement_filename.
+    def visitInclude_statement_filename(self, ctx:SimpleSchemaParser.Include_statement_filenameContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#include_statement_items__.
+    def visitInclude_statement_items__(self, ctx:SimpleSchemaParser.Include_statement_items__Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#include_statement_grouped_items__.
+    def visitInclude_statement_grouped_items__(self, ctx:SimpleSchemaParser.Include_statement_grouped_items__Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#include_statement_element.
+    def visitInclude_statement_element(self, ctx:SimpleSchemaParser.Include_statement_elementContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SimpleSchemaParser#body_statement__.
     def visitBody_statement__(self, ctx:SimpleSchemaParser.Body_statement__Context):
         return self.visitChildren(ctx)

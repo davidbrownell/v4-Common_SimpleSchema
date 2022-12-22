@@ -1,0 +1,110 @@
+root_file:
+- __type__: RootStatement
+  range: root_file <[1, 1] -> [10, 1]>
+  statements:
+  - __type__: IncludeStatement
+    range: root_file <[1, 1] -> [10, 1]>
+    filename:
+      __type__: SimpleElement
+      range: root_file <[1, 6] -> [1, 18]>
+      value: include_file
+    items:
+    - __type__: IncludeStatementItem
+      range: root_file <[2, 5] -> [2, 8]>
+      element_name:
+        __type__: Identifier
+        range: root_file <[2, 5] -> [2, 8]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[2, 5] -> [2, 8]>
+          value: One
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[2, 5] -> [2, 8]>
+          value: Visibility.Public
+      reference_name:
+        __type__: Identifier
+        range: root_file <[2, 5] -> [2, 8]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[2, 5] -> [2, 8]>
+          value: One
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[2, 5] -> [2, 8]>
+          value: Visibility.Private
+    - __type__: IncludeStatementItem
+      range: root_file <[3, 9] -> [3, 20]>
+      element_name:
+        __type__: Identifier
+        range: root_file <[3, 9] -> [3, 12]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[3, 9] -> [3, 12]>
+          value: Two
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[3, 9] -> [3, 12]>
+          value: Visibility.Public
+      reference_name:
+        __type__: Identifier
+        range: root_file <[3, 16] -> [3, 20]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[3, 16] -> [3, 20]>
+          value: Two2
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[3, 16] -> [3, 20]>
+          value: Visibility.Public
+    - __type__: IncludeStatementItem
+      range: root_file <[4, 9] -> [4, 14]>
+      element_name:
+        __type__: Identifier
+        range: root_file <[4, 9] -> [4, 14]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[4, 9] -> [4, 14]>
+          value: Three
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[4, 9] -> [4, 14]>
+          value: Visibility.Public
+      reference_name:
+        __type__: Identifier
+        range: root_file <[4, 9] -> [4, 14]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[4, 9] -> [4, 14]>
+          value: Three
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[4, 9] -> [4, 14]>
+          value: Visibility.Private
+    - __type__: IncludeStatementItem
+      range: root_file <[8, 5] -> [8, 18]>
+      element_name:
+        __type__: Identifier
+        range: root_file <[8, 5] -> [8, 9]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[8, 5] -> [8, 9]>
+          value: Four
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[8, 5] -> [8, 9]>
+          value: Visibility.Public
+      reference_name:
+        __type__: Identifier
+        range: root_file <[8, 13] -> [8, 18]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[8, 13] -> [8, 18]>
+          value: Four4
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[8, 13] -> [8, 18]>
+          value: Visibility.Public
+include_file:
+- __type__: RootStatement
+  range: include_file <[1, 1] -> [1, 1]>
