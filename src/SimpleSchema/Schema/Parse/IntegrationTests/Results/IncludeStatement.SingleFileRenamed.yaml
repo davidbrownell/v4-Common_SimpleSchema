@@ -1,0 +1,150 @@
+root_file:
+- __type__: RootStatement
+  range: root_file <[1, 1] -> [3, 1]>
+  statements:
+  - __type__: IncludeStatement
+    range: root_file <[1, 1] -> [2, 1]>
+    filename:
+      __type__: SimpleElement
+      range: root_file <[1, 6] -> [1, 19]>
+      value: include_file1
+    items:
+    - __type__: IncludeStatementItem
+      range: root_file <[1, 27] -> [1, 44]>
+      element_name:
+        __type__: Identifier
+        range: root_file <[1, 27] -> [1, 30]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[1, 27] -> [1, 30]>
+          value: Foo
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[1, 27] -> [1, 30]>
+          value: Visibility.Public
+      reference_name:
+        __type__: Identifier
+        range: root_file <[1, 34] -> [1, 44]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[1, 34] -> [1, 44]>
+          value: RenamedFoo
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[1, 34] -> [1, 44]>
+          value: Visibility.Public
+  - __type__: IncludeStatement
+    range: root_file <[2, 1] -> [3, 1]>
+    filename:
+      __type__: SimpleElement
+      range: root_file <[2, 6] -> [2, 19]>
+      value: include_file2.SimpleSchema
+    items:
+    - __type__: IncludeStatementItem
+      range: root_file <[2, 27] -> [2, 44]>
+      element_name:
+        __type__: Identifier
+        range: root_file <[2, 27] -> [2, 30]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[2, 27] -> [2, 30]>
+          value: Bar
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[2, 27] -> [2, 30]>
+          value: Visibility.Public
+      reference_name:
+        __type__: Identifier
+        range: root_file <[2, 34] -> [2, 44]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[2, 34] -> [2, 44]>
+          value: RenamedBar
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[2, 34] -> [2, 44]>
+          value: Visibility.Public
+include_file1:
+- __type__: RootStatement
+  range: include_file1 <[1, 1] -> [2, 1]>
+  statements:
+  - __type__: ItemStatement
+    range: include_file1 <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: include_file1 <[1, 1] -> [1, 4]>
+      id:
+        __type__: SimpleElement
+        range: include_file1 <[1, 1] -> [1, 4]>
+        value: Foo
+      visibility:
+        __type__: SimpleElement
+        range: include_file1 <[1, 1] -> [1, 4]>
+        value: Visibility.Public
+    type:
+      __type__: IdentifierType
+      range: include_file1 <[1, 6] -> [1, 12]>
+      identifiers:
+      - __type__: Identifier
+        range: include_file1 <[1, 6] -> [1, 12]>
+        id:
+          __type__: SimpleElement
+          range: include_file1 <[1, 6] -> [1, 12]>
+          value: String
+        visibility:
+          __type__: SimpleElement
+          range: include_file1 <[1, 6] -> [1, 12]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinality
+        range: include_file1 <[1, 6] -> [1, 12]>
+        min:
+          __type__: IntegerExpression
+          range: include_file1 <[1, 6] -> [1, 12]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: include_file1 <[1, 6] -> [1, 12]>
+          value: 1
+include_file2.SimpleSchema:
+- __type__: RootStatement
+  range: include_file2.SimpleSchema <[1, 1] -> [2, 1]>
+  statements:
+  - __type__: ItemStatement
+    range: include_file2.SimpleSchema <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: include_file2.SimpleSchema <[1, 1] -> [1, 4]>
+      id:
+        __type__: SimpleElement
+        range: include_file2.SimpleSchema <[1, 1] -> [1, 4]>
+        value: Bar
+      visibility:
+        __type__: SimpleElement
+        range: include_file2.SimpleSchema <[1, 1] -> [1, 4]>
+        value: Visibility.Public
+    type:
+      __type__: IdentifierType
+      range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+      identifiers:
+      - __type__: Identifier
+        range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+        id:
+          __type__: SimpleElement
+          range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+          value: Integer
+        visibility:
+          __type__: SimpleElement
+          range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinality
+        range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+        min:
+          __type__: IntegerExpression
+          range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: include_file2.SimpleSchema <[1, 6] -> [1, 13]>
+          value: 1

@@ -27,7 +27,9 @@ from SimpleSchemaParser import SimpleSchemaParser
 
 @lexer::members {
 
-nested_pair_ctr = 0
+def CustomInitialization(self):
+    self._nested_pair_ctr = 0
+    self._lexing_include_filename = False
 
 class SimpleSchemaDenter(DenterHelper):
     def __init__(self, lexer, newline_token, indent_token, dedent_token):
@@ -57,15 +59,15 @@ def nextToken(self):
 // ----------------------------------------------------------------------
 
 // Newlines nested within paired brackets where newlines are considered to be unimportant.
-NESTED_NEWLINE:                             '\r'? '\n' { SimpleSchemaLexer.nested_pair_ctr != 0 }? [ \t]* -> skip;
+NESTED_NEWLINE:                             '\r'? '\n' {self._nested_pair_ctr != 0}? [ \t]* -> skip;
 
 // Standard newlines
-NEWLINE:                                    '\r'? '\n' { SimpleSchemaLexer.nested_pair_ctr == 0 }? [ \t]*;
+NEWLINE:                                    '\r'? '\n' {self._nested_pair_ctr == 0}? [ \t]*;
 
-LPAREN:                                     '(' { SimpleSchemaLexer.nested_pair_ctr += 1 };
-RPAREN:                                     ')' { SimpleSchemaLexer.nested_pair_ctr -= 1 };
-LBRACK:                                     '[' { SimpleSchemaLexer.nested_pair_ctr += 1 };
-RBRACK:                                     ']' { SimpleSchemaLexer.nested_pair_ctr -= 1 };
+LPAREN:                                     '(' {self._nested_pair_ctr += 1};
+RPAREN:                                     ')' {self._nested_pair_ctr -= 1};
+LBRACK:                                     '[' {self._nested_pair_ctr += 1};
+RBRACK:                                     ']' {self._nested_pair_ctr -= 1};
 
 HORIZONTAL_WHITESPACE:                      [ \t]+ -> skip;
 LINE_CONTINUATION:                          '\\' '\r'? '\n' [ \t]* -> skip;
@@ -74,6 +76,12 @@ MULTI_LINE_COMMENT:                         '#/' .*? '/#' -> skip;
 SINGLE_LINE_COMMENT:                        '#' ~[\r\n]* -> skip;
 
 PASS:                                       'pass';
+
+INCLUDE_FROM:                               'from' {self._lexing_include_filename = True};
+INCLUDE_IMPORT:                             'import' {self._lexing_include_filename = False};
+// This is an overly-restrictive definition of what constitutes a valid filename, but erring on the
+// side of caution.
+INCLUDE_FILENAME:                           [a-zA-Z0-9\-._/]+ {self._lexing_include_filename}?;
 
 NUMBER:                                     '-'? [0-9]* '.' [0-9]+;
 INTEGER:                                    '-'? [0-9]+;
@@ -90,7 +98,6 @@ UNTERMINATED_TRIPLE_DOUBLE_QUOTE_STRING:    '"""' .*?;
 
 TRIPLE_SINGLE_QUOTE_STRING:                 UNTERMINATED_TRIPLE_SINGLE_QUOTE_STRING '\'\'\'';
 UNTERMINATED_TRIPLE_SINGLE_QUOTE_STRING:    '\'\'\'' .*?;
-
 
 // ----------------------------------------------------------------------
 // |
@@ -136,8 +143,11 @@ list_expression:                            LBRACK (expression__ (',' expression
 // Header Statements
 header_statement__:                         include_statement;
 
-// TODO: this statement needs work
-include_statement:                          'simple_schema_include' basic_string_expression NEWLINE+;
+include_statement:                          INCLUDE_FROM include_statement_filename INCLUDE_IMPORT (include_statement_grouped_items__ | include_statement_items__) NEWLINE+;
+include_statement_filename:                 INCLUDE_FILENAME;
+include_statement_items__:                  include_statement_element (',' include_statement_element)* ','?;
+include_statement_grouped_items__:          LPAREN include_statement_items__ RPAREN;
+include_statement_element:                  identifier ('as' identifier)?;
 
 // Body Statements
 body_statement__:                           structure_statement | item_statement | extension_statement;
