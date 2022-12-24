@@ -35,7 +35,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
 
-    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-ExperimentalCache # TODO: CI-latest
+    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-ExperimentalCache # TODO: CI-v1
     with:
       job_name_prefix:                      "Common_SimpleSchema"
       repo_name:                            davidbrownell/v4-Common_SimpleSchema
