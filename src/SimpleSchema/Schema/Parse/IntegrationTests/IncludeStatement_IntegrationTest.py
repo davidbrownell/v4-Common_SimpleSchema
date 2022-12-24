@@ -319,7 +319,14 @@ def _Test(
     results = ScrubYamlString(
         rtyaml.dump(
             {
-                str(DEFAULT_WORKSPACE_PATH / filename): content
+                # Don't wait for ScrubYamlString to replace the filename contents within the yaml
+                # string, as long strings will cause the format to change; remove the common
+                # filename paths before converting to yaml.
+                (
+                    PathEx.CreateRelativePath(DEFAULT_WORKSPACE_PATH, filename)
+                        if PathEx.IsDescendant(filename, DEFAULT_WORKSPACE_PATH)
+                            else filename
+                ).as_posix(): content
                 for filename, content in results.dict_results.items()
             },
         ),
