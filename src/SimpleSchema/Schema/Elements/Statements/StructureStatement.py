@@ -15,8 +15,9 @@
 # ----------------------------------------------------------------------
 """Contains the StructureStatement object"""
 
+from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import cast, List, Optional
 
 from Common_Foundation.Types import overridemethod
 
@@ -61,5 +62,6 @@ class StructureStatement(Statement):
 
     # ----------------------------------------------------------------------
     @overridemethod
+    @contextmanager
     def _GenerateAcceptChildren(self) -> Element._GenerateAcceptChildrenGeneratorType:  # pragma: no cover
-        yield from self.children
+        yield cast(List[Element], self.children)

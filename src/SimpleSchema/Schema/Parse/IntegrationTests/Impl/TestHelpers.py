@@ -111,8 +111,6 @@ def TestMultiple(
 
     initial_filenames = [workspace_name / filename for filename in initial_filenames]
 
-    dm_and_sink = iter(GenerateDoneManagerAndSink())
-
     original_exists = Path.exists
     original_is_dir = Path.is_dir
     original_is_file = Path.is_file
@@ -173,6 +171,8 @@ def TestMultiple(
         with mock.patch.object(Path, "is_dir", side_effect=MockedIsDir, autospec=True):
             with mock.patch.object(Path, "is_file", side_effect=MockedIsFile, autospec=True):
                 with mock.patch.object(Path, "open", side_effect=MockedOpen, autospec=True):
+                    dm_and_sink = iter(GenerateDoneManagerAndSink())
+
                     parse_results = Parse(
                         cast(DoneManager, next(dm_and_sink)),
                         {
@@ -185,6 +185,8 @@ def TestMultiple(
                         quiet=quiet,
                         raise_if_single_exception=raise_if_single_exception,
                     )
+
+                    output = cast(str, next(dm_and_sink))
 
     # ----------------------------------------------------------------------
     def ToDict(
@@ -208,7 +210,7 @@ def TestMultiple(
             filename: ToDict(parse_result) if isinstance(parse_result, RootStatement) else parse_result
             for filename, parse_result in parse_results.items()
         },
-        cast(str, next(dm_and_sink)),
+        output,
     )
 
 

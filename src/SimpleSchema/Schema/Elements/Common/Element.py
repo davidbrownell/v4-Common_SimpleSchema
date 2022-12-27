@@ -19,7 +19,8 @@ from abc import ABC
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import auto, Flag
-from typing import Any, Generator, Generic, Iterable, Iterator, Optional, Tuple, TypeVar, Union
+from typing import Any, Generator, Generic, Iterable, Iterator, List, Optional, Tuple, TypeVar, Union
+from weakref import ref, ReferenceType
 
 from Common_Foundation.Types import extensionmethod
 
@@ -50,7 +51,29 @@ class Element(ABC):
     # ----------------------------------------------------------------------
     range: Range
 
-    is_disabled: bool                       = field(init=False, default=False)
+    is_disabled: bool                                   = field(init=False, default=False)
+
+    _parent: Optional[ReferenceType["Element"]]         = field(init=False, default=None)
+
+    # ----------------------------------------------------------------------
+    @property
+    def parent(self) -> "Element":
+        if self._parent is None:
+            raise Exception("A parent has not been set for this element.")
+
+        assert self._parent is not None
+
+        parent = self._parent()
+        assert parent is not None
+
+        return parent
+
+    # ----------------------------------------------------------------------
+    def SetParent(
+        self,
+        element: Optional["Element"],
+    ) -> None:
+        object.__setattr__(self, "_parent", ref(element) if element is not None else None)
 
     # ----------------------------------------------------------------------
     def Disable(self) -> None:
@@ -112,23 +135,27 @@ class Element(ABC):
 
                 # Enumerate the children associated with the Element (if any)
                 if not self.__class__._GetFirstVisitResult(method_visit_result, element_visit_result) & VisitResult.SkipChildren:  # pylint: disable=protected-access
-                    children = list(self._GenerateAcceptChildren())
+                    with self._GenerateAcceptChildren() as children:
+                        if children:
+                            method = getattr(visitor, "OnElementChildren", self.__class__._GenericYieldFunc)  # pylint: disable=protected-access
+                            with method(self) as children_visit_result:
+                                if children_visit_result == VisitResult.Terminate:
+                                    return children_visit_result
 
-                    if children:
-                        method = getattr(visitor, "OnElementChildren", self.__class__._GenericYieldFunc)  # pylint: disable=protected-access
-                        with method(self) as children_visit_result:
-                            if children_visit_result == VisitResult.Terminate:
-                                return children_visit_result
+                                if not self.__class__._GetFirstVisitResult(children_visit_result) & VisitResult.SkipChildren:  # pylint: disable=protected-access
+                                    child_index = 0
 
-                            if not self.__class__._GetFirstVisitResult(children_visit_result) & VisitResult.SkipChildren:  # pylint: disable=protected-access
-                                for child in children:
-                                    children_visit_result = child.Accept(
-                                        visitor,
-                                        include_disabled=include_disabled,
-                                    )
+                                    while child_index < len(children):
+                                        child = children[child_index]
+                                        child_index += 1
 
-                                    if children_visit_result == VisitResult.Terminate:
-                                        return children_visit_result
+                                        children_visit_result = child.Accept(
+                                            visitor,
+                                            include_disabled=include_disabled,
+                                        )
+
+                                        if children_visit_result == VisitResult.Terminate:
+                                            return children_visit_result
 
         return VisitResult.Continue
 
@@ -143,7 +170,7 @@ class Element(ABC):
         None,
     ]
 
-    _GenerateAcceptChildrenGeneratorType    = Generator["Element", None, None]
+    _GenerateAcceptChildrenGeneratorType    = Iterator[Optional[List["Element"]]]
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -162,10 +189,10 @@ class Element(ABC):
 
     # ----------------------------------------------------------------------
     @extensionmethod
+    @contextmanager
     def _GenerateAcceptChildren(self) -> _GenerateAcceptChildrenGeneratorType:
         # No children by default
-        if False:
-            yield
+        yield None
 
     # ----------------------------------------------------------------------
     @staticmethod

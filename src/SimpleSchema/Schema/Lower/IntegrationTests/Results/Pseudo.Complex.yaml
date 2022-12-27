@@ -1,0 +1,1170 @@
+- __type__: RootStatement
+  range: workspace/root_file <[1, 1] -> [11, 1]>
+  disabled: false
+  statements:
+  - __type__: StructureStatement
+    range: workspace/root_file <[1, 1] -> [4, 1]>
+    disabled: true
+    name:
+      __type__: Identifier
+      range: workspace/root_file <[1, 1] -> [1, 4]>
+      disabled: false
+      id:
+        __type__: SimpleElement
+        range: workspace/root_file <[1, 1] -> [1, 4]>
+        disabled: false
+        value: foo
+      visibility:
+        __type__: SimpleElement
+        range: workspace/root_file <[1, 1] -> [1, 4]>
+        disabled: false
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinality
+      range: workspace/root_file <[1, 1] -> [4, 1]>
+      disabled: false
+      min:
+        __type__: IntegerExpression
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        value: 1
+    children:
+    - __type__: ItemStatement
+      range: workspace/root_file <[2, 5] -> [3, 5]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[2, 5] -> [2, 11]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[2, 5] -> [2, 11]>
+          disabled: false
+          value: single
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[2, 5] -> [2, 11]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[2, 13] -> [2, 19]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[2, 13] -> [2, 19]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[2, 13] -> [2, 19]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: 1
+    - __type__: ItemStatement
+      range: workspace/root_file <[3, 5] -> [4, 1]>
+      disabled: true
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[3, 5] -> [3, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[3, 15] -> [3, 22]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[3, 15] -> [3, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[3, 21] -> [3, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 21] -> [3, 22]>
+            disabled: false
+            value: 0
+    - __type__: ItemStatement
+      range: workspace/root_file <[3, 5] -> [4, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[3, 5] -> [4, 1]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          value: _PseudoType1_Element
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          value: Visibility.Private
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[3, 15] -> [3, 22]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[3, 15] -> [3, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: 1
+    - __type__: ItemStatement
+      range: workspace/root_file <[3, 5] -> [4, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[3, 5] -> [3, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[3, 5] -> [4, 1]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: _PseudoType1_Element
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: Visibility.Private
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[3, 21] -> [3, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 21] -> [3, 22]>
+            disabled: false
+            value: 0
+  - __type__: StructureStatement
+    range: workspace/root_file <[1, 1] -> [4, 1]>
+    disabled: false
+    name:
+      __type__: Identifier
+      range: workspace/root_file <[1, 1] -> [4, 1]>
+      disabled: false
+      id:
+        __type__: SimpleElement
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        value: _PseudoType0_Element
+      visibility:
+        __type__: SimpleElement
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        value: Visibility.Private
+    cardinality:
+      __type__: Cardinality
+      range: workspace/root_file <[1, 1] -> [4, 1]>
+      disabled: false
+      min:
+        __type__: IntegerExpression
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        value: 1
+    children:
+    - __type__: ItemStatement
+      range: workspace/root_file <[2, 5] -> [3, 5]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[2, 5] -> [2, 11]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[2, 5] -> [2, 11]>
+          disabled: false
+          value: single
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[2, 5] -> [2, 11]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[2, 13] -> [2, 19]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[2, 13] -> [2, 19]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[2, 13] -> [2, 19]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[2, 13] -> [2, 19]>
+            disabled: false
+            value: 1
+    - __type__: ItemStatement
+      range: workspace/root_file <[3, 5] -> [4, 1]>
+      disabled: true
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[3, 5] -> [3, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[3, 15] -> [3, 22]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[3, 15] -> [3, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[3, 21] -> [3, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 21] -> [3, 22]>
+            disabled: false
+            value: 0
+    - __type__: ItemStatement
+      range: workspace/root_file <[3, 5] -> [4, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[3, 5] -> [4, 1]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          value: _PseudoType1_Element
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          value: Visibility.Private
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[3, 15] -> [3, 22]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[3, 15] -> [3, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 15] -> [3, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: 1
+    - __type__: ItemStatement
+      range: workspace/root_file <[3, 5] -> [4, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[3, 5] -> [3, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[3, 5] -> [3, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[3, 5] -> [4, 1]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[3, 5] -> [4, 1]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: _PseudoType1_Element
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[3, 5] -> [4, 1]>
+            disabled: false
+            value: Visibility.Private
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[3, 21] -> [3, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[3, 21] -> [3, 22]>
+            disabled: false
+            value: 0
+  - __type__: ItemStatement
+    range: workspace/root_file <[1, 1] -> [4, 1]>
+    disabled: false
+    name:
+      __type__: Identifier
+      range: workspace/root_file <[1, 1] -> [1, 4]>
+      disabled: false
+      id:
+        __type__: SimpleElement
+        range: workspace/root_file <[1, 1] -> [1, 4]>
+        disabled: false
+        value: foo
+      visibility:
+        __type__: SimpleElement
+        range: workspace/root_file <[1, 1] -> [1, 4]>
+        disabled: false
+        value: Visibility.Public
+    type:
+      __type__: IdentifierType
+      range: workspace/root_file <[1, 1] -> [4, 1]>
+      disabled: false
+      identifiers:
+      - __type__: Identifier
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[1, 1] -> [4, 1]>
+          disabled: false
+          value: _PseudoType0_Element
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[1, 1] -> [4, 1]>
+          disabled: false
+          value: Visibility.Private
+      cardinality:
+        __type__: Cardinality
+        range: workspace/root_file <[1, 1] -> [4, 1]>
+        disabled: false
+        min:
+          __type__: IntegerExpression
+          range: workspace/root_file <[1, 1] -> [4, 1]>
+          disabled: false
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: workspace/root_file <[1, 1] -> [4, 1]>
+          disabled: false
+          value: 1
+  - __type__: StructureStatement
+    range: workspace/root_file <[5, 1] -> [11, 1]>
+    disabled: true
+    name:
+      __type__: Identifier
+      range: workspace/root_file <[5, 1] -> [5, 5]>
+      disabled: false
+      id:
+        __type__: SimpleElement
+        range: workspace/root_file <[5, 1] -> [5, 5]>
+        disabled: false
+        value: foos
+      visibility:
+        __type__: SimpleElement
+        range: workspace/root_file <[5, 1] -> [5, 5]>
+        disabled: false
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinality
+      range: workspace/root_file <[5, 5] -> [5, 6]>
+      disabled: false
+      min:
+        __type__: IntegerExpression
+        range: workspace/root_file <[5, 5] -> [5, 6]>
+        disabled: false
+        value: 0
+    children:
+    - __type__: ItemStatement
+      range: workspace/root_file <[6, 5] -> [7, 5]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[6, 5] -> [6, 11]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[6, 5] -> [6, 11]>
+          disabled: false
+          value: single
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[6, 5] -> [6, 11]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[6, 13] -> [6, 19]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[6, 13] -> [6, 19]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[6, 13] -> [6, 19]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: 1
+    - __type__: ItemStatement
+      range: workspace/root_file <[7, 5] -> [11, 1]>
+      disabled: true
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[7, 5] -> [7, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[7, 15] -> [10, 6]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[7, 15] -> [7, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[7, 21] -> [7, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 21] -> [7, 22]>
+            disabled: false
+            value: 0
+        metadata:
+          __type__: Metadata
+          range: workspace/root_file <[7, 23] -> [10, 6]>
+          disabled: false
+          items:
+          - __type__: MetadataItem
+            range: workspace/root_file <[8, 9] -> [8, 25]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[8, 9] -> [8, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: dictionary
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: BooleanExpression
+              range: workspace/root_file <[8, 21] -> [8, 25]>
+              disabled: false
+              value: true
+          - __type__: MetadataItem
+            range: workspace/root_file <[9, 9] -> [9, 23]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[9, 9] -> [9, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: min_length
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: IntegerExpression
+              range: workspace/root_file <[9, 21] -> [9, 23]>
+              disabled: false
+              value: 10
+    - __type__: ItemStatement
+      range: workspace/root_file <[7, 5] -> [11, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[7, 5] -> [11, 1]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          value: _PseudoType3_Element
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          value: Visibility.Private
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[7, 15] -> [10, 6]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[7, 15] -> [7, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: 1
+        metadata:
+          __type__: Metadata
+          range: workspace/root_file <[7, 23] -> [10, 6]>
+          disabled: false
+          items:
+          - __type__: MetadataItem
+            range: workspace/root_file <[9, 9] -> [9, 23]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[9, 9] -> [9, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: min_length
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: IntegerExpression
+              range: workspace/root_file <[9, 21] -> [9, 23]>
+              disabled: false
+              value: 10
+    - __type__: ItemStatement
+      range: workspace/root_file <[7, 5] -> [11, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[7, 5] -> [7, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[7, 5] -> [11, 1]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: _PseudoType3_Element
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: Visibility.Private
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[7, 21] -> [7, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 21] -> [7, 22]>
+            disabled: false
+            value: 0
+        metadata:
+          __type__: Metadata
+          range: workspace/root_file <[7, 23] -> [10, 6]>
+          disabled: false
+          items:
+          - __type__: MetadataItem
+            range: workspace/root_file <[8, 9] -> [8, 25]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[8, 9] -> [8, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: dictionary
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: BooleanExpression
+              range: workspace/root_file <[8, 21] -> [8, 25]>
+              disabled: false
+              value: true
+  - __type__: StructureStatement
+    range: workspace/root_file <[5, 1] -> [11, 1]>
+    disabled: false
+    name:
+      __type__: Identifier
+      range: workspace/root_file <[5, 1] -> [11, 1]>
+      disabled: false
+      id:
+        __type__: SimpleElement
+        range: workspace/root_file <[5, 1] -> [11, 1]>
+        disabled: false
+        value: _PseudoType2_Element
+      visibility:
+        __type__: SimpleElement
+        range: workspace/root_file <[5, 1] -> [11, 1]>
+        disabled: false
+        value: Visibility.Private
+    cardinality:
+      __type__: Cardinality
+      range: workspace/root_file <[5, 1] -> [11, 1]>
+      disabled: false
+      min:
+        __type__: IntegerExpression
+        range: workspace/root_file <[5, 1] -> [11, 1]>
+        disabled: false
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: workspace/root_file <[5, 1] -> [11, 1]>
+        disabled: false
+        value: 1
+    children:
+    - __type__: ItemStatement
+      range: workspace/root_file <[6, 5] -> [7, 5]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[6, 5] -> [6, 11]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[6, 5] -> [6, 11]>
+          disabled: false
+          value: single
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[6, 5] -> [6, 11]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[6, 13] -> [6, 19]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[6, 13] -> [6, 19]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[6, 13] -> [6, 19]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[6, 13] -> [6, 19]>
+            disabled: false
+            value: 1
+    - __type__: ItemStatement
+      range: workspace/root_file <[7, 5] -> [11, 1]>
+      disabled: true
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[7, 5] -> [7, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[7, 15] -> [10, 6]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[7, 15] -> [7, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[7, 21] -> [7, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 21] -> [7, 22]>
+            disabled: false
+            value: 0
+        metadata:
+          __type__: Metadata
+          range: workspace/root_file <[7, 23] -> [10, 6]>
+          disabled: false
+          items:
+          - __type__: MetadataItem
+            range: workspace/root_file <[8, 9] -> [8, 25]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[8, 9] -> [8, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: dictionary
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: BooleanExpression
+              range: workspace/root_file <[8, 21] -> [8, 25]>
+              disabled: false
+              value: true
+          - __type__: MetadataItem
+            range: workspace/root_file <[9, 9] -> [9, 23]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[9, 9] -> [9, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: min_length
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: IntegerExpression
+              range: workspace/root_file <[9, 21] -> [9, 23]>
+              disabled: false
+              value: 10
+    - __type__: ItemStatement
+      range: workspace/root_file <[7, 5] -> [11, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[7, 5] -> [11, 1]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          value: _PseudoType3_Element
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          value: Visibility.Private
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[7, 15] -> [10, 6]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[7, 15] -> [7, 21]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: String
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 15] -> [7, 21]>
+            disabled: false
+            value: Visibility.Public
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: 1
+        metadata:
+          __type__: Metadata
+          range: workspace/root_file <[7, 23] -> [10, 6]>
+          disabled: false
+          items:
+          - __type__: MetadataItem
+            range: workspace/root_file <[9, 9] -> [9, 23]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[9, 9] -> [9, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: min_length
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[9, 9] -> [9, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: IntegerExpression
+              range: workspace/root_file <[9, 21] -> [9, 23]>
+              disabled: false
+              value: 10
+    - __type__: ItemStatement
+      range: workspace/root_file <[7, 5] -> [11, 1]>
+      disabled: false
+      name:
+        __type__: Identifier
+        range: workspace/root_file <[7, 5] -> [7, 13]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: multiple
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[7, 5] -> [7, 13]>
+          disabled: false
+          value: Visibility.Public
+      type:
+        __type__: IdentifierType
+        range: workspace/root_file <[7, 5] -> [11, 1]>
+        disabled: false
+        identifiers:
+        - __type__: Identifier
+          range: workspace/root_file <[7, 5] -> [11, 1]>
+          disabled: false
+          id:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: _PseudoType3_Element
+          visibility:
+            __type__: SimpleElement
+            range: workspace/root_file <[7, 5] -> [11, 1]>
+            disabled: false
+            value: Visibility.Private
+        cardinality:
+          __type__: Cardinality
+          range: workspace/root_file <[7, 21] -> [7, 22]>
+          disabled: false
+          min:
+            __type__: IntegerExpression
+            range: workspace/root_file <[7, 21] -> [7, 22]>
+            disabled: false
+            value: 0
+        metadata:
+          __type__: Metadata
+          range: workspace/root_file <[7, 23] -> [10, 6]>
+          disabled: false
+          items:
+          - __type__: MetadataItem
+            range: workspace/root_file <[8, 9] -> [8, 25]>
+            disabled: false
+            name:
+              __type__: IdentifierExpression
+              range: workspace/root_file <[8, 9] -> [8, 19]>
+              disabled: false
+              id:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: dictionary
+              visibility:
+                __type__: SimpleElement
+                range: workspace/root_file <[8, 9] -> [8, 19]>
+                disabled: false
+                value: Visibility.Public
+            value:
+              __type__: BooleanExpression
+              range: workspace/root_file <[8, 21] -> [8, 25]>
+              disabled: false
+              value: true
+  - __type__: ItemStatement
+    range: workspace/root_file <[5, 1] -> [11, 1]>
+    disabled: false
+    name:
+      __type__: Identifier
+      range: workspace/root_file <[5, 1] -> [5, 5]>
+      disabled: false
+      id:
+        __type__: SimpleElement
+        range: workspace/root_file <[5, 1] -> [5, 5]>
+        disabled: false
+        value: foos
+      visibility:
+        __type__: SimpleElement
+        range: workspace/root_file <[5, 1] -> [5, 5]>
+        disabled: false
+        value: Visibility.Public
+    type:
+      __type__: IdentifierType
+      range: workspace/root_file <[5, 1] -> [11, 1]>
+      disabled: false
+      identifiers:
+      - __type__: Identifier
+        range: workspace/root_file <[5, 1] -> [11, 1]>
+        disabled: false
+        id:
+          __type__: SimpleElement
+          range: workspace/root_file <[5, 1] -> [11, 1]>
+          disabled: false
+          value: _PseudoType2_Element
+        visibility:
+          __type__: SimpleElement
+          range: workspace/root_file <[5, 1] -> [11, 1]>
+          disabled: false
+          value: Visibility.Private
+      cardinality:
+        __type__: Cardinality
+        range: workspace/root_file <[5, 5] -> [5, 6]>
+        disabled: false
+        min:
+          __type__: IntegerExpression
+          range: workspace/root_file <[5, 5] -> [5, 6]>
+          disabled: false
+          value: 0
