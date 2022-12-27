@@ -307,6 +307,7 @@ def Parse(
                     fullpath = workspace_root / relative_path
 
                     try:
+                        # Parse the object
                         antlr_stream = antlr4.InputStream(content)
 
                         lexer = SimpleSchemaLexer(antlr_stream)

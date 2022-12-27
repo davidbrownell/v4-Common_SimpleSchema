@@ -51,6 +51,21 @@ def test_Empty():
 
 
 # ----------------------------------------------------------------------
+def test_ErrorSetParent():
+    range = mock.MagicMock()
+
+    r = RootStatement(range, [])
+
+    assert r.parent is None
+
+    with pytest.raises(
+        Exception,
+        match=re.escape("Root statements cannot have parents."),
+    ):
+        r.SetParent(mock.MagicMock())
+
+
+# ----------------------------------------------------------------------
 def test_WithStatements():
     range1 = mock.MagicMock()
 

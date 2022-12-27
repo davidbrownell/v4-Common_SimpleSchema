@@ -15,8 +15,6 @@
 # ----------------------------------------------------------------------
 """Contains the ToPythonDictVisitor object"""
 
-import re
-
 from typing import Any, List, Dict, Union
 
 from Common_Foundation.Types import overridemethod
@@ -29,10 +27,14 @@ class ToPythonDictVisitor(Visitor):
     """Converts items to a python dict"""
 
     # ----------------------------------------------------------------------
-    def __init__(self):
-        self._stack: List[Dict[str, Any]]   = []
+    def __init__(
+        self,
+        *,
+        add_disabled_status: bool=False,
+    ):
+        self.add_disabled_status            = add_disabled_status
 
-        self._details_regex                 = re.compile(r"^On(?P<object_name>.+?)__(?P<member_name>.+)$")
+        self._stack: List[Dict[str, Any]]   = []
 
     # ----------------------------------------------------------------------
     @property
@@ -45,7 +47,7 @@ class ToPythonDictVisitor(Visitor):
         self,
         name: str,
     ):
-        match = self._details_regex.match(name)
+        match = self.DETAILS_REGEX.match(name)
         if match:
             return lambda *args, **kwargs: self._DefaultDetailMethod(match.group("member_name"), *args, **kwargs)
 
@@ -66,6 +68,9 @@ class ToPythonDictVisitor(Visitor):
                 "range": element.range.ToString(),
             },
         )
+
+        if self.add_disabled_status:
+            self._stack[-1]["disabled"] = element.is_disabled
 
         yield
 
@@ -88,6 +93,21 @@ class ToPythonDictVisitor(Visitor):
         d[element.CHILDREN_NAME] = children
 
     # ----------------------------------------------------------------------
+    # |  Common Methods
+    # ----------------------------------------------------------------------
+    @overridemethod
+    @contextmanager
+    def OnCardinality(self, element: Cardinality) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    @contextmanager
+    def OnIdentifier(self, element: Identifier) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @overridemethod
     @contextmanager
     def OnSimpleElement(
         self,
@@ -102,20 +122,6 @@ class ToPythonDictVisitor(Visitor):
 
         d["value"] = value
 
-        yield
-
-    # ----------------------------------------------------------------------
-    # |  Common Methods
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnCardinality(self, element: Cardinality) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnIdentifier(self, element: Identifier) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------
@@ -269,7 +275,7 @@ class ToPythonDictVisitor(Visitor):
         element_or_elements: Union[Element, List[Element]],
         *,
         include_disabled: bool,
-    ):
+    ) -> None:
         prev_num_elements = len(self._stack)
 
         if isinstance(element_or_elements, list):

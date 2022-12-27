@@ -15,12 +15,13 @@
 # ----------------------------------------------------------------------
 """Unit tests for Element.py"""
 
+import re
 import sys
 
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterator, List, Optional, TextIO
+from typing import Any, cast, Iterator, List, Optional, TextIO
 from unittest import mock
 
 import pytest
@@ -58,8 +59,9 @@ class MyElement(Element):
 
     # ----------------------------------------------------------------------
     @overridemethod
+    @contextmanager
     def _GenerateAcceptChildren(self) -> Element._GenerateAcceptChildrenGeneratorType:
-        yield from self.children
+        yield cast(List[Element], self.children)
 
 
 # ----------------------------------------------------------------------
@@ -149,6 +151,30 @@ def test_Disabled():
 
     e.Disable()
     assert e.is_disabled is True
+
+
+# ----------------------------------------------------------------------
+def test_Parent():
+    e = Element(mock.MagicMock())
+
+    with pytest.raises(
+        Exception,
+        match=re.escape("A parent has not been set for this element."),
+    ):
+        e.parent
+
+    parent = Element(mock.MagicMock())
+
+    e.SetParent(parent)
+    assert e.parent is parent
+
+    e.SetParent(None)
+
+    with pytest.raises(
+        Exception,
+        match=re.escape("A parent has not been set for this element."),
+    ):
+        e.parent
 
 
 # ----------------------------------------------------------------------

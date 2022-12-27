@@ -15,7 +15,9 @@
 # ----------------------------------------------------------------------
 """Contains the Visitor object"""
 
-from abc import ABC, abstractmethod
+import re
+
+from abc import ABC
 from contextlib import contextmanager
 from typing import Iterator, Optional
 
@@ -23,7 +25,7 @@ from Common_Foundation.Types import extensionmethod
 
 from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
 from SimpleSchema.Schema.Elements.Common.Element import Element, VisitResult
-from SimpleSchema.Schema.Elements.Common.Identifier import Identifier
+from SimpleSchema.Schema.Elements.Common.Identifier import Identifier, SimpleElement
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata, MetadataItem
 
 from SimpleSchema.Schema.Elements.Expressions.BooleanExpression import BooleanExpression
@@ -44,7 +46,6 @@ from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
 from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
 
 # Convenience imports
-from SimpleSchema.Schema.Elements.Common.Element import SimpleElement           # pylint: disable=unused-import
 from SimpleSchema.Schema.Elements.Common.Identifier import Visibility           # pylint: disable=unused-import
 from SimpleSchema.Schema.Elements.Common.Location import Location               # pylint: disable=unused-import
 from SimpleSchema.Schema.Elements.Common.Range import Range                     # pylint: disable=unused-import
@@ -53,6 +54,20 @@ from SimpleSchema.Schema.Elements.Common.Range import Range                     
 # ----------------------------------------------------------------------
 class Visitor(ABC):
     """Visitor base class"""
+
+    # ----------------------------------------------------------------------
+    # |
+    # |  Public Types
+    # |
+    # ----------------------------------------------------------------------
+    METHOD_REGEX                            = re.compile("^On(?P<object_name>.+)$")
+    DETAILS_REGEX                           = re.compile("^On(?P<object_name>.+?)__(?P<member_name>.+)$")
+
+    # ----------------------------------------------------------------------
+    # |
+    # |  Public Methods
+    # |
+    # ----------------------------------------------------------------------
 
     # ----------------------------------------------------------------------
     # |  Generic Methods
@@ -86,127 +101,133 @@ class Visitor(ABC):
     # ----------------------------------------------------------------------
     # |  Common Methods
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnCardinality(self, element: Cardinality) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnIdentifier(self, element: Identifier) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
+    @contextmanager
+    def OnSimpleElement(self, element: SimpleElement) -> Iterator[Optional[VisitResult]]:
+        raise Exception("Method not implemented")  # pragma: no cover
+
+    # ----------------------------------------------------------------------
+    @extensionmethod
     @contextmanager
     def OnMetadata(self, element: Metadata) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnMetadataItem(self, element: MetadataItem) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     # |  Expressions
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnBooleanExpression(self, element: BooleanExpression) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnIdentifierExpression(self, element: IdentifierExpression) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnIntegerExpression(self, element: IntegerExpression) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnListExpression(self, element: ListExpression) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnNumberExpression(self, element: NumberExpression) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnStringExpression(self, element: StringExpression) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     # |  Statements
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnIncludeStatement(self, element: IncludeStatement) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnIncludeStatementItem(self, element: IncludeStatementItem) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnExtensionStatement(self, element: ExtensionStatement) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnExtensionStatementKeywordArg(self, element: ExtensionStatementKeywordArg) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnRootStatement(self, element: RootStatement) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     # |  Types
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnIdentifierType(self, element: IdentifierType) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnTupleType(self, element: TupleType) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
+    @extensionmethod
     @contextmanager
     def OnVariantType(self, element: VariantType) -> Iterator[Optional[VisitResult]]:
-        raise Exception("Abstract method")  # pragma: no cover
+        raise Exception("Method not implemented")  # pragma: no cover

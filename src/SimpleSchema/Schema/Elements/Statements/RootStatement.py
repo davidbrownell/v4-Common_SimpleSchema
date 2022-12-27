@@ -15,8 +15,9 @@
 # ----------------------------------------------------------------------
 """Contains the RootStatement object"""
 
+from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import List
+from typing import cast, List
 
 from Common_Foundation.Types import overridemethod
 
@@ -33,6 +34,11 @@ class RootStatement(Statement):
     CHILDREN_NAME                           = "statements"
 
     # ----------------------------------------------------------------------
+    @property
+    def parent(self) -> None:
+        return None
+
+    # ----------------------------------------------------------------------
     statements: List[Statement]  # Can be an empty list
 
     # ----------------------------------------------------------------------
@@ -45,8 +51,16 @@ class RootStatement(Statement):
                 )
 
     # ----------------------------------------------------------------------
+    def SetParent(
+        self,
+        element: Element,  # pylint: disable=unused-argument
+    ) -> None:
+        raise Exception("Root statements cannot have parents.")
+
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
+    @contextmanager
     def _GenerateAcceptChildren(self) -> Element._GenerateAcceptChildrenGeneratorType:  # pragma: no coverage
-        yield from self.statements
+        yield cast(List[Element], self.statements)

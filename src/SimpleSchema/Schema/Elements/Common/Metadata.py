@@ -15,8 +15,9 @@
 # ----------------------------------------------------------------------
 """Contains the Metadata and MetadataItem objects"""
 
+from contextlib import contextmanager
 from dataclasses import dataclass, field, InitVar
-from typing import Dict, List, Optional
+from typing import cast, Dict, List
 
 from Common_Foundation.Types import overridemethod
 
@@ -82,5 +83,6 @@ class Metadata(Element):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
+    @contextmanager
     def _GenerateAcceptChildren(self) -> Element._GenerateAcceptChildrenGeneratorType:  # pragma: no cover
-        yield from self.items.values()
+        yield cast(List[Element], list(self.items.values()))
