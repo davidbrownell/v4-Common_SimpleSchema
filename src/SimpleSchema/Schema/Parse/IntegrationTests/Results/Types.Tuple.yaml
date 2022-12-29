@@ -446,29 +446,29 @@
               value: true
       cardinality:
         __type__: Cardinality
-        range: root_file <[6, 32] -> [6, 33]>
+        range: root_file <[6, 44] -> [6, 45]>
         min:
           __type__: IntegerExpression
-          range: root_file <[6, 32] -> [6, 33]>
+          range: root_file <[6, 44] -> [6, 45]>
           value: 0
       metadata:
         __type__: Metadata
-        range: root_file <[6, 34] -> [6, 45]>
+        range: root_file <[6, 33] -> [6, 44]>
         items:
         - __type__: MetadataItem
-          range: root_file <[6, 36] -> [6, 43]>
+          range: root_file <[6, 35] -> [6, 42]>
           name:
             __type__: Identifier
-            range: root_file <[6, 36] -> [6, 38]>
+            range: root_file <[6, 35] -> [6, 37]>
             id:
               __type__: SimpleElement
-              range: root_file <[6, 36] -> [6, 38]>
+              range: root_file <[6, 35] -> [6, 37]>
               value: m2
             visibility:
               __type__: SimpleElement
-              range: root_file <[6, 36] -> [6, 38]>
+              range: root_file <[6, 35] -> [6, 37]>
               value: Visibility.Public
           value:
             __type__: NumberExpression
-            range: root_file <[6, 40] -> [6, 43]>
+            range: root_file <[6, 39] -> [6, 42]>
             value: 2.0

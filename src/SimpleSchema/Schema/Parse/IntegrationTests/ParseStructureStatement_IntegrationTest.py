@@ -15,10 +15,13 @@
 # ----------------------------------------------------------------------
 """Integration tests for structure statements"""
 
+import re
 import sys
 import textwrap
 
 from pathlib import Path
+
+import pytest
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation import PathEx
@@ -27,30 +30,12 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Parse.IntegrationTests.Impl.TestHelpers import CompareResultsFromFile, Test
+    from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+    from SimpleSchema.Schema.Parse.IntegrationTests.Impl.TestHelpers import CompareResultsFromFile, Test, DEFAULT_WORKSPACE_PATH
 
 
 # ----------------------------------------------------------------------
-def test_SingleLine():
-    CompareResultsFromFile(
-        Test(
-            textwrap.dedent(
-                """\
-                foo -> pass
-                Foo -> pass
-
-                Optional? -> pass
-                WithMetadata { value: 1 } -> pass
-
-                CardinalityAndMetadata[3, 11] { value: 1 } -> pass
-                """,
-            ),
-        )[0],
-    )
-
-
-# ----------------------------------------------------------------------
-def test_NoStatementsMultiLine():
+def test_NoStatements():
     CompareResultsFromFile(
         Test(
             textwrap.dedent(
@@ -58,22 +43,26 @@ def test_NoStatementsMultiLine():
                 Foo ->
                     pass
 
-                Optional? ->
+                Optional ->
                     pass
+                ?
 
-                WithMetadata1 { value1: 1, value2: 2 } ->
+                WithMetadata1 ->
                     pass
+                { value1: 1, value2: 2 }
 
-                WithMetadata2 {
+                WithMetadata2 ->
+                    pass
+                {
                     value1: 1
                     value2: 2
-                } ->
-                    pass
+                }
 
-                CardinalityAndMetadata[3, 11] {
-                    value1: 1
-                } ->
+                CardinalityAndMetadata  ->
                     pass
+                {
+                    value1: 1
+                } [3, 11]
                 """,
             ),
         )[0],
@@ -86,21 +75,22 @@ def test_WithBase():
         Test(
             textwrap.dedent(
                 """\
-                Simple1: String -> pass
-                Simple2: String ->
+                Simple: String ->
                     pass
 
-                Optional: String? ->
+                Optional: String ->
                     pass
+                ?
 
                 WithMetadata1: String { value: 1 } ->
                     pass
 
-                WithMetadata2: String+ {
+                WithMetadata2: String {
                     value1: 1
                     value2: 2
                 } ->
                     pass
+                +
                 """,
             ),
         )[0],
@@ -142,3 +132,24 @@ def test_Nested():
             ),
         )[0],
     )
+
+
+# ----------------------------------------------------------------------
+def test_ErrorInvalidCardinality():
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape(
+            "Structure bases cannot have cardinality values. ({} <[1, 15] -> [1, 16]>)".format(
+                DEFAULT_WORKSPACE_PATH / "root_file",
+            ),
+        ),
+    ):
+        Test(
+            textwrap.dedent(
+                """\
+                Struct: String+ ->
+                    pass
+                """,
+            ),
+            quiet=True,
+        )

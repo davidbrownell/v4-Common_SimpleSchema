@@ -56,7 +56,7 @@ def test_Tuple():
                 name3: (One, Two)
                 name4: (One, Two, )
                 name5: (One, Two, Three)
-                name6: (One?, Two { m1: True })* { m2: 2.0 }
+                name6: (One?, Two { m1: True }) { m2: 2.0 }*
                 """,
             ),
         )[0],
@@ -71,9 +71,9 @@ def test_Variant():
                 """\
                 name1: (One | Two)
                 name2: (One* | Two+)
-                name3: (One | Two {m1: 1})+ {
+                name3: (One | Two {m1: 1}) {
                     m2: "two"
-                }
+                }+
 
                 name4: (
                     One
