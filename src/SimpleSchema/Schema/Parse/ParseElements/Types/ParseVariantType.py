@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  TupleType.py
+# |  ParseVariantType.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-13 18:18:47
+# |      2022-12-28 17:52:56
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the TupleType object"""
+"""Contains the ParseVariantType object"""
 
 from dataclasses import dataclass
 from typing import List
@@ -22,16 +22,17 @@ from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-from SimpleSchema.Schema.Elements.Types.Type import Type
+
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseType import ParseType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class TupleType(Type):
+class ParseVariantType(ParseType):
     """A list of types"""
 
     # ----------------------------------------------------------------------
-    types: List[Type]
+    types: List[ParseType]
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
@@ -39,8 +40,8 @@ class TupleType(Type):
             raise SimpleSchemaException("No types were provided.", self.range)
 
         for the_type in self.types:
-            if isinstance(the_type, TupleType):
-                raise SimpleSchemaException("Nested tuple types are not supported.", the_type.range)
+            if isinstance(the_type, ParseVariantType):
+                raise SimpleSchemaException("Nested variant types are not supported.", the_type.range)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -49,4 +50,4 @@ class TupleType(Type):
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield "types", self.types
 
-        yield from super(TupleType, self)._GenerateAcceptDetails()
+        yield from super(ParseVariantType, self)._GenerateAcceptDetails()

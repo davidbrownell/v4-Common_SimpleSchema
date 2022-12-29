@@ -44,23 +44,23 @@ from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSche
 
 from SimpleSchema.Schema.Elements.Expressions.BooleanExpression import BooleanExpression
 from SimpleSchema.Schema.Elements.Expressions.Expression import Expression
-from SimpleSchema.Schema.Elements.Expressions.IdentifierExpression import IdentifierExpression
 from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
 from SimpleSchema.Schema.Elements.Expressions.ListExpression import ListExpression
 from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpression
 from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
 
 from SimpleSchema.Schema.Elements.Statements.ExtensionStatement import ExtensionStatement, ExtensionStatementKeywordArg
-from SimpleSchema.Schema.Elements.Statements.IncludeStatement import IncludeStatement, IncludeStatementItem
-from SimpleSchema.Schema.Elements.Statements.ItemStatement import ItemStatement
 from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
-from SimpleSchema.Schema.Elements.Statements.StructureStatement import StructureStatement
 
-from SimpleSchema.Schema.Elements.Types.Type import Type
-from SimpleSchema.Schema.Elements.Types.IdentifierType import IdentifierType
-from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
-from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
+from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementItem
+from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseItemStatement import ParseItemStatement
+from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseStructureStatement import ParseStructureStatement
+
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseIdentifierType import ParseIdentifierType
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseTupleType import ParseTupleType
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseType import ParseType
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseVariantType import ParseVariantType
 
 
 # ----------------------------------------------------------------------
@@ -171,8 +171,8 @@ def Parse(
             including_filename: Path,
             range_value: Range,
             filename_or_directory: SimpleElement[Path],
-            items: List[IncludeStatementItem],
-        ) -> IncludeStatement:
+            items: List[ParseIncludeStatementItem],
+        ) -> ParseIncludeStatement:
             # Get the filename
             root: Optional[Path] = None
 
@@ -275,7 +275,7 @@ def Parse(
                     ),
                 )
 
-            return IncludeStatement(range_value, SimpleElement(filename_range, filename), items)
+            return ParseIncludeStatement(range_value, SimpleElement(filename_range, filename), items)
 
         # ----------------------------------------------------------------------
         def Step1(
@@ -421,8 +421,8 @@ class _VisitorMixin(object):
         filename: Path,
         on_progress_func: Callable[[int], None],
         create_include_statement_func: Callable[
-            [Path, Range, SimpleElement[Path], List[IncludeStatementItem]],
-            IncludeStatement,
+            [Path, Range, SimpleElement[Path], List[ParseIncludeStatementItem]],
+            ParseIncludeStatement,
         ],
         *,
         is_included_file: bool,
@@ -618,19 +618,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(Cardinality(self.CreateRange(ctx), min_expression, max_expression))
 
     # ----------------------------------------------------------------------
-    def visitMetadata_clause_item(self, ctx:SimpleSchemaParser.Metadata_clause_itemContext):
-        children = self._GetChildren(ctx)
-
-        assert len(children) == 2, children
-        assert isinstance(children[0], IdentifierExpression), children
-        assert isinstance(children[1], Expression), children
-
-        name_expression = cast(IdentifierExpression, children[0])
-        value_expression = cast(Expression, children[1])
-
-        self._stack.append(MetadataItem(self.CreateRange(ctx), name_expression, value_expression))
-
-    # ----------------------------------------------------------------------
     def visitMetadata_clause(self, ctx:SimpleSchemaParser.Metadata_clauseContext):
         children = self._GetChildren(ctx)
         assert all(isinstance(child, MetadataItem) for child in children), children
@@ -640,15 +627,23 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(Metadata(self.CreateRange(ctx), metadata_items))
 
     # ----------------------------------------------------------------------
-    def visitIdentifier_expression(self, ctx:SimpleSchemaParser.Identifier_expressionContext):
+    def visitMetadata_clause_item(self, ctx:SimpleSchemaParser.Metadata_clause_itemContext):
         children = self._GetChildren(ctx)
 
-        assert len(children) == 1, children
+        assert len(children) == 2, children
         assert isinstance(children[0], Identifier), children
+        assert isinstance(children[1], Expression), children
 
-        identifier = cast(Identifier, children[0])
+        name = cast(Identifier, children[0])
+        if not name.is_expression:
+            raise SimpleSchemaException(
+                "'{}' is not a valid expression; identifier expressions must begin with a lowercase letter.".format(name.id.value),
+                name.id.range,
+            )
 
-        self._stack.append(IdentifierExpression(identifier.range, identifier.id, identifier.visibility))
+        value_expression = cast(Expression, children[1])
+
+        self._stack.append(MetadataItem(self.CreateRange(ctx), name, value_expression))
 
     # ----------------------------------------------------------------------
     def visitNumber_expression(self, ctx:SimpleSchemaParser.Number_expressionContext):
@@ -771,8 +766,8 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         filename = children.pop(0)
         assert isinstance(filename, SimpleElement) and isinstance(filename.value, Path), filename
 
-        assert all(isinstance(child, IncludeStatementItem) for child in children), children
-        children = cast(List[IncludeStatementItem], children)
+        assert all(isinstance(child, ParseIncludeStatementItem) for child in children), children
+        children = cast(List[ParseIncludeStatementItem], children)
 
         self._stack.append(
             self._create_include_statement_func(
@@ -808,7 +803,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             assert isinstance(children[1], Identifier), children[1]
             reference_name = children[1]
 
-        self._stack.append(IncludeStatementItem(self.CreateRange(ctx), element_name, reference_name))
+        self._stack.append(ParseIncludeStatementItem(self.CreateRange(ctx), element_name, reference_name))
 
     # ----------------------------------------------------------------------
     def visitExtension_statement(self, ctx:SimpleSchemaParser.Extension_statementContext):
@@ -876,9 +871,9 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert len(children) == 2
 
         name = cast(Identifier, children[0])
-        the_type = cast(Type, children[1])
+        the_type = cast(ParseType, children[1])
 
-        self._stack.append(ItemStatement(self.CreateRange(ctx), name, the_type))
+        self._stack.append(ParseItemStatement(self.CreateRange(ctx), name, the_type))
 
     # ----------------------------------------------------------------------
     def visitStructure_statement(self, ctx:SimpleSchemaParser.Structure_statementContext):
@@ -890,7 +885,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert isinstance(children[0], Identifier), children
         name = cast(Identifier, children[0])
 
-        base_type: Optional[Type] = None
+        base_type: Optional[ParseType] = None
         cardinality: Optional[Cardinality] = None
         metadata: Optional[Metadata] = None
         statements: Optional[List[Statement]] = None
@@ -898,7 +893,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         for index in range(1, num_children):
             child = children[index]
 
-            if isinstance(child, Type):
+            if isinstance(child, ParseType):
                 assert base_type is None, (base_type, child)
                 base_type = child
             elif isinstance(child, Cardinality):
@@ -955,7 +950,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             cardinality = Cardinality(range_value, None, None)
 
         self._stack.append(
-            StructureStatement(
+            ParseStructureStatement(
                 range_value,
                 name,
                 base_type,
@@ -981,7 +976,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(children)
 
     # ----------------------------------------------------------------------
-    def visitIdentifier_type(self, ctx:SimpleSchemaParser.Identifier_typeContext):
+    def visitParse_identifier_type(self, ctx:SimpleSchemaParser.Parse_identifier_typeContext):
         children = self._GetChildren(ctx)
 
         assert len(children) >= 1, children
@@ -1014,25 +1009,25 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             cardinality = Cardinality(range_value, None, None)
 
         self._stack.append(
-            IdentifierType(range_value, cardinality, metadata, identifiers, identifier_type_element),
+            ParseIdentifierType(range_value, cardinality, metadata, identifiers, identifier_type_element),
         )
 
     # ----------------------------------------------------------------------
-    def visitIdentifier_type_element(self, ctx:SimpleSchemaParser.Identifier_type_elementContext):
+    def visitParse_identifier_type_element(self, ctx:SimpleSchemaParser.Parse_identifier_type_elementContext):
         # It is enough to add a range value as that will signal that the modifier exists when
         # creating the IdentifierType.
         self._stack.append(self.CreateRange(ctx))
 
     # ----------------------------------------------------------------------
-    def visitTuple_type(self, ctx:SimpleSchemaParser.Tuple_typeContext):
+    def visitParse_tuple_type(self, ctx:SimpleSchemaParser.Parse_tuple_typeContext):
         children = self._GetChildren(ctx)
 
-        types: List[Type] = []
+        types: List[ParseType] = []
         cardinality: Optional[Cardinality] = None
         metadata: Optional[Metadata] = None
 
         for child in children:
-            if isinstance(child, Type):
+            if isinstance(child, ParseType):
                 types.append(child)
             elif isinstance(child, Cardinality):
                 assert cardinality is None, (cardinality, child)
@@ -1050,18 +1045,18 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         if cardinality is None:
             cardinality = Cardinality(range_value, None, None)
 
-        self._stack.append(TupleType(range_value, cardinality, metadata, types))
+        self._stack.append(ParseTupleType(range_value, cardinality, metadata, types))
 
     # ----------------------------------------------------------------------
-    def visitVariant_type(self, ctx:SimpleSchemaParser.Variant_typeContext):
+    def visitParse_variant_type(self, ctx:SimpleSchemaParser.Parse_variant_typeContext):
         children = self._GetChildren(ctx)
 
-        types: List[Type] = []
+        types: List[ParseType] = []
         cardinality: Optional[Cardinality] = None
         metadata: Optional[Metadata] = None
 
         for child in children:
-            if isinstance(child, Type):
+            if isinstance(child, ParseType):
                 types.append(child)
             elif isinstance(child, Cardinality):
                 assert cardinality is None, (cardinality, child)
@@ -1079,4 +1074,4 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         if cardinality is None:
             cardinality = Cardinality(range_value, None, None)
 
-        self._stack.append(VariantType(range_value, cardinality, metadata, types))
+        self._stack.append(ParseVariantType(range_value, cardinality, metadata, types))

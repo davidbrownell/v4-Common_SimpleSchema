@@ -19,13 +19,58 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#expression__.
-    def visitExpression__(self, ctx:SimpleSchemaParser.Expression__Context):
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause__.
+    def visitCardinality_clause__(self, ctx:SimpleSchemaParser.Cardinality_clause__Context):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#identifier_expression.
-    def visitIdentifier_expression(self, ctx:SimpleSchemaParser.Identifier_expressionContext):
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_optional.
+    def visitCardinality_clause_optional(self, ctx:SimpleSchemaParser.Cardinality_clause_optionalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_zero_or_more.
+    def visitCardinality_clause_zero_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_zero_or_moreContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_one_or_more.
+    def visitCardinality_clause_one_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_one_or_moreContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_fixed.
+    def visitCardinality_clause_fixed(self, ctx:SimpleSchemaParser.Cardinality_clause_fixedContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_range.
+    def visitCardinality_clause_range(self, ctx:SimpleSchemaParser.Cardinality_clause_rangeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause.
+    def visitMetadata_clause(self, ctx:SimpleSchemaParser.Metadata_clauseContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause_single_line__.
+    def visitMetadata_clause_single_line__(self, ctx:SimpleSchemaParser.Metadata_clause_single_line__Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause_multi_line__.
+    def visitMetadata_clause_multi_line__(self, ctx:SimpleSchemaParser.Metadata_clause_multi_line__Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause_item.
+    def visitMetadata_clause_item(self, ctx:SimpleSchemaParser.Metadata_clause_itemContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#expression__.
+    def visitExpression__(self, ctx:SimpleSchemaParser.Expression__Context):
         return self.visitChildren(ctx)
 
 
@@ -139,88 +184,38 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause__.
-    def visitCardinality_clause__(self, ctx:SimpleSchemaParser.Cardinality_clause__Context):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_type__.
+    def visitParse_type__(self, ctx:SimpleSchemaParser.Parse_type__Context):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_optional.
-    def visitCardinality_clause_optional(self, ctx:SimpleSchemaParser.Cardinality_clause_optionalContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_identifier_type.
+    def visitParse_identifier_type(self, ctx:SimpleSchemaParser.Parse_identifier_typeContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_zero_or_more.
-    def visitCardinality_clause_zero_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_zero_or_moreContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_identifier_type_element.
+    def visitParse_identifier_type_element(self, ctx:SimpleSchemaParser.Parse_identifier_type_elementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_one_or_more.
-    def visitCardinality_clause_one_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_one_or_moreContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_tuple_type.
+    def visitParse_tuple_type(self, ctx:SimpleSchemaParser.Parse_tuple_typeContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_fixed.
-    def visitCardinality_clause_fixed(self, ctx:SimpleSchemaParser.Cardinality_clause_fixedContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_tuple_type_single_item__.
+    def visitParse_tuple_type_single_item__(self, ctx:SimpleSchemaParser.Parse_tuple_type_single_item__Context):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_range.
-    def visitCardinality_clause_range(self, ctx:SimpleSchemaParser.Cardinality_clause_rangeContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_tuple_type_multi_item__.
+    def visitParse_tuple_type_multi_item__(self, ctx:SimpleSchemaParser.Parse_tuple_type_multi_item__Context):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause.
-    def visitMetadata_clause(self, ctx:SimpleSchemaParser.Metadata_clauseContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause_single_line__.
-    def visitMetadata_clause_single_line__(self, ctx:SimpleSchemaParser.Metadata_clause_single_line__Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause_multi_line__.
-    def visitMetadata_clause_multi_line__(self, ctx:SimpleSchemaParser.Metadata_clause_multi_line__Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#metadata_clause_item.
-    def visitMetadata_clause_item(self, ctx:SimpleSchemaParser.Metadata_clause_itemContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#type__.
-    def visitType__(self, ctx:SimpleSchemaParser.Type__Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#identifier_type.
-    def visitIdentifier_type(self, ctx:SimpleSchemaParser.Identifier_typeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#identifier_type_element.
-    def visitIdentifier_type_element(self, ctx:SimpleSchemaParser.Identifier_type_elementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#tuple_type.
-    def visitTuple_type(self, ctx:SimpleSchemaParser.Tuple_typeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#tuple_type_single_item__.
-    def visitTuple_type_single_item__(self, ctx:SimpleSchemaParser.Tuple_type_single_item__Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#tuple_type_multi_item__.
-    def visitTuple_type_multi_item__(self, ctx:SimpleSchemaParser.Tuple_type_multi_item__Context):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#variant_type.
-    def visitVariant_type(self, ctx:SimpleSchemaParser.Variant_typeContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_variant_type.
+    def visitParse_variant_type(self, ctx:SimpleSchemaParser.Parse_variant_typeContext):
         return self.visitChildren(ctx)
 
 

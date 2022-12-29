@@ -1,7 +1,7 @@
 - __type__: RootStatement
   range: root_file <[2, 1] -> [86, 1]>
   statements:
-  - __type__: ItemStatement
+  - __type__: ParseItemStatement
     range: root_file <[2, 1] -> [86, 1]>
     name:
       __type__: Identifier
@@ -15,7 +15,7 @@
         range: root_file <[2, 1] -> [2, 5]>
         value: Visibility.Public
     type:
-      __type__: IdentifierType
+      __type__: ParseIdentifierType
       range: root_file <[2, 7] -> [85, 2]>
       identifiers:
       - __type__: Identifier
@@ -44,9 +44,9 @@
         range: root_file <[2, 13] -> [85, 2]>
         items:
         - __type__: MetadataItem
-          range: root_file <[4, 3] -> [4, 31]>
+          range: root_file <[4, 3] -> [4, 33]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[4, 3] -> [4, 13]>
             id:
               __type__: SimpleElement
@@ -57,20 +57,13 @@
               range: root_file <[4, 3] -> [4, 13]>
               value: Visibility.Public
           value:
-            __type__: IdentifierExpression
-            range: root_file <[4, 15] -> [4, 31]>
-            id:
-              __type__: SimpleElement
-              range: root_file <[4, 15] -> [4, 31]>
-              value: identifier_value
-            visibility:
-              __type__: SimpleElement
-              range: root_file <[4, 15] -> [4, 31]>
-              value: Visibility.Public
+            __type__: StringExpression
+            range: root_file <[4, 15] -> [4, 33]>
+            value: identifier_value
         - __type__: MetadataItem
           range: root_file <[7, 3] -> [7, 30]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[7, 3] -> [7, 18]>
             id:
               __type__: SimpleElement
@@ -87,7 +80,7 @@
         - __type__: MetadataItem
           range: root_file <[8, 3] -> [8, 28]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[8, 3] -> [8, 18]>
             id:
               __type__: SimpleElement
@@ -104,7 +97,7 @@
         - __type__: MetadataItem
           range: root_file <[9, 3] -> [9, 35]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[9, 3] -> [9, 28]>
             id:
               __type__: SimpleElement
@@ -121,7 +114,7 @@
         - __type__: MetadataItem
           range: root_file <[10, 3] -> [10, 35]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[10, 3] -> [10, 28]>
             id:
               __type__: SimpleElement
@@ -138,7 +131,7 @@
         - __type__: MetadataItem
           range: root_file <[13, 3] -> [13, 24]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[13, 3] -> [13, 19]>
             id:
               __type__: SimpleElement
@@ -155,7 +148,7 @@
         - __type__: MetadataItem
           range: root_file <[14, 3] -> [14, 24]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[14, 3] -> [14, 19]>
             id:
               __type__: SimpleElement
@@ -172,7 +165,7 @@
         - __type__: MetadataItem
           range: root_file <[17, 3] -> [17, 42]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[17, 3] -> [17, 15]>
             id:
               __type__: SimpleElement
@@ -189,7 +182,7 @@
         - __type__: MetadataItem
           range: root_file <[18, 3] -> [18, 57]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[18, 3] -> [18, 23]>
             id:
               __type__: SimpleElement
@@ -206,7 +199,7 @@
         - __type__: MetadataItem
           range: root_file <[20, 3] -> [20, 56]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[20, 3] -> [20, 22]>
             id:
               __type__: SimpleElement
@@ -223,7 +216,7 @@
         - __type__: MetadataItem
           range: root_file <[21, 3] -> [21, 77]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[21, 3] -> [21, 30]>
             id:
               __type__: SimpleElement
@@ -240,7 +233,7 @@
         - __type__: MetadataItem
           range: root_file <[23, 3] -> [30, 26]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[23, 3] -> [23, 21]>
             id:
               __type__: SimpleElement
@@ -263,7 +256,7 @@
         - __type__: MetadataItem
           range: root_file <[32, 3] -> [38, 26]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[32, 3] -> [32, 21]>
             id:
               __type__: SimpleElement
@@ -285,7 +278,7 @@
         - __type__: MetadataItem
           range: root_file <[40, 3] -> [40, 17]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[40, 3] -> [40, 14]>
             id:
               __type__: SimpleElement
@@ -302,7 +295,7 @@
         - __type__: MetadataItem
           range: root_file <[41, 3] -> [41, 17]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[41, 3] -> [41, 14]>
             id:
               __type__: SimpleElement
@@ -319,7 +312,7 @@
         - __type__: MetadataItem
           range: root_file <[42, 3] -> [42, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[42, 3] -> [42, 14]>
             id:
               __type__: SimpleElement
@@ -336,7 +329,7 @@
         - __type__: MetadataItem
           range: root_file <[43, 3] -> [43, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[43, 3] -> [43, 14]>
             id:
               __type__: SimpleElement
@@ -353,7 +346,7 @@
         - __type__: MetadataItem
           range: root_file <[44, 3] -> [44, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[44, 3] -> [44, 14]>
             id:
               __type__: SimpleElement
@@ -370,7 +363,7 @@
         - __type__: MetadataItem
           range: root_file <[45, 3] -> [45, 20]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[45, 3] -> [45, 14]>
             id:
               __type__: SimpleElement
@@ -387,7 +380,7 @@
         - __type__: MetadataItem
           range: root_file <[46, 3] -> [46, 20]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[46, 3] -> [46, 14]>
             id:
               __type__: SimpleElement
@@ -404,7 +397,7 @@
         - __type__: MetadataItem
           range: root_file <[47, 3] -> [47, 20]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[47, 3] -> [47, 14]>
             id:
               __type__: SimpleElement
@@ -421,7 +414,7 @@
         - __type__: MetadataItem
           range: root_file <[48, 3] -> [48, 18]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[48, 3] -> [48, 14]>
             id:
               __type__: SimpleElement
@@ -438,7 +431,7 @@
         - __type__: MetadataItem
           range: root_file <[49, 3] -> [49, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[49, 3] -> [49, 15]>
             id:
               __type__: SimpleElement
@@ -455,7 +448,7 @@
         - __type__: MetadataItem
           range: root_file <[50, 3] -> [50, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[50, 3] -> [50, 15]>
             id:
               __type__: SimpleElement
@@ -472,7 +465,7 @@
         - __type__: MetadataItem
           range: root_file <[52, 3] -> [52, 18]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[52, 3] -> [52, 15]>
             id:
               __type__: SimpleElement
@@ -489,7 +482,7 @@
         - __type__: MetadataItem
           range: root_file <[53, 3] -> [53, 18]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[53, 3] -> [53, 15]>
             id:
               __type__: SimpleElement
@@ -506,7 +499,7 @@
         - __type__: MetadataItem
           range: root_file <[54, 3] -> [54, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[54, 3] -> [54, 15]>
             id:
               __type__: SimpleElement
@@ -523,7 +516,7 @@
         - __type__: MetadataItem
           range: root_file <[55, 3] -> [55, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[55, 3] -> [55, 15]>
             id:
               __type__: SimpleElement
@@ -540,7 +533,7 @@
         - __type__: MetadataItem
           range: root_file <[56, 3] -> [56, 19]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[56, 3] -> [56, 15]>
             id:
               __type__: SimpleElement
@@ -557,7 +550,7 @@
         - __type__: MetadataItem
           range: root_file <[57, 3] -> [57, 22]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[57, 3] -> [57, 15]>
             id:
               __type__: SimpleElement
@@ -574,7 +567,7 @@
         - __type__: MetadataItem
           range: root_file <[58, 3] -> [58, 22]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[58, 3] -> [58, 15]>
             id:
               __type__: SimpleElement
@@ -591,7 +584,7 @@
         - __type__: MetadataItem
           range: root_file <[59, 3] -> [59, 22]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[59, 3] -> [59, 15]>
             id:
               __type__: SimpleElement
@@ -608,7 +601,7 @@
         - __type__: MetadataItem
           range: root_file <[60, 3] -> [60, 20]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[60, 3] -> [60, 15]>
             id:
               __type__: SimpleElement
@@ -625,7 +618,7 @@
         - __type__: MetadataItem
           range: root_file <[61, 3] -> [61, 21]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[61, 3] -> [61, 16]>
             id:
               __type__: SimpleElement
@@ -642,7 +635,7 @@
         - __type__: MetadataItem
           range: root_file <[62, 3] -> [62, 21]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[62, 3] -> [62, 16]>
             id:
               __type__: SimpleElement
@@ -659,7 +652,7 @@
         - __type__: MetadataItem
           range: root_file <[64, 3] -> [64, 12]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[64, 3] -> [64, 8]>
             id:
               __type__: SimpleElement
@@ -676,7 +669,7 @@
         - __type__: MetadataItem
           range: root_file <[65, 3] -> [65, 18]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[65, 3] -> [65, 8]>
             id:
               __type__: SimpleElement
@@ -696,7 +689,7 @@
         - __type__: MetadataItem
           range: root_file <[66, 3] -> [66, 20]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[66, 3] -> [66, 8]>
             id:
               __type__: SimpleElement
@@ -716,7 +709,7 @@
         - __type__: MetadataItem
           range: root_file <[67, 3] -> [69, 4]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[67, 3] -> [67, 8]>
             id:
               __type__: SimpleElement
@@ -736,7 +729,7 @@
         - __type__: MetadataItem
           range: root_file <[70, 3] -> [72, 4]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[70, 3] -> [70, 8]>
             id:
               __type__: SimpleElement
@@ -756,7 +749,7 @@
         - __type__: MetadataItem
           range: root_file <[73, 3] -> [73, 31]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[73, 3] -> [73, 8]>
             id:
               __type__: SimpleElement
@@ -785,7 +778,7 @@
         - __type__: MetadataItem
           range: root_file <[74, 3] -> [74, 33]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[74, 3] -> [74, 8]>
             id:
               __type__: SimpleElement
@@ -814,7 +807,7 @@
         - __type__: MetadataItem
           range: root_file <[75, 3] -> [79, 4]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[75, 3] -> [75, 8]>
             id:
               __type__: SimpleElement
@@ -840,7 +833,7 @@
         - __type__: MetadataItem
           range: root_file <[80, 3] -> [84, 4]>
           name:
-            __type__: IdentifierExpression
+            __type__: Identifier
             range: root_file <[80, 3] -> [80, 8]>
             id:
               __type__: SimpleElement

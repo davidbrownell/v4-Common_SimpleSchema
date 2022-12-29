@@ -2,14 +2,14 @@ root_file:
 - __type__: RootStatement
   range: root_file <[1, 1] -> [2, 1]>
   statements:
-  - __type__: IncludeStatement
+  - __type__: ParseIncludeStatement
     range: root_file <[1, 1] -> [2, 1]>
     filename:
       __type__: SimpleElement
       range: root_file <[1, 6] -> [1, 19]>
       value: include_file1.SimpleSchema
     items:
-    - __type__: IncludeStatementItem
+    - __type__: ParseIncludeStatementItem
       range: root_file <[1, 27] -> [1, 30]>
       element_name:
         __type__: Identifier
@@ -37,7 +37,7 @@ include_file1.SimpleSchema:
 - __type__: RootStatement
   range: include_file1.SimpleSchema <[1, 1] -> [2, 1]>
   statements:
-  - __type__: ItemStatement
+  - __type__: ParseItemStatement
     range: include_file1.SimpleSchema <[1, 1] -> [2, 1]>
     name:
       __type__: Identifier
@@ -51,7 +51,7 @@ include_file1.SimpleSchema:
         range: include_file1.SimpleSchema <[1, 1] -> [1, 4]>
         value: Visibility.Public
     type:
-      __type__: IdentifierType
+      __type__: ParseIdentifierType
       range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
       identifiers:
       - __type__: Identifier

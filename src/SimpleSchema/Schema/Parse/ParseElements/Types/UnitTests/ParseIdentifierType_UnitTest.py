@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  IdentifierType_UnitTest.py
+# |  ParseIdentifierType_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-15 11:15:45
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for IdentifierType.py"""
+"""Unit tests for ParseIdentifierType.py"""
 
 import re
 import sys
@@ -33,7 +33,7 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Identifier import Identifier, SimpleElement, Visibility
     from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-    from SimpleSchema.Schema.Elements.Types.IdentifierType import IdentifierType
+    from SimpleSchema.Schema.Parse.ParseElements.Types.ParseIdentifierType import ParseIdentifierType
 
 
 # ----------------------------------------------------------------------
@@ -42,7 +42,7 @@ def test_SingleIdentifier():
     range2 = mock.MagicMock()
     cardinality_mock = mock.MagicMock()
 
-    i = IdentifierType(
+    i = ParseIdentifierType(
         range1,
         cardinality_mock,
         None,
@@ -65,7 +65,7 @@ def test_SingleIdentifier():
     assert i.identifiers[0].id.value == "TheType"
     assert i.identifiers[0].visibility.value == Visibility.Private
 
-    assert i.element_reference is None
+    assert i.is_element_reference is None
 
 
 # ----------------------------------------------------------------------
@@ -76,7 +76,7 @@ def test_MultipleIdentifiers():
     id1 = mock.MagicMock()
     id2 = mock.MagicMock()
 
-    i = IdentifierType(
+    i = ParseIdentifierType(
         range,
         cardinality,
         metadata,
@@ -88,16 +88,16 @@ def test_MultipleIdentifiers():
     assert i.cardinality is cardinality
     assert i.metadata is metadata
     assert i.identifiers == [id1, id2]
-    assert i.element_reference is None
+    assert i.is_element_reference is None
 
 
 # ----------------------------------------------------------------------
 def test_WithElementReference():
     reference_range = mock.MagicMock()
 
-    i = IdentifierType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock(), [mock.MagicMock()], reference_range)
+    i = ParseIdentifierType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock(), [mock.MagicMock()], reference_range)
 
-    assert i.element_reference is reference_range
+    assert i.is_element_reference is reference_range
 
 
 # ----------------------------------------------------------------------
@@ -110,7 +110,7 @@ def test_ErrorInvalid():
             SimpleSchemaException,
             match=re.escape("'{}' is not a valid type; identifier types must begin with an uppercase letter. (file_for_invalid_content <[1, 2] -> [3, 4]>)".format(invalid_value)),
         ):
-            IdentifierType(
+            ParseIdentifierType(
                 mock.MagicMock(),
                 mock.MagicMock(),
                 None,
@@ -128,7 +128,7 @@ def test_ErrorInvalid():
             SimpleSchemaException,
             match=re.escape("'{}' is not a valid type; identifier types must begin with an uppercase letter. (file_for_invalid_content <[2, 4] -> [6, 8]>)".format(invalid_value)),
         ):
-            IdentifierType(
+            ParseIdentifierType(
                 mock.MagicMock(),
                 mock.MagicMock(),
                 None,
@@ -154,59 +154,10 @@ def test_ErrorNoIdentifiers():
         SimpleSchemaException,
         match=re.escape("'IdentifierType' instances must have at least one identifier. (filename <[11, 22] -> [33, 44]>)"),
     ):
-        IdentifierType(
+        ParseIdentifierType(
             Range.Create(Path("filename"), 11, 22, 33, 44),
             mock.MagicMock(),
             None,
             [],
             None,
         )
-
-
-# ----------------------------------------------------------------------
-def test_VisibilityErrors():
-    for visibility, desc in [
-        (Visibility.Private, "private"),
-        (Visibility.Protected, "protected"),
-    ]:
-        # The first element can be private/protected
-        IdentifierType(
-            mock.MagicMock(),
-            mock.MagicMock(),
-            None,
-            [
-                Identifier(
-                    mock.MagicMock(),
-                    SimpleElement(mock.MagicMock(), "ValidType"),
-                    SimpleElement(mock.MagicMock(), visibility),
-                ),
-            ],
-            None,
-        )
-
-        # Subsequent identifiers may not be
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("'InvalidType' is {} and cannot be accessed. (error_filename <[10, 20] -> [30, 40]>)".format(desc)),
-        ):
-            IdentifierType(
-                mock.MagicMock(),
-                mock.MagicMock(),
-                None,
-                [
-                    Identifier(
-                        mock.MagicMock(),
-                        SimpleElement(mock.MagicMock(), "ValidType"),
-                        SimpleElement(mock.MagicMock(), visibility),
-                    ),
-                    Identifier(
-                        mock.MagicMock(),
-                        SimpleElement(mock.MagicMock(), "InvalidType"),
-                        SimpleElement(
-                            Range.Create(Path("error_filename"), 10, 20, 30, 40),
-                            visibility,
-                        ),
-                    ),
-                ],
-                None,
-            )

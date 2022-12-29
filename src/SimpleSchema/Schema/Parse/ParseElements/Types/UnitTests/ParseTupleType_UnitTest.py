@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  VariantType_UnitTest.py
+# |  ParseTupleType_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-15 11:17:27
+# |      2022-12-15 11:16:24
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for VariantType.py"""
+"""Unit tests for ParseTupleType.py"""
 
 import re
 import sys
@@ -33,30 +33,30 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Elements.Types.VariantType import VariantType, Type
+    from SimpleSchema.Schema.Parse.ParseElements.Types.ParseTupleType import ParseTupleType, ParseType
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
-    i1 = Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
-    i2 = Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
+    i1 = ParseType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
+    i2 = ParseType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
 
     cardinality = mock.MagicMock()
     metadata = mock.MagicMock()
 
-    t = VariantType(
-        Range.Create(Path("variant_file"), 1, 1, 3, 1),
+    t = ParseTupleType(
+        Range.Create(Path("tuple_file"), 1, 1, 3, 1),
         cardinality,
         metadata,
         [i1],
     )
 
-    assert t.range == Range.Create(Path("variant_file"), 1, 1, 3, 1)
+    assert t.range == Range.Create(Path("tuple_file"), 1, 1, 3, 1)
     assert t.cardinality is cardinality
     assert t.metadata is metadata
     assert t.types == [i1]
 
-    t = VariantType(
+    t = ParseTupleType(
         mock.MagicMock(),
         mock.MagicMock(),
         mock.MagicMock(),
@@ -72,34 +72,9 @@ def test_ErrorEmpty():
         SimpleSchemaException,
         match=re.escape("No types were provided. (file <[1, 2] -> [3, 4]>)"),
     ):
-        VariantType(
+        ParseTupleType(
             Range.Create(Path("file"), 1, 2, 3, 4),
             mock.MagicMock(),
             mock.MagicMock(),
             [],
-        )
-
-
-# ----------------------------------------------------------------------
-def test_ErrorInvalidTypes():
-    with pytest.raises(
-        SimpleSchemaException,
-        match=re.escape("Nested variant types are not supported. (invalid_variant_file <[10, 20] -> [30, 40]>)"),
-    ):
-        VariantType(
-            Range.Create(Path("file"), 1, 2, 3, 4),
-            mock.MagicMock(),
-            mock.MagicMock(),
-            [
-                Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock()),
-                VariantType(
-                    Range.Create(Path("invalid_variant_file"), 10, 20, 30, 40),
-                    mock.MagicMock(),
-                    mock.MagicMock(),
-                    [
-                        mock.MagicMock(),
-                    ],
-                ),
-                Type(mock.MagicMock(), mock.MagicMock(), mock.MagicMock()),
-            ],
         )

@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  VariantType.py
+# |  ParseTupleType.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-14 09:35:23
+# |      2022-12-28 17:48:59
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the VariantType"""
+"""Contains the ParseTupleType object"""
 
 from dataclasses import dataclass
 from typing import List
@@ -22,25 +22,22 @@ from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-from SimpleSchema.Schema.Elements.Types.Type import Type
+
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseType import ParseType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class VariantType(Type):
-    """A list of potential types"""
+class ParseTupleType(ParseType):
+    """A list of types"""
 
     # ----------------------------------------------------------------------
-    types: List[Type]
+    types: List[ParseType]
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
         if not self.types:
             raise SimpleSchemaException("No types were provided.", self.range)
-
-        for the_type in self.types:
-            if isinstance(the_type, VariantType):
-                raise SimpleSchemaException("Nested variant types are not supported.", the_type.range)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -49,4 +46,4 @@ class VariantType(Type):
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield "types", self.types
 
-        yield from super(VariantType, self)._GenerateAcceptDetails()
+        yield from super(ParseTupleType, self)._GenerateAcceptDetails()

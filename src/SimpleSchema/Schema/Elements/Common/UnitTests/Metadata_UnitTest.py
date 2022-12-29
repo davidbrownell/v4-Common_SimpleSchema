@@ -30,11 +30,11 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Identifier import Visibility, SimpleElement
+    from SimpleSchema.Schema.Elements.Common.Identifier import Identifier, SimpleElement, Visibility
     from SimpleSchema.Schema.Elements.Common.Metadata import Metadata, MetadataItem
     from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-    from SimpleSchema.Schema.Elements.Expressions.IdentifierExpression import IdentifierExpression
+    from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
 
 
 # ----------------------------------------------------------------------
@@ -43,21 +43,17 @@ def test_MetadataItem():
 
     mei = MetadataItem(
         Range.Create(path, 1, 2, 3, 4),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 1, 2, 1, 10),
             SimpleElement(mock.MagicMock(), "foo"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
         ),
-        IdentifierExpression(
-            Range.Create(path, 1, 10, 1, 20),
-            SimpleElement(mock.MagicMock(), "bar"),
-            SimpleElement(mock.MagicMock(), Visibility.Public),
-        ),
+        StringExpression(mock.MagicMock(), "bar"),
     )
 
     assert mei.range == Range.Create(path, 1, 2, 3, 4)
     assert mei.name.id.value == "foo"
-    assert mei.value.id.value == "bar"  # type: ignore
+    assert mei.value.value == "bar"  # type: ignore
 
 
 # ----------------------------------------------------------------------
@@ -66,12 +62,12 @@ def test_Metadata():
 
     mei1 = MetadataItem(
         Range.Create(path, 1, 1, 1, 40),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 1, 1, 1, 10),
             SimpleElement(mock.MagicMock(), "foo"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
         ),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 1, 10, 1, 20),
             SimpleElement(mock.MagicMock(), "bar"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
@@ -80,12 +76,12 @@ def test_Metadata():
 
     mei2 = MetadataItem(
         Range.Create(path, 2, 1, 2, 40),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 2, 1, 2, 10),
             SimpleElement(mock.MagicMock(), "biz"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
         ),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 2, 10, 2, 20),
             SimpleElement(mock.MagicMock(), "baz"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
@@ -107,12 +103,12 @@ def test_DuplicateNames():
 
     mei1 = MetadataItem(
         Range.Create(path, 1, 1, 1, 40),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 1, 1, 1, 10),
             SimpleElement(mock.MagicMock(), "same_name"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
         ),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 1, 10, 1, 20),
             SimpleElement(mock.MagicMock(), "bar"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
@@ -121,12 +117,12 @@ def test_DuplicateNames():
 
     mei2 = MetadataItem(
         Range.Create(path, 2, 1, 2, 40),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 2, 1, 2, 10),
             SimpleElement(mock.MagicMock(), "same_name"),
             SimpleElement(mock.MagicMock(), Visibility.Public),
         ),
-        IdentifierExpression(
+        Identifier(
             Range.Create(path, 2, 10, 2, 20),
             SimpleElement(mock.MagicMock(), "baz"),
             SimpleElement(mock.MagicMock(), Visibility.Public),

@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  ItemStatement.py
+# |  ParseItemStatement.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-16 10:35:18
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the ItemStatement object"""
+"""Contains the ParseItemStatement object"""
 
 from dataclasses import dataclass
 
@@ -24,17 +24,17 @@ from SimpleSchema.Schema.Elements.Common.Identifier import Identifier
 
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseType import ParseType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class ItemStatement(Statement):
+class ParseItemStatement(Statement):
     """Defines a single item"""
 
     # ----------------------------------------------------------------------
     name: Identifier
-    type: Type
+    type: ParseType
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

@@ -15,11 +15,21 @@
 # ----------------------------------------------------------------------
 """Contains the ToPythonDictVisitor object"""
 
-from typing import Any, List, Dict, Union
+from contextlib import contextmanager
+from typing import Any, Dict, Iterator, List, Optional, Union
 
 from Common_Foundation.Types import overridemethod
 
-from SimpleSchema.Schema.Visitors.Visitor import *  # pylint: disable=wildcard-import,unused-wildcard-import
+from SimpleSchema.Schema.Elements.Common.Element import Element, SimpleElement, VisitResult
+
+from SimpleSchema.Schema.Elements.Expressions.BooleanExpression import BooleanExpression
+from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
+from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpression
+from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
+
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseIdentifierType import ParseIdentifierType
+
+from SimpleSchema.Schema.Visitors.Visitor import Visitor
 
 
 # ----------------------------------------------------------------------
@@ -51,13 +61,15 @@ class ToPythonDictVisitor(Visitor):
         if match:
             return lambda *args, **kwargs: self._DefaultDetailMethod(match.group("member_name"), *args, **kwargs)
 
+        match = self.METHOD_REGEX.match(name)
+        if match:
+            return self._DefaultMethod
+
         raise AttributeError(name)
 
     # ----------------------------------------------------------------------
-    # |  Generic Methods
-    # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
+    @overridemethod
     def OnElement(
         self,
         element: Element,  # pylint: disable=unused-argument
@@ -75,8 +87,8 @@ class ToPythonDictVisitor(Visitor):
         yield
 
     # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
+    @overridemethod
     def OnElementChildren(
         self,
         element: Element,  # pylint: disable=unused-argument
@@ -93,21 +105,6 @@ class ToPythonDictVisitor(Visitor):
         d[element.CHILDREN_NAME] = children
 
     # ----------------------------------------------------------------------
-    # |  Common Methods
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnCardinality(self, element: Cardinality) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnIdentifier(self, element: Identifier) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
     def OnSimpleElement(
         self,
@@ -125,21 +122,8 @@ class ToPythonDictVisitor(Visitor):
         yield
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnMetadata(self, element: Metadata) -> Iterator[Optional[VisitResult]]:
-        # No custom processing required
-        yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    def OnMetadataItem(self, element: MetadataItem) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
     # |  Expressions
     # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
     def OnBooleanExpression(self, element: BooleanExpression) -> Iterator[Optional[VisitResult]]:
         d = self._stack[-1]
@@ -151,14 +135,6 @@ class ToPythonDictVisitor(Visitor):
         yield
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnIdentifierExpression(self, element: IdentifierExpression) -> Iterator[Optional[VisitResult]]:
-        with self.OnIdentifier(element) as result:
-            yield result
-
-    # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
     def OnIntegerExpression(self, element: IntegerExpression) -> Iterator[Optional[VisitResult]]:
         d = self._stack[-1]
@@ -170,13 +146,6 @@ class ToPythonDictVisitor(Visitor):
         yield
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnListExpression(self, element: ListExpression) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
     def OnNumberExpression(self, element: NumberExpression) -> Iterator[Optional[VisitResult]]:
         d = self._stack[-1]
@@ -188,7 +157,6 @@ class ToPythonDictVisitor(Visitor):
         yield
 
     # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
     def OnStringExpression(self, element: StringExpression) -> Iterator[Optional[VisitResult]]:
         d = self._stack[-1]
@@ -200,74 +168,25 @@ class ToPythonDictVisitor(Visitor):
         yield
 
     # ----------------------------------------------------------------------
-    # |  Statements
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnIncludeStatement(self, element: IncludeStatement) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnIncludeStatementItem(self, element: IncludeStatementItem) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnExtensionStatement(self, element: ExtensionStatement) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnExtensionStatementKeywordArg(self, element: ExtensionStatementKeywordArg) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnRootStatement(self, element: RootStatement) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
     # |  Types
     # ----------------------------------------------------------------------
-    @overridemethod
     @contextmanager
-    def OnIdentifierType(self, element: IdentifierType) -> Iterator[Optional[VisitResult]]:
-        if element.element_reference:
-            self._stack[-1]["element_reference"] = element.element_reference.ToString()
+    def OnParseIdentifierType(self, element: ParseIdentifierType) -> Iterator[Optional[VisitResult]]:
+        if element.is_element_reference:
+            self._stack[-1]["is_element_reference"] = element.is_element_reference.ToString()
 
         yield
 
     # ----------------------------------------------------------------------
-    @overridemethod
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     @contextmanager
-    def OnTupleType(self, element: TupleType) -> Iterator[Optional[VisitResult]]:
-        yield
+    def _DefaultMethod(
+        self,
+        element: Element,  # pylint: disable=unused-argument
+    ) -> Iterator[Optional[VisitResult]]:
+        yield None
 
-    # ----------------------------------------------------------------------
-    @overridemethod
-    @contextmanager
-    def OnVariantType(self, element: VariantType) -> Iterator[Optional[VisitResult]]:
-        yield
-
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     def _DefaultDetailMethod(
         self,

@@ -1,7 +1,7 @@
 - __type__: RootStatement
   range: root_file <[1, 1] -> [10, 1]>
   statements:
-  - __type__: StructureStatement
+  - __type__: ParseStructureStatement
     range: root_file <[1, 1] -> [10, 1]>
     name:
       __type__: Identifier
@@ -26,7 +26,7 @@
         range: root_file <[1, 1] -> [10, 1]>
         value: 1
     children:
-    - __type__: StructureStatement
+    - __type__: ParseStructureStatement
       range: root_file <[2, 5] -> [7, 1]>
       name:
         __type__: Identifier
@@ -51,7 +51,7 @@
           range: root_file <[2, 5] -> [7, 1]>
           value: 1
       children:
-      - __type__: StructureStatement
+      - __type__: ParseStructureStatement
         range: root_file <[3, 9] -> [5, 1]>
         name:
           __type__: Identifier
@@ -76,7 +76,7 @@
             range: root_file <[3, 9] -> [5, 1]>
             value: 1
         children:
-        - __type__: ItemStatement
+        - __type__: ParseItemStatement
           range: root_file <[4, 13] -> [5, 1]>
           name:
             __type__: Identifier
@@ -90,7 +90,7 @@
               range: root_file <[4, 13] -> [4, 17]>
               value: Visibility.Public
           type:
-            __type__: IdentifierType
+            __type__: ParseIdentifierType
             range: root_file <[4, 19] -> [4, 25]>
             identifiers:
             - __type__: Identifier
@@ -114,7 +114,7 @@
                 __type__: IntegerExpression
                 range: root_file <[4, 19] -> [4, 25]>
                 value: 1
-      - __type__: ItemStatement
+      - __type__: ParseItemStatement
         range: root_file <[6, 9] -> [7, 1]>
         name:
           __type__: Identifier
@@ -128,7 +128,7 @@
             range: root_file <[6, 9] -> [6, 20]>
             value: Visibility.Public
         type:
-          __type__: IdentifierType
+          __type__: ParseIdentifierType
           range: root_file <[6, 22] -> [6, 33]>
           identifiers:
           - __type__: Identifier
@@ -152,7 +152,7 @@
               __type__: IntegerExpression
               range: root_file <[6, 22] -> [6, 33]>
               value: 1
-    - __type__: ItemStatement
+    - __type__: ParseItemStatement
       range: root_file <[8, 5] -> [9, 5]>
       name:
         __type__: Identifier
@@ -166,7 +166,7 @@
           range: root_file <[8, 5] -> [8, 11]>
           value: Visibility.Public
       type:
-        __type__: IdentifierType
+        __type__: ParseIdentifierType
         range: root_file <[8, 13] -> [8, 19]>
         identifiers:
         - __type__: Identifier
@@ -190,7 +190,7 @@
             __type__: IntegerExpression
             range: root_file <[8, 13] -> [8, 19]>
             value: 1
-    - __type__: ItemStatement
+    - __type__: ParseItemStatement
       range: root_file <[9, 5] -> [10, 1]>
       name:
         __type__: Identifier
@@ -204,7 +204,7 @@
           range: root_file <[9, 5] -> [9, 11]>
           value: Visibility.Public
       type:
-        __type__: IdentifierType
+        __type__: ParseIdentifierType
         range: root_file <[9, 13] -> [9, 20]>
         identifiers:
         - __type__: Identifier

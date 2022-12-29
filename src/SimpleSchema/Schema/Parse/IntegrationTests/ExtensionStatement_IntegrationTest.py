@@ -54,14 +54,14 @@ def test_PositionalArg():
         Test(
             textwrap.dedent(
                 """\
-                Func1(one)
-                Func2(one, )
+                Func1("one")
+                Func2("one", )
                 Func3(
-                    one
+                    "one"
                 )
                 Func4(
                     # Comment Before
-                    one,
+                    "one",
                     # Comment after
 
                 )
@@ -122,7 +122,7 @@ def test_KeywordArgs():
                 Func3(
                     a=1,
                     b=2,
-                    c=three,
+                    c="three",
                 )
                 """,
             ),
