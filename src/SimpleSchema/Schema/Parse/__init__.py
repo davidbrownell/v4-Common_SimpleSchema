@@ -21,7 +21,7 @@ import sys
 import threading
 
 from pathlib import Path
-from typing import Any, Callable, cast, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, cast, Dict, List, Optional, Protocol, Tuple, Union
 
 import antlr4
 
@@ -53,7 +53,7 @@ from SimpleSchema.Schema.Elements.Statements.ExtensionStatement import Extension
 from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
-from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementItem
+from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementItem, ParseIncludeStatementType
 from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseItemStatement import ParseItemStatement
 from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseStructureStatement import ParseStructureStatement
 
@@ -172,6 +172,8 @@ def Parse(
             range_value: Range,
             filename_or_directory: SimpleElement[Path],
             items: List[ParseIncludeStatementItem],
+            *,
+            is_star_include: bool,
         ) -> ParseIncludeStatement:
             # Get the filename
             root: Optional[Path] = None
@@ -201,7 +203,13 @@ def Parse(
             filename_range: Optional[Range] = None
 
             if root.is_dir():
-                if len(items) > 1:
+                if is_star_include:
+                    raise SimpleSchemaException(
+                        "Filenames must be provided when using wildcard imports; '{}' is a directory.".format(root),
+                        range_value,
+                    )
+
+                if len(items) != 1:
                     raise SimpleSchemaException(
                         "A single filename must be imported when including content from a directory.",
                         items[1].range,
@@ -220,8 +228,15 @@ def Parse(
                         filename_range,
                     )
 
+                include_type = ParseIncludeStatementType.Module
                 items = []
             else:
+                if is_star_include:
+                    assert not items
+                    include_type = ParseIncludeStatementType.Star
+                else:
+                    include_type = ParseIncludeStatementType.Named
+
                 filename = root
                 filename_range = filename_or_directory.range
 
@@ -275,7 +290,12 @@ def Parse(
                     ),
                 )
 
-            return ParseIncludeStatement(range_value, SimpleElement(filename_range, filename), items)
+            return ParseIncludeStatement(
+                range_value,
+                include_type,
+                SimpleElement(filename_range, filename),
+                items,
+            )
 
         # ----------------------------------------------------------------------
         def Step1(
@@ -416,14 +436,32 @@ class _ErrorListener(antlr4.DiagnosticErrorListener):
 # ----------------------------------------------------------------------
 class _VisitorMixin(object):
     # ----------------------------------------------------------------------
+    # |
+    # |  Public Types
+    # |
+    # ----------------------------------------------------------------------
+    class CreateIncludeStatementFunc(Protocol):
+        def __call__(
+            self,
+            include_path: Path,
+            range_value: Range,
+            filename_or_directory: SimpleElement[Path],
+            items: List[ParseIncludeStatementItem],
+            *,
+            is_star_include: bool,
+        ) -> ParseIncludeStatement:
+            ...
+
+    # ----------------------------------------------------------------------
+    # |
+    # |  Public Methods
+    # |
+    # ----------------------------------------------------------------------
     def __init__(
         self,
         filename: Path,
         on_progress_func: Callable[[int], None],
-        create_include_statement_func: Callable[
-            [Path, Range, SimpleElement[Path], List[ParseIncludeStatementItem]],
-            ParseIncludeStatement,
-        ],
+        create_include_statement_func: "_VisitorMixin.CreateIncludeStatementFunc",
         *,
         is_included_file: bool,
     ):
@@ -766,8 +804,14 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         filename = children.pop(0)
         assert isinstance(filename, SimpleElement) and isinstance(filename.value, Path), filename
 
-        assert all(isinstance(child, ParseIncludeStatementItem) for child in children), children
-        children = cast(List[ParseIncludeStatementItem], children)
+        if len(children) == 1 and children[0] == "*":
+            children = []
+            is_star = True
+        else:
+            assert all(isinstance(child, ParseIncludeStatementItem) for child in children), children
+            children = cast(List[ParseIncludeStatementItem], children)
+
+            is_star = False
 
         self._stack.append(
             self._create_include_statement_func(
@@ -775,6 +819,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 self.CreateRange(ctx),
                 filename,
                 children,
+                is_star_include=is_star,
             ),
         )
 
@@ -786,6 +831,10 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 Path(ctx.INCLUDE_FILENAME().symbol.text),
             ),
         )
+
+    # ----------------------------------------------------------------------
+    def visitInclude_statement_star(self, ctx:SimpleSchemaParser.Include_statement_starContext):
+        self._stack.append("*")
 
     # ----------------------------------------------------------------------
     def visitInclude_statement_element(self, ctx:SimpleSchemaParser.Include_statement_elementContext):

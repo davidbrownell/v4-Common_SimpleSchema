@@ -4,10 +4,11 @@ root_file:
   statements:
   - __type__: ParseIncludeStatement
     range: root_file <[1, 1] -> [2, 1]>
+    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: root_file <[1, 6] -> [1, 19]>
-      value: include_file1
+      value: include_file1.SimpleSchema
     items:
     - __type__: ParseIncludeStatementItem
       range: root_file <[1, 27] -> [1, 30]>
@@ -33,45 +34,45 @@ root_file:
           __type__: SimpleElement
           range: root_file <[1, 27] -> [1, 30]>
           value: Visibility.Private
-include_file1:
+include_file1.SimpleSchema:
 - __type__: RootStatement
-  range: include_file1 <[1, 1] -> [2, 1]>
+  range: include_file1.SimpleSchema <[1, 1] -> [2, 1]>
   statements:
   - __type__: ParseItemStatement
-    range: include_file1 <[1, 1] -> [2, 1]>
+    range: include_file1.SimpleSchema <[1, 1] -> [2, 1]>
     name:
       __type__: Identifier
-      range: include_file1 <[1, 1] -> [1, 4]>
+      range: include_file1.SimpleSchema <[1, 1] -> [1, 4]>
       id:
         __type__: SimpleElement
-        range: include_file1 <[1, 1] -> [1, 4]>
+        range: include_file1.SimpleSchema <[1, 1] -> [1, 4]>
         value: Foo
       visibility:
         __type__: SimpleElement
-        range: include_file1 <[1, 1] -> [1, 4]>
+        range: include_file1.SimpleSchema <[1, 1] -> [1, 4]>
         value: Visibility.Public
     type:
       __type__: ParseIdentifierType
-      range: include_file1 <[1, 6] -> [1, 12]>
+      range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
       identifiers:
       - __type__: Identifier
-        range: include_file1 <[1, 6] -> [1, 12]>
+        range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
         id:
           __type__: SimpleElement
-          range: include_file1 <[1, 6] -> [1, 12]>
+          range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
           value: String
         visibility:
           __type__: SimpleElement
-          range: include_file1 <[1, 6] -> [1, 12]>
+          range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
           value: Visibility.Public
       cardinality:
         __type__: Cardinality
-        range: include_file1 <[1, 6] -> [1, 12]>
+        range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
         min:
           __type__: IntegerExpression
-          range: include_file1 <[1, 6] -> [1, 12]>
+          range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
           value: 1
         max:
           __type__: IntegerExpression
-          range: include_file1 <[1, 6] -> [1, 12]>
+          range: include_file1.SimpleSchema <[1, 6] -> [1, 12]>
           value: 1

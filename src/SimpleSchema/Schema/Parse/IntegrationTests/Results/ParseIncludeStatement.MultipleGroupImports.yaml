@@ -4,6 +4,7 @@ root_file:
   statements:
   - __type__: ParseIncludeStatement
     range: root_file <[1, 1] -> [10, 1]>
+    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: root_file <[1, 6] -> [1, 18]>

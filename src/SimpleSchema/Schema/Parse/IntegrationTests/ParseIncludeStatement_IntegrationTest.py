@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  IncludeStatement_IntegrationTest.py
+# |  ParseIncludeStatement_IntegrationTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-19 11:52:37
@@ -191,6 +191,45 @@ def test_MultipleGroupImports():
         },
         ["root_file", ],
     )
+
+
+# ----------------------------------------------------------------------
+def test_Star():
+    _Test(
+        {
+            "root_file": textwrap.dedent(
+                """\
+                from include_file import *
+                """,
+            ),
+            "include_file": "",
+        },
+        ["root_file", ],
+    )
+
+
+# ----------------------------------------------------------------------
+def test_ErrorInvalidStar():
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape(
+            "Filenames must be provided when using wildcard imports; '{}' is a directory. ({} <[1, 1] -> [2, 1]>)".format(
+                DEFAULT_WORKSPACE_PATH.parent,
+                DEFAULT_WORKSPACE_PATH / "root_item",
+            ),
+        ),
+    ):
+        TestMultiple(
+            {
+                Path("root_item"): textwrap.dedent(
+                    """\
+                    from .. import *
+                    """,
+                ),
+            },
+            [Path("root_item"), ],
+            quiet=True,
+        )
 
 
 # ----------------------------------------------------------------------

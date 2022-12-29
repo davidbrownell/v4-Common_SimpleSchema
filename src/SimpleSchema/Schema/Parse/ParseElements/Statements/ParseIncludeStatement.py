@@ -16,6 +16,7 @@
 """Contains the ParseIncludeStatement and ParseIncludeStatementItem objects"""
 
 from dataclasses import dataclass, field, InitVar
+from enum import auto, Enum
 from pathlib import Path
 from typing import List, Optional
 
@@ -26,6 +27,20 @@ from SimpleSchema.Schema.Elements.Common.Identifier import Identifier, Visibilit
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
 
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
+
+
+# ----------------------------------------------------------------------
+class ParseIncludeStatementType(Enum):
+    """Specifies the type of include statement encountered during parsing"""
+
+    # from <directory> import <filename>
+    Module                                  = auto()
+
+    # from <filename> import <name_or_names>
+    Named                                   = auto()
+
+    # from <filename> import *
+    Star                                    = auto()
 
 
 # ----------------------------------------------------------------------
@@ -82,6 +97,8 @@ class ParseIncludeStatement(Statement):
     """Includes content from another file"""
 
     # ----------------------------------------------------------------------
+    include_type: ParseIncludeStatementType
+
     filename: SimpleElement[Path]
     items: List[ParseIncludeStatementItem]  # Can be empty
 
@@ -92,6 +109,18 @@ class ParseIncludeStatement(Statement):
                 "'{}' is not a valid file.".format(self.filename.value),
                 self.filename.range,
             )
+
+        if self.include_type in [
+            ParseIncludeStatementType.Module,
+            ParseIncludeStatementType.Star,
+        ]:
+            if self.items:
+                raise SimpleSchemaException("No items were expected.", self.range)
+        elif self.include_type == ParseIncludeStatementType.Named:
+            if not self.items:
+                raise SimpleSchemaException("Items were expected.", self.range)
+        else:
+            assert False, self.include_type  # pragma: no cover
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

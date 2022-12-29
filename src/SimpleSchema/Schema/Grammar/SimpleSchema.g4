@@ -163,8 +163,9 @@ list_expression:                            LBRACK (expression__ (',' expression
 // Header Statements
 header_statement__:                         include_statement;
 
-include_statement:                          INCLUDE_FROM include_statement_filename INCLUDE_IMPORT (include_statement_grouped_items__ | include_statement_items__) NEWLINE+;
+include_statement:                          INCLUDE_FROM include_statement_filename INCLUDE_IMPORT (include_statement_star | include_statement_grouped_items__ | include_statement_items__) NEWLINE+;
 include_statement_filename:                 INCLUDE_FILENAME;
+include_statement_star:                     '*';
 include_statement_items__:                  include_statement_element (',' include_statement_element)* ','?;
 include_statement_grouped_items__:          LPAREN include_statement_items__ RPAREN;
 include_statement_element:                  identifier ('as' identifier)?;
