@@ -21,9 +21,8 @@ from typing import Dict, List
 from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
+from SimpleSchema.Schema.Elements.Common.Identifier import Identifier
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-
-from SimpleSchema.Schema.Elements.Expressions.IdentifierExpression import Identifier
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
 

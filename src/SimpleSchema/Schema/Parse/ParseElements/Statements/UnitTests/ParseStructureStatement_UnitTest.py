@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  StructureStatement_UnitTest.py
+# |  ParseStructureStatement_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-19 12:42:09
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for StructureStatement.py"""
+"""Unit tests for ParseStructureStatement.py"""
 
 import sys
 
@@ -27,7 +27,7 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Statements.StructureStatement import StructureStatement
+    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseStructureStatement import ParseStructureStatement
 
 
 # ----------------------------------------------------------------------
@@ -36,7 +36,7 @@ def test_Standard():
     name_mock = mock.MagicMock()
     cardinality_mock = mock.MagicMock()
 
-    s = StructureStatement(range_mock, name_mock, None, cardinality_mock, None, [])
+    s = ParseStructureStatement(range_mock, name_mock, None, cardinality_mock, None, [])
 
     assert s.range is range_mock
     assert s.name is name_mock
@@ -49,7 +49,7 @@ def test_Standard():
     statement1_mock = mock.MagicMock()
     statement2_mock = mock.MagicMock()
 
-    s = StructureStatement(range_mock, name_mock, base_mock, cardinality_mock, metadata_mock, [statement1_mock, statement2_mock])
+    s = ParseStructureStatement(range_mock, name_mock, base_mock, cardinality_mock, metadata_mock, [statement1_mock, statement2_mock])
 
     assert s.range is range_mock
     assert s.name is name_mock

@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  IncludeStatement_UnitTest.py
+# |  ParseIncludeStatement_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-21 10:13:37
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for IncludeStatement.py"""
+"""Unit tests for ParseIncludeStatement.py"""
 
 import re
 import sys
@@ -35,7 +35,8 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Identifier import Identifier, Visibility
     from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-    from SimpleSchema.Schema.Elements.Statements.IncludeStatement import IncludeStatement, IncludeStatementItem
+
+    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementItem
 
 
 # ----------------------------------------------------------------------
@@ -55,14 +56,14 @@ class TestIncludeStatementItem(object):
 
         item_range = mock.MagicMock()
 
-        item = IncludeStatementItem(item_range, element_name_id, reference_name_id)
+        item = ParseIncludeStatementItem(item_range, element_name_id, reference_name_id)
 
         assert item.range is item_range
         assert item.element_name is element_name_id
         assert item.reference_name is reference_name_id
 
         # With element name
-        item = IncludeStatementItem(item_range, element_name_id, None)
+        item = ParseIncludeStatementItem(item_range, element_name_id, None)
 
         assert item.range is item_range
         assert item.element_name is element_name_id
@@ -78,7 +79,7 @@ class TestIncludeStatementItem(object):
             SimpleSchemaException,
             match=re.escape("Imported elements must be types. (bad file <[1, 2] -> [3, 4]>)"),
         ):
-            IncludeStatementItem(
+            ParseIncludeStatementItem(
                 mock.MagicMock(),
                 Identifier(
                     Range.Create(Path("bad file"), 1, 2, 3, 4),
@@ -95,7 +96,7 @@ class TestIncludeStatementItem(object):
             SimpleSchemaException,
             match=re.escape("'ValidName' is not a public type. (another bad file <[10, 20] -> [30, 40]>)"),
         ):
-            IncludeStatementItem(
+            ParseIncludeStatementItem(
                 mock.MagicMock(),
                 Identifier(
                     Range.Create(Path("another bad file"), 10, 20, 30, 40),
@@ -111,7 +112,7 @@ class TestIncludeStatementItem(object):
             SimpleSchemaException,
             match=re.escape("Reference elements must be types. (bad file <[2, 4] -> [6, 8]>)"),
         ):
-            IncludeStatementItem(
+            ParseIncludeStatementItem(
                 mock.MagicMock(),
                 Identifier(
                     mock.MagicMock(),
@@ -133,7 +134,7 @@ class TestIncludeStatement(object):
         range = mock.MagicMock()
         this_file = SimpleElement(mock.MagicMock(), Path(__file__))
 
-        statement = IncludeStatement(range, this_file, [])
+        statement = ParseIncludeStatement(range, this_file, [])
 
         assert statement.range is range
         assert statement.filename is this_file
@@ -141,7 +142,7 @@ class TestIncludeStatement(object):
 
         items = [mock.MagicMock(), mock.MagicMock()]
 
-        statement = IncludeStatement(range, this_file, items)  # type: ignore
+        statement = ParseIncludeStatement(range, this_file, items)  # type: ignore
 
         assert statement.range is range
         assert statement.filename is this_file
@@ -155,7 +156,7 @@ class TestIncludeStatement(object):
             SimpleSchemaException,
             match=re.escape("'{}' is not a valid file. (bad file <[11, 21] -> [31, 41]>)".format(filename)),
         ):
-            IncludeStatement(
+            ParseIncludeStatement(
                 mock.MagicMock(),
                 SimpleElement(Range.Create(Path("bad file"), 11, 21, 31, 41), filename),
                 [],

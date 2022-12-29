@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  StructureStatement.py
+# |  ParseStructureStatement.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-16 10:43:30
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the StructureStatement object"""
+"""Contains the ParseStructureStatement object"""
 
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -28,19 +28,19 @@ from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
 
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Parse.ParseElements.Types.ParseType import ParseType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class StructureStatement(Statement):
+class ParseStructureStatement(Statement):
     """A structure type"""
 
     CHILDREN_NAME                           = "children"
 
     # ----------------------------------------------------------------------
     name: Identifier
-    base: Optional[Type]
+    base: Optional[ParseType]
     cardinality: Cardinality
     metadata: Optional[Metadata]
     children: List[Statement]  # Can be an empty list

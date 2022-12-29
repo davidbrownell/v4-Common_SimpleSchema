@@ -1,7 +1,7 @@
 - __type__: RootStatement
   range: root_file <[1, 1] -> [4, 1]>
   statements:
-  - __type__: ItemStatement
+  - __type__: ParseItemStatement
     range: root_file <[1, 1] -> [2, 1]>
     name:
       __type__: Identifier
@@ -15,9 +15,9 @@
         range: root_file <[1, 1] -> [1, 7]>
         value: Visibility.Public
     type:
-      __type__: IdentifierType
+      __type__: ParseIdentifierType
       range: root_file <[1, 9] -> [1, 22]>
-      element_reference: root_file <[1, 13] -> [1, 22]>
+      is_element_reference: root_file <[1, 13] -> [1, 22]>
       identifiers:
       - __type__: Identifier
         range: root_file <[1, 9] -> [1, 13]>
@@ -40,7 +40,7 @@
           __type__: IntegerExpression
           range: root_file <[1, 9] -> [1, 22]>
           value: 1
-  - __type__: ItemStatement
+  - __type__: ParseItemStatement
     range: root_file <[2, 1] -> [3, 1]>
     name:
       __type__: Identifier
@@ -54,9 +54,9 @@
         range: root_file <[2, 1] -> [2, 7]>
         value: Visibility.Public
     type:
-      __type__: IdentifierType
+      __type__: ParseIdentifierType
       range: root_file <[2, 9] -> [2, 25]>
-      element_reference: root_file <[2, 16] -> [2, 25]>
+      is_element_reference: root_file <[2, 16] -> [2, 25]>
       identifiers:
       - __type__: Identifier
         range: root_file <[2, 9] -> [2, 12]>
@@ -89,7 +89,7 @@
           __type__: IntegerExpression
           range: root_file <[2, 9] -> [2, 25]>
           value: 1
-  - __type__: ItemStatement
+  - __type__: ParseItemStatement
     range: root_file <[3, 1] -> [4, 1]>
     name:
       __type__: Identifier
@@ -103,9 +103,9 @@
         range: root_file <[3, 1] -> [3, 7]>
         value: Visibility.Public
     type:
-      __type__: IdentifierType
+      __type__: ParseIdentifierType
       range: root_file <[3, 9] -> [3, 32]>
-      element_reference: root_file <[3, 22] -> [3, 31]>
+      is_element_reference: root_file <[3, 22] -> [3, 31]>
       identifiers:
       - __type__: Identifier
         range: root_file <[3, 9] -> [3, 12]>

@@ -2,7 +2,7 @@
   range: workspace/root_file <[1, 1] -> [6, 1]>
   disabled: false
   statements:
-  - __type__: StructureStatement
+  - __type__: ParseStructureStatement
     range: workspace/root_file <[1, 1] -> [6, 1]>
     disabled: true
     name:
@@ -37,7 +37,7 @@
         range: workspace/root_file <[2, 5] -> [2, 15]>
         disabled: false
         name:
-          __type__: IdentifierExpression
+          __type__: Identifier
           range: workspace/root_file <[2, 5] -> [2, 11]>
           disabled: false
           id:
@@ -59,7 +59,7 @@
         range: workspace/root_file <[3, 5] -> [3, 31]>
         disabled: false
         name:
-          __type__: IdentifierExpression
+          __type__: Identifier
           range: workspace/root_file <[3, 5] -> [3, 11]>
           disabled: false
           id:
@@ -78,7 +78,7 @@
           disabled: false
           value: the string value
     children:
-    - __type__: ItemStatement
+    - __type__: ParseItemStatement
       range: workspace/root_file <[5, 5] -> [6, 1]>
       disabled: false
       name:
@@ -96,7 +96,7 @@
           disabled: false
           value: Visibility.Public
       type:
-        __type__: IdentifierType
+        __type__: ParseIdentifierType
         range: workspace/root_file <[5, 12] -> [5, 16]>
         disabled: false
         identifiers:
@@ -127,7 +127,7 @@
             range: workspace/root_file <[5, 12] -> [5, 16]>
             disabled: false
             value: 1
-  - __type__: StructureStatement
+  - __type__: ParseStructureStatement
     range: workspace/root_file <[1, 1] -> [6, 1]>
     disabled: false
     name:
@@ -167,7 +167,7 @@
         range: workspace/root_file <[2, 5] -> [2, 15]>
         disabled: false
         name:
-          __type__: IdentifierExpression
+          __type__: Identifier
           range: workspace/root_file <[2, 5] -> [2, 11]>
           disabled: false
           id:
@@ -189,7 +189,7 @@
         range: workspace/root_file <[3, 5] -> [3, 31]>
         disabled: false
         name:
-          __type__: IdentifierExpression
+          __type__: Identifier
           range: workspace/root_file <[3, 5] -> [3, 11]>
           disabled: false
           id:
@@ -208,7 +208,7 @@
           disabled: false
           value: the string value
     children:
-    - __type__: ItemStatement
+    - __type__: ParseItemStatement
       range: workspace/root_file <[5, 5] -> [6, 1]>
       disabled: false
       name:
@@ -226,7 +226,7 @@
           disabled: false
           value: Visibility.Public
       type:
-        __type__: IdentifierType
+        __type__: ParseIdentifierType
         range: workspace/root_file <[5, 12] -> [5, 16]>
         disabled: false
         identifiers:
@@ -257,7 +257,7 @@
             range: workspace/root_file <[5, 12] -> [5, 16]>
             disabled: false
             value: 1
-  - __type__: ItemStatement
+  - __type__: ParseItemStatement
     range: workspace/root_file <[1, 1] -> [6, 1]>
     disabled: false
     name:
@@ -275,7 +275,7 @@
         disabled: false
         value: Visibility.Public
     type:
-      __type__: IdentifierType
+      __type__: ParseIdentifierType
       range: workspace/root_file <[1, 1] -> [6, 1]>
       disabled: false
       identifiers:

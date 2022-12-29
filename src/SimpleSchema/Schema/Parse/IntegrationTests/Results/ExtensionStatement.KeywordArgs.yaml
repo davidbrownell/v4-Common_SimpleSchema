@@ -166,7 +166,7 @@
         range: root_file <[6, 7] -> [6, 8]>
         value: 2
     - __type__: ExtensionStatementKeywordArg
-      range: root_file <[7, 5] -> [7, 12]>
+      range: root_file <[7, 5] -> [7, 14]>
       name:
         __type__: Identifier
         range: root_file <[7, 5] -> [7, 6]>
@@ -179,13 +179,6 @@
           range: root_file <[7, 5] -> [7, 6]>
           value: Visibility.Public
       value:
-        __type__: IdentifierExpression
-        range: root_file <[7, 7] -> [7, 12]>
-        id:
-          __type__: SimpleElement
-          range: root_file <[7, 7] -> [7, 12]>
-          value: three
-        visibility:
-          __type__: SimpleElement
-          range: root_file <[7, 7] -> [7, 12]>
-          value: Visibility.Public
+        __type__: StringExpression
+        range: root_file <[7, 7] -> [7, 14]>
+        value: three

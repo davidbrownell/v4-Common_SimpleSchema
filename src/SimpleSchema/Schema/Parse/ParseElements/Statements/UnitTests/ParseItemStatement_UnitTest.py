@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  ItemStatement_UnitTest.py
+# |  ParseItemStatement_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-19 12:43:37
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for ItemStatement.py"""
+"""Unit tests for ParseItemStatement.py"""
 
 import sys
 
@@ -29,7 +29,8 @@ sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.pare
 with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
     from SimpleSchema.Schema.Elements.Common.Identifier import SimpleElement
-    from SimpleSchema.Schema.Elements.Statements.ItemStatement import ItemStatement, Identifier, Type
+
+    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseItemStatement import ParseItemStatement, Identifier, ParseType
 
 
 # ----------------------------------------------------------------------
@@ -39,14 +40,14 @@ def test_Standard():
     range3 = mock.MagicMock()
     range4 = mock.MagicMock()
 
-    data = ItemStatement(
+    data = ParseItemStatement(
         range1,
         Identifier(
             range2,
             SimpleElement(mock.MagicMock(), "id"),
             SimpleElement(mock.MagicMock(), mock.MagicMock()),
         ),
-        Type(
+        ParseType(
             range3,
             Cardinality(range4, None, None),
             None,

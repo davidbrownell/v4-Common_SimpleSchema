@@ -38,7 +38,7 @@ class Visibility(Enum):
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
 class Identifier(Element):
-    """Mixin for IdentifierType and IdentifierExpression objects"""
+    """String identifier"""
 
     # ----------------------------------------------------------------------
     id: SimpleElement[str]

@@ -108,7 +108,7 @@ def test_MetadataTypes():
                 # This item isn't meaningful, it is only a vessel for metadata
                 name: Value {{
                   # Identifier values
-                  identifier: identifier_value
+                  identifier: "identifier_value"
 
                   # Number values
                   positive_number: 12345.6789

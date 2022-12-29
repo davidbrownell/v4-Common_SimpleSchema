@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  IncludeStatement.py
+# |  ParseIncludeStatement.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-21 10:14:33
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the IncludeStatement and IncludeStatementItem objects"""
+"""Contains the ParseIncludeStatement and ParseIncludeStatementItem objects"""
 
 from dataclasses import dataclass, field, InitVar
 from pathlib import Path
@@ -30,7 +30,7 @@ from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class IncludeStatementItem(Element):
+class ParseIncludeStatementItem(Element):
     """Name explicitly included"""
 
     # ----------------------------------------------------------------------
@@ -78,12 +78,12 @@ class IncludeStatementItem(Element):
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class IncludeStatement(Statement):
+class ParseIncludeStatement(Statement):
     """Includes content from another file"""
 
     # ----------------------------------------------------------------------
     filename: SimpleElement[Path]
-    items: List[IncludeStatementItem]  # Can be empty
+    items: List[ParseIncludeStatementItem]  # Can be empty
 
     # ----------------------------------------------------------------------
     def __post_init__(self):

@@ -22,8 +22,9 @@ from typing import cast, Dict, List
 from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
+from SimpleSchema.Schema.Elements.Common.Identifier import Identifier
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
-from SimpleSchema.Schema.Elements.Expressions.IdentifierExpression import IdentifierExpression, Expression
+from SimpleSchema.Schema.Elements.Expressions.Expression import Expression
 
 
 # ----------------------------------------------------------------------
@@ -32,7 +33,7 @@ class MetadataItem(Element):
     """Individual metadata item within a collection of metadata items"""
 
     # ----------------------------------------------------------------------
-    name: IdentifierExpression
+    name: Identifier
     value: Expression
 
     # ----------------------------------------------------------------------

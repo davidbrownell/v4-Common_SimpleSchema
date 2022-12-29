@@ -2,14 +2,14 @@ root_file:
 - __type__: RootStatement
   range: root_file <[1, 1] -> [2, 1]>
   statements:
-  - __type__: IncludeStatement
+  - __type__: ParseIncludeStatement
     range: root_file <[1, 1] -> [2, 1]>
     filename:
       __type__: SimpleElement
       range: root_file <[1, 6] -> [1, 18]>
       value: include_file
     items:
-    - __type__: IncludeStatementItem
+    - __type__: ParseIncludeStatementItem
       range: root_file <[1, 26] -> [1, 37]>
       element_name:
         __type__: Identifier
@@ -33,7 +33,7 @@ root_file:
           __type__: SimpleElement
           range: root_file <[1, 33] -> [1, 37]>
           value: Visibility.Public
-    - __type__: IncludeStatementItem
+    - __type__: ParseIncludeStatementItem
       range: root_file <[1, 39] -> [1, 42]>
       element_name:
         __type__: Identifier
@@ -57,7 +57,7 @@ root_file:
           __type__: SimpleElement
           range: root_file <[1, 39] -> [1, 42]>
           value: Visibility.Private
-    - __type__: IncludeStatementItem
+    - __type__: ParseIncludeStatementItem
       range: root_file <[1, 44] -> [1, 59]>
       element_name:
         __type__: Identifier
@@ -81,7 +81,7 @@ root_file:
           __type__: SimpleElement
           range: root_file <[1, 53] -> [1, 59]>
           value: Visibility.Public
-    - __type__: IncludeStatementItem
+    - __type__: ParseIncludeStatementItem
       range: root_file <[1, 61] -> [1, 65]>
       element_name:
         __type__: Identifier
