@@ -38,7 +38,7 @@ with ExitStack(lambda: sys.path.pop(0)):
 def test_Single():
     r = Range.Create(Path("the file"), 1, 2, 3, 4)
 
-    c = Cardinality(r, None, None)
+    c = Cardinality(r, None, None, None)
 
     assert c.range is r
 
@@ -55,12 +55,14 @@ def test_Single():
     assert c.is_one_or_more is False
     assert c.is_collection is False
 
+    assert c.metadata is None
+
 
 # ----------------------------------------------------------------------
 def test_MaxNoMin():
     r = Range.Create(Path("the file"), 1, 2, 3, 4)
 
-    c = Cardinality(r, None, IntegerExpression(Range.Create(Path("the file 2"), 10, 20, 30, 40), 10))
+    c = Cardinality(r, None, IntegerExpression(Range.Create(Path("the file 2"), 10, 20, 30, 40), 10), None)
 
     assert c.range is r
 
@@ -77,6 +79,8 @@ def test_MaxNoMin():
     assert c.is_one_or_more is False
     assert c.is_collection is True
 
+    assert c.metadata is None
+
 
 # ----------------------------------------------------------------------
 def test_Range():
@@ -84,7 +88,7 @@ def test_Range():
     r2 = Range.Create(Path("file2"), 10, 20, 30, 40)
     r3 = Range.Create(Path("file3"), 11, 21, 31, 41)
 
-    c = Cardinality(r1, IntegerExpression(r2, 10), IntegerExpression(r3, 20))
+    c = Cardinality(r1, IntegerExpression(r2, 10), IntegerExpression(r3, 20), None)
 
     assert c.range is r1
 
@@ -101,13 +105,15 @@ def test_Range():
     assert c.is_one_or_more is False
     assert c.is_collection is True
 
+    assert c.metadata is None
+
 
 # ----------------------------------------------------------------------
 def test_ZeroOrMore():
     r1 = Range.Create(Path("file1"), 1, 2, 3, 4)
     r2 = Range.Create(Path("file2"), 5, 6, 7, 8)
 
-    c = Cardinality(r1, IntegerExpression(r2, 0), None)
+    c = Cardinality(r1, IntegerExpression(r2, 0), None, None)
 
     assert c.range is r1
 
@@ -122,13 +128,15 @@ def test_ZeroOrMore():
     assert c.is_one_or_more is False
     assert c.is_collection is True
 
+    assert c.metadata is None
+
 
 # ----------------------------------------------------------------------
 def test_OneOrMore():
     r1 = Range.Create(Path("file1"), 1, 2, 3, 4)
     r2 = Range.Create(Path("file2"), 5, 6, 7, 8)
 
-    c = Cardinality(r1, IntegerExpression(r2, 1), None)
+    c = Cardinality(r1, IntegerExpression(r2, 1), None, None)
 
     assert c.range is r1
 
@@ -143,6 +151,20 @@ def test_OneOrMore():
     assert c.is_one_or_more is True
     assert c.is_collection is True
 
+    assert c.metadata is None
+
+
+# ----------------------------------------------------------------------
+def test_WithMetadata():
+    the_range = mock.MagicMock()
+    the_metadata = mock.MagicMock()
+
+    c = Cardinality(the_range, None, None, the_metadata)
+
+    assert c.range is the_range
+    assert c.is_single is True
+    assert c.metadata is the_metadata
+
 
 # ----------------------------------------------------------------------
 def test_Error():
@@ -154,4 +176,5 @@ def test_Error():
             Range.Create(Path("file"), 1, 2, 3, 4),
             IntegerExpression(mock.MagicMock(), 20),
             IntegerExpression(Range.Create(Path("file2"), 10, 20, 30, 40), 12),
+            None,
         )

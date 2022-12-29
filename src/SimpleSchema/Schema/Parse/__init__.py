@@ -617,6 +617,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 range_value,
                 IntegerExpression(range_value, 0),
                 IntegerExpression(range_value, 1),
+                None, # TODO: No metadata yet
             ),
         )
 
@@ -624,13 +625,27 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
     def visitCardinality_clause_zero_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_zero_or_moreContext):
         range_value = self.CreateRange(ctx)
 
-        self._stack.append(Cardinality(range_value, IntegerExpression(range_value, 0), None))
+        self._stack.append(
+            Cardinality(
+                range_value,
+                IntegerExpression(range_value, 0),
+                None,
+                None, # TODO: No metadata yet
+            ),
+        )
 
     # ----------------------------------------------------------------------
     def visitCardinality_clause_one_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_one_or_moreContext):
         range_value = self.CreateRange(ctx)
 
-        self._stack.append(Cardinality(range_value, IntegerExpression(range_value, 1), None))
+        self._stack.append(
+            Cardinality(
+                range_value,
+                IntegerExpression(range_value, 1),
+                None,
+                None, # TODO: No metadata yet
+            ),
+        )
 
     # ----------------------------------------------------------------------
     def visitCardinality_clause_fixed(self, ctx:SimpleSchemaParser.Cardinality_clause_fixedContext):
@@ -641,7 +656,14 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
         value_expression = cast(IntegerExpression, children[0])
 
-        self._stack.append(Cardinality(self.CreateRange(ctx), value_expression, value_expression))
+        self._stack.append(
+            Cardinality(
+                self.CreateRange(ctx),
+                value_expression,
+                value_expression,
+                None, # TODO: No metadata yet
+            ),
+        )
 
     # ----------------------------------------------------------------------
     def visitCardinality_clause_range(self, ctx:SimpleSchemaParser.Cardinality_clause_rangeContext):
@@ -653,7 +675,14 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         min_expression = cast(IntegerExpression, children[0])
         max_expression = cast(IntegerExpression, children[1])
 
-        self._stack.append(Cardinality(self.CreateRange(ctx), min_expression, max_expression))
+        self._stack.append(
+            Cardinality(
+                self.CreateRange(ctx),
+                min_expression,
+                max_expression,
+                None, # TODO: No metadata yet
+            ),
+        )
 
     # ----------------------------------------------------------------------
     def visitMetadata_clause(self, ctx:SimpleSchemaParser.Metadata_clauseContext):
@@ -985,6 +1014,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                         base_type.range,
                         IntegerExpression(base_type.range, 1),
                         IntegerExpression(base_type.range, 1),
+                        None,
                     ),
                 )
 
@@ -996,7 +1026,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert statements is not None, children
 
         if cardinality is None:
-            cardinality = Cardinality(range_value, None, None)
+            cardinality = Cardinality(range_value, None, None, None)
 
         self._stack.append(
             ParseStructureStatement(
@@ -1055,7 +1085,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         range_value = self.CreateRange(ctx)
 
         if cardinality is None:
-            cardinality = Cardinality(range_value, None, None)
+            cardinality = Cardinality(range_value, None, None, None)
 
         self._stack.append(
             ParseIdentifierType(range_value, cardinality, metadata, identifiers, identifier_type_element),
@@ -1092,7 +1122,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         range_value = self.CreateRange(ctx)
 
         if cardinality is None:
-            cardinality = Cardinality(range_value, None, None)
+            cardinality = Cardinality(range_value, None, None, None)
 
         self._stack.append(ParseTupleType(range_value, cardinality, metadata, types))
 
@@ -1121,6 +1151,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         range_value = self.CreateRange(ctx)
 
         if cardinality is None:
-            cardinality = Cardinality(range_value, None, None)
+            cardinality = Cardinality(range_value, None, None, None)
 
         self._stack.append(ParseVariantType(range_value, cardinality, metadata, types))

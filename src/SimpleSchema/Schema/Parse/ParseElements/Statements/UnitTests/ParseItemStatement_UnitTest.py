@@ -49,7 +49,7 @@ def test_Standard():
         ),
         ParseType(
             range3,
-            Cardinality(range4, None, None),
+            Cardinality(range4, None, None, None),
             None,
         ),
     )
