@@ -21,6 +21,7 @@ from typing import Optional
 from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
+from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
 from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
 
@@ -36,6 +37,8 @@ class Cardinality(Element):
 
     min: IntegerExpression                  = field(init=False)
     max: Optional[IntegerExpression]        = field(init=False)
+
+    metadata: Optional[Metadata]
 
     # ----------------------------------------------------------------------
     def __post_init__(
@@ -101,3 +104,6 @@ class Cardinality(Element):
 
         if self.max is not None:
             yield "max", self.max
+
+        if self.metadata is not None:
+            yield "metadata", self.metadata
