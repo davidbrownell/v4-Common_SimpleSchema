@@ -124,6 +124,11 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SimpleSchemaParser#include_statement_star.
+    def visitInclude_statement_star(self, ctx:SimpleSchemaParser.Include_statement_starContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SimpleSchemaParser#include_statement_items__.
     def visitInclude_statement_items__(self, ctx:SimpleSchemaParser.Include_statement_items__Context):
         return self.visitChildren(ctx)

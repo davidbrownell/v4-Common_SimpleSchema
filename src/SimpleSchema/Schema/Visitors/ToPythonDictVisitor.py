@@ -27,6 +27,7 @@ from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerEx
 from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpression
 from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
 
+from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementType
 from SimpleSchema.Schema.Parse.ParseElements.Types.ParseIdentifierType import ParseIdentifierType
 
 from SimpleSchema.Schema.Visitors.Visitor import Visitor
@@ -163,6 +164,19 @@ class ToPythonDictVisitor(Visitor):
 
         d.update(
             value=element.value,
+        )
+
+        yield
+
+    # ----------------------------------------------------------------------
+    # |  Statements
+    # ----------------------------------------------------------------------
+    @contextmanager
+    def OnParseIncludeStatement(self, element: ParseIncludeStatement) -> Iterator[Optional[VisitResult]]:
+        d = self._stack[-1]
+
+        d.update(
+            include_type=str(element.include_type),
         )
 
         yield

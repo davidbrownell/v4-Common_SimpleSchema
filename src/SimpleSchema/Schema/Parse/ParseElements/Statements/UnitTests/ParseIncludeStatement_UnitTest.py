@@ -36,7 +36,7 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementItem
+    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementItem, ParseIncludeStatementType
 
 
 # ----------------------------------------------------------------------
@@ -132,19 +132,23 @@ class TestIncludeStatement(object):
     # ----------------------------------------------------------------------
     def test_Construct(self):
         range = mock.MagicMock()
+        the_type = ParseIncludeStatementType.Star
         this_file = SimpleElement(mock.MagicMock(), Path(__file__))
 
-        statement = ParseIncludeStatement(range, this_file, [])
+        statement = ParseIncludeStatement(range, the_type, this_file, [])
 
         assert statement.range is range
+        assert statement.include_type is the_type
         assert statement.filename is this_file
         assert statement.items == []
 
+        the_type = ParseIncludeStatementType.Named
         items = [mock.MagicMock(), mock.MagicMock()]
 
-        statement = ParseIncludeStatement(range, this_file, items)  # type: ignore
+        statement = ParseIncludeStatement(range, the_type, this_file, items)  # type: ignore
 
         assert statement.range is range
+        assert statement.include_type is the_type
         assert statement.filename is this_file
         assert statement.items is items
 
@@ -158,6 +162,34 @@ class TestIncludeStatement(object):
         ):
             ParseIncludeStatement(
                 mock.MagicMock(),
+                ParseIncludeStatementType.Star,
                 SimpleElement(Range.Create(Path("bad file"), 11, 21, 31, 41), filename),
                 [],
+            )
+
+    # ----------------------------------------------------------------------
+    def test_ErrorItemsExpected(self):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape("Items were expected. (file <[1, 2] -> [3, 4]>)"),
+        ):
+            ParseIncludeStatement(
+                Range.Create(Path("file"), 1, 2, 3, 4),
+                ParseIncludeStatementType.Named,
+                SimpleElement(mock.MagicMock(), Path(__file__)),
+                [],
+            )
+
+    # ----------------------------------------------------------------------
+    @pytest.mark.parametrize("include_type", [ParseIncludeStatementType.Module, ParseIncludeStatementType.Star])
+    def test_ErrorItemsNotExpected(self, include_type):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape("No items were expected. (file <[1, 2] -> [3, 4]>)"),
+        ):
+            ParseIncludeStatement(
+                Range.Create(Path("file"), 1, 2, 3, 4),
+                include_type,
+                SimpleElement(mock.MagicMock(), Path(__file__)),
+                [mock.MagicMock(), mock.MagicMock()],
             )

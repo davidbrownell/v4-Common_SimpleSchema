@@ -1,0 +1,15 @@
+root_file:
+- __type__: RootStatement
+  range: root_file <[1, 1] -> [2, 1]>
+  statements:
+  - __type__: ParseIncludeStatement
+    range: root_file <[1, 1] -> [2, 1]>
+    include_type: ParseIncludeStatementType.Star
+    filename:
+      __type__: SimpleElement
+      range: root_file <[1, 6] -> [1, 18]>
+      value: include_file
+    items: []
+include_file:
+- __type__: RootStatement
+  range: include_file <[1, 1] -> [1, 1]>

@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  StructureStatement_IntegrationTest.py
+# |  ParseStructureStatement_IntegrationTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-19 11:54:04
