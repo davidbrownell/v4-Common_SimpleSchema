@@ -160,7 +160,7 @@
         value: Visibility.Public
     type:
       __type__: ParseVariantType
-      range: root_file <[3, 8] -> [5, 2]>
+      range: root_file <[3, 8] -> [5, 3]>
       types:
       - __type__: ParseIdentifierType
         range: root_file <[3, 9] -> [3, 12]>
@@ -233,14 +233,14 @@
               value: 1
       cardinality:
         __type__: Cardinality
-        range: root_file <[3, 27] -> [3, 28]>
+        range: root_file <[5, 2] -> [5, 3]>
         min:
           __type__: IntegerExpression
-          range: root_file <[3, 27] -> [3, 28]>
+          range: root_file <[5, 2] -> [5, 3]>
           value: 1
       metadata:
         __type__: Metadata
-        range: root_file <[3, 29] -> [5, 2]>
+        range: root_file <[3, 28] -> [5, 2]>
         items:
         - __type__: MetadataItem
           range: root_file <[4, 5] -> [4, 14]>

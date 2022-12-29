@@ -88,11 +88,11 @@ def test_Metadata():
                   three: 4.0
                 }
 
-                name6: Value6? { one: 2 }
-                name7: Value7* { one: 2 }
-                name8: Value8+ { one: 2 }
-                name9: Value9[3] { one: 2 }
-                name10: Value10[3, 10] { one: 2 }
+                name6: Value6 { one: 2 } ?
+                name7: Value7 { one: 2 } *
+                name8: Value8 { one: 2 } +
+                name9: Value9 { one: 2 } [3]
+                name10: Value10 { type_meta: 2 } [3, 10] { cardinality_meta: 3 }
                 """,
             ),
         )[0],

@@ -113,19 +113,19 @@ entry_point__:                              NEWLINE* header_statement__* body_st
 // |  Common
 identifier:                                 IDENTIFIER;
 
-cardinality_clause__:                       (
+cardinality_clause:                         (
                                                 cardinality_clause_optional
                                                 | cardinality_clause_zero_or_more
                                                 | cardinality_clause_one_or_more
                                                 | cardinality_clause_fixed
-                                                | cardinality_clause_range
-                                            );
+                                                | cardinality_clause_range__
+                                            ) metadata_clause?;
 
 cardinality_clause_optional:                '?';
 cardinality_clause_zero_or_more:            '*';
 cardinality_clause_one_or_more:             '+';
 cardinality_clause_fixed:                   LBRACK integer_expression RBRACK;
-cardinality_clause_range:                   LBRACK integer_expression ',' integer_expression RBRACK;
+cardinality_clause_range__:                 LBRACK integer_expression ',' integer_expression RBRACK;
 
 metadata_clause:                            '{' (metadata_clause_single_line__ | metadata_clause_multi_line__) '}';
 metadata_clause_single_line__:              PASS | (metadata_clause_item (',' metadata_clause_item)* ','?);
@@ -171,7 +171,7 @@ include_statement_grouped_items__:          LPAREN include_statement_items__ RPA
 include_statement_element:                  identifier ('as' identifier)?;
 
 // Body Statements
-body_statement__:                           structure_statement | item_statement | extension_statement;
+body_statement__:                           parse_structure_statement | parse_item_statement | extension_statement;
 
 extension_statement:                        identifier LPAREN (
                                                 (
@@ -188,34 +188,37 @@ extension_statement_positional_args:        expression__ (',' expression__)*;
 extension_statement_keyword_args:           extension_statement_keyword_arg (',' extension_statement_keyword_arg)*;
 extension_statement_keyword_arg:            identifier '=' expression__;
 
-item_statement:                             identifier ':' parse_type__ NEWLINE+;
+parse_item_statement:                       identifier ':' parse_type NEWLINE+;
 
-structure_statement:                        identifier (
-                                                (':' parse_type__)
-                                                | (cardinality_clause__ metadata_clause)
-                                                | cardinality_clause__
-                                                | metadata_clause
-                                            )? '->' (structure_statement_single_line | structure_statement_multi_line);
-
-structure_statement_single_line:            PASS NEWLINE+;
-structure_statement_multi_line:             INDENT (
-                                                (PASS NEWLINE+)
-                                                | body_statement__+
-                                            ) DEDENT;
+parse_structure_statement:                  (
+                                                identifier (':' parse_type)? '->'
+                                                INDENT (
+                                                    (PASS NEWLINE+)
+                                                    | body_statement__+
+                                                ) DEDENT
+                                                (
+                                                    (
+                                                        (metadata_clause NEWLINE* cardinality_clause)
+                                                        | metadata_clause
+                                                        | cardinality_clause
+                                                    )
+                                                    NEWLINE+
+                                                )?
+                                            );
 
 // ----------------------------------------------------------------------
 // |  Types
-parse_type__:                               (
+parse_type:                                 (
                                                 parse_tuple_type
                                                 | parse_variant_type
                                                 | parse_identifier_type
-                                            );
+                                            ) metadata_clause? cardinality_clause?;
 
-parse_identifier_type:                      identifier ('.' identifier)* parse_identifier_type_element? cardinality_clause__? metadata_clause?;
+parse_identifier_type:                      identifier ('.' identifier)* parse_identifier_type_element?;
 parse_identifier_type_element:              '::element';
 
-parse_tuple_type:                           LPAREN (parse_tuple_type_single_item__ | parse_tuple_type_multi_item__) RPAREN cardinality_clause__? metadata_clause?;
-parse_tuple_type_single_item__:             parse_type__ ',';
-parse_tuple_type_multi_item__:              parse_type__ (',' parse_type__)+ ','?;
+parse_tuple_type:                           LPAREN (parse_tuple_type_single_item__ | parse_tuple_type_multi_item__) RPAREN;
+parse_tuple_type_single_item__:             parse_type ',';
+parse_tuple_type_multi_item__:              parse_type (',' parse_type)+ ','?;
 
-parse_variant_type:                         LPAREN parse_type__ ('|' parse_type__)* '|' parse_type__ RPAREN cardinality_clause__? metadata_clause?;
+parse_variant_type:                         LPAREN parse_type ('|' parse_type)* '|' parse_type RPAREN;

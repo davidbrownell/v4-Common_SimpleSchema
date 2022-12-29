@@ -609,43 +609,52 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         )
 
     # ----------------------------------------------------------------------
+    def visitCardinality_clause(self, ctx:SimpleSchemaParser.Cardinality_clauseContext):
+        children = self._GetChildren(ctx)
+
+        num_children = len(children)
+        assert 2 <= num_children <= 3
+
+        assert isinstance(children[0], IntegerExpression), children
+        min_expression = cast(IntegerExpression, children[0])
+
+        assert children[1] is None or isinstance(children[1], IntegerExpression), children
+        max_expression = cast(Optional[IntegerExpression], children[1])
+
+        metadata: Optional[Metadata] = None
+
+        if num_children > 2:
+            assert isinstance(children[2], Metadata), children
+            metadata = cast(Metadata, children[2])
+
+        self._stack.append(Cardinality(self.CreateRange(ctx), min_expression, max_expression, metadata))
+
+    # ----------------------------------------------------------------------
     def visitCardinality_clause_optional(self, ctx:SimpleSchemaParser.Cardinality_clause_optionalContext):
         range_value = self.CreateRange(ctx)
 
-        self._stack.append(
-            Cardinality(
-                range_value,
-                IntegerExpression(range_value, 0),
-                IntegerExpression(range_value, 1),
-                None, # TODO: No metadata yet
-            ),
-        )
+        self._stack += [
+            IntegerExpression(range_value, 0),
+            IntegerExpression(range_value, 1),
+        ]
 
     # ----------------------------------------------------------------------
     def visitCardinality_clause_zero_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_zero_or_moreContext):
         range_value = self.CreateRange(ctx)
 
-        self._stack.append(
-            Cardinality(
-                range_value,
-                IntegerExpression(range_value, 0),
-                None,
-                None, # TODO: No metadata yet
-            ),
-        )
+        self._stack += [
+            IntegerExpression(range_value, 0),
+            None,
+        ]
 
     # ----------------------------------------------------------------------
     def visitCardinality_clause_one_or_more(self, ctx:SimpleSchemaParser.Cardinality_clause_one_or_moreContext):
         range_value = self.CreateRange(ctx)
 
-        self._stack.append(
-            Cardinality(
-                range_value,
-                IntegerExpression(range_value, 1),
-                None,
-                None, # TODO: No metadata yet
-            ),
-        )
+        self._stack += [
+            IntegerExpression(range_value, 1),
+            None,
+        ]
 
     # ----------------------------------------------------------------------
     def visitCardinality_clause_fixed(self, ctx:SimpleSchemaParser.Cardinality_clause_fixedContext):
@@ -656,33 +665,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
         value_expression = cast(IntegerExpression, children[0])
 
-        self._stack.append(
-            Cardinality(
-                self.CreateRange(ctx),
-                value_expression,
-                value_expression,
-                None, # TODO: No metadata yet
-            ),
-        )
-
-    # ----------------------------------------------------------------------
-    def visitCardinality_clause_range(self, ctx:SimpleSchemaParser.Cardinality_clause_rangeContext):
-        children = self._GetChildren(ctx)
-
-        assert len(children) == 2, children
-        assert all(isinstance(child, IntegerExpression) for child in children), children
-
-        min_expression = cast(IntegerExpression, children[0])
-        max_expression = cast(IntegerExpression, children[1])
-
-        self._stack.append(
-            Cardinality(
-                self.CreateRange(ctx),
-                min_expression,
-                max_expression,
-                None, # TODO: No metadata yet
-            ),
-        )
+        self._stack += [value_expression, value_expression]
 
     # ----------------------------------------------------------------------
     def visitMetadata_clause(self, ctx:SimpleSchemaParser.Metadata_clauseContext):
@@ -944,7 +927,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(ExtensionStatementKeywordArg(self.CreateRange(ctx), name, value))
 
     # ----------------------------------------------------------------------
-    def visitItem_statement(self, ctx:SimpleSchemaParser.Item_statementContext):
+    def visitParse_item_statement(self, ctx:SimpleSchemaParser.Parse_item_statementContext):
         children = self._GetChildren(ctx)
         assert len(children) == 2
 
@@ -954,19 +937,19 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(ParseItemStatement(self.CreateRange(ctx), name, the_type))
 
     # ----------------------------------------------------------------------
-    def visitStructure_statement(self, ctx:SimpleSchemaParser.Structure_statementContext):
+    def visitParse_structure_statement(self, ctx:SimpleSchemaParser.Parse_structure_statementContext):
         children = self._GetChildren(ctx)
 
         num_children = len(children)
-        assert 2 <= num_children <= 4, children
+        assert 1 <= num_children <= 5, children
 
         assert isinstance(children[0], Identifier), children
         name = cast(Identifier, children[0])
 
+        statements: List[Statement] = []
         base_type: Optional[ParseType] = None
-        cardinality: Optional[Cardinality] = None
         metadata: Optional[Metadata] = None
-        statements: Optional[List[Statement]] = None
+        cardinality: Optional[Cardinality] = None
 
         for index in range(1, num_children):
             child = children[index]
@@ -974,56 +957,25 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             if isinstance(child, ParseType):
                 assert base_type is None, (base_type, child)
                 base_type = child
-            elif isinstance(child, Cardinality):
-                assert cardinality is None, (cardinality, child)
-                cardinality = child
+
+                if not base_type.cardinality.is_single:
+                    raise SimpleSchemaException(
+                        "Structure bases cannot have cardinality values.",
+                        base_type.cardinality.range,
+                    )
+
             elif isinstance(child, Metadata):
                 assert metadata is None, (metadata, child)
                 metadata = child
-            elif isinstance(child, list):
-                assert statements is None, (statements, child)
-                statements = child
+            elif isinstance(child, Cardinality):
+                assert cardinality is None, (cardinality, child)
+                cardinality = child
+            elif isinstance(child, Statement):
+                statements.append(child)
             else:
                 assert False, child  # pragma: no cover
 
         range_value = self.CreateRange(ctx)
-
-        # If we have a base class, extract the cardinality and metadata from that object and add it
-        # to this one.
-        if base_type is not None:
-            assert cardinality is None, cardinality
-            assert metadata is None, metadata
-
-            if (
-                (base_type.cardinality and not base_type.cardinality.is_single)
-                or base_type.metadata
-            ):
-                cardinality = base_type.cardinality
-                metadata = base_type.metadata
-
-                # Update the base_type's info
-
-                # This isn't perfect, as the updated range will include any whitespace
-                # that separates the type information and the cardinality/metadata.
-                object.__setattr__(base_type.range, "end", (cardinality or metadata).range.begin)
-
-                object.__setattr__(
-                    base_type,
-                    "cardinality",
-                    Cardinality(
-                        base_type.range,
-                        IntegerExpression(base_type.range, 1),
-                        IntegerExpression(base_type.range, 1),
-                        None,
-                    ),
-                )
-
-                object.__setattr__(base_type, "metadata", None)
-
-                # Update the current range to account for the new info
-                object.__setattr__(range_value, "end", (metadata or cardinality).range.end)
-
-        assert statements is not None, children
 
         if cardinality is None:
             cardinality = Cardinality(range_value, None, None, None)
@@ -1040,19 +992,46 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         )
 
     # ----------------------------------------------------------------------
-    def visitStructure_statement_single_line(
-        self,
-        ctx:SimpleSchemaParser.Structure_statement_single_lineContext,  # pylint: disable=unused-argument
-    ):
-        # Single line implies pass, so there are no statements
-        self._stack.append([])
-
-    # ----------------------------------------------------------------------
-    def visitStructure_statement_multi_line(self, ctx:SimpleSchemaParser.Structure_statement_multi_lineContext):
+    def visitParse_type(self, ctx:SimpleSchemaParser.Parse_typeContext):
         children = self._GetChildren(ctx)
-        assert all(isinstance(child, Statement) for child in children), children
 
-        self._stack.append(children)
+        num_children = len(children)
+        assert 1 <= num_children <= 3
+
+        assert callable(children[0]), children
+        create_func = cast(
+            Callable[
+                [
+                    Range,
+                    Cardinality,
+                    Optional[Metadata],
+                ],
+                ParseType,
+            ],
+            children[0],
+        )
+
+        metadata: Optional[Metadata] = None
+        cardinality: Optional[Cardinality] = None
+
+        for index in range(1, num_children):
+            child = children[index]
+
+            if isinstance(child, Metadata):
+                assert metadata is None, (metadata, child)
+                metadata = child
+            elif isinstance(child, Cardinality):
+                assert cardinality is None, (cardinality, child)
+                cardinality = child
+            else:
+                assert False, child  # pragma: no cover
+
+        range_value = self.CreateRange(ctx)
+
+        if cardinality is None:
+            cardinality = Cardinality(range_value, None, None, None)
+
+        self._stack.append(create_func(range_value, cardinality, metadata))
 
     # ----------------------------------------------------------------------
     def visitParse_identifier_type(self, ctx:SimpleSchemaParser.Parse_identifier_typeContext):
@@ -1062,8 +1041,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
         identifiers: List[Identifier] = []
         identifier_type_element: Optional[Range] = None
-        cardinality: Optional[Cardinality] = None
-        metadata: Optional[Metadata] = None
 
         for child in children:
             if isinstance(child, Identifier):
@@ -1071,24 +1048,19 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             elif isinstance(child, Range):
                 assert identifier_type_element is None, (identifier_type_element, child)
                 identifier_type_element = child
-            elif isinstance(child, Cardinality):
-                assert cardinality is None, (cardinality, child)
-                cardinality = child
-            elif isinstance(child, Metadata):
-                assert metadata is None, (metadata, child)
-                metadata = child
             else:
                 assert False, child  # pragma: no cover
 
         assert identifiers, children
 
-        range_value = self.CreateRange(ctx)
-
-        if cardinality is None:
-            cardinality = Cardinality(range_value, None, None, None)
-
         self._stack.append(
-            ParseIdentifierType(range_value, cardinality, metadata, identifiers, identifier_type_element),
+            lambda range_value, cardinality, metadata: ParseIdentifierType(
+                range_value,
+                cardinality,
+                metadata,
+                identifiers,
+                identifier_type_element,
+            ),
         )
 
     # ----------------------------------------------------------------------
@@ -1100,57 +1072,33 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
     # ----------------------------------------------------------------------
     def visitParse_tuple_type(self, ctx:SimpleSchemaParser.Parse_tuple_typeContext):
         children = self._GetChildren(ctx)
+        assert children
+        assert all(isinstance(child, ParseType) for child in children)
 
-        types: List[ParseType] = []
-        cardinality: Optional[Cardinality] = None
-        metadata: Optional[Metadata] = None
+        children = cast(List[ParseType], children)
 
-        for child in children:
-            if isinstance(child, ParseType):
-                types.append(child)
-            elif isinstance(child, Cardinality):
-                assert cardinality is None, (cardinality, child)
-                cardinality = child
-            elif isinstance(child, Metadata):
-                assert metadata is None, (metadata, child)
-                metadata = child
-            else:
-                assert False, child  # pragma: no cover
-
-        assert types
-
-        range_value = self.CreateRange(ctx)
-
-        if cardinality is None:
-            cardinality = Cardinality(range_value, None, None, None)
-
-        self._stack.append(ParseTupleType(range_value, cardinality, metadata, types))
+        self._stack.append(
+            lambda range_value, cardinality, metadata: ParseTupleType(
+                range_value,
+                cardinality,
+                metadata,
+                children,
+            ),
+        )
 
     # ----------------------------------------------------------------------
     def visitParse_variant_type(self, ctx:SimpleSchemaParser.Parse_variant_typeContext):
         children = self._GetChildren(ctx)
+        assert children
+        assert all(isinstance(child, ParseType) for child in children)
 
-        types: List[ParseType] = []
-        cardinality: Optional[Cardinality] = None
-        metadata: Optional[Metadata] = None
+        children = cast(List[ParseType], children)
 
-        for child in children:
-            if isinstance(child, ParseType):
-                types.append(child)
-            elif isinstance(child, Cardinality):
-                assert cardinality is None, (cardinality, child)
-                cardinality = child
-            elif isinstance(child, Metadata):
-                assert metadata is None, (metadata, child)
-                metadata = child
-            else:
-                assert False, child  # pragma: no cover
-
-        assert types
-
-        range_value = self.CreateRange(ctx)
-
-        if cardinality is None:
-            cardinality = Cardinality(range_value, None, None, None)
-
-        self._stack.append(ParseVariantType(range_value, cardinality, metadata, types))
+        self._stack.append(
+            lambda range_value, cardinality, metadata: ParseVariantType(
+                range_value,
+                cardinality,
+                metadata,
+                children,
+            ),
+        )

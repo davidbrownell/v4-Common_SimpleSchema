@@ -19,8 +19,8 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause__.
-    def visitCardinality_clause__(self, ctx:SimpleSchemaParser.Cardinality_clause__Context):
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause.
+    def visitCardinality_clause(self, ctx:SimpleSchemaParser.Cardinality_clauseContext):
         return self.visitChildren(ctx)
 
 
@@ -44,8 +44,8 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_range.
-    def visitCardinality_clause_range(self, ctx:SimpleSchemaParser.Cardinality_clause_rangeContext):
+    # Visit a parse tree produced by SimpleSchemaParser#cardinality_clause_range__.
+    def visitCardinality_clause_range__(self, ctx:SimpleSchemaParser.Cardinality_clause_range__Context):
         return self.visitChildren(ctx)
 
 
@@ -169,28 +169,18 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#item_statement.
-    def visitItem_statement(self, ctx:SimpleSchemaParser.Item_statementContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_item_statement.
+    def visitParse_item_statement(self, ctx:SimpleSchemaParser.Parse_item_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#structure_statement.
-    def visitStructure_statement(self, ctx:SimpleSchemaParser.Structure_statementContext):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_structure_statement.
+    def visitParse_structure_statement(self, ctx:SimpleSchemaParser.Parse_structure_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#structure_statement_single_line.
-    def visitStructure_statement_single_line(self, ctx:SimpleSchemaParser.Structure_statement_single_lineContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#structure_statement_multi_line.
-    def visitStructure_statement_multi_line(self, ctx:SimpleSchemaParser.Structure_statement_multi_lineContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#parse_type__.
-    def visitParse_type__(self, ctx:SimpleSchemaParser.Parse_type__Context):
+    # Visit a parse tree produced by SimpleSchemaParser#parse_type.
+    def visitParse_type(self, ctx:SimpleSchemaParser.Parse_typeContext):
         return self.visitChildren(ctx)
 
 
