@@ -25,11 +25,11 @@ on:
 
 jobs:
   _fc3d4c19-5b8c-46b4-bb52-df2cf38e7265:
-    name: "Validate"
+    name: "Validate (${{ github.ref_name }})"
     uses: davidbrownell/v4-Common_SimpleSchema/.github/workflows/validate.yaml@CI-latest
     with:
-      repo_branch:                          ${{ github.ref_name }}
+      repo_branch: ${{ github.ref_name }}
 
-      force_setup:                          ${{ inputs.force_setup }}
-      force_activate:                       ${{ inputs.force_activate }}
-      no_cache:                             ${{ inputs.no_cache }}
+      force_setup: ${{ inputs.force_setup }}
+      force_activate: ${{ inputs.force_activate }}
+      no_cache: ${{ inputs.no_cache }}
