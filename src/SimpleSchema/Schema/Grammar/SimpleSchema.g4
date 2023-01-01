@@ -144,6 +144,7 @@ expression__:                               (
                                                 | false_expression
                                                 | string_expression
                                                 | list_expression
+                                                | tuple_expression
                                             );
 
 
@@ -156,6 +157,10 @@ basic_string_expression:                    DOUBLE_QUOTE_STRING | SINGLE_QUOTE_S
 string_expression:                          basic_string_expression | TRIPLE_DOUBLE_QUOTE_STRING | TRIPLE_SINGLE_QUOTE_STRING;
 
 list_expression:                            LBRACK (expression__ (',' expression__)* ','?)? RBRACK;
+
+tuple_expression:                           LPAREN (tuple_expression_single_item__ | tuple_expression_multi_item__) RPAREN;
+tuple_expression_single_item__:             expression__ ',';
+tuple_expression_multi_item__:              expression__ (',' expression__)+ ','?;
 
 // ----------------------------------------------------------------------
 // |  Statements
@@ -214,7 +219,8 @@ parse_type:                                 (
                                                 | parse_identifier_type
                                             ) metadata_clause? cardinality_clause?;
 
-parse_identifier_type:                      identifier ('.' identifier)* parse_identifier_type_element?;
+parse_identifier_type:                      parse_identifier_type_global? identifier ('.' identifier)* parse_identifier_type_element?;
+parse_identifier_type_global:               '::';
 parse_identifier_type_element:              '::element';
 
 parse_tuple_type:                           LPAREN (parse_tuple_type_single_item__ | parse_tuple_type_multi_item__) RPAREN;

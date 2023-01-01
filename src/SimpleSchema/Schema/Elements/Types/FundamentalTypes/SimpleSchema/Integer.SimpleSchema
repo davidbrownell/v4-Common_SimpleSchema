@@ -18,12 +18,20 @@ Integer: Type ->
     min: Integer?
     max: Integer?
 
-    bytes: Enum? {
+    # No value indicates the the value is unconstrained
+    bits: Enum {
         values: [
-            "1",        # 8 bits
-            "2",        # 16 bits
-            "4",        # 32 bits
-            "8",        # 64 bits
-            "16",       # 128 bits
+            (8, "8 bits"),
+            (16, "16 bits"),
+            (32, "32 bits"),
+            (64, "64 bits"),
+            (128, "128 bits"),
         ]
-    }
+    }?
+
+    python_post_init(
+        """
+        if self.min is not None and self.max is not None and self.max < self.min:
+            raise SimpleSchemaException("'min' > 'max'.", self.range)
+        """,
+    )

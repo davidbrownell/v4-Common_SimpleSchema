@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  Types_IntegrationTest.py
+# |  ParseIdentifierTypes_IntegrationTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2022-12-19 11:19:44
@@ -113,6 +113,19 @@ def test_Dotted():
                 name1: One.Two.Three
                 name2: One.Two.Three?
                 name3: One.Two.Three { m1: True }
+                """,
+            ),
+        )[0],
+    )
+
+
+# ----------------------------------------------------------------------
+def test_GlobalReference():
+    CompareResultsFromFile(
+        Test(
+            textwrap.dedent(
+                """\
+                name: ::String
                 """,
             ),
         )[0],

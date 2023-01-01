@@ -1,19 +1,19 @@
 # ----------------------------------------------------------------------
 # |
-# |  Type.SimpleSchema
+# |  Structure.SimpleSchema
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-15 13:46:13
+# |      2023-01-01 09:38:30
 # |
 # ----------------------------------------------------------------------
 # |
-# |  Copyright David Brownell 2022
+# |  Copyright David Brownell 2023
 # |  Distributed under the Boost Software License, Version 1.0. See
 # |  accompanying file LICENSE_1_0.txt or copy at
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
 
-Type ->
-    description: String?
-    is_attribute: Boolean? { default: false }
+# Attributes for Structure elements appearing at any level of an Element hierarchy.
+
+# No Attributes

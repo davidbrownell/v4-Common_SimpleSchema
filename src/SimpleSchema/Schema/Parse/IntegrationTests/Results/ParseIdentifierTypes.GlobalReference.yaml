@@ -1,0 +1,42 @@
+- __type__: RootStatement
+  range: root_file <[1, 1] -> [2, 1]>
+  statements:
+  - __type__: ParseItemStatement
+    range: root_file <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[1, 1] -> [1, 5]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[1, 1] -> [1, 5]>
+        value: name
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[1, 1] -> [1, 5]>
+        value: Visibility.Public
+    type:
+      __type__: ParseIdentifierType
+      range: root_file <[1, 7] -> [1, 15]>
+      is_global_reference: root_file <[1, 7] -> [1, 9]>
+      identifiers:
+      - __type__: Identifier
+        range: root_file <[1, 9] -> [1, 15]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[1, 9] -> [1, 15]>
+          value: String
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[1, 9] -> [1, 15]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinality
+        range: root_file <[1, 7] -> [1, 15]>
+        min:
+          __type__: IntegerExpression
+          range: root_file <[1, 7] -> [1, 15]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: root_file <[1, 7] -> [1, 15]>
+          value: 1

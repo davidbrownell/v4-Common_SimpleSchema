@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------
+# |
+# |  String.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2022-12-15 13:35:52
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2022
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+String: Type ->
+    min_length: Integer { min: 0 } ? { default: 1 }
+    max_length: Integer { min: 1 } ?
+    validation_expression: String?
+
+    python_post_init(
+        """
+        if self.min_length is not None and self.max_length is not None and self.min_length > self.max_length:
+            raise SimpleSchemaException("'min_length' > 'max_length'.", self.range)
+
+        if (
+            self.validation_expression is not None and
+            (
+                self.min_length is not None or self.max_length is not None
+            )
+        ):
+            raise SimpleSchemaException("'validation_expression' cannot be used with 'min_length' and/or 'max_length'.", self.range)
+        """,
+    )
