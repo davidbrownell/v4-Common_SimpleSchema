@@ -159,15 +159,15 @@ def test_WithMetadata():
     the_range = mock.MagicMock()
     the_metadata = mock.MagicMock()
 
-    c = Cardinality(the_range, None, None, the_metadata)
+    c = Cardinality(the_range, IntegerExpression(mock.MagicMock(), 2), None, the_metadata)
 
     assert c.range is the_range
-    assert c.is_single is True
+    assert c.is_collection is True
     assert c.metadata is the_metadata
 
 
 # ----------------------------------------------------------------------
-def test_Error():
+def test_ErrorInvalidRange():
     with pytest.raises(
         SimpleSchemaException,
         match=re.escape("Invalid cardinality (12 < 20). (file2 <[10, 20] -> [30, 40]>)"),
@@ -177,4 +177,23 @@ def test_Error():
             IntegerExpression(mock.MagicMock(), 20),
             IntegerExpression(Range.Create(Path("file2"), 10, 20, 30, 40), 12),
             None,
+        )
+
+
+# ----------------------------------------------------------------------
+def test_ErrorMetadata():
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape("Metadata cannot be associated with single elements. (invalid file <[10, 20] -> [30, 40]>)"),
+    ):
+        Cardinality(
+            mock.MagicMock(),
+            None,
+            None,
+            Metadata(
+                Range.Create(Path("invalid file"), 10, 20, 30, 40),
+                [
+                    mock.MagicMock(),
+                ],
+            ),
         )

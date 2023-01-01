@@ -109,6 +109,21 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SimpleSchemaParser#tuple_expression.
+    def visitTuple_expression(self, ctx:SimpleSchemaParser.Tuple_expressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#tuple_expression_single_item__.
+    def visitTuple_expression_single_item__(self, ctx:SimpleSchemaParser.Tuple_expression_single_item__Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#tuple_expression_multi_item__.
+    def visitTuple_expression_multi_item__(self, ctx:SimpleSchemaParser.Tuple_expression_multi_item__Context):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SimpleSchemaParser#header_statement__.
     def visitHeader_statement__(self, ctx:SimpleSchemaParser.Header_statement__Context):
         return self.visitChildren(ctx)
@@ -186,6 +201,11 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SimpleSchemaParser#parse_identifier_type.
     def visitParse_identifier_type(self, ctx:SimpleSchemaParser.Parse_identifier_typeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#parse_identifier_type_global.
+    def visitParse_identifier_type_global(self, ctx:SimpleSchemaParser.Parse_identifier_type_globalContext):
         return self.visitChildren(ctx)
 
 

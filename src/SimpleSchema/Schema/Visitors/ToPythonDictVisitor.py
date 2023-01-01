@@ -186,6 +186,9 @@ class ToPythonDictVisitor(Visitor):
     # ----------------------------------------------------------------------
     @contextmanager
     def OnParseIdentifierType(self, element: ParseIdentifierType) -> Iterator[Optional[VisitResult]]:
+        if element.is_global_reference:
+            self._stack[-1]["is_global_reference"] = element.is_global_reference.ToString()
+
         if element.is_element_reference:
             self._stack[-1]["is_element_reference"] = element.is_element_reference.ToString()
 

@@ -48,6 +48,7 @@ from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerEx
 from SimpleSchema.Schema.Elements.Expressions.ListExpression import ListExpression
 from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpression
 from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
+from SimpleSchema.Schema.Elements.Expressions.TupleExpression import TupleExpression
 
 from SimpleSchema.Schema.Elements.Statements.ExtensionStatement import ExtensionStatement, ExtensionStatementKeywordArg
 from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
@@ -144,7 +145,7 @@ def Parse(
 
     with ExecuteTasks.YieldQueueExecutor(
         dm,
-        "Parsing...",
+        "Parsing",
         quiet=quiet,
         max_num_threads=1 if single_threaded else None,
     ) as enqueue_func:
@@ -576,6 +577,8 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         _VisitorMixin.__init__(self, *args, **kwargs)
 
     # ----------------------------------------------------------------------
+    # |  Common
+    # ----------------------------------------------------------------------
     def visitIdentifier(self, ctx:SimpleSchemaParser.IdentifierContext):
         id_value = ctx.IDENTIFIER().symbol.text
         id_range = self.CreateRange(ctx)
@@ -696,6 +699,8 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(MetadataItem(self.CreateRange(ctx), name, value_expression))
 
     # ----------------------------------------------------------------------
+    # |  Expressions
+    # ----------------------------------------------------------------------
     def visitNumber_expression(self, ctx:SimpleSchemaParser.Number_expressionContext):
         self._stack.append(NumberExpression(self.CreateRange(ctx), float(ctx.NUMBER().symbol.text)))
 
@@ -808,6 +813,17 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
         self._stack.append(ListExpression(self.CreateRange(ctx), items))
 
+    # ----------------------------------------------------------------------
+    def visitTuple_expression(self, ctx:SimpleSchemaParser.Tuple_expressionContext):
+        children = self._GetChildren(ctx)
+        assert all(isinstance(child, Expression) for child in children)
+
+        items = cast(List[Expression], children)
+
+        self._stack.append(TupleExpression(self.CreateRange(ctx), items))
+
+    # ----------------------------------------------------------------------
+    # |  Statements
     # ----------------------------------------------------------------------
     def visitInclude_statement(self, ctx:SimpleSchemaParser.Include_statementContext):
         children = self._GetChildren(ctx)
@@ -941,7 +957,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         children = self._GetChildren(ctx)
 
         num_children = len(children)
-        assert 1 <= num_children <= 5, children
+        assert num_children >= 1
 
         assert isinstance(children[0], Identifier), children
         name = cast(Identifier, children[0])
@@ -1040,14 +1056,19 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert len(children) >= 1, children
 
         identifiers: List[Identifier] = []
+        identifier_type_global: Optional[Range] = None
         identifier_type_element: Optional[Range] = None
 
-        for child in children:
+        for child_index, child in enumerate(children):
             if isinstance(child, Identifier):
                 identifiers.append(child)
             elif isinstance(child, Range):
-                assert identifier_type_element is None, (identifier_type_element, child)
-                identifier_type_element = child
+                if child_index == 0:
+                    assert identifier_type_global is None, (identifier_type_global, child)
+                    identifier_type_global = child
+                else:
+                    assert identifier_type_element is None, (identifier_type_element, child)
+                    identifier_type_element = child
             else:
                 assert False, child  # pragma: no cover
 
@@ -1059,14 +1080,21 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 cardinality,
                 metadata,
                 identifiers,
+                identifier_type_global,
                 identifier_type_element,
             ),
         )
 
     # ----------------------------------------------------------------------
+    def visitParse_identifier_type_global(self, ctx:SimpleSchemaParser.Parse_identifier_type_globalContext):
+        # It is enough to add a range value, as that will signal that the modifier exists when creating
+        # the type.
+        self._stack.append(self.CreateRange(ctx))
+
+    # ----------------------------------------------------------------------
     def visitParse_identifier_type_element(self, ctx:SimpleSchemaParser.Parse_identifier_type_elementContext):
         # It is enough to add a range value as that will signal that the modifier exists when
-        # creating the IdentifierType.
+        # creating the type.
         self._stack.append(self.CreateRange(ctx))
 
     # ----------------------------------------------------------------------

@@ -74,6 +74,12 @@ class Cardinality(Element):
         object.__setattr__(self, "min", min_param)
         object.__setattr__(self, "max", max_param)
 
+        if self.is_single and self.metadata is not None:
+            raise SimpleSchemaException(
+                "Metadata cannot be associated with single elements.",
+                self.metadata.range,
+            )
+
     # ----------------------------------------------------------------------
     @property
     def is_single(self) -> bool:

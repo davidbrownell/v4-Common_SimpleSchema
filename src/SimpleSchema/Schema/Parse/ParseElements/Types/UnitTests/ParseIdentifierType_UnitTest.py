@@ -54,6 +54,7 @@ def test_SingleIdentifier():
             ),
         ],
         None,
+        None,
     )
 
     assert i.range is range1
@@ -65,6 +66,7 @@ def test_SingleIdentifier():
     assert i.identifiers[0].id.value == "TheType"
     assert i.identifiers[0].visibility.value == Visibility.Private
 
+    assert i.is_global_reference is None
     assert i.is_element_reference is None
 
 
@@ -82,12 +84,24 @@ def test_MultipleIdentifiers():
         metadata,
         [id1, id2],
         None,
+        None,
     )
 
     assert i.range is range
     assert i.cardinality is cardinality
     assert i.metadata is metadata
     assert i.identifiers == [id1, id2]
+    assert i.is_global_reference is None
+    assert i.is_element_reference is None
+
+
+# ----------------------------------------------------------------------
+def test_WithGlobalReference():
+    global_range = mock.MagicMock()
+
+    i = ParseIdentifierType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock(), [mock.MagicMock(), ], global_range, None)
+
+    assert i.is_global_reference is global_range
     assert i.is_element_reference is None
 
 
@@ -95,8 +109,9 @@ def test_MultipleIdentifiers():
 def test_WithElementReference():
     reference_range = mock.MagicMock()
 
-    i = ParseIdentifierType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock(), [mock.MagicMock()], reference_range)
+    i = ParseIdentifierType(mock.MagicMock(), mock.MagicMock(), mock.MagicMock(), [mock.MagicMock()], None, reference_range)
 
+    assert i.is_global_reference is None
     assert i.is_element_reference is reference_range
 
 
@@ -122,6 +137,7 @@ def test_ErrorInvalid():
                     ),
                 ],
                 None,
+                None,
             )
 
         with pytest.raises(
@@ -145,6 +161,7 @@ def test_ErrorInvalid():
                     ),
                 ],
                 None,
+                None,
             )
 
 
@@ -152,12 +169,29 @@ def test_ErrorInvalid():
 def test_ErrorNoIdentifiers():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("'IdentifierType' instances must have at least one identifier. (filename <[11, 22] -> [33, 44]>)"),
+        match=re.escape("Identifier type instances must have at least one identifier. (filename <[11, 22] -> [33, 44]>)"),
     ):
         ParseIdentifierType(
             Range.Create(Path("filename"), 11, 22, 33, 44),
             mock.MagicMock(),
             None,
             [],
+            None,
+            None,
+        )
+
+
+# ----------------------------------------------------------------------
+def test_ErrorGlobalReference():
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape("There may only be one identifier for types that are global references. (bad file <[1, 3] -> [5, 7]>)"),
+    ):
+        ParseIdentifierType(
+            mock.MagicMock(),
+            mock.MagicMock(),
+            None,
+            [mock.MagicMock(), mock.MagicMock()],
+            Range.Create(Path("bad file"), 1, 3, 5, 7),
             None,
         )

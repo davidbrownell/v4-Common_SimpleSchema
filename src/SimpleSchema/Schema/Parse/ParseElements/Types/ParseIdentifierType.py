@@ -35,13 +35,14 @@ class ParseIdentifierType(ParseType):
 
     # ----------------------------------------------------------------------
     identifiers: List[Identifier]
+    is_global_reference: Optional[Range]
     is_element_reference: Optional[Range]
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
         if not self.identifiers:
             raise SimpleSchemaException(
-                "'IdentifierType' instances must have at least one identifier.",
+                "Identifier type instances must have at least one identifier.",
                 self.range,
             )
 
@@ -51,6 +52,12 @@ class ParseIdentifierType(ParseType):
                     "'{}' is not a valid type; identifier types must begin with an uppercase letter.".format(identifier.id.value),
                     identifier.id.range,
                 )
+
+        if self.is_global_reference and len(self.identifiers) > 1:
+            raise SimpleSchemaException(
+                "There may only be one identifier for types that are global references.",
+                self.is_global_reference,
+            )
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
