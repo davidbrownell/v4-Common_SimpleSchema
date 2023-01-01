@@ -1,19 +1,21 @@
+
 # ----------------------------------------------------------------------
 # |
 # |  Build.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-30 07:47:32
+# |      2023-01-01 12:53:52
 # |
 # ----------------------------------------------------------------------
 # |
-# |  Copyright David Brownell 2022
+# |  Copyright David Brownell 2023
 # |  Distributed under the Boost Software License, Version 1.0. See
 # |  accompanying file LICENSE_1_0.txt or copy at
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Builds fundamental types"""
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
 
 import re
 import sys
@@ -74,7 +76,7 @@ class BuildInfo(BuildInfoBase):
     # ----------------------------------------------------------------------
     def __init__(self):
         super(BuildInfo, self).__init__(
-            name="FundamentalTypes",
+            name="FundamentalMetadataAttributes",
             requires_output_dir=False,
             required_development_configurations=[
                 re.compile("dev"),
@@ -229,7 +231,7 @@ class BuildInfo(BuildInfoBase):
 
                         root.Accept(visitor)
 
-                        output_filename = output_dir / "{}Type.py".format(filename.stem)
+                        output_filename = output_dir / "{}MetadataAttribute.py".format(filename.stem)
 
                         with output_filename.open("w") as f:
                             f.write(_GenerateHeader())
@@ -281,6 +283,9 @@ class BuildInfo(BuildInfoBase):
 class _Visitor(Visitor):
     # ----------------------------------------------------------------------
     def __init__(self):
+        # BugBug: Refactor so code is shared between visitor's as much as possible
+        raise Exception("BugBug: This is copy & paste from Types. Needs to be implemented.")
+
         self._sink                                      = StringIO()
         self._stream_stack: List[StreamDecorator]       = [StreamDecorator(self._sink), ]
         self._header_stack: List[StringIO]              = []

@@ -79,8 +79,9 @@ PASS:                                       'pass';
 
 INCLUDE_FROM:                               'from' {self._lexing_include_filename = True};
 INCLUDE_IMPORT:                             'import' {self._lexing_include_filename = False};
-// This is an overly-restrictive definition of what constitutes a valid filename, but erring on the
-// side of caution.
+// This is an overly-restrictive definition of what constitutes a valid posix filename, but we
+// are erring on the side of caution rather than trying to make os-specific exceptions based on
+// what is acceptable for that OS.
 INCLUDE_FILENAME:                           [a-zA-Z0-9\-._/]+ {self._lexing_include_filename}?;
 
 NUMBER:                                     '-'? [0-9]* '.' [0-9]+;
@@ -105,7 +106,7 @@ UNTERMINATED_TRIPLE_SINGLE_QUOTE_STRING:    '\'\'\'' .*?;
 // |
 // ----------------------------------------------------------------------
 // Note that any rule with a '__' suffix represents a non-binding rule (meaning a rule without
-// backing code only here for organizational purposes).
+// backing code that is only here for organizational purposes).
 
 entry_point__:                              NEWLINE* header_statement__* body_statement__* EOF;
 
