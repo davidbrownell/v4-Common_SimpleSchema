@@ -211,7 +211,7 @@ class BuildInfo(BuildInfoBase):
                     output_dir.mkdir(parents=True, exist_ok=True)
 
                     with init_filename.open("w") as f:
-                        f.write(_GenerateHeader())
+                        pass
 
                 # ----------------------------------------------------------------------
                 def Execute(
@@ -233,6 +233,15 @@ class BuildInfo(BuildInfoBase):
 
                         with output_filename.open("w") as f:
                             f.write(_GenerateHeader())
+                            f.write(
+                                textwrap.dedent(
+                                    """\
+                                    # pylint: disable=missing-module-docstring
+                                    # pylint: disable=missing-class-docstring
+
+                                    """,
+                                ),
+                            )
 
                             lines = visitor.content.split("\n")
 

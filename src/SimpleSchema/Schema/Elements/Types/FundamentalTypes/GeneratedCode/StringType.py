@@ -11,6 +11,9 @@
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
 from dataclasses import dataclass, field
 from typing import Optional
 from SimpleSchema.Schema.Elements.Types.Type import Type
