@@ -1,0 +1,858 @@
+- __type__: RootStatement
+  range: root_file <[2, 1] -> [86, 1]>
+  statements:
+  - __type__: ParseItemStatement
+    range: root_file <[2, 1] -> [86, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[2, 1] -> [2, 5]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[2, 1] -> [2, 5]>
+        value: name
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[2, 1] -> [2, 5]>
+        value: Visibility.Public
+    type:
+      __type__: ParseIdentifierType
+      range: root_file <[2, 7] -> [85, 2]>
+      identifiers:
+      - __type__: Identifier
+        range: root_file <[2, 7] -> [2, 12]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[2, 7] -> [2, 12]>
+          value: Value
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[2, 7] -> [2, 12]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinaloty
+        range: root_file <[2, 7] -> [85, 2]>
+        min:
+          __type__: IntegerExpression
+          range: root_file <[2, 7] -> [85, 2]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: root_file <[2, 7] -> [85, 2]>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: root_file <[2, 13] -> [85, 2]>
+        items:
+        - __type__: MetadataItem
+          range: root_file <[4, 3] -> [4, 33]>
+          name:
+            __type__: Identifier
+            range: root_file <[4, 3] -> [4, 13]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[4, 3] -> [4, 13]>
+              value: identifier
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[4, 3] -> [4, 13]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[4, 15] -> [4, 33]>
+            value: identifier_value
+        - __type__: MetadataItem
+          range: root_file <[7, 3] -> [7, 30]>
+          name:
+            __type__: Identifier
+            range: root_file <[7, 3] -> [7, 18]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[7, 3] -> [7, 18]>
+              value: positive_number
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[7, 3] -> [7, 18]>
+              value: Visibility.Public
+          value:
+            __type__: NumberExpression
+            range: root_file <[7, 20] -> [7, 30]>
+            value: 12345.6789
+        - __type__: MetadataItem
+          range: root_file <[8, 3] -> [8, 28]>
+          name:
+            __type__: Identifier
+            range: root_file <[8, 3] -> [8, 18]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[8, 3] -> [8, 18]>
+              value: negative_number
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[8, 3] -> [8, 18]>
+              value: Visibility.Public
+          value:
+            __type__: NumberExpression
+            range: root_file <[8, 20] -> [8, 28]>
+            value: -123.123
+        - __type__: MetadataItem
+          range: root_file <[9, 3] -> [9, 35]>
+          name:
+            __type__: Identifier
+            range: root_file <[9, 3] -> [9, 28]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[9, 3] -> [9, 28]>
+              value: no_prefix_positive_number
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[9, 3] -> [9, 28]>
+              value: Visibility.Public
+          value:
+            __type__: NumberExpression
+            range: root_file <[9, 30] -> [9, 35]>
+            value: 0.6789
+        - __type__: MetadataItem
+          range: root_file <[10, 3] -> [10, 35]>
+          name:
+            __type__: Identifier
+            range: root_file <[10, 3] -> [10, 28]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[10, 3] -> [10, 28]>
+              value: no_prefix_negative_number
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[10, 3] -> [10, 28]>
+              value: Visibility.Public
+          value:
+            __type__: NumberExpression
+            range: root_file <[10, 30] -> [10, 35]>
+            value: -0.123
+        - __type__: MetadataItem
+          range: root_file <[13, 3] -> [13, 24]>
+          name:
+            __type__: Identifier
+            range: root_file <[13, 3] -> [13, 19]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[13, 3] -> [13, 19]>
+              value: positive_integer
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[13, 3] -> [13, 19]>
+              value: Visibility.Public
+          value:
+            __type__: IntegerExpression
+            range: root_file <[13, 21] -> [13, 24]>
+            value: 123
+        - __type__: MetadataItem
+          range: root_file <[14, 3] -> [14, 24]>
+          name:
+            __type__: Identifier
+            range: root_file <[14, 3] -> [14, 19]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[14, 3] -> [14, 19]>
+              value: negative_integer
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[14, 3] -> [14, 19]>
+              value: Visibility.Public
+          value:
+            __type__: IntegerExpression
+            range: root_file <[14, 21] -> [14, 24]>
+            value: -10
+        - __type__: MetadataItem
+          range: root_file <[17, 3] -> [17, 42]>
+          name:
+            __type__: Identifier
+            range: root_file <[17, 3] -> [17, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[17, 3] -> [17, 15]>
+              value: basic_string
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[17, 3] -> [17, 15]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[17, 17] -> [17, 42]>
+            value: This is a basic string.
+        - __type__: MetadataItem
+          range: root_file <[18, 3] -> [18, 57]>
+          name:
+            __type__: Identifier
+            range: root_file <[18, 3] -> [18, 23]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[18, 3] -> [18, 23]>
+              value: basic_string_escapes
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[18, 3] -> [18, 23]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[18, 25] -> [18, 57]>
+            value: This is an "escaped" string.
+        - __type__: MetadataItem
+          range: root_file <[20, 3] -> [20, 56]>
+          name:
+            __type__: Identifier
+            range: root_file <[20, 3] -> [20, 22]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[20, 3] -> [20, 22]>
+              value: single_quote_string
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[20, 3] -> [20, 22]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[20, 24] -> [20, 56]>
+            value: This is a single-quote string.
+        - __type__: MetadataItem
+          range: root_file <[21, 3] -> [21, 77]>
+          name:
+            __type__: Identifier
+            range: root_file <[21, 3] -> [21, 30]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[21, 3] -> [21, 30]>
+              value: single_quote_string_escapes
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[21, 3] -> [21, 30]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[21, 32] -> [21, 77]>
+            value: This is an 'escaped' single-quote string.
+        - __type__: MetadataItem
+          range: root_file <[23, 3] -> [30, 26]>
+          name:
+            __type__: Identifier
+            range: root_file <[23, 3] -> [23, 21]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[23, 3] -> [23, 21]>
+              value: multi_line_string1
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[23, 3] -> [23, 21]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[23, 23] -> [30, 26]>
+            value: |-
+              This is
+                an
+                  example
+              of a
+                  multiline
+              string!
+        - __type__: MetadataItem
+          range: root_file <[32, 3] -> [38, 26]>
+          name:
+            __type__: Identifier
+            range: root_file <[32, 3] -> [32, 21]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[32, 3] -> [32, 21]>
+              value: multi_line_string2
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[32, 3] -> [32, 21]>
+              value: Visibility.Public
+          value:
+            __type__: StringExpression
+            range: root_file <[32, 23] -> [38, 26]>
+            value: |-
+              A multiline string
+              with
+                different
+              quote
+              types!
+        - __type__: MetadataItem
+          range: root_file <[40, 3] -> [40, 17]>
+          name:
+            __type__: Identifier
+            range: root_file <[40, 3] -> [40, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[40, 3] -> [40, 14]>
+              value: true_value1
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[40, 3] -> [40, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[40, 16] -> [40, 17]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[41, 3] -> [41, 17]>
+          name:
+            __type__: Identifier
+            range: root_file <[41, 3] -> [41, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[41, 3] -> [41, 14]>
+              value: true_value2
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[41, 3] -> [41, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[41, 16] -> [41, 17]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[42, 3] -> [42, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[42, 3] -> [42, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[42, 3] -> [42, 14]>
+              value: true_value3
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[42, 3] -> [42, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[42, 16] -> [42, 19]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[43, 3] -> [43, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[43, 3] -> [43, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[43, 3] -> [43, 14]>
+              value: true_value4
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[43, 3] -> [43, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[43, 16] -> [43, 19]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[44, 3] -> [44, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[44, 3] -> [44, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[44, 3] -> [44, 14]>
+              value: true_value5
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[44, 3] -> [44, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[44, 16] -> [44, 19]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[45, 3] -> [45, 20]>
+          name:
+            __type__: Identifier
+            range: root_file <[45, 3] -> [45, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[45, 3] -> [45, 14]>
+              value: true_value6
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[45, 3] -> [45, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[45, 16] -> [45, 20]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[46, 3] -> [46, 20]>
+          name:
+            __type__: Identifier
+            range: root_file <[46, 3] -> [46, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[46, 3] -> [46, 14]>
+              value: true_value7
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[46, 3] -> [46, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[46, 16] -> [46, 20]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[47, 3] -> [47, 20]>
+          name:
+            __type__: Identifier
+            range: root_file <[47, 3] -> [47, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[47, 3] -> [47, 14]>
+              value: true_value8
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[47, 3] -> [47, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[47, 16] -> [47, 20]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[48, 3] -> [48, 18]>
+          name:
+            __type__: Identifier
+            range: root_file <[48, 3] -> [48, 14]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[48, 3] -> [48, 14]>
+              value: true_value9
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[48, 3] -> [48, 14]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[48, 16] -> [48, 18]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[49, 3] -> [49, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[49, 3] -> [49, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[49, 3] -> [49, 15]>
+              value: true_value10
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[49, 3] -> [49, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[49, 17] -> [49, 19]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[50, 3] -> [50, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[50, 3] -> [50, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[50, 3] -> [50, 15]>
+              value: true_value11
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[50, 3] -> [50, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[50, 17] -> [50, 19]>
+            value: true
+        - __type__: MetadataItem
+          range: root_file <[52, 3] -> [52, 18]>
+          name:
+            __type__: Identifier
+            range: root_file <[52, 3] -> [52, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[52, 3] -> [52, 15]>
+              value: false_value1
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[52, 3] -> [52, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[52, 17] -> [52, 18]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[53, 3] -> [53, 18]>
+          name:
+            __type__: Identifier
+            range: root_file <[53, 3] -> [53, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[53, 3] -> [53, 15]>
+              value: false_value2
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[53, 3] -> [53, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[53, 17] -> [53, 18]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[54, 3] -> [54, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[54, 3] -> [54, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[54, 3] -> [54, 15]>
+              value: false_value3
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[54, 3] -> [54, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[54, 17] -> [54, 19]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[55, 3] -> [55, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[55, 3] -> [55, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[55, 3] -> [55, 15]>
+              value: false_value4
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[55, 3] -> [55, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[55, 17] -> [55, 19]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[56, 3] -> [56, 19]>
+          name:
+            __type__: Identifier
+            range: root_file <[56, 3] -> [56, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[56, 3] -> [56, 15]>
+              value: false_value5
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[56, 3] -> [56, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[56, 17] -> [56, 19]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[57, 3] -> [57, 22]>
+          name:
+            __type__: Identifier
+            range: root_file <[57, 3] -> [57, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[57, 3] -> [57, 15]>
+              value: false_value6
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[57, 3] -> [57, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[57, 17] -> [57, 22]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[58, 3] -> [58, 22]>
+          name:
+            __type__: Identifier
+            range: root_file <[58, 3] -> [58, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[58, 3] -> [58, 15]>
+              value: false_value7
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[58, 3] -> [58, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[58, 17] -> [58, 22]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[59, 3] -> [59, 22]>
+          name:
+            __type__: Identifier
+            range: root_file <[59, 3] -> [59, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[59, 3] -> [59, 15]>
+              value: false_value8
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[59, 3] -> [59, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[59, 17] -> [59, 22]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[60, 3] -> [60, 20]>
+          name:
+            __type__: Identifier
+            range: root_file <[60, 3] -> [60, 15]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[60, 3] -> [60, 15]>
+              value: false_value9
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[60, 3] -> [60, 15]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[60, 17] -> [60, 20]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[61, 3] -> [61, 21]>
+          name:
+            __type__: Identifier
+            range: root_file <[61, 3] -> [61, 16]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[61, 3] -> [61, 16]>
+              value: false_value10
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[61, 3] -> [61, 16]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[61, 18] -> [61, 21]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[62, 3] -> [62, 21]>
+          name:
+            __type__: Identifier
+            range: root_file <[62, 3] -> [62, 16]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[62, 3] -> [62, 16]>
+              value: false_value11
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[62, 3] -> [62, 16]>
+              value: Visibility.Public
+          value:
+            __type__: BooleanExpression
+            range: root_file <[62, 18] -> [62, 21]>
+            value: false
+        - __type__: MetadataItem
+          range: root_file <[64, 3] -> [64, 12]>
+          name:
+            __type__: Identifier
+            range: root_file <[64, 3] -> [64, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[64, 3] -> [64, 8]>
+              value: list1
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[64, 3] -> [64, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[64, 10] -> [64, 12]>
+            items: []
+        - __type__: MetadataItem
+          range: root_file <[65, 3] -> [65, 18]>
+          name:
+            __type__: Identifier
+            range: root_file <[65, 3] -> [65, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[65, 3] -> [65, 8]>
+              value: list2
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[65, 3] -> [65, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[65, 10] -> [65, 18]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[65, 12] -> [65, 17]>
+              value: one
+        - __type__: MetadataItem
+          range: root_file <[66, 3] -> [66, 20]>
+          name:
+            __type__: Identifier
+            range: root_file <[66, 3] -> [66, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[66, 3] -> [66, 8]>
+              value: list3
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[66, 3] -> [66, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[66, 10] -> [66, 20]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[66, 12] -> [66, 17]>
+              value: one
+        - __type__: MetadataItem
+          range: root_file <[67, 3] -> [69, 4]>
+          name:
+            __type__: Identifier
+            range: root_file <[67, 3] -> [67, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[67, 3] -> [67, 8]>
+              value: list4
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[67, 3] -> [67, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[67, 10] -> [69, 4]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[68, 5] -> [68, 10]>
+              value: one
+        - __type__: MetadataItem
+          range: root_file <[70, 3] -> [72, 4]>
+          name:
+            __type__: Identifier
+            range: root_file <[70, 3] -> [70, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[70, 3] -> [70, 8]>
+              value: list5
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[70, 3] -> [70, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[70, 10] -> [72, 4]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[71, 5] -> [71, 10]>
+              value: one
+        - __type__: MetadataItem
+          range: root_file <[73, 3] -> [73, 31]>
+          name:
+            __type__: Identifier
+            range: root_file <[73, 3] -> [73, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[73, 3] -> [73, 8]>
+              value: list6
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[73, 3] -> [73, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[73, 10] -> [73, 31]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[73, 11] -> [73, 16]>
+              value: one
+            - __type__: NumberExpression
+              range: root_file <[73, 18] -> [73, 21]>
+              value: 2.0
+            - __type__: IntegerExpression
+              range: root_file <[73, 23] -> [73, 24]>
+              value: 3
+            - __type__: BooleanExpression
+              range: root_file <[73, 26] -> [73, 30]>
+              value: true
+        - __type__: MetadataItem
+          range: root_file <[74, 3] -> [74, 33]>
+          name:
+            __type__: Identifier
+            range: root_file <[74, 3] -> [74, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[74, 3] -> [74, 8]>
+              value: list7
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[74, 3] -> [74, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[74, 10] -> [74, 33]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[74, 11] -> [74, 16]>
+              value: one
+            - __type__: NumberExpression
+              range: root_file <[74, 18] -> [74, 21]>
+              value: 2.0
+            - __type__: IntegerExpression
+              range: root_file <[74, 23] -> [74, 24]>
+              value: 3
+            - __type__: BooleanExpression
+              range: root_file <[74, 26] -> [74, 30]>
+              value: true
+        - __type__: MetadataItem
+          range: root_file <[75, 3] -> [79, 4]>
+          name:
+            __type__: Identifier
+            range: root_file <[75, 3] -> [75, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[75, 3] -> [75, 8]>
+              value: list8
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[75, 3] -> [75, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[75, 10] -> [79, 4]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[76, 5] -> [76, 10]>
+              value: one
+            - __type__: NumberExpression
+              range: root_file <[77, 5] -> [77, 8]>
+              value: 2.0
+            - __type__: IntegerExpression
+              range: root_file <[78, 5] -> [78, 6]>
+              value: 3
+        - __type__: MetadataItem
+          range: root_file <[80, 3] -> [84, 4]>
+          name:
+            __type__: Identifier
+            range: root_file <[80, 3] -> [80, 8]>
+            id:
+              __type__: SimpleElement
+              range: root_file <[80, 3] -> [80, 8]>
+              value: list9
+            visibility:
+              __type__: SimpleElement
+              range: root_file <[80, 3] -> [80, 8]>
+              value: Visibility.Public
+          value:
+            __type__: ListExpression
+            range: root_file <[80, 10] -> [84, 4]>
+            items:
+            - __type__: StringExpression
+              range: root_file <[81, 5] -> [81, 10]>
+              value: one
+            - __type__: NumberExpression
+              range: root_file <[82, 5] -> [82, 8]>
+              value: 2.0
+            - __type__: IntegerExpression
+              range: root_file <[83, 5] -> [83, 6]>
+              value: 3

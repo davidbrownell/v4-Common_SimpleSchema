@@ -25,4 +25,8 @@ from SimpleSchema.Schema.Elements.Common.Element import Element
 class Expression(Element):
     """Abstract base class for all expressions"""
 
-    pass
+    NAME = ""
+
+    # ----------------------------------------------------------------------
+    def __post_init__(self):
+        assert self.NAME

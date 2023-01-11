@@ -17,6 +17,7 @@
 
 import sys
 
+from dataclasses import dataclass
 from pathlib import Path
 from unittest import mock
 
@@ -27,8 +28,13 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Types.Type import Type
+
+
+# ----------------------------------------------------------------------
+@dataclass(frozen=True)
+class MyType(Type):
+    NAME = "MyType"
 
 
 # ----------------------------------------------------------------------
@@ -37,14 +43,16 @@ def test_Standard():
     cardinality_mock = mock.MagicMock()
     metadata_mock = mock.MagicMock()
 
-    t = Type(range_mock, cardinality_mock, None)
+    t = MyType(range_mock, cardinality_mock, None)
 
+    assert t.NAME == "MyType"
     assert t.range is range_mock
     assert t.cardinality is cardinality_mock
     assert t.metadata is None
 
-    t = Type(range_mock, cardinality_mock, metadata_mock)
+    t = MyType(range_mock, cardinality_mock, metadata_mock)
 
+    assert t.NAME == "MyType"
     assert t.range is range_mock
     assert t.cardinality is cardinality_mock
     assert t.metadata is metadata_mock

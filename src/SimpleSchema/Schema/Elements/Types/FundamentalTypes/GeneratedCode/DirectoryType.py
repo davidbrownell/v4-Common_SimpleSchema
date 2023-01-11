@@ -15,11 +15,14 @@
 # pylint: disable=missing-class-docstring
 
 from dataclasses import dataclass, field
-from typing import Optional
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Elements.Types.FundamentalType import FundamentalType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class DirectoryType(Type):
-    exists: Optional[bool] = field(default=True)
+class DirectoryType(FundamentalType):
+    # ----------------------------------------------------------------------
+    NAME = "Directory"
+
+    # ----------------------------------------------------------------------
+    ensure_exists: bool = field(default=True)

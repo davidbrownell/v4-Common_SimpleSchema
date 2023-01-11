@@ -1,0 +1,117 @@
+- __type__: RootStatement
+  range: root_file <[1, 1] -> [4, 1]>
+  statements:
+  - __type__: ParseItemStatement
+    range: root_file <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[1, 1] -> [1, 12]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[1, 1] -> [1, 12]>
+        value: public_name
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[1, 1] -> [1, 12]>
+        value: Visibility.Public
+    type:
+      __type__: ParseIdentifierType
+      range: root_file <[1, 14] -> [1, 20]>
+      identifiers:
+      - __type__: Identifier
+        range: root_file <[1, 14] -> [1, 20]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[1, 14] -> [1, 20]>
+          value: Value1
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[1, 14] -> [1, 20]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinaloty
+        range: root_file <[1, 14] -> [1, 20]>
+        min:
+          __type__: IntegerExpression
+          range: root_file <[1, 14] -> [1, 20]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: root_file <[1, 14] -> [1, 20]>
+          value: 1
+  - __type__: ParseItemStatement
+    range: root_file <[2, 1] -> [3, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[2, 1] -> [2, 16]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[2, 1] -> [2, 16]>
+        value: '@protected_name'
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[2, 1] -> [2, 2]>
+        value: Visibility.Protected
+    type:
+      __type__: ParseIdentifierType
+      range: root_file <[2, 18] -> [2, 24]>
+      identifiers:
+      - __type__: Identifier
+        range: root_file <[2, 18] -> [2, 24]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[2, 18] -> [2, 24]>
+          value: Value2
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[2, 18] -> [2, 24]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinaloty
+        range: root_file <[2, 18] -> [2, 24]>
+        min:
+          __type__: IntegerExpression
+          range: root_file <[2, 18] -> [2, 24]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: root_file <[2, 18] -> [2, 24]>
+          value: 1
+  - __type__: ParseItemStatement
+    range: root_file <[3, 1] -> [4, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[3, 1] -> [3, 14]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[3, 1] -> [3, 14]>
+        value: _private_name
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[3, 1] -> [3, 2]>
+        value: Visibility.Private
+    type:
+      __type__: ParseIdentifierType
+      range: root_file <[3, 16] -> [3, 22]>
+      identifiers:
+      - __type__: Identifier
+        range: root_file <[3, 16] -> [3, 22]>
+        id:
+          __type__: SimpleElement
+          range: root_file <[3, 16] -> [3, 22]>
+          value: Value3
+        visibility:
+          __type__: SimpleElement
+          range: root_file <[3, 16] -> [3, 22]>
+          value: Visibility.Public
+      cardinality:
+        __type__: Cardinaloty
+        range: root_file <[3, 16] -> [3, 22]>
+        min:
+          __type__: IntegerExpression
+          range: root_file <[3, 16] -> [3, 22]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: root_file <[3, 16] -> [3, 22]>
+          value: 1

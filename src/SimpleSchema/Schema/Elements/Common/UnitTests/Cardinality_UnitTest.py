@@ -30,8 +30,8 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.Cardinality import *
+    from SimpleSchema.Schema.Elements.Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -51,9 +51,6 @@ def test_Single():
 
     assert c.is_single
     assert c.is_optional is False
-    assert c.is_zero_or_more is False
-    assert c.is_one_or_more is False
-    assert c.is_collection is False
 
     assert c.metadata is None
 
@@ -75,9 +72,6 @@ def test_MaxNoMin():
 
     assert c.is_single is False
     assert c.is_optional is False
-    assert c.is_zero_or_more is False
-    assert c.is_one_or_more is False
-    assert c.is_collection is True
 
     assert c.metadata is None
 
@@ -101,9 +95,6 @@ def test_Range():
 
     assert c.is_single is False
     assert c.is_optional is False
-    assert c.is_zero_or_more is False
-    assert c.is_one_or_more is False
-    assert c.is_collection is True
 
     assert c.metadata is None
 
@@ -124,9 +115,6 @@ def test_ZeroOrMore():
 
     assert c.is_single is False
     assert c.is_optional is False
-    assert c.is_zero_or_more is True
-    assert c.is_one_or_more is False
-    assert c.is_collection is True
 
     assert c.metadata is None
 
@@ -147,9 +135,6 @@ def test_OneOrMore():
 
     assert c.is_single is False
     assert c.is_optional is False
-    assert c.is_zero_or_more is False
-    assert c.is_one_or_more is True
-    assert c.is_collection is True
 
     assert c.metadata is None
 
@@ -162,7 +147,6 @@ def test_WithMetadata():
     c = Cardinality(the_range, IntegerExpression(mock.MagicMock(), 2), None, the_metadata)
 
     assert c.range is the_range
-    assert c.is_collection is True
     assert c.metadata is the_metadata
 
 
@@ -170,7 +154,7 @@ def test_WithMetadata():
 def test_ErrorInvalidRange():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("Invalid cardinality (12 < 20). (file2 <[10, 20] -> [30, 40]>)"),
+        match=re.escape("Invalid cardinality (20 > 12). (file2 <[10, 20] -> [30, 40]>)"),
     ):
         Cardinality(
             Range.Create(Path("file"), 1, 2, 3, 4),

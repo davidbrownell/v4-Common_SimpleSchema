@@ -1,0 +1,165 @@
+- __type__: RootStatement
+  range: root_file <[1, 1] -> [8, 1]>
+  statements:
+  - __type__: ParseStructureStatement
+    range: root_file <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[1, 1] -> [1, 4]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[1, 1] -> [1, 4]>
+        value: foo
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[1, 1] -> [1, 4]>
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinaloty
+      range: root_file <[1, 1] -> [2, 1]>
+      min:
+        __type__: IntegerExpression
+        range: root_file <[1, 1] -> [2, 1]>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: root_file <[1, 1] -> [2, 1]>
+        value: 1
+  - __type__: ParseStructureStatement
+    range: root_file <[2, 1] -> [4, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[2, 1] -> [2, 4]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[2, 1] -> [2, 4]>
+        value: Foo
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[2, 1] -> [2, 4]>
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinaloty
+      range: root_file <[2, 1] -> [4, 1]>
+      min:
+        __type__: IntegerExpression
+        range: root_file <[2, 1] -> [4, 1]>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: root_file <[2, 1] -> [4, 1]>
+        value: 1
+  - __type__: ParseStructureStatement
+    range: root_file <[4, 1] -> [5, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[4, 1] -> [4, 9]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[4, 1] -> [4, 9]>
+        value: Optional
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[4, 1] -> [4, 9]>
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinaloty
+      range: root_file <[4, 9] -> [4, 10]>
+      min:
+        __type__: IntegerExpression
+        range: root_file <[4, 9] -> [4, 10]>
+        value: 0
+      max:
+        __type__: IntegerExpression
+        range: root_file <[4, 9] -> [4, 10]>
+        value: 1
+  - __type__: ParseStructureStatement
+    range: root_file <[5, 1] -> [7, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[5, 1] -> [5, 13]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[5, 1] -> [5, 13]>
+        value: WithMetadata
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[5, 1] -> [5, 13]>
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinaloty
+      range: root_file <[5, 1] -> [7, 1]>
+      min:
+        __type__: IntegerExpression
+        range: root_file <[5, 1] -> [7, 1]>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: root_file <[5, 1] -> [7, 1]>
+        value: 1
+    metadata:
+      __type__: Metadata
+      range: root_file <[5, 14] -> [5, 26]>
+      items:
+      - __type__: MetadataItem
+        range: root_file <[5, 16] -> [5, 24]>
+        name:
+          __type__: Identifier
+          range: root_file <[5, 16] -> [5, 21]>
+          id:
+            __type__: SimpleElement
+            range: root_file <[5, 16] -> [5, 21]>
+            value: value
+          visibility:
+            __type__: SimpleElement
+            range: root_file <[5, 16] -> [5, 21]>
+            value: Visibility.Public
+        value:
+          __type__: IntegerExpression
+          range: root_file <[5, 23] -> [5, 24]>
+          value: 1
+  - __type__: ParseStructureStatement
+    range: root_file <[7, 1] -> [8, 1]>
+    name:
+      __type__: Identifier
+      range: root_file <[7, 1] -> [7, 23]>
+      id:
+        __type__: SimpleElement
+        range: root_file <[7, 1] -> [7, 23]>
+        value: CardinalityAndMetadata
+      visibility:
+        __type__: SimpleElement
+        range: root_file <[7, 1] -> [7, 23]>
+        value: Visibility.Public
+    cardinality:
+      __type__: Cardinaloty
+      range: root_file <[7, 23] -> [7, 30]>
+      min:
+        __type__: IntegerExpression
+        range: root_file <[7, 24] -> [7, 25]>
+        value: 3
+      max:
+        __type__: IntegerExpression
+        range: root_file <[7, 27] -> [7, 29]>
+        value: 11
+    metadata:
+      __type__: Metadata
+      range: root_file <[7, 31] -> [7, 43]>
+      items:
+      - __type__: MetadataItem
+        range: root_file <[7, 33] -> [7, 41]>
+        name:
+          __type__: Identifier
+          range: root_file <[7, 33] -> [7, 38]>
+          id:
+            __type__: SimpleElement
+            range: root_file <[7, 33] -> [7, 38]>
+            value: value
+          visibility:
+            __type__: SimpleElement
+            range: root_file <[7, 33] -> [7, 38]>
+            value: Visibility.Public
+        value:
+          __type__: IntegerExpression
+          range: root_file <[7, 40] -> [7, 41]>
+          value: 1

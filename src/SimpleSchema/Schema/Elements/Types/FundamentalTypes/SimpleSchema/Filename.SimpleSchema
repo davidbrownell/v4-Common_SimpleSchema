@@ -15,5 +15,5 @@
 # ----------------------------------------------------------------------
 
 Filename: Type ->
-    exists: Boolean? { default: true }
+    ensure_exists: Boolean? { default: true }
     match_any: Boolean? { default: false }

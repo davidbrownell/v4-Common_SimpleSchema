@@ -15,6 +15,10 @@
 # ----------------------------------------------------------------------
 """Contains the SimpleSchemaException object"""
 
+import textwrap
+
+from typing import Iterable, List, Union
+
 from SimpleSchema.Schema.Elements.Common.Range import Range
 
 
@@ -26,8 +30,42 @@ class SimpleSchemaException(Exception):
     def __init__(
         self,
         msg: str,
-        range_value: Range,
+        range_or_ranges: Union[Range, Iterable[Range]],
     ) -> None:
-        super(SimpleSchemaException, self).__init__("{} ({})".format(msg, range_value.ToString()))
+        super(SimpleSchemaException, self).__init__(msg)
 
-        self.range                          = range_value
+        ranges: List[Range] = []
+
+        if isinstance(range_or_ranges, Range):
+            ranges.append(range_or_ranges)
+        else:
+            ranges += range_or_ranges
+
+        self.ranges                         = ranges
+
+    # ----------------------------------------------------------------------
+    def __str__(self) -> str:
+        message = super(SimpleSchemaException, self).__str__()
+
+        if len(self.ranges) == 1:
+            if "\n" in message:
+                return textwrap.dedent(
+                    """\
+                    {}
+
+                    {}
+                    """,
+                ).format(
+                    message.rstrip(),
+                    self.ranges[0].ToString(),
+                )
+
+            return "{} ({})".format(message, self.ranges[0].ToString())
+
+        return textwrap.dedent(
+            """\
+            {}
+
+            {}
+            """,
+        ).format(message, "\n".join("    - {}".format(range.ToString()) for range in self.ranges))

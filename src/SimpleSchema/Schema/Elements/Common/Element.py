@@ -13,18 +13,19 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Element and SimpleElement objects"""
+"""Contains the Element, SimpleElement, and SimpleElements objects"""
 
 from abc import ABC
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import auto, Flag
-from typing import Any, Generator, Generic, Iterable, Iterator, List, Optional, Tuple, TypeVar, Union
+from typing import Any, Generator, Generic, Iterator, List, Optional, Tuple, TypeVar, Union
 from weakref import ref, ReferenceType
 
 from Common_Foundation.Types import extensionmethod
 
 from SimpleSchema.Schema.Elements.Common.Range import Range
+
 
 
 # ----------------------------------------------------------------------
@@ -46,24 +47,41 @@ class VisitResult(Flag):
 class Element(ABC):
     """Root of all entities produced during the parsing process"""
 
+    # ----------------------------------------------------------------------
+    # |
+    # |  Public Types
+    # |
+    # ----------------------------------------------------------------------
     CHILDREN_NAME                           = "children"
+    GENERATES_DETAILS_REFERENCES            = False
 
+    GenerateAcceptDetailsGeneratorItemsType = Union[
+        "Element",
+        ReferenceType["Element"],
+        List["Element"],
+        List[ReferenceType["Element"]],
+    ]
+
+    # ----------------------------------------------------------------------
+    # |
+    # |  Data
+    # |
     # ----------------------------------------------------------------------
     range: Range
 
     is_disabled: bool                                   = field(init=False, default=False)
 
-    _parent: Optional[ReferenceType["Element"]]         = field(init=False, default=None)
+    _parent_ref: Optional[ReferenceType["Element"]]     = field(init=False, default=None)
 
     # ----------------------------------------------------------------------
     @property
     def parent(self) -> "Element":
-        if self._parent is None:
+        if self._parent_ref is None:
             raise Exception("A parent has not been set for this element.")
 
-        assert self._parent is not None
+        assert self._parent_ref is not None
 
-        parent = self._parent()
+        parent = self._parent_ref()
         assert parent is not None
 
         return parent
@@ -71,9 +89,10 @@ class Element(ABC):
     # ----------------------------------------------------------------------
     def SetParent(
         self,
-        element: Optional["Element"],
+        element: "Element",
     ) -> None:
-        object.__setattr__(self, "_parent", ref(element) if element is not None else None)
+        assert self._parent_ref is None
+        object.__setattr__(self, "_parent_ref", ref(element))
 
     # ----------------------------------------------------------------------
     def Disable(self) -> None:
@@ -120,6 +139,19 @@ class Element(ABC):
                                 method_name_prefix = "On{}__".format(self.__class__.__name__)
 
                                 for detail_name, detail_value in accept_details:
+                                    if not (
+                                        isinstance(detail_value, Element)
+                                        or (
+                                            isinstance(detail_value, list) and (
+                                                not detail_value or isinstance(
+                                                    detail_value[0],
+                                                    Element,
+                                                )
+                                            )
+                                        )
+                                    ):
+                                        assert self.GENERATES_DETAILS_REFERENCES, self
+
                                     method_name = method_name_prefix + detail_name
 
                                     method = getattr(visitor, method_name, None)
@@ -164,13 +196,13 @@ class Element(ABC):
     # |  Protected Types
     # |
     # ----------------------------------------------------------------------
-    _GenerateAcceptDetailsGeneratorType     = Generator[
-        Tuple[str, Union["Element", Iterable["Element"]]],
+    _GenerateAcceptDetailsGeneratorType                 = Generator[
+        Tuple[str, GenerateAcceptDetailsGeneratorItemsType],
         None,
         None,
     ]
 
-    _GenerateAcceptChildrenGeneratorType    = Iterator[Optional[List["Element"]]]
+    _GenerateAcceptChildrenGeneratorType                = Iterator[Optional[List["Element"]]]
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -186,6 +218,13 @@ class Element(ABC):
         # Nothing by default
         if False:
             yield
+
+    # ----------------------------------------------------------------------
+    @extensionmethod
+    def _CreateAcceptReferenceDetails(self) -> "Element":
+        raise Exception(
+            "The `_CreateAcceptReferenceDetails` method should be implemented for '{}'.".format(self.__class__),
+        )
 
     # ----------------------------------------------------------------------
     @extensionmethod
@@ -216,3 +255,24 @@ class SimpleElement(Generic[SimpleElementType], Element):
 
     # ----------------------------------------------------------------------
     value: SimpleElementType
+
+
+# ----------------------------------------------------------------------
+@dataclass(frozen=True)
+class SimpleElements(Generic[SimpleElementType], Element):
+    """Element with multiple value members"""
+
+    # ----------------------------------------------------------------------
+    values: List[Element]
+
+    # ----------------------------------------------------------------------
+    def __post_init__(self):
+        if not self.values:
+            raise Exception("'values' should be populated.")
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @extensionmethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:
+        yield "values", self.values

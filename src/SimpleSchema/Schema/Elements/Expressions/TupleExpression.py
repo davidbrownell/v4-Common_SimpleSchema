@@ -16,7 +16,7 @@
 """Contains the TupleExpression object"""
 
 from dataclasses import dataclass
-from typing import List
+from typing import cast, List
 
 from Common_Foundation.Types import overridemethod
 
@@ -32,6 +32,9 @@ class TupleExpression(Expression):
     """A tuple"""
 
     # ----------------------------------------------------------------------
+    NAME = "Tuple"
+
+    # ----------------------------------------------------------------------
     expressions: List[Expression]
 
     # ----------------------------------------------------------------------
@@ -44,4 +47,4 @@ class TupleExpression(Expression):
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
-        yield "expressions", self.expressions
+        yield "expressions", cast(List[Element], self.expressions)

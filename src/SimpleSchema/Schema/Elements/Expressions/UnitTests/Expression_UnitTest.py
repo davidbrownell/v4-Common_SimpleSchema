@@ -17,6 +17,7 @@
 
 import sys
 
+from dataclasses import dataclass
 from pathlib import Path
 
 from Common_Foundation.ContextlibEx import ExitStack
@@ -31,7 +32,14 @@ with ExitStack(lambda: sys.path.pop(0)):
 
 
 # ----------------------------------------------------------------------
-def test_Standard():
-    e = Expression(Range.Create(Path("the_file"), 1, 2, 3, 4))
+@dataclass(frozen=True)
+class MyExpression(Expression):
+    NAME = "MyExpression"
 
+
+# ----------------------------------------------------------------------
+def test_Standard():
+    e = MyExpression(Range.Create(Path("the_file"), 1, 2, 3, 4))
+
+    assert e.NAME == "MyExpression"
     assert e.range == Range.Create(Path("the_file"), 1, 2, 3, 4)

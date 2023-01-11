@@ -1,0 +1,346 @@
+entry_point:
+- __type__: RootStatement
+  range: entry_point <[1, 1] -> [6, 1]>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[1, 1] -> [1, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[1, 1] -> [1, 7]>
+        value: value1
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[1, 1] -> [1, 7]>
+        value: Visibility.Public
+    type:
+      __type__: TupleType
+      range: entry_point <[1, 9] -> [1, 19]>
+      types:
+      - __type__: StringType
+        range: entry_point <[1, 10] -> [1, 16]>
+        min_length: 1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[1, 10] -> [1, 16]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[1, 10] -> [1, 16]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[1, 10] -> [1, 16]>
+            value: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[1, 9] -> [1, 19]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[1, 9] -> [1, 19]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <[1, 9] -> [1, 19]>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <[2, 1] -> [3, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[2, 1] -> [2, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[2, 1] -> [2, 7]>
+        value: value2
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[2, 1] -> [2, 7]>
+        value: Visibility.Public
+    type:
+      __type__: TupleType
+      range: entry_point <[2, 9] -> [2, 21]>
+      types:
+      - __type__: StringType
+        range: entry_point <[2, 10] -> [2, 17]>
+        min_length: 1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[2, 16] -> [2, 17]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[2, 16] -> [2, 17]>
+            value: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[2, 20] -> [2, 21]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[2, 20] -> [2, 21]>
+          value: 0
+        max:
+          __type__: IntegerExpression
+          range: entry_point <[2, 20] -> [2, 21]>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <[3, 1] -> [4, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[3, 1] -> [3, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[3, 1] -> [3, 7]>
+        value: value3
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[3, 1] -> [3, 7]>
+        value: Visibility.Public
+    type:
+      __type__: TupleType
+      range: entry_point <[3, 9] -> [3, 34]>
+      types:
+      - __type__: StringType
+        range: entry_point <[3, 10] -> [3, 16]>
+        min_length: 1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[3, 10] -> [3, 16]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[3, 10] -> [3, 16]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[3, 10] -> [3, 16]>
+            value: 1
+      - __type__: IntegerType
+        range: entry_point <[3, 18] -> [3, 25]>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[3, 18] -> [3, 25]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[3, 18] -> [3, 25]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[3, 18] -> [3, 25]>
+            value: 1
+      - __type__: NumberType
+        range: entry_point <[3, 27] -> [3, 33]>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[3, 27] -> [3, 33]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[3, 27] -> [3, 33]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[3, 27] -> [3, 33]>
+            value: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[3, 9] -> [3, 34]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[3, 9] -> [3, 34]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <[3, 9] -> [3, 34]>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <[4, 1] -> [5, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[4, 1] -> [4, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[4, 1] -> [4, 7]>
+        value: value4
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[4, 1] -> [4, 7]>
+        value: Visibility.Public
+    type:
+      __type__: TupleType
+      range: entry_point <[4, 9] -> [4, 78]>
+      types:
+      - __type__: StringType
+        range: entry_point <[4, 10] -> [4, 34]>
+        min_length: 2
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[4, 10] -> [4, 34]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[4, 10] -> [4, 34]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[4, 10] -> [4, 34]>
+            value: 1
+      - __type__: IntegerType
+        range: entry_point <[4, 36] -> [4, 55]>
+        min: 32
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[4, 36] -> [4, 55]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[4, 36] -> [4, 55]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[4, 36] -> [4, 55]>
+            value: 1
+      - __type__: NumberType
+        range: entry_point <[4, 57] -> [4, 77]>
+        min: 11.0
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[4, 57] -> [4, 77]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[4, 57] -> [4, 77]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[4, 57] -> [4, 77]>
+            value: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[4, 9] -> [4, 78]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[4, 9] -> [4, 78]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <[4, 9] -> [4, 78]>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <[5, 1] -> [6, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[5, 1] -> [5, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[5, 1] -> [5, 7]>
+        value: value5
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[5, 1] -> [5, 7]>
+        value: Visibility.Public
+    type:
+      __type__: TupleType
+      range: entry_point <[5, 9] -> [5, 57]>
+      types:
+      - __type__: StringType
+        range: entry_point <[5, 10] -> [5, 16]>
+        min_length: 1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[5, 10] -> [5, 16]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[5, 10] -> [5, 16]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[5, 10] -> [5, 16]>
+            value: 1
+      - __type__: TupleType
+        range: entry_point <[5, 18] -> [5, 38]>
+        types:
+        - __type__: StringType
+          range: entry_point <[5, 19] -> [5, 25]>
+          min_length: 1
+          cardinality:
+            __type__: Cardinality
+            range: entry_point <[5, 19] -> [5, 25]>
+            min:
+              __type__: IntegerExpression
+              range: entry_point <[5, 19] -> [5, 25]>
+              value: 1
+            max:
+              __type__: IntegerExpression
+              range: entry_point <[5, 19] -> [5, 25]>
+              value: 1
+        - __type__: TupleType
+          range: entry_point <[5, 27] -> [5, 37]>
+          types:
+          - __type__: StringType
+            range: entry_point <[5, 28] -> [5, 34]>
+            min_length: 1
+            cardinality:
+              __type__: Cardinality
+              range: entry_point <[5, 28] -> [5, 34]>
+              min:
+                __type__: IntegerExpression
+                range: entry_point <[5, 28] -> [5, 34]>
+                value: 1
+              max:
+                __type__: IntegerExpression
+                range: entry_point <[5, 28] -> [5, 34]>
+                value: 1
+          cardinality:
+            __type__: Cardinality
+            range: entry_point <[5, 27] -> [5, 37]>
+            min:
+              __type__: IntegerExpression
+              range: entry_point <[5, 27] -> [5, 37]>
+              value: 1
+            max:
+              __type__: IntegerExpression
+              range: entry_point <[5, 27] -> [5, 37]>
+              value: 1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[5, 18] -> [5, 38]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[5, 18] -> [5, 38]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[5, 18] -> [5, 38]>
+            value: 1
+      - __type__: IntegerType
+        range: entry_point <[5, 40] -> [5, 47]>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[5, 40] -> [5, 47]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[5, 40] -> [5, 47]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[5, 40] -> [5, 47]>
+            value: 1
+      - __type__: BooleanType
+        range: entry_point <[5, 49] -> [5, 56]>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[5, 49] -> [5, 56]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[5, 49] -> [5, 56]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[5, 49] -> [5, 56]>
+            value: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[5, 9] -> [5, 57]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[5, 9] -> [5, 57]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <[5, 9] -> [5, 57]>
+          value: 1

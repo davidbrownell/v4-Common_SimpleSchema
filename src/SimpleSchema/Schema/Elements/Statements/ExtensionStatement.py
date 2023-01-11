@@ -16,13 +16,16 @@
 """Contains the ExtensionStatement, ExtensionStatementPositionalArg, and ExtensionStatementKeywordArg objects"""
 
 from dataclasses import dataclass, field, InitVar
-from typing import Dict, List
+from typing import cast, Dict, List
 
 from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.Identifier import Identifier
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+
+from SimpleSchema.Schema.Elements.Expressions.Expression import Expression
+
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
 
@@ -33,7 +36,7 @@ class ExtensionStatementKeywordArg(Element):
 
     # ----------------------------------------------------------------------
     name: Identifier
-    value: Element
+    value: Expression
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -51,7 +54,7 @@ class ExtensionStatement(Statement):
 
     # ----------------------------------------------------------------------
     name: Identifier
-    positional_args: List[Element]  # Can be an empty list
+    positional_args: List[Expression]  # Can be an empty list
 
     keyword_args_param: InitVar[List[ExtensionStatementKeywordArg]]  # Can be an empty list
     keyword_args: Dict[str, ExtensionStatementKeywordArg]                   = field(init=False)
@@ -86,5 +89,5 @@ class ExtensionStatement(Statement):
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield "name", self.name
-        yield "positional_args", self.positional_args
-        yield "keyword_args", list(self.keyword_args.values())
+        yield "positional_args", cast(List[Element], self.positional_args)
+        yield "keyword_args", cast(List[Element], list(self.keyword_args.values()))
