@@ -33,8 +33,8 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Identifier import Identifier, SimpleElement
     from SimpleSchema.Schema.Elements.Common.Range import Range
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+    from SimpleSchema.Schema.Elements.Statements.ItemStatement import ItemStatement
     from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
-    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseItemStatement import ParseItemStatement, ParseType
 
 
 # ----------------------------------------------------------------------
@@ -66,14 +66,14 @@ def test_ErrorSetParent():
 def test_WithStatements():
     range1 = mock.MagicMock()
 
-    s1 = ParseItemStatement(
+    s1 = ItemStatement(
         mock.MagicMock(),
         Identifier(
             mock.MagicMock(),
             SimpleElement(range1, "foo"),
             SimpleElement(mock.MagicMock(), mock.MagicMock()),
         ),
-        ParseType(mock.MagicMock(), mock.MagicMock(), None),
+        mock.MagicMock(),
     )
 
     r = RootStatement(range1, [s1, s1])

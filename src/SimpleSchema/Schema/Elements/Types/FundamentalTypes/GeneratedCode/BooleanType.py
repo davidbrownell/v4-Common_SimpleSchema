@@ -15,10 +15,11 @@
 # pylint: disable=missing-class-docstring
 
 from dataclasses import dataclass
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Elements.Types.FundamentalType import FundamentalType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class BooleanType(Type):
-    pass
+class BooleanType(FundamentalType):
+    # ----------------------------------------------------------------------
+    NAME = "Boolean"

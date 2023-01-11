@@ -63,9 +63,9 @@ class Cardinality(Element):
 
         if max_param is not None and max_param.value < min_param.value:
             raise SimpleSchemaException(
-                "Invalid cardinality ({} < {}).".format(
-                    max_param.value,
+                "Invalid cardinality ({} > {}).".format(
                     min_param.value,
+                    max_param.value,
                 ),
                 max_param.range,
             )
@@ -88,18 +88,6 @@ class Cardinality(Element):
     @property
     def is_optional(self) -> bool:
         return self.min.value == 0 and self.max is not None and self.max.value == 1
-
-    @property
-    def is_zero_or_more(self) -> bool:
-        return self.min.value == 0 and self.max is None
-
-    @property
-    def is_one_or_more(self) -> bool:
-        return self.min.value == 1 and self.max is None
-
-    @property
-    def is_collection(self) -> bool:
-        return self.max is None or self.max.value > 1
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

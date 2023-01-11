@@ -21,3 +21,5 @@ Enum: Type ->
         _EnumItemType+
         | (_EnumItemType, String)+
     )
+
+    starting_value: Integer { min: 0 } ? { default: 0 }

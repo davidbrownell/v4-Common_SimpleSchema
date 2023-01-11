@@ -20,6 +20,7 @@ import sys
 import textwrap
 
 from contextlib import contextmanager
+from dataclasses import dataclass, field
 from enum import auto, Enum
 from io import StringIO
 from pathlib import Path
@@ -35,11 +36,12 @@ from Common_Foundation.Types import overridemethod
 from Common_FoundationEx.BuildImpl import BuildInfoBase
 from Common_FoundationEx import ExecuteTasks
 
-
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
+    from SimpleSchema.Schema.Elements.Common.Element import Element
     from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+
     from SimpleSchema.Schema.Elements.Expressions.BooleanExpression import BooleanExpression
     from SimpleSchema.Schema.Elements.Expressions.Expression import Expression
     from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
@@ -47,12 +49,16 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpression
     from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
     from SimpleSchema.Schema.Elements.Expressions.TupleExpression import TupleExpression
+
     from SimpleSchema.Schema.Elements.Statements.ExtensionStatement import ExtensionStatement
     from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
-    from SimpleSchema.Schema.Parse import Parse
-    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseItemStatement import ParseItemStatement
-    from SimpleSchema.Schema.Parse.ParseElements.Statements.ParseStructureStatement import ParseStructureStatement
-    from SimpleSchema.Schema.Parse.ParseElements.Types.ParseIdentifierType import ParseIdentifierType
+
+    from SimpleSchema.Schema.Parse.ANTLR import Parse
+
+    from SimpleSchema.Schema.Parse.ANTLR.Elements.Statements.ParseItemStatement import ParseItemStatement
+    from SimpleSchema.Schema.Parse.ANTLR.Elements.Statements.ParseStructureStatement import ParseStructureStatement
+    from SimpleSchema.Schema.Parse.ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
+
     from SimpleSchema.Schema.Visitors.Visitor import Visitor, VisitResult
 
 
@@ -210,7 +216,7 @@ class BuildInfo(BuildInfoBase):
                 if not init_filename.is_file():
                     output_dir.mkdir(parents=True, exist_ok=True)
 
-                    with init_filename.open("w") as f:
+                    with init_filename.open("w"):
                         pass
 
                 # ----------------------------------------------------------------------
@@ -290,47 +296,67 @@ class BuildInfo(BuildInfoBase):
 class _Visitor(Visitor):
     # ----------------------------------------------------------------------
     def __init__(self):
-        self._sink                                      = StringIO()
-        self._stream_stack: List[StreamDecorator]       = [StreamDecorator(self._sink), ]
-        self._header_stack: List[StringIO]              = []
-        self._post_init_stack: List[StringIO]           = []
+        self._depth_ctr                                 = 0
 
-        self._includes: Dict[str, Set[str]]             = {
+        self._sink                                      = StringIO()
+
+        self._stack: List[_Visitor._StackFrame]         = []
+
+        self._raw_includes                              = StringIO()
+        self._raw_includes_post                         = StringIO()
+
+        # Pre-populate some values to ensure that they appear in the expected order
+        self._sorted_includes: Dict[str, Set[str]]      = {
             "dataclasses": set(["dataclass", ]),
             "enum": set(),
             "typing": set(),
-            "SimpleSchema.Schema.Elements.Types.Type": set(["Type", ]),
+            "SimpleSchema.Schema.Elements.Types.FundamentalType": set(["FundamentalType", ]),
         }
 
     # ----------------------------------------------------------------------
     @property
     def content(self) -> str:
-        assert len(self._stream_stack) == 1
-
-        includes: List[str] = []
-
-        for include_source, include_items in self._includes.items():
+        for include_source, include_items in self._sorted_includes.items():
             if not include_items:
                 continue
 
             include_items = list(include_items)
             include_items.sort()
 
-            includes.append(
-                "from {} import {}".format(include_source, ", ".join(include_items)),
+            self._raw_includes.write(
+                "from {} import {}\n".format(include_source, ", ".join(include_items)),
             )
+
+        raw_header_content = self._raw_includes.getvalue()
+        raw_header_post_content = self._raw_includes_post.getvalue()
 
         return textwrap.dedent(
             """\
-            {}
+            {raw_header}{raw_header_post}
 
 
-            {}
+            {content}
             """,
         ).format(
-            "\n".join(includes),
-            self._sink.getvalue().rstrip(),
+            raw_header=raw_header_content.rstrip(),
+            raw_header_post="" if not raw_header_post_content else "\n\n{}".format(raw_header_post_content.rstrip()),
+            content=self._sink.getvalue().rstrip(),
         )
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    def OnElement(self, *args, **kwargs) -> Iterator[Optional[VisitResult]]:
+        self._depth_ctr += 1
+
+        # ----------------------------------------------------------------------
+        def OnExit():
+            assert self._depth_ctr != 0
+            self._depth_ctr -= 1
+
+        # ----------------------------------------------------------------------
+
+        with ExitStack(OnExit):
+            yield
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -343,130 +369,111 @@ class _Visitor(Visitor):
         self,
         element: ParseStructureStatement,
     ) -> Iterator[Optional[VisitResult]]:
-        if element.base is None:
-            raise SimpleSchemaException("Structures must have a base.", element.range)
+        assert self._depth_ctr > 1, self._depth_ctr
 
-        if not isinstance(element.base, ParseIdentifierType):
-            raise SimpleSchemaException("Structures must have an identifier base type.", element.base.range)
+        if self._depth_ctr == 2:
+            if element.base is None:
+                raise SimpleSchemaException("Structures must have a base.", element.range)
 
-        if len(element.base.identifiers) != 1 or element.base.identifiers[0].id.value != "Type":
-            raise SimpleSchemaException("The base type for structures must be 'Type'.", element.base.range)
+            if not isinstance(element.base, ParseIdentifierType):
+                raise SimpleSchemaException("Structures must have an identifier base type.", element.base.range)
 
-        if element.name.id.value == "Enum":
-            # Enums are a bit more complicated than what I'd like to automate at this point.
-            self._includes.setdefault("typing", set()).add("List")
-            self._includes["typing"].add("Tuple")
-            self._includes["typing"].add("Union")
-            self._includes.setdefault("SimpleSchema.Schema.Elements.Common.SimpleSchemaException", set()).add("SimpleSchemaException")
+            if len(element.base.identifiers) != 1 or element.base.identifiers[0].id.value != "Type":
+                raise SimpleSchemaException("The base type for structures must be 'Type'.", element.base.range)
 
-            self._stream_stack[-1].write(
+            if not element.cardinality.is_single:
+                raise SimpleSchemaException("Structures must be single elements.\n", element.cardinality.range)
+
+            if element.metadata:
+                raise SimpleSchemaException("Structures may not have metadata.", element.range)
+
+            name = element.name.id.value
+
+            if name == "Enum":
+                self._WriteEnum()
+
+                yield VisitResult.SkipAll
+                return
+
+            frame = self.__class__._StackFrame()  # pylint: disable=protected-access
+
+            self._stack.append(frame)
+            with ExitStack(self._stack.pop):
+                yield
+
+            self._sink.write(
                 textwrap.dedent(
                     """\
                     # ----------------------------------------------------------------------
                     @dataclass(frozen=True)
-                    class EnumType(Type):
-                        _EnumItemType = Union[int, str]
+                    class {name}Type(FundamentalType):
+                        # ----------------------------------------------------------------------
+                        NAME = "{name}"
+                    """,
+                ).format(name=name),
+            )
 
-                        values: Union[
-                            List[_EnumItemType],
-                            List[Tuple[_EnumItemType, str]],
-                        ]
+            indented_stream = StreamDecorator(self._sink, line_prefix="    ")
+
+            # Types
+            types_content = frame.types_sink.getvalue()
+
+            if types_content:
+                indented_stream.write(
+                    textwrap.dedent(
+                        """\
+
+                        # ----------------------------------------------------------------------
+                        {}
+                        """,
+                    ).format(types_content.rstrip()),
+                )
+
+            # Attributes
+            attributes_content = frame.attributes_sink.getvalue()
+
+            if attributes_content:
+                indented_stream.write(
+                    textwrap.dedent(
+                        """\
+
+                        # ----------------------------------------------------------------------
+                        {}
+                        """,
+                    ).format(attributes_content.rstrip()),
+                )
+
+            # __post_init__
+            post_init_content = frame.post_init_sink.getvalue()
+
+            if post_init_content:
+                self._sorted_includes.setdefault("SimpleSchema.Schema.Elements.Common.SimpleSchemaException", set()).add("SimpleSchemaException")
+
+                indented_stream.write(
+                    textwrap.dedent(
+                        """\
 
                         # ----------------------------------------------------------------------
                         def __post_init__(self):
-                            if not self.values:
-                                raise SimpleSchemaException("Enum values must be provided.", self.range)
+                            super({}Type, self).__post_init__(){}
+                        """,
+                    ).format(
+                        name,
+                        "" if not post_init_content else
+                            TextwrapEx.Indent("\n\n{}".format(post_init_content.rstrip()), 4, skip_first_line=True),
+                    ),
+                )
 
-                            if isinstance(self.values[0], tuple):
-                                get_value_func = lambda v: v[0]
-                            else:
-                                get_value_func = lambda v: v
+            return
 
-                            if isinstance(get_value_func(self.values[0]), int):
-                                for value_index, value in enumerate(self.values):
-                                    if not isinstance(get_value_func(value), int):
-                                        raise SimpleSchemaException("An integer was expected (index: {}).".format(value_index), self.range)
+        if element.base is not None:
+            raise SimpleSchemaException("Nested structures may not have bases.", element.base.range)
 
-                            elif isinstance(get_value_func(self.values[0]), str):
-                                for value_index, value in enumerate(self.values):
-                                    if not isinstance(get_value_func(value), str):
-                                        raise SimpleSchemaException("A string was expected (index: {}).".format(value_index), self.range)
-
-                            else:
-                                assert False, get_value_func(self.values[0])  # pragma: no cover
-                    """,
-                ),
-            )
-
+        if element.name.id.value != "Python":
             yield VisitResult.SkipAll
             return
 
-        self._stream_stack[-1].write(
-            textwrap.dedent(
-                """\
-                # ----------------------------------------------------------------------
-                @dataclass(frozen=True)
-                class {}Type(Type):
-                """,
-            ).format(element.name.id.value),
-        )
-
-        if not element.cardinality.is_single:
-            raise SimpleSchemaException("Structures must be single elements.\n", element.cardinality.range)
-
-        if element.metadata:
-            raise SimpleSchemaException("Structures may not have metadata.", element.range)
-
-        if not element.children:
-            header_content = ""
-            post_init_content = ""
-            content = "pass\n"
-
-            yield
-
-        else:
-            content_sink = StringIO()
-            header_sink = StringIO()
-            post_init_sink = StringIO()
-
-            self._stream_stack.append(content_sink)  # type: ignore
-            self._header_stack.append(header_sink)
-            self._post_init_stack.append(post_init_sink)
-
-            with ExitStack(
-                self._stream_stack.pop,
-                self._header_stack.pop,
-                self._post_init_stack.pop,
-            ):
-                yield
-
-            header_content = header_sink.getvalue()
-            post_init_content = post_init_sink.getvalue()
-            content = content_sink.getvalue()
-
-        indented_stream = StreamDecorator(self._stream_stack[-1], line_prefix="    ")
-
-        if header_content:
-            indented_stream.write(header_content)
-
-        assert content
-        indented_stream.write(content)
-
-        if post_init_content:
-            self._includes.setdefault("SimpleSchema.Schema.Elements.Common.SimpleSchemaException", set()).add("SimpleSchemaException")
-
-            indented_stream.write(
-                textwrap.dedent(
-                    """\
-
-                    # ----------------------------------------------------------------------
-                    def __post_init__(self):
-                        {}
-                    """,
-                ).format(
-                    TextwrapEx.Indent(post_init_content, 4, skip_first_line=True),
-                ),
-            )
+        yield
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -500,13 +507,8 @@ class _Visitor(Visitor):
         else:
             assert False, the_type  # pragma: no cover
 
-        potential_metadata_item_prefix: Optional[str] = None
-
         if element.type.cardinality.is_optional:
-            self._includes.setdefault("dataclasses", set()).add("field")
-            self._includes.setdefault("typing", set()).add("Optional")
-
-            the_type = "Optional[{}]".format(the_type)
+            self._sorted_includes.setdefault("dataclasses", set()).add("field")
 
             has_default = False
 
@@ -522,13 +524,15 @@ class _Visitor(Visitor):
                         assert False, metadata_item  # pragma: no cover
 
             if not has_default:
-                the_type += " = field(default=None)"
-
-            potential_metadata_item_prefix = "self.{} is not None and ".format(name)
+                self._sorted_includes.setdefault("typing", set()).add("Optional")
+                the_type = "Optional[{}] = field(default=None)".format(the_type)
 
         if element.type.metadata:
             for metadata_item, metadata_value in element.type.metadata.items.items():
+                # We need to process the 'values' metadata item so that we can create the enum type.
                 if metadata_item == "values":
+                    assert element.type.identifiers[0].id.value == "Enum", element.type.identifiers[0].id.value
+
                     if not isinstance(metadata_value.value, ListExpression):
                         raise SimpleSchemaException("'values' must be a list.", metadata_value.range)
 
@@ -544,7 +548,7 @@ class _Visitor(Visitor):
 
                             int_values["Value{}".format(item.value)] = item.value
 
-                        self._includes.setdefault("enum", set()).add("Enum")
+                        self._sorted_includes.setdefault("enum", set()).add("Enum")
 
                         self._header_stack[-1].write(
                             textwrap.dedent(
@@ -571,10 +575,10 @@ class _Visitor(Visitor):
 
                             string_values.append(item.value)
 
-                        self._includes.setdefault("enum", set()).add("auto")
-                        self._includes["enum"].add("Enum")
+                        self._sorted_includes.setdefault("enum", set()).add("auto")
+                        self._sorted_includes["enum"].add("Enum")
 
-                        self._header_stack[-1].write(
+                        self._stack[-1].types_sink.write(
                             textwrap.dedent(
                                 """\
                                 class {}Enum(Enum):
@@ -616,9 +620,9 @@ class _Visitor(Visitor):
 
                             tuple_values[item.expressions[0].value] = item.expressions[1].value
 
-                        self._includes.setdefault("enum", set()).add("Enum")
+                        self._sorted_includes.setdefault("enum", set()).add("Enum")
 
-                        self._header_stack[-1].write(
+                        self._stack[-1].types_sink.write(
                             textwrap.dedent(
                                 """\
                                 class {}Enum(str, Enum):
@@ -634,46 +638,7 @@ class _Visitor(Visitor):
                     else:
                         raise SimpleSchemaException("'values' items must be integers, strings, or tuples.", metadata_value.value.items[0].range)
 
-                elif metadata_item == "min":
-                    self._post_init_stack[-1].write(
-                        textwrap.dedent(
-                            """\
-                            if {prefix}self.{var} < {val}:
-                                raise SimpleSchemaException(
-                                    "'{var}' must be greater than or equal to '{val}' ('{{}}' was provided).".format(self.{var}),
-                                    self.range,
-                                )
-
-                            """,
-                        ).format(
-                            prefix=potential_metadata_item_prefix,
-                            var=name,
-                            val=self.__class__._ExpressionToPython(metadata_value.value),  # pylint: disable=protected-access
-                        ),
-                    )
-
-                elif metadata_item == "max":
-                    self._post_init_stack[-1].write(
-                        textwrap.dedent(
-                            """\
-                            if {prefix}self.{var} > {val}:
-                                raise SimpleSchemaException(
-                                    "'{var}' must be less than or equal to '{val}' ('{{}}' was provided).".format(self.{var}),
-                                    self.range,
-                                )
-
-                            """,
-                        ).format(
-                            prefix=potential_metadata_item_prefix,
-                            var=name,
-                            val=self.__class__._ExpressionToPython(metadata_value.value),  # pylint: disable=protected-access
-                        ),
-                    )
-
-                else:
-                    assert False, metadata_item  # pragma: no cover
-
-        self._stream_stack[-1].write("{}: {}\n".format(name, the_type))
+        self._stack[-1].attributes_sink.write("{}: {}\n".format(name, the_type))
 
         yield
 
@@ -685,7 +650,13 @@ class _Visitor(Visitor):
     ) -> Iterator[Optional[VisitResult]]:
         name = element.name.id.value
 
-        if name != "python_post_init":
+        if name in ["header", "header_pre"]:
+            sink = self._raw_includes
+        elif name == "header_post":
+            sink = self._raw_includes_post
+        elif name == "post_init":
+            sink = self._stack[-1].post_init_sink
+        else:
             raise SimpleSchemaException("'{}' is not a valid extension name.".format(name), element.name.id.range)
 
         if (
@@ -698,7 +669,7 @@ class _Visitor(Visitor):
                 element.positional_args[0].range,
             )
 
-        self._post_init_stack[-1].write(element.positional_args[0].value)
+        sink.write("{}\n".format(element.positional_args[0].value.rstrip()))
 
         yield
 
@@ -711,22 +682,49 @@ class _Visitor(Visitor):
         if match is not None:
             return self._DefaultDetailsMethod
 
-        # match = self.METHOD_REGEX.match(name)
-        # if match is not None:
-        #     return self._DefaultMethod
+        match = self.METHOD_REGEX.match(name)
+        if match is not None:
+            return self._DefaultMethod
 
         raise AttributeError(name)
 
     # ----------------------------------------------------------------------
+    # |
+    # |  Private Types
+    # |
     # ----------------------------------------------------------------------
+    @dataclass(frozen=True)
+    class _StackFrame(object):
+        types_sink: StringIO                = field(init=False, default_factory=StringIO)
+        attributes_sink: StringIO           = field(init=False, default_factory=StringIO)
+        post_init_sink: StringIO            = field(init=False, default_factory=StringIO)
+
+    # ----------------------------------------------------------------------
+    # |
+    # |  Private Methods
+    # |
     # ----------------------------------------------------------------------
     @contextmanager
     def _DefaultMethod(self, *args, **kwargs) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
         yield
 
     # ----------------------------------------------------------------------
-    def _DefaultDetailsMethod(self, *args, **kwargs) -> None:  # pylint: disable=unused-argument
-        pass
+    def _DefaultDetailsMethod(
+        self,
+        element: Union[Element, List[Element]],
+        *,
+        include_disabled: bool,
+    ) -> None:
+        if isinstance(element, Element):
+            elements = [element]
+        else:
+            elements = element
+
+        for element in elements:
+            if element.is_disabled and not include_disabled:
+                continue
+
+            element.Accept(self)
 
     # ----------------------------------------------------------------------
     @staticmethod
@@ -743,6 +741,130 @@ class _Visitor(Visitor):
             return '"{}"'.format(expression.value.replace('"', '\\"'))
         else:
             assert False, expression  # pragma: no cover
+
+    # ----------------------------------------------------------------------
+    def _WriteEnum(self) -> None:
+        self._sorted_includes.setdefault("dataclasses", set()).add("field")
+
+        self._sorted_includes.setdefault("enum", set()).add("Enum")
+
+        self._sorted_includes.setdefault("typing", set()).add("Callable")
+        self._sorted_includes["typing"].add("List")
+        self._sorted_includes["typing"].add("Tuple")
+        self._sorted_includes["typing"].add("Union")
+        self._sorted_includes["typing"].add("Type as TypeOf")
+        self._sorted_includes["typing"].add("cast")
+
+        self._sorted_includes.setdefault("SimpleSchema.Schema.Elements.Common.SimpleSchemaException", set()).add("SimpleSchemaException")
+
+        self._sink.write(
+            textwrap.dedent(
+                """\
+                # ----------------------------------------------------------------------
+                @dataclass(frozen=True)
+                class EnumType(FundamentalType):
+                    NAME = "Enum"
+
+                    # ----------------------------------------------------------------------
+                    _EnumItemType = Union[int, str]
+
+                    values: Union[
+                        List[_EnumItemType],
+                        List[Tuple[_EnumItemType, str]],
+                    ]
+
+                    starting_value: int                 = field(default=0)
+
+                    EnumClass: TypeOf[Enum]             = field(init=False)
+
+                    # ----------------------------------------------------------------------
+                    def __post_init__(self):
+                        super(EnumType, self).__post_init__()
+
+                        if not self.values:
+                            raise SimpleSchemaException("Enum values must be provided.", self.range)
+
+                        if self.starting_value < 0:
+                            raise SimpleSchemaException("'starting_value' must be greater than or equal to '0' ('{}' was provided).".format(self.starting_value), self.range)
+
+                        if isinstance(self.values[0], tuple):
+                            # ----------------------------------------------------------------------
+                            def GetTupleValue(index):
+                                v = self.values[index]
+
+                                if not isinstance(v, tuple):
+                                    raise SimpleSchemaException("A tuple was expected (index: {}).".format(index), self.range)
+
+                                return v[0]
+
+                            # ----------------------------------------------------------------------
+                            def CreateTupleEnumType(
+                                value_to_enum_name_func: Callable[[EnumType._EnumItemType], str],
+                            ) -> TypeOf[Enum]:
+                                return Enum(
+                                    "EnumClass",
+                                    {
+                                        value_to_enum_name_func(value[0]): value[1]
+                                        for value in cast(List[Tuple[EnumType._EnumItemType, str]], self.values)
+                                    },
+                                    type="str",
+                                )
+
+                            # ----------------------------------------------------------------------
+
+                            get_value_func = GetTupleValue
+                            create_enum_type = CreateTupleEnumType
+
+                        else:
+                            # ----------------------------------------------------------------------
+                            def GetNonTupleValue(index):
+                                v = self.values[index]
+
+                                if isinstance(v, tuple):
+                                    raise SimpleSchemaException("A tuple value was not expected (index: {}).".format(index), self.range)
+
+                                return v
+
+                            # ----------------------------------------------------------------------
+                            def CreateNonTupleEnumType(
+                                value_to_enum_name_func: Callable[[EnumType._EnumItemType], str],
+                            ) -> TypeOf[Enum]:
+                                import itertools
+
+                                return Enum(
+                                    "EnumClass",
+                                    {
+                                        value_to_enum_name_func(value): int_value
+                                        for value, int_value in zip(cast(List[EnumType._EnumItemType], self.values), itertools.count(self.starting_value))
+                                    },
+                                )
+
+                            # ----------------------------------------------------------------------
+
+                            get_value_func = GetNonTupleValue
+                            create_enum_type = CreateNonTupleEnumType
+
+                        if isinstance(get_value_func(0), int):
+                            value_to_enum_name_func = lambda value: "Value{}".format(value)  # pylint: disable=unnecessary-lambda
+
+                            for value_index in range(len(self.values)):
+                                if not isinstance(get_value_func(value_index), int):
+                                    raise SimpleSchemaException("An integer was expected (index: {}).".format(value_index), self.range)
+
+                        elif isinstance(get_value_func(0), str):
+                            value_to_enum_name_func = lambda value: value
+
+                            for value_index in range(len(self.values)):
+                                if not isinstance(get_value_func(value_index), str):
+                                    raise SimpleSchemaException("A string was expected (index: {}).".format(value_index), self.range)
+
+                        else:
+                            raise SimpleSchemaException("A string or integer is required.", self.range)
+
+                        object.__setattr__(self, "EnumClass", create_enum_type(value_to_enum_name_func))
+                """,
+            ),
+        )
 
 
 # ----------------------------------------------------------------------

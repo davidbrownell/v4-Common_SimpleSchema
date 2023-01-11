@@ -16,7 +16,7 @@
 """Contains the ListExpression object"""
 
 from dataclasses import dataclass
-from typing import List
+from typing import cast, List
 
 from Common_Foundation.Types import overridemethod
 
@@ -30,6 +30,9 @@ class ListExpression(Expression):
     """A list of expressions"""
 
     # ----------------------------------------------------------------------
+    NAME = "List"
+
+    # ----------------------------------------------------------------------
     items: List[Expression]  # Can be an empty list
 
     # ----------------------------------------------------------------------
@@ -37,4 +40,4 @@ class ListExpression(Expression):
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
-        yield "items", self.items
+        yield "items", cast(List[Element], self.items)

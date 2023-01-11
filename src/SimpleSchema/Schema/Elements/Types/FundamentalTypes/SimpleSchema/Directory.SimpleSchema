@@ -15,4 +15,4 @@
 # ----------------------------------------------------------------------
 
 Directory: Type ->
-    exists: Boolean? { default: true }
+    ensure_exists: Boolean? { default: true }

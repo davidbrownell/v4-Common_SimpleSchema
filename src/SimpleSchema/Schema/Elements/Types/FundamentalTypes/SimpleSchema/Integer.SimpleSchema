@@ -29,9 +29,10 @@ Integer: Type ->
         ]
     }?
 
-    python_post_init(
-        """
-        if self.min is not None and self.max is not None and self.max < self.min:
-            raise SimpleSchemaException("'min' > 'max'.", self.range)
-        """,
-    )
+    Python ->
+        post_init(
+            """
+            if self.min is not None and self.max is not None and self.max < self.min:
+                raise SimpleSchemaException("'min' > 'max'.", self.range)
+            """,
+        )

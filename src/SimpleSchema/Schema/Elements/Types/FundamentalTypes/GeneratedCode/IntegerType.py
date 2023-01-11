@@ -17,13 +17,17 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Elements.Types.FundamentalType import FundamentalType
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class IntegerType(Type):
+class IntegerType(FundamentalType):
+    # ----------------------------------------------------------------------
+    NAME = "Integer"
+
+    # ----------------------------------------------------------------------
     class bitsEnum(str, Enum):
         Value8 = "8 bits"
         Value16 = "16 bits"
@@ -31,11 +35,14 @@ class IntegerType(Type):
         Value64 = "64 bits"
         Value128 = "128 bits"
 
+    # ----------------------------------------------------------------------
     min: Optional[int] = field(default=None)
     max: Optional[int] = field(default=None)
     bits: Optional[bitsEnum] = field(default=None)
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
+        super(IntegerType, self).__post_init__()
+
         if self.min is not None and self.max is not None and self.max < self.min:
             raise SimpleSchemaException("'min' > 'max'.", self.range)

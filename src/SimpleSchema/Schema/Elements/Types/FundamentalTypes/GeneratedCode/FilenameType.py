@@ -15,12 +15,15 @@
 # pylint: disable=missing-class-docstring
 
 from dataclasses import dataclass, field
-from typing import Optional
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Elements.Types.FundamentalType import FundamentalType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class FilenameType(Type):
-    exists: Optional[bool] = field(default=True)
-    match_any: Optional[bool] = field(default=False)
+class FilenameType(FundamentalType):
+    # ----------------------------------------------------------------------
+    NAME = "Filename"
+
+    # ----------------------------------------------------------------------
+    ensure_exists: bool = field(default=True)
+    match_any: bool = field(default=False)

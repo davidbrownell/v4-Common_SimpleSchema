@@ -1,0 +1,134 @@
+entry_point:
+- __type__: RootStatement
+  range: entry_point <[1, 1] -> [6, 1]>
+  statements:
+  - __type__: AliasType
+    range: entry_point <[1, 1] -> [2, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[1, 1] -> [1, 12]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[1, 1] -> [1, 12]>
+        value: CustomType1
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[1, 1] -> [1, 12]>
+        value: Visibility.Public
+    type:
+      __type__: StringType
+      range: entry_point <[1, 14] -> [1, 21]>
+      min_length: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[1, 20] -> [1, 21]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[1, 20] -> [1, 21]>
+          value: 0
+  - __type__: AliasType
+    range: entry_point <[2, 1] -> [4, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[2, 1] -> [2, 12]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[2, 1] -> [2, 12]>
+        value: CustomType2
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[2, 1] -> [2, 12]>
+        value: Visibility.Public
+    type:
+      __type__: VariantType
+      range: entry_point <[2, 14] -> [2, 42]>
+      types:
+      - __type__: StringType
+        range: entry_point <[2, 15] -> [2, 21]>
+        min_length: 1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[2, 15] -> [2, 21]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[2, 15] -> [2, 21]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[2, 15] -> [2, 21]>
+            value: 1
+      - __type__: IntegerType
+        range: entry_point <[2, 24] -> [2, 31]>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[2, 24] -> [2, 31]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[2, 24] -> [2, 31]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[2, 24] -> [2, 31]>
+            value: 1
+      - __type__: BooleanType
+        range: entry_point <[2, 34] -> [2, 41]>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <[2, 34] -> [2, 41]>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <[2, 34] -> [2, 41]>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <[2, 34] -> [2, 41]>
+            value: 1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <[2, 14] -> [2, 42]>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <[2, 14] -> [2, 42]>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <[2, 14] -> [2, 42]>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <[4, 1] -> [5, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[4, 1] -> [4, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[4, 1] -> [4, 7]>
+        value: value1
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[4, 1] -> [4, 7]>
+        value: Visibility.Public
+    type:
+      __type__: AliasType
+      range: entry_point <[1, 1] -> [2, 1]>
+      alias:
+        name: CustomType1
+        range: entry_point <[1, 14] -> [1, 21]>
+  - __type__: ItemStatement
+    range: entry_point <[5, 1] -> [6, 1]>
+    name:
+      __type__: Identifier
+      range: entry_point <[5, 1] -> [5, 7]>
+      id:
+        __type__: SimpleElement
+        range: entry_point <[5, 1] -> [5, 7]>
+        value: value2
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <[5, 1] -> [5, 7]>
+        value: Visibility.Public
+    type:
+      __type__: AliasType
+      range: entry_point <[2, 1] -> [4, 1]>
+      alias:
+        name: CustomType2
+        range: entry_point <[2, 14] -> [2, 42]>
