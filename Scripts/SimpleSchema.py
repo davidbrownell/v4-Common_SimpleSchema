@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""BugBug"""
+"""Generates code based on a SimpleSchema schema definition and plugin."""
 
 import os
 import sys
