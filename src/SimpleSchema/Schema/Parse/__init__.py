@@ -49,7 +49,7 @@ def Parse(
     *,
     single_threaded: bool=False,
     quiet: bool=False,
-    raise_if_single_exception: bool=True,
+    raise_if_single_exception: bool=False,
 ) -> Union[
     Dict[Path, Exception],
     Dict[Path, RootStatement],
@@ -63,18 +63,27 @@ def Parse(
         raise_if_single_exception=raise_if_single_exception,
     )
 
-    roots = {}
+    roots: Dict[Path, RootStatement] = {}
+    exceptions: Dict[Path, Exception] = {}
 
     for workspace_results in initial_results.values():
         for filename, result in workspace_results.items():
-            assert filename not in roots, filename
-            roots[filename] = result
+            if isinstance(result, RootStatement):
+                assert filename not in roots, filename
+                roots[filename] = result
+            elif isinstance(result, Exception):
+                assert filename not in exceptions, filename
+                exceptions[filename] = result
+            else:
+                assert False, result  # pragma: no cover
 
     if dm.result != 0:
-        return roots
+        assert exceptions is not None
 
-    assert all(isinstance(item, RootStatement) for item in roots.values())
-    roots = cast(Dict[Path, RootStatement], roots)
+        if len(exceptions) == 1 and raise_if_single_exception:
+            raise next(iter(exceptions.values()))
+
+        return exceptions
 
     results = ResolveTypes(
         dm,
@@ -90,23 +99,3 @@ def Parse(
         return cast(Dict[Path, Exception], results)
 
     return roots
-
-
-# ----------------------------------------------------------------------
-def ResolveExpression(
-    expression: Expression,
-) -> Any:
-    if isinstance(expression, BooleanExpression):
-        return expression.value
-    elif isinstance(expression, IntegerExpression):
-        return expression.value
-    elif isinstance(expression, ListExpression):
-        return [ResolveExpression(item) for item in expression.items]
-    elif isinstance(expression, NumberExpression):
-        return expression.value
-    elif isinstance(expression, StringExpression):
-        return expression.value
-    elif isinstance(expression, TupleExpression):
-        return tuple(ResolveExpression(expression) for expression in expression.expressions)
-    else:
-        raise SimpleSchemaException("Invalid expression", expression.range)

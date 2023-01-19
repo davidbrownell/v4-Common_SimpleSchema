@@ -1,32 +1,33 @@
 # ----------------------------------------------------------------------
 # |
-# |  IntegerExpression.py
+# |  NoneExpression.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2022-12-13 11:17:24
+# |      2023-01-18 14:07:14
 # |
 # ----------------------------------------------------------------------
 # |
-# |  Copyright David Brownell 2022-23
+# |  Copyright David Brownell 2023
 # |  Distributed under the Boost Software License, Version 1.0. See
 # |  accompanying file LICENSE_1_0.txt or copy at
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the IntegerExpression object"""
+"""Contains the NoneExpression object"""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from types import NoneType
 
 from SimpleSchema.Schema.Elements.Expressions.FundamentalExpression import FundamentalExpression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class IntegerExpression(FundamentalExpression):
-    """Integer value"""
+class NoneExpression(FundamentalExpression):
+    """None expression"""
 
     # ----------------------------------------------------------------------
-    NAME = "Integer"
+    NAME = "None"
 
     # ----------------------------------------------------------------------
-    value: int
+    value: NoneType                         = field(init=False, default=None)

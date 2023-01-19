@@ -220,5 +220,6 @@ class StructureStatementFactory(_ElementFactory):
             statement.range,
             statement.name,
             bases,
+            statement.metadata,
             [], # Statements are added during finalization
         )

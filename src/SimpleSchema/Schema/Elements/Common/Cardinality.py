@@ -16,13 +16,16 @@
 """Contains the Cardinality object"""
 
 from dataclasses import dataclass, field, InitVar
-from typing import Optional
+from typing import Any, Optional
 
 from Common_Foundation.Types import overridemethod
+from Common_FoundationEx.InflectEx import inflect
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
+from SimpleSchema.Schema.Elements.Common.Range import Range
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+
 from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
 
 
@@ -39,6 +42,31 @@ class Cardinality(Element):
     max: Optional[IntegerExpression]        = field(init=False)
 
     metadata: Optional[Metadata]
+
+    # ----------------------------------------------------------------------
+    @classmethod
+    def CreateFromCode(
+        cls,
+        min_value: Optional[int]=None,
+        max_value: Optional[int]=None,
+        *,
+        range_value: Optional[Range]=None,
+        metadata: Optional[Metadata]=None,
+    ) -> "Cardinality":
+        if min_value is None:
+            min_param = None
+        else:
+            min_param = IntegerExpression(Range.CreateFromCode(), min_value)
+
+        if max_value is None:
+            max_param = None
+        else:
+            max_param = IntegerExpression(Range.CreateFromCode(), max_value)
+
+        if range_value is None:
+            range_value = Range.CreateFromCode(callstack_offset=1)
+
+        return cls(range_value, min_param, max_param, metadata)
 
     # ----------------------------------------------------------------------
     def __post_init__(
@@ -88,6 +116,55 @@ class Cardinality(Element):
     @property
     def is_optional(self) -> bool:
         return self.min.value == 0 and self.max is not None and self.max.value == 1
+
+    @property
+    def is_container(self) -> bool:
+        return self.max is None or self.max.value > 1
+
+    # ----------------------------------------------------------------------
+    def ValidatePythonValue(
+        self,
+        value: Any,
+        range_value: Range,
+    ) -> None:
+        if self.is_container:
+            if not isinstance(value, list):
+                raise SimpleSchemaException("A container was expected.", range_value)
+
+            num_items = len(value)
+
+            if num_items < self.min.value:
+                raise SimpleSchemaException(
+                    "At least {} {} expected ({} {} found).".format(
+                        inflect.no("item", self.min.value),
+                        inflect.plural_verb("was", self.min.value),
+                        inflect.no("item", num_items),
+                        inflect.plural_verb("was", num_items),
+                    ),
+                    range_value,
+                )
+
+            if self.max is not None and num_items > self.max.value:
+                raise SimpleSchemaException(
+                    "Only {} {} expected ({} {} found).".format(
+                        inflect.no("item", self.max.value),
+                        inflect.plural_verb("was", self.max.value),
+                        inflect.no("item", num_items),
+                        inflect.no("was", num_items),
+                    ),
+                    range_value,
+                )
+
+            return
+
+        if isinstance(value, list):
+            raise SimpleSchemaException("A container was not expected.", range_value)
+
+        if self.is_optional and value is None:
+            return
+
+        if value is None:
+            raise SimpleSchemaException("None was not expected.", range_value)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

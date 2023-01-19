@@ -255,7 +255,7 @@ class Namespace(object):
 
         for statement in self._data.include_statements:
             included_namespace = all_namespaces.get(statement.filename.value, None)
-            assert included_namespace is not None
+            assert included_namespace is not None, statement.filename
 
             if statement.include_type == ParseIncludeStatementType.Module:
                 ApplyIncludedItems(
@@ -457,11 +457,11 @@ class Namespace(object):
 
                         raise CreateTypeError(identifier)
 
-                    if self.__class__.GetVisibility(potential_namespace_or_factory) != Visibility.Public:
-                        raise SimpleSchemaException(
-                            "The type '{}' exists but is not accessible due to its visibility.".format(identifier.id.value),
-                            identifier.id.range,
-                        )
+                    # BugBug: if self.__class__.GetVisibility(potential_namespace_or_factory) != Visibility.Public:
+                    # BugBug:     raise SimpleSchemaException(
+                    # BugBug:         "The type '{}' exists but is not accessible due to its visibility.".format(identifier.id.value),
+                    # BugBug:         identifier.id.range,
+                    # BugBug:     )
 
                     is_last_identifier = identifier_index == len(parse_type.identifiers) - 1
 
@@ -523,6 +523,7 @@ class Namespace(object):
                         parse_type.is_element_reference,
                     )
 
+                # BugBug: See if it is possible to leverage functionality in Type
                 return CreateTypeFactory(fundamental_class)(
                     parse_type.range,
                     parse_type.cardinality,

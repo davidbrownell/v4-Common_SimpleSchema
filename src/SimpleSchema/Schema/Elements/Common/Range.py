@@ -15,6 +15,8 @@
 # ----------------------------------------------------------------------
 """Contains the Range object"""
 
+import inspect
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Union
@@ -47,6 +49,18 @@ class Range(object):
             Location(begin_line, begin_column),
             Location(end_line, end_column),
         )
+
+    # ----------------------------------------------------------------------
+    @classmethod
+    def CreateFromCode(
+        cls,
+        *,
+        callstack_offset: int=0,
+    ) -> "Range":
+        frame = inspect.stack()[callstack_offset + 1][0]
+        line = frame.f_lineno
+
+        return cls.Create(Path(frame.f_code.co_filename), line, line, line, line)
 
     # ----------------------------------------------------------------------
     def __post_init__(self):

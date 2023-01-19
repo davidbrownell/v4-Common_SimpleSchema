@@ -145,7 +145,7 @@ def Parse(
 
     with ExecuteTasks.YieldQueueExecutor(
         dm,
-        "Parsing",
+        "Parsing...",
         quiet=quiet,
         max_num_threads=1 if single_threaded else None,
     ) as enqueue_func:

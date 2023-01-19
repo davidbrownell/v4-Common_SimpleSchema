@@ -33,3 +33,8 @@ class ParseType(Type):
     @overridemethod
     def _CloneImpl(self, *args, **kwargs):
         raise Exception("This should never be called on ParseType instances.")
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _ParseExpressionImpl(self, *args, **kwargs):
+        raise Exception("This should never be called on ParseType instances.")
