@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  IntegerExpression_UnitTest.py
+# |  Statement_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 10:53:20
+# |      2023-01-19 12:02:03
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for IntegerExpression.py"""
+"""Unit tests for Statement.py"""
 
 import sys
 
@@ -27,15 +27,13 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
+    from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
-    range_value = Mock()
+    range_mock = Mock()
 
-    i = IntegerExpression(range_value, 1234)
+    s = Statement(range_mock)
 
-    assert i.range is range_value
-    assert i.NAME == "Integer"
-    assert i.value == 1234
+    assert s.range is range_mock
