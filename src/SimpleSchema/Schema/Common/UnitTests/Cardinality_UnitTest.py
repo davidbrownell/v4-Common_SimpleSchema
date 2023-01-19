@@ -28,7 +28,7 @@ from Common_Foundation import PathEx
 
 
 # ----------------------------------------------------------------------
-sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent)))
+sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException

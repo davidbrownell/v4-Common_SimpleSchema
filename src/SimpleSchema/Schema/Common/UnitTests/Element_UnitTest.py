@@ -32,7 +32,7 @@ from Common_Foundation.Types import overridemethod
 
 
 # ----------------------------------------------------------------------
-sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent)))
+sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Common.Element import Element, VisitResult
     from SimpleSchema.Schema.Common.SimpleElement import SimpleElement
