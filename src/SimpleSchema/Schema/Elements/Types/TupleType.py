@@ -15,17 +15,21 @@
 # ----------------------------------------------------------------------
 """Contains the TupleType object"""
 
+import itertools
+
 from dataclasses import dataclass
 from functools import cached_property
-from typing import cast, List, Optional
+from typing import Any, cast, List, Optional
 
-from Common_Foundation.Types import overridemethod
+from Common_Foundation.Types import DoesNotExist, overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
 from SimpleSchema.Schema.Elements.Common.Element import Element, SimpleElements
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
 from SimpleSchema.Schema.Elements.Common.Range import Range
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+
+from SimpleSchema.Schema.Elements.Expressions.TupleExpression import TupleExpression, Expression
 
 from SimpleSchema.Schema.Elements.Types.Type import Type
 
@@ -81,3 +85,30 @@ class TupleType(Type):
         metadata: Optional[Metadata],
     ) -> Type:
         return TupleType(range_value, cardinality, metadata, self.types)
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _ParseExpressionImpl(
+        self,
+        expression: Expression,
+    ) -> Any:
+        if not isinstance(expression, TupleExpression):
+            raise SimpleSchemaException("A tuple expression was expected.", expression.range)
+
+        values: list[Any] = []
+
+        for the_type, the_expression in itertools.zip_longest(
+            self.types,
+            expression.expressions,
+            fillvalue=DoesNotExist.instance,
+        ):
+            if isinstance(the_type, DoesNotExist):
+                assert not isinstance(the_expression, DoesNotExist)
+                raise SimpleSchemaException("Too many tuple expressions were encountered.", the_expression.range)
+
+            if isinstance(the_expression, DoesNotExist):
+                raise SimpleSchemaException("Not enough tuple expressions were found.", expression.range)
+
+            values.append(the_type.ParseExpression(the_expression))
+
+        return tuple(values)

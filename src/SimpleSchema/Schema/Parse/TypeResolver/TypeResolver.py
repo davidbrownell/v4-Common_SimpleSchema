@@ -59,8 +59,6 @@ def Resolve(
     quiet: bool=False,
     raise_if_single_exception: bool=False,
 ) -> Optional[Dict[Path, Exception]]:
-    assert raise_if_single_exception is False or len(roots) == 1, roots
-
     max_num_threads = 1 if single_threaded else None
 
     # ----------------------------------------------------------------------
@@ -76,79 +74,83 @@ def Resolve(
     # ----------------------------------------------------------------------
 
     # Create namespaces
-    namespaces = _ExecuteInParallel(
-        dm,
-        "Creating namespaces",
-        roots,
-        CreateNamespace,
-        quiet=quiet,
-        max_num_threads=max_num_threads,
-        raise_if_single_exception=raise_if_single_exception,
-    )
+    with dm.VerboseNested("Creating namespaces...") as verbose_dm:
+        namespaces = _ExecuteInParallel(
+            verbose_dm,
+            roots,
+            CreateNamespace,
+            quiet=quiet,
+            max_num_threads=max_num_threads,
+            raise_if_single_exception=raise_if_single_exception,
+        )
 
-    if dm.result != 0:
-        assert all(isinstance(value, Exception) for value in namespaces.values())
-        return cast(Dict[Path, Exception], namespaces)
+        if verbose_dm.result != 0:
+            assert all(isinstance(value, Exception) for value in namespaces.values())
+            return cast(Dict[Path, Exception], namespaces)
 
     namespaces = cast(Dict[Path, Namespace], namespaces)
 
     # Resolve Includes
-    results = _ExecuteInParallel(
-        dm,
-        "Resolving includes",
-        namespaces,
-        lambda root_namespace: root_namespace.ResolveIncludes(namespaces),
-        quiet=quiet,
-        max_num_threads=max_num_threads,
-        raise_if_single_exception=raise_if_single_exception,
-    )
+    with dm.VerboseNested("Resolving includes...") as verbose_dm:
+        results = _ExecuteInParallel(
+            verbose_dm,
+            namespaces,
+            lambda root_namespace: root_namespace.ResolveIncludes(namespaces),
+            quiet=quiet,
+            max_num_threads=max_num_threads,
+            raise_if_single_exception=raise_if_single_exception,
+        )
 
-    if dm.result != 0:
-        assert all(isinstance(value, Exception) for value in results.values())
-        return cast(Dict[Path, Exception], results)
+        if verbose_dm.result != 0:
+            assert all(isinstance(value, Exception) for value in results.values())
+            return cast(Dict[Path, Exception], results)
 
     # Ensure unique types
-    results = _ExecuteInParallel(
-        dm,
-        "Validating type names",
-        namespaces,
-        lambda root_namespace: root_namespace.ResolveTypeNames(),
-        quiet=quiet,
-        max_num_threads=max_num_threads,
-        raise_if_single_exception=raise_if_single_exception,
-    )
+    with dm.VerboseNested("Validating type names...") as verbose_dm:
+        results = _ExecuteInParallel(
+            verbose_dm,
+            namespaces,
+            lambda root_namespace: root_namespace.ResolveTypeNames(),
+            quiet=quiet,
+            max_num_threads=max_num_threads,
+            raise_if_single_exception=raise_if_single_exception,
+        )
 
-    if dm.result != 0:
-        assert all(isinstance(value, Exception) for value in results.values())
-        return cast(Dict[Path, Exception], results)
+        if verbose_dm.result != 0:
+            assert all(isinstance(value, Exception) for value in results.values())
+            return cast(Dict[Path, Exception], results)
 
     # Resolve Types
-    fundamental_types = _LoadFundamentalTypes()
+    with dm.VerboseNested("Resolving types...") as verbose_dm:
+        fundamental_types = _LoadFundamentalTypes()
 
-    results = _ExecuteInParallel(
-        dm,
-        "Resolving types",
-        namespaces,
-        lambda root_namespace: root_namespace.ResolveTypes(fundamental_types),
-        quiet=quiet,
-        max_num_threads=max_num_threads,
-        raise_if_single_exception=raise_if_single_exception,
-    )
+        results = _ExecuteInParallel(
+            verbose_dm,
+            namespaces,
+            lambda root_namespace: root_namespace.ResolveTypes(fundamental_types),
+            quiet=quiet,
+            max_num_threads=max_num_threads,
+            raise_if_single_exception=raise_if_single_exception,
+        )
 
-    if dm.result != 0:
-        assert all(isinstance(value, Exception) for value in results.values())
-        return cast(Dict[Path, Exception], results)
+        if verbose_dm.result != 0:
+            assert all(isinstance(value, Exception) for value in results.values())
+            return cast(Dict[Path, Exception], results)
 
     # Finalize types
-    results = _ExecuteInParallel(
-        dm,
-        "Finalizing types",
-        namespaces,
-        lambda root_namespace: root_namespace.Finalize(),
-        quiet=quiet,
-        max_num_threads=max_num_threads,
-        raise_if_single_exception=raise_if_single_exception,
-    )
+    with dm.VerboseNested("Finalizing types...") as verbose_dm:
+        results = _ExecuteInParallel(
+            verbose_dm,
+            namespaces,
+            lambda root_namespace: root_namespace.Finalize(),
+            quiet=quiet,
+            max_num_threads=max_num_threads,
+            raise_if_single_exception=raise_if_single_exception,
+        )
+
+        if verbose_dm.result != 0:
+            assert all(isinstance(value, Exception) for value in results.values())
+            return cast(Dict[Path, Exception], results)
 
     return None
 
@@ -179,8 +181,8 @@ class _CreateNamespacesVisitor(Visitor):
         raise AttributeError(name)
 
     # ----------------------------------------------------------------------
-    @contextmanager
     @overridemethod
+    @contextmanager
     def OnElement(
         self,
         element: Element,
@@ -337,7 +339,6 @@ _ExecuteInParallelOutputT                   = TypeVar("_ExecuteInParallelOutputT
 
 def _ExecuteInParallel(
     dm: DoneManager,
-    desc: str,
     items: Dict[Path, _ExecuteInParallelInputT],
     func: Callable[[_ExecuteInParallelInputT], _ExecuteInParallelOutputT],
     *,
@@ -360,10 +361,7 @@ def _ExecuteInParallel(
         def Impl(
             status: ExecuteTasks.Status,  # pylint: disable=unused-argument
         ) -> Tuple[Union[Exception, _ExecuteInParallelOutputT], Optional[str]]:
-            try:
-                return func(context), None
-            except Exception as ex:
-                return ex, None
+            return func(context), None
 
         # ----------------------------------------------------------------------
 
@@ -378,7 +376,7 @@ def _ExecuteInParallel(
         items.keys(),
         ExecuteTasks.Transform(
             dm,
-            desc,
+            "Processing",
             [
                 ExecuteTasks.TaskData(str(filename), context)
                 for filename, context in items.items()
@@ -386,6 +384,7 @@ def _ExecuteInParallel(
             Execute,
             quiet=quiet,
             max_num_threads=max_num_threads,
+            return_exceptions=True,
         ),
     ):
         if isinstance(result, Exception):

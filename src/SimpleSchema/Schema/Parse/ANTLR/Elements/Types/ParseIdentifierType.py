@@ -17,7 +17,7 @@
 
 from dataclasses import dataclass
 from functools import cached_property
-from typing import List, Optional
+from typing import cast, List, Optional
 
 from Common_Foundation.Types import overridemethod
 
@@ -81,6 +81,6 @@ class ParseIdentifierType(ParseType):
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
-        yield "identifiers", self.identifiers
+        yield "identifiers", cast(List[Element], self.identifiers)
 
         yield from super(ParseIdentifierType, self)._GenerateAcceptDetails()

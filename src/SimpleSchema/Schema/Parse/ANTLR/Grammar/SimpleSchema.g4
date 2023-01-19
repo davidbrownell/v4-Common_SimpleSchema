@@ -85,7 +85,7 @@ INCLUDE_FILENAME:                           [a-zA-Z0-9\-._/]+ {self._lexing_incl
 
 NUMBER:                                     '-'? [0-9]* '.' [0-9]+;
 INTEGER:                                    '-'? [0-9]+;
-IDENTIFIER:                                 [_@$&]? [a-zA-Z][a-zA-Z0-9_\-]*;
+IDENTIFIER:                                 [_@$&]? '_'* [a-zA-Z][a-zA-Z0-9_\-]*;
 
 DOUBLE_QUOTE_STRING:                        UNTERMINATED_DOUBLE_QUOTE_STRING '"';
 UNTERMINATED_DOUBLE_QUOTE_STRING:           '"' ('\\"' | '\\\\' | ~'"')*?;

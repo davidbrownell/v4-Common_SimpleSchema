@@ -17,12 +17,12 @@
 
 from dataclasses import dataclass
 
-from SimpleSchema.Schema.Elements.Expressions.Expression import Expression
+from SimpleSchema.Schema.Elements.Expressions.FundamentalExpression import FundamentalExpression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class StringExpression(Expression):
+class StringExpression(FundamentalExpression):
     """String value"""
 
     # ----------------------------------------------------------------------

@@ -17,13 +17,14 @@
 
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import cast, List
+from typing import cast, List, Optional
 from weakref import ref, ReferenceType
 
 from Common_Foundation.Types import overridemethod
 
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.Identifier import Identifier
+from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
 
 from SimpleSchema.Schema.Elements.Statements.Statement import Statement
 
@@ -44,6 +45,7 @@ class StructureStatement(Statement):
     # ----------------------------------------------------------------------
     name: Identifier
     bases: List[Type]  # Can be any empty list
+    metadata: Optional[Metadata]
     children: List[Statement]  # Can be an empty list
 
     # ----------------------------------------------------------------------
@@ -66,6 +68,9 @@ class StructureStatement(Statement):
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield "name", self.name
         yield "bases", cast(List[ReferenceType["Element"]], [ref(base) for base in self.bases])
+
+        if self.metadata is not None:
+            yield "metadata", self.metadata
 
     # ----------------------------------------------------------------------
     @overridemethod

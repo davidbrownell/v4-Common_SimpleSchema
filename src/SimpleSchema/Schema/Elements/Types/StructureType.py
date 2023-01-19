@@ -73,3 +73,8 @@ class StructureType(Type):
         metadata: Optional[Metadata],
     ) -> Type:
         return StructureType(range_value, cardinality, metadata, self.statement)
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _ParseExpressionImpl(self, *args, **kwargs):
+        raise Exception("A structure cannot be created from an expression.")

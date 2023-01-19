@@ -17,7 +17,7 @@
 
 from dataclasses import dataclass
 from functools import cached_property
-from typing import cast, List, Optional
+from typing import Any, cast, List, Optional
 
 from Common_Foundation.Types import overridemethod
 
@@ -26,6 +26,8 @@ from SimpleSchema.Schema.Elements.Common.Element import Element, SimpleElements
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
 from SimpleSchema.Schema.Elements.Common.Range import Range
 from SimpleSchema.Schema.Elements.Common.SimpleSchemaException import SimpleSchemaException
+
+from SimpleSchema.Schema.Elements.Expressions.Expression import Expression
 
 from SimpleSchema.Schema.Elements.Types.Type import Type
 
@@ -85,3 +87,17 @@ class VariantType(Type):
         metadata: Optional[Metadata],
     ) -> Type:
         return VariantType(range_value, cardinality, metadata, self.types)
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _ParseExpressionImpl(
+        self,
+        expression: Expression,
+    ) -> Any:
+        for the_type in self.types:
+            try:
+                return the_type.ParseExpression(expression)
+            except SimpleSchemaException:
+                pass
+
+        raise SimpleSchemaException("The expression is not valid for any of the variant types.", expression.range)

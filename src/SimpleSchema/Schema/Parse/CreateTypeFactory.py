@@ -37,13 +37,13 @@ from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpr
 from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
 from SimpleSchema.Schema.Elements.Expressions.TupleExpression import TupleExpression
 
-from SimpleSchema.Schema.Elements.Types.Type import Type
+from SimpleSchema.Schema.Elements.Types.FundamentalType import FundamentalType
 
 
 # ----------------------------------------------------------------------
 def CreateTypeFactory(
-    type_class: TypeOf[Type],
-) -> Callable[[Range, Cardinality, Optional[Metadata]], Type]:
+    type_class: TypeOf[FundamentalType],
+) -> Callable[[Range, Cardinality, Optional[Metadata]], FundamentalType]:
     return lambda range_value, cardinality, metadata: _CreateType(
         type_class,
         range_value,
@@ -56,11 +56,11 @@ def CreateTypeFactory(
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _CreateType(
-    type_class: TypeOf[Type],
+    type_class: TypeOf[FundamentalType],
     range_value: Range,
     cardinality: Cardinality,
     metadata: Optional[Metadata],
-) -> Type:
+) -> FundamentalType:
     construct_args: Dict[str, Any] = {
         "range": range_value,
         "cardinality": cardinality,
@@ -72,7 +72,7 @@ def _CreateType(
     else:
         pop_metadata_item_func = lambda name: metadata.items.pop(name, None)  # type: ignore
 
-    for field in fields(type_class):
+    for field in fields(type_class.CONSTRAINT_TYPE):
         if not field.init:
             continue
 
@@ -106,7 +106,7 @@ def _CreateType(
         construct_args["metadata"] = None
         metadata = None
 
-    return type_class(**construct_args)
+    return type_class.Create(**construct_args)
 
 
 # ----------------------------------------------------------------------
@@ -114,7 +114,6 @@ def _CreateExpressionConverter(
     expected_type: Any,
     *,
     has_default_value: bool,
-    no_exceptions: bool=False,
 ) -> Callable[[Optional[Expression], Range], Any]:
     allow_none = has_default_value
 
@@ -141,7 +140,6 @@ def _CreateExpressionConverter(
                 _CreateExpressionConverter(
                     the_type,
                     has_default_value=False,
-                    no_exceptions=True,
                 )
                 for the_type in types
             ]
@@ -160,15 +158,14 @@ def _CreateExpressionConverter(
 
                 else:
                     for union_converter in union_converters:
-                        result = union_converter(expression, expression.range)
-                        if result is not DoesNotExist.instance:
-                            return result
+                        try:
+                            return union_converter(expression, expression.range)
+                        except SimpleSchemaException:
+                            # This conversion didn't work; try the next one
+                            pass
 
                     error_name = expression.NAME
                     error_range = expression.range
-
-                if no_exceptions:
-                    return DoesNotExist.instance
 
                 raise _CreateError("Union", error_name, error_range)
 
@@ -187,10 +184,20 @@ def _CreateExpressionConverter(
                 has_default_value=False,
             )
 
-            converters[ListExpression] = lambda expression: [
-                item_converter(item, item.range)
-                for item in cast(ListExpression, expression).items
-            ]
+            # ----------------------------------------------------------------------
+            def ListImpl(
+                expression: Expression,
+            ) -> List[Any]:
+                values: List[Any] = []
+
+                for item in cast(ListExpression, expression).items:
+                    values.append(item_converter(item, item.range))
+
+                return values
+
+            # ----------------------------------------------------------------------
+
+            converters[ListExpression] = ListImpl
 
         elif expected_type.__origin__ == tuple:
             item_converters = [
@@ -243,9 +250,6 @@ def _CreateExpressionConverter(
                 if enum_value.value == value:           # type: ignore
                     return value
 
-            if no_exceptions:
-                return DoesNotExist.instance
-
             raise _CreateError("Enum", "'{}'".format(value), range_value)
 
         # ----------------------------------------------------------------------
@@ -280,17 +284,11 @@ def _CreateExpressionConverter(
             if allow_none:
                 return None
 
-            if no_exceptions:
-                return DoesNotExist.instance
-
             raise _CreateError(next(iter(converters.keys())).NAME, "None", default_expression_range)
 
         converter = converters.get(type(expression), None)
 
         if converter is None:
-            if no_exceptions:
-                return DoesNotExist.instance
-
             raise _CreateError(
                 next(iter(converters.keys())).NAME,
                 "a '{}' expression".format(expression.NAME),
