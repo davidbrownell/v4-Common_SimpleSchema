@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Expression.py
+# |  ListExpression.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 09:48:59
+# |      2023-01-20 12:53:27
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,24 +13,29 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Expression object"""
+"""Contains the ListExpression object"""
 
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from typing import cast, ClassVar
 
-from ..Common.Element import Element
+from Common_Foundation.Types import overridemethod
+
+from .Expression import Element, Expression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class Expression(Element):
-    """Abstract base class for all expressions"""
+class ListExpression(Expression):
+    """A list of expressions"""
 
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = ""
+    NAME: ClassVar[str]                     = "List"
 
-    value: Any
+    value: list[Expression]
 
     # ----------------------------------------------------------------------
-    def __post_init__(self):
-        assert self.NAME != "", "Make sure to define the expression's name."
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "value", cast(list[Element], self.value)

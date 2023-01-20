@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Expression.py
+# |  ParseType.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 09:48:59
+# |      2023-01-19 15:11:07
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,24 +13,23 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Expression object"""
+"""Contains the ParseType object"""
 
 from dataclasses import dataclass
-from typing import Any, ClassVar
 
-from ..Common.Element import Element
+from Common_Foundation.Types import overridemethod
+
+from .....Elements.Types.Type import Type
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class Expression(Element):
-    """Abstract base class for all expressions"""
+class ParseType(Type):
+    """Temporary type generated during parsing and replaced during subsequent steps"""
 
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = ""
-
-    value: Any
-
     # ----------------------------------------------------------------------
-    def __post_init__(self):
-        assert self.NAME != "", "Make sure to define the expression's name."
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _CloneImpl(self, *args, **kwargs):
+        raise Exception("This should never be called on ParseType instances.")  # pragma: no cover

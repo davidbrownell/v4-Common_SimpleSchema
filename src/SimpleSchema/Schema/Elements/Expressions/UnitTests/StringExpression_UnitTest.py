@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  SimpleElement_UnitTest.py
+# |  StringExpression_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 08:55:55
+# |      2023-01-20 12:29:52
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for SimpleElement.py"""
+"""Unit tests for StringExpression.py"""
 
 import sys
 
@@ -25,26 +25,17 @@ from Common_Foundation import PathEx
 
 
 # ----------------------------------------------------------------------
-sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
+sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Common.SimpleElement import SimpleElement
+    from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
 
 
 # ----------------------------------------------------------------------
-def test_String():
-    range_mock = Mock()
+def test_Standard():
+    range_value = Mock()
 
-    e = SimpleElement(range_mock, "Hello!")
+    i = StringExpression(range_value, "hello")
 
-    assert e.range is range_mock
-    assert e.value == "Hello!"
-
-
-# ----------------------------------------------------------------------
-def test_Int():
-    range_mock = Mock()
-
-    e = SimpleElement(range_mock, 10)
-
-    assert e.range is range_mock
-    assert e.value == 10
+    assert i.range is range_value
+    assert i.NAME == "String"
+    assert i.value == "hello"

@@ -24,7 +24,7 @@ from weakref import ref, ReferenceType
 
 from Common_Foundation.Types import extensionmethod
 
-from ...Common.Range import Range
+from ....Common.Range import Range
 
 
 # ----------------------------------------------------------------------

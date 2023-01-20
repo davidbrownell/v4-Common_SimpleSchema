@@ -24,10 +24,10 @@ from Common_Foundation.Types import overridemethod
 from .Element import Element
 from .Metadata import Metadata
 
-from ..Elements.Expressions.IntegerExpression import IntegerExpression
+from ..Expressions.IntegerExpression import IntegerExpression
 
-from ...Common import Errors
-from ...Common.Range import Range
+from ....Common import Errors
+from ....Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -93,14 +93,14 @@ class Cardinality(Element):
         assert min_param is not None
 
         if max_param is not None and max_param.value < min_param.value:
-            raise Errors.InvalidCardinalityRange.Create(max_param.range, min_param.value, max_param.value)
+            raise Errors.CardinalityInvalidRange.Create(max_param.range, min_param.value, max_param.value)
 
         # Commit the results
         object.__setattr__(self, "min", min_param)
         object.__setattr__(self, "max", max_param)
 
         if self.is_single and self.metadata is not None:
-            raise Errors.InvalidCardinalityMetadata.Create(self.metadata.range)
+            raise Errors.CardinalityInvalidMetadata.Create(self.metadata.range)
 
     # ----------------------------------------------------------------------
     @cached_property

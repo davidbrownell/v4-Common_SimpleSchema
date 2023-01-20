@@ -33,8 +33,8 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Common.Metadata import Metadata, MetadataItem
-    from SimpleSchema.Schema.Common.SimpleElement import SimpleElement
+    from SimpleSchema.Schema.Elements.Common.Metadata import Metadata, MetadataItem
+    from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
 
 
 # ----------------------------------------------------------------------

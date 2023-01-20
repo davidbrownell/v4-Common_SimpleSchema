@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Visibility_UnitTest.py
+# |  StringExpression.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 08:53:53
+# |      2023-01-20 12:34:39
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,22 +13,20 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for Visibility.py"""
+"""Contains the StringExpression object"""
 
-import sys
+from dataclasses import dataclass
+from typing import ClassVar
 
-from pathlib import Path
-
-from Common_Foundation.ContextlibEx import ExitStack
-from Common_Foundation import PathEx
+from .Expression import Expression
 
 
 # ----------------------------------------------------------------------
-sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
-with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Common.Visibility import *
+@dataclass(frozen=True)
+class StringExpression(Expression):
+    """String value"""
 
+    # ----------------------------------------------------------------------
+    NAME: ClassVar[str]                     = "String"
 
-# ----------------------------------------------------------------------
-def test_Standard():
-    assert True
+    value: str

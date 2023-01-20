@@ -24,9 +24,9 @@ from Common_Foundation.Types import overridemethod
 from .Element import Element
 from .SimpleElement import SimpleElement
 
-from ..Elements.Expressions.Expression import Expression
+from ..Expressions.Expression import Expression
 
-from ...Common import Errors
+from ....Common import Errors
 
 
 # ----------------------------------------------------------------------
@@ -70,7 +70,7 @@ class Metadata(Element):
 
             prev_value = items.get(key, None)
             if prev_value is not None:
-                raise Errors.DuplicateMetadataItem.Create(item.name.range, key, prev_value.name.range)
+                raise Errors.MetadataItemDuplicated.Create(item.name.range, key, prev_value.name.range)
 
             items[key] = item
 
