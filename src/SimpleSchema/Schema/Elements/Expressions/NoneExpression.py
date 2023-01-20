@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Expression.py
+# |  NoneExpression.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 09:48:59
+# |      2023-01-20 12:33:14
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,24 +13,21 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Expression object"""
+"""Contains the NoneExpression object"""
 
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from types import NoneType
+from typing import ClassVar
 
-from ..Common.Element import Element
+from .Expression import Expression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class Expression(Element):
-    """Abstract base class for all expressions"""
+class NoneExpression(Expression):
+    """None value"""
 
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = ""
+    NAME: ClassVar[str]                     = "None"
 
-    value: Any
-
-    # ----------------------------------------------------------------------
-    def __post_init__(self):
-        assert self.NAME != "", "Make sure to define the expression's name."
+    value: NoneType                         = None

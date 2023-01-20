@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Expression.py
+# |  BooleanExpression.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 09:48:59
+# |      2023-01-20 12:32:04
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,24 +13,20 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Expression object"""
+"""Contains the BooleanExpression object"""
 
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from typing import ClassVar
 
-from ..Common.Element import Element
+from .Expression import Expression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class Expression(Element):
-    """Abstract base class for all expressions"""
+class BooleanExpression(Expression):
+    """Boolean value"""
 
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = ""
+    NAME: ClassVar[str]                     = "Boolean"
 
-    value: Any
-
-    # ----------------------------------------------------------------------
-    def __post_init__(self):
-        assert self.NAME != "", "Make sure to define the expression's name."
+    value: bool

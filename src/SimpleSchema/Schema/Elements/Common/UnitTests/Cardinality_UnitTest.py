@@ -33,8 +33,8 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Common.Cardinality import Cardinality
-    from SimpleSchema.Schema.Common.Metadata import Metadata
+    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
+    from SimpleSchema.Schema.Elements.Common.Metadata import Metadata
 
     from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
 

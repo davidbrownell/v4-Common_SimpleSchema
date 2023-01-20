@@ -21,9 +21,9 @@ from typing import ClassVar, Optional, Union
 
 from Common_Foundation.Types import DoesNotExist, extensionmethod, overridemethod
 
-from ...Common.Cardinality import Cardinality
-from ...Common.Element import Element
-from ...Common.Metadata import Metadata
+from ..Common.Cardinality import Cardinality
+from ..Common.Element import Element
+from ..Common.Metadata import Metadata
 
 from ....Common.Range import Range
 

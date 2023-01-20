@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Statement.py
+# |  Visibility_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-19 12:00:35
+# |      2023-01-19 08:53:53
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,16 +13,22 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Statement object"""
+"""Unit tests for Visibility.py"""
 
-from dataclasses import dataclass
+import sys
 
-from ..Common.Element import Element
+from pathlib import Path
+
+from Common_Foundation.ContextlibEx import ExitStack
+from Common_Foundation import PathEx
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
-class Statement(Element):
-    """Abstract base class for all statements"""
+sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent)))
+with ExitStack(lambda: sys.path.pop(0)):
+    from SimpleSchema.Schema.Elements.Common.Visibility import *
 
-    pass
+
+# ----------------------------------------------------------------------
+def test_Standard():
+    assert True
