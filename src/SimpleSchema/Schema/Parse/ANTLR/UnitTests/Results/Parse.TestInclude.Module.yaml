@@ -1,0 +1,115 @@
+entry_point:
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+  statements:
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    include_type: ParseIncludeStatementType.Module
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 6 -> Ln 1, Col 23>
+      value: Subdir/Foo.SimpleSchema
+    items: []
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    include_type: ParseIncludeStatementType.Module
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 6 -> Ln 2, Col 31>
+      value: Subdir/Subdir2/Bar.SimpleSchema
+    items: []
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    include_type: ParseIncludeStatementType.Module
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 11>
+      value: Baz.SimpleSchema
+    items: []
+Subdir/Foo.SimpleSchema:
+- __type__: RootStatement
+  range: Subdir/Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
+  statements:
+  - __type__: ParseItemStatement
+    range: Subdir/Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: Subdir/Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
+      value: one
+    type:
+      __type__: ParseIdentifierType
+      range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        value: Two
+      cardinality:
+        __type__: Cardinality
+        range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        min:
+          __type__: IntegerExpression
+          range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+          value: 1
+Subdir/Subdir2/Bar.SimpleSchema:
+- __type__: RootStatement
+  range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 12>
+  statements:
+  - __type__: ParseItemStatement
+    range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 12>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 6>
+      value: three
+    type:
+      __type__: ParseIdentifierType
+      range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
+        value: Four
+      cardinality:
+        __type__: Cardinality
+        range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
+        min:
+          __type__: IntegerExpression
+          range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
+          value: 1
+Baz.SimpleSchema:
+- __type__: RootStatement
+  range: Baz.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 10>
+  statements:
+  - __type__: ParseItemStatement
+    range: Baz.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 10>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: Baz.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: five
+    type:
+      __type__: ParseIdentifierType
+      range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>
+        value: Six
+      cardinality:
+        __type__: Cardinality
+        range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>
+        min:
+          __type__: IntegerExpression
+          range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>
+          value: 1

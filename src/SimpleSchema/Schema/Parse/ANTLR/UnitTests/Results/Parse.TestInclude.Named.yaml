@@ -1,0 +1,161 @@
+entry_point:
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 10, Col 1>
+  statements:
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    include_type: ParseIncludeStatementType.Named
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 6 -> Ln 1, Col 9>
+      value: Foo.SimpleSchema
+    items:
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 1, Col 17 -> Ln 1, Col 20>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 17 -> Ln 1, Col 20>
+        value: Bar
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 17 -> Ln 1, Col 20>
+        value: Bar
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    include_type: ParseIncludeStatementType.Named
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 6 -> Ln 2, Col 9>
+      value: Foo.SimpleSchema
+    items:
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 2, Col 17 -> Ln 2, Col 28>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 2, Col 17 -> Ln 2, Col 20>
+        value: Bar
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 2, Col 24 -> Ln 2, Col 28>
+        value: Bar_
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    include_type: ParseIncludeStatementType.Named
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 6 -> Ln 3, Col 9>
+      value: Foo.SimpleSchema
+    items:
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 3, Col 17 -> Ln 3, Col 20>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 3, Col 17 -> Ln 3, Col 20>
+        value: Bar
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 3, Col 17 -> Ln 3, Col 20>
+        value: Bar
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+    include_type: ParseIncludeStatementType.Named
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 6 -> Ln 4, Col 9>
+      value: Foo.SimpleSchema
+    items:
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 4, Col 17 -> Ln 4, Col 20>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 4, Col 17 -> Ln 4, Col 20>
+        value: Bar
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 4, Col 17 -> Ln 4, Col 20>
+        value: Bar
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 4, Col 22 -> Ln 4, Col 25>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 4, Col 22 -> Ln 4, Col 25>
+        value: Baz
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 4, Col 22 -> Ln 4, Col 25>
+        value: Baz
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 5, Col 1 -> Ln 9, Col 1>
+    include_type: ParseIncludeStatementType.Named
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 6 -> Ln 5, Col 9>
+      value: Foo.SimpleSchema
+    items:
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 6, Col 5 -> Ln 6, Col 16>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 6, Col 5 -> Ln 6, Col 8>
+        value: Bar
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 6, Col 12 -> Ln 6, Col 16>
+        value: Bar_
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 7, Col 5 -> Ln 7, Col 16>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 7, Col 5 -> Ln 7, Col 8>
+        value: Baz
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 7, Col 12 -> Ln 7, Col 16>
+        value: Baz_
+  - __type__: ParseIncludeStatement
+    range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+    include_type: ParseIncludeStatementType.Named
+    filename:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 6 -> Ln 9, Col 22>
+      value: Foo.SimpleSchema
+    items:
+    - __type__: ParseIncludeStatementItem
+      range: entry_point <Ln 9, Col 30 -> Ln 9, Col 33>
+      element_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 9, Col 30 -> Ln 9, Col 33>
+        value: Bar
+      reference_name:
+        __type__: ParseIdentifier
+        range: entry_point <Ln 9, Col 30 -> Ln 9, Col 33>
+        value: Bar
+Foo.SimpleSchema:
+- __type__: RootStatement
+  range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
+  statements:
+  - __type__: ParseItemStatement
+    range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
+      value: one
+    type:
+      __type__: ParseIdentifierType
+      range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        value: Two
+      cardinality:
+        __type__: Cardinality
+        range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        min:
+          __type__: IntegerExpression
+          range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+          value: 1

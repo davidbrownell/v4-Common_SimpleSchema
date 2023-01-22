@@ -1,0 +1,65 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 10, Col 1>
+  statements:
+  - __type__: ExtensionStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Ext1
+    positional_args:
+    - __type__: StringExpression
+      range: entry_point <Ln 1, Col 6 -> Ln 1, Col 11>
+      value: one
+    keyword_args: []
+  - __type__: ExtensionStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 5>
+      value: Ext2
+    positional_args:
+    - __type__: StringExpression
+      range: entry_point <Ln 2, Col 6 -> Ln 2, Col 11>
+      value: one
+    keyword_args: []
+  - __type__: ExtensionStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 5>
+      value: Ext3
+    positional_args:
+    - __type__: StringExpression
+      range: entry_point <Ln 3, Col 6 -> Ln 3, Col 11>
+      value: one
+    - __type__: IntegerExpression
+      range: entry_point <Ln 3, Col 13 -> Ln 3, Col 14>
+      value: 2
+    - __type__: NumberExpression
+      range: entry_point <Ln 3, Col 16 -> Ln 3, Col 20>
+      value: 3.14
+    - __type__: StringExpression
+      range: entry_point <Ln 3, Col 22 -> Ln 3, Col 28>
+      value: four
+    keyword_args: []
+  - __type__: ExtensionStatement
+    range: entry_point <Ln 4, Col 1 -> Ln 10, Col 1>
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 5>
+      value: Ext4
+    positional_args:
+    - __type__: StringExpression
+      range: entry_point <Ln 5, Col 5 -> Ln 5, Col 10>
+      value: one
+    - __type__: IntegerExpression
+      range: entry_point <Ln 6, Col 5 -> Ln 6, Col 6>
+      value: 2
+    - __type__: NumberExpression
+      range: entry_point <Ln 7, Col 5 -> Ln 7, Col 9>
+      value: 3.14
+    - __type__: StringExpression
+      range: entry_point <Ln 8, Col 5 -> Ln 8, Col 11>
+      value: four
+    keyword_args: []

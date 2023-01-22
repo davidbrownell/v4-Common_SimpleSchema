@@ -1,0 +1,37 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+  statements:
+  - __type__: ExtensionStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 4>
+      value: Ext
+    positional_args:
+    - __type__: IntegerExpression
+      range: entry_point <Ln 1, Col 5 -> Ln 1, Col 6>
+      value: 1
+    - __type__: IntegerExpression
+      range: entry_point <Ln 1, Col 8 -> Ln 1, Col 9>
+      value: 2
+    keyword_args:
+    - __type__: ExtensionStatementKeywordArg
+      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 16>
+        value: three
+      expression:
+        __type__: NumberExpression
+        range: entry_point <Ln 1, Col 17 -> Ln 1, Col 21>
+        value: 3.14
+    - __type__: ExtensionStatementKeywordArg
+      range: entry_point <Ln 1, Col 23 -> Ln 1, Col 34>
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 23 -> Ln 1, Col 27>
+        value: four
+      expression:
+        __type__: StringExpression
+        range: entry_point <Ln 1, Col 28 -> Ln 1, Col 34>
+        value: four

@@ -61,8 +61,8 @@ def nextToken(self):
 // ----------------------------------------------------------------------
 // Newlines nested within paired brackets brackets are safe to ignore, but newlines outside of paired
 // brackets are meaningful.
-NEWLINE:                                    [ \t]* '\r'? '\n' {self._nested_pair_ctr == 0}? [ \t]*;
-NESTED_NEWLINE:                             [ \t]* '\r'? '\n' {self._nested_pair_ctr != 0}? [ \t]* -> channel(HIDDEN);
+NEWLINE:                                    '\r'? '\n' {self._nested_pair_ctr == 0}? [ \t]*;
+NESTED_NEWLINE:                             '\r'? '\n' {self._nested_pair_ctr != 0}? [ \t]* -> channel(HIDDEN);
 
 LINE_CONTINUATION:                          '\\' '\r'? '\n' [ \t]* -> channel(HIDDEN);
 
@@ -78,11 +78,11 @@ INCLUDE_FROM:                               'from' {self._lexing_include_filenam
 INCLUDE_IMPORT:                             'import' {self._lexing_include_filename = False};
 
 // This is an overly-restrictive definition of what constitutes a valid filename, but erring on the side of caution.
-INCLUDE_FILENAME:                           [a-zA-Z0-9\-./]+ {self._lexing_include_filename}?;
+INCLUDE_FILENAME:                           [a-zA-Z0-9_\-./]+ {self._lexing_include_filename}?;
 
 // ----------------------------------------------------------------------
-MULTI_LINE_COMMENT:                         '#/' .*? '/#' -> channel(HIDDEN);
-SINGLE_LINE_COMMENT:                        '#' ~[\r\n]* -> channel(HIDDEN);
+MULTI_LINE_COMMENT:                         '#/' .*? '/#' -> skip;
+SINGLE_LINE_COMMENT:                        '#' ~[\r\n]* -> skip;
 
 HORIZONTAL_WHITESPACE:                      [ \t]+ -> channel(HIDDEN);
 
@@ -157,8 +157,7 @@ true_expression:                            'y' | 'Y' | 'yes' | 'Yes' | 'YES' | 
 false_expression:                           'n' | 'N' | 'no' | 'No' | 'NO' | 'false' | 'False' | 'FALSE' | 'off' | 'Off' | 'OFF';
 none_expression:                            'None';
 
-basic_string_expression:                    DOUBLE_QUOTE_STRING | SINGLE_QUOTE_STRING | UNTERMINATED_DOUBLE_QUOTE_STRING | UNTERMINATED_SINGLE_QUOTE_STRING;
-string_expression:                          basic_string_expression | TRIPLE_DOUBLE_QUOTE_STRING | TRIPLE_SINGLE_QUOTE_STRING;
+string_expression:                          DOUBLE_QUOTE_STRING | SINGLE_QUOTE_STRING | UNTERMINATED_DOUBLE_QUOTE_STRING | UNTERMINATED_SINGLE_QUOTE_STRING | TRIPLE_DOUBLE_QUOTE_STRING | TRIPLE_SINGLE_QUOTE_STRING;
 
 list_expression:                            LBRACK (expression__ (',' expression__)* ','?)? RBRACK;
 
@@ -172,7 +171,7 @@ tuple_expression_multi_item__:              expression__ (',' expression__)+ ','
 // Header Statement
 header_statement__:                         include_statement;
 
-include_statement:                          INCLUDE_FROM include_statement_filename INCLUDE_IMPORT (include_statement_star | include_statement_grouped_items__ | include_statement_items__) NEWLINE+;
+include_statement:                          (INCLUDE_FROM include_statement_filename)? INCLUDE_IMPORT (include_statement_star | include_statement_grouped_items__ | include_statement_items__) NEWLINE+;
 include_statement_filename:                 INCLUDE_FILENAME;
 include_statement_star:                     '*';
 include_statement_items__:                  include_statement_element (',' include_statement_element)* ','?;
@@ -220,7 +219,7 @@ parse_structure_statement:                  (
                                                 )?
                                             );
 
-parse_structure_simplified_statement:       identifier metadata_clause;
+parse_structure_simplified_statement:       identifier metadata_clause NEWLINE+;
 
 // ----------------------------------------------------------------------
 // |  Types
