@@ -36,7 +36,7 @@ ParseCreateIncludeStatementInvalidPath      = CreateExceptionType("'{name}' is n
 ParseCreateIncludeStatementInvalidWorkspace = CreateExceptionType("The included file '{name}' is not a descendant of any workspace.", name=Path)
 ParseCreateIncludeStatementTooManyItems     = CreateExceptionType("A single filename must be imported when including content from a directory.")
 
-ParseStructureStatementInvalidBase          = CreateExceptionType("Base types must be identifiers or a tuple that contains identifiers.")
+ParseStructureStatementInvalidBase          = CreateExceptionType("Base types must be an identifier or a tuple that contains identifiers.")
 ParseStructureStatementInvalidTupleBaseItem = CreateExceptionType("Tuple base types may only contain identifiers.")
 
 # ----------------------------------------------------------------------

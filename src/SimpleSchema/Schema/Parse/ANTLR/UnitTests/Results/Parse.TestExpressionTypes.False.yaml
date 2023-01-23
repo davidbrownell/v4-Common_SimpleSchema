@@ -1,0 +1,142 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 14, Col 1>
+  statements:
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 14, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
+      value: value
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 1, Col 8 -> Ln 13, Col 2>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 8 -> Ln 1, Col 14>
+        value: String
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 8 -> Ln 13, Col 2>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 8 -> Ln 13, Col 2>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 8 -> Ln 13, Col 2>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 1, Col 15 -> Ln 13, Col 2>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 2, Col 5 -> Ln 2, Col 14>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 11>
+            value: value1
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 2, Col 13 -> Ln 2, Col 14>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 3, Col 5 -> Ln 3, Col 14>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 5 -> Ln 3, Col 11>
+            value: value2
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 3, Col 13 -> Ln 3, Col 14>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 4, Col 5 -> Ln 4, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 11>
+            value: value3
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 4, Col 13 -> Ln 4, Col 15>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 5, Col 5 -> Ln 5, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 5, Col 5 -> Ln 5, Col 11>
+            value: value4
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 5, Col 13 -> Ln 5, Col 15>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 6, Col 5 -> Ln 6, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 6, Col 5 -> Ln 6, Col 11>
+            value: value5
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 6, Col 13 -> Ln 6, Col 15>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 7, Col 5 -> Ln 7, Col 18>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 7, Col 5 -> Ln 7, Col 11>
+            value: value6
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 7, Col 13 -> Ln 7, Col 18>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 8, Col 5 -> Ln 8, Col 18>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 8, Col 5 -> Ln 8, Col 11>
+            value: value7
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 8, Col 13 -> Ln 8, Col 18>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 9, Col 5 -> Ln 9, Col 18>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 9, Col 5 -> Ln 9, Col 11>
+            value: value8
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 9, Col 13 -> Ln 9, Col 18>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 10, Col 5 -> Ln 10, Col 16>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 10, Col 5 -> Ln 10, Col 11>
+            value: value9
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 10, Col 13 -> Ln 10, Col 16>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 11, Col 5 -> Ln 11, Col 17>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 11, Col 5 -> Ln 11, Col 12>
+            value: value10
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 11, Col 14 -> Ln 11, Col 17>
+            value: false
+        - __type__: MetadataItem
+          range: entry_point <Ln 12, Col 5 -> Ln 12, Col 17>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 12, Col 5 -> Ln 12, Col 12>
+            value: value11
+          expression:
+            __type__: BooleanExpression
+            range: entry_point <Ln 12, Col 14 -> Ln 12, Col 17>
+            value: false

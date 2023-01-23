@@ -1,0 +1,103 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 5, Col 1>
+  statements:
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Uppercase
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 1, Col 12 -> Ln 1, Col 16>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 16>
+        value: Type
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 16>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 12 -> Ln 1, Col 16>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 12 -> Ln 1, Col 16>
+          value: 1
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 10>
+      value: lowercase
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 2, Col 12 -> Ln 2, Col 16>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 2, Col 12 -> Ln 2, Col 16>
+        value: Type
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 2, Col 12 -> Ln 2, Col 16>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 12 -> Ln 2, Col 16>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 12 -> Ln 2, Col 16>
+          value: 1
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    visibility: Visibility.Protected
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 11>
+      value: '@protected'
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 3, Col 13 -> Ln 3, Col 17>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 3, Col 13 -> Ln 3, Col 17>
+        value: Type
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 3, Col 13 -> Ln 3, Col 17>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 13 -> Ln 3, Col 17>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 13 -> Ln 3, Col 17>
+          value: 1
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+    visibility: Visibility.Private
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 9>
+      value: _private
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 4, Col 11 -> Ln 4, Col 15>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 4, Col 11 -> Ln 4, Col 15>
+        value: Type
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 4, Col 11 -> Ln 4, Col 15>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 11 -> Ln 4, Col 15>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 11 -> Ln 4, Col 15>
+          value: 1

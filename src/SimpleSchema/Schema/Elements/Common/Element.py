@@ -143,7 +143,7 @@ class Element(ABC):
                                     method_name = method_name_prefix + detail_name
 
                                     method = getattr(visitor, method_name, None)
-                                    assert method is not None
+                                    assert method is not None, method_name
 
                                     details_visit_result = method(
                                         detail_value,

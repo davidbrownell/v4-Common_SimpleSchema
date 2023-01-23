@@ -1,0 +1,120 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
+  statements:
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
+      value: single1
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 1, Col 10 -> Ln 1, Col 30>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 10 -> Ln 1, Col 16>
+        value: String
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 10 -> Ln 1, Col 30>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 10 -> Ln 1, Col 30>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 10 -> Ln 1, Col 30>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 1, Col 17 -> Ln 1, Col 30>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 1, Col 19 -> Ln 1, Col 28>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 1, Col 19 -> Ln 1, Col 25>
+            value: value1
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 1, Col 27 -> Ln 1, Col 28>
+            value: 1
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 8>
+      value: single2
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 2, Col 10 -> Ln 2, Col 31>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 2, Col 10 -> Ln 2, Col 16>
+        value: String
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 2, Col 10 -> Ln 2, Col 31>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 10 -> Ln 2, Col 31>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 10 -> Ln 2, Col 31>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 2, Col 17 -> Ln 2, Col 31>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 2, Col 19 -> Ln 2, Col 28>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 19 -> Ln 2, Col 25>
+            value: value2
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 2, Col 27 -> Ln 2, Col 28>
+            value: 2
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 6, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 8>
+      value: single3
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 3, Col 10 -> Ln 5, Col 2>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 3, Col 10 -> Ln 3, Col 16>
+        value: String
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 3, Col 10 -> Ln 5, Col 2>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 10 -> Ln 5, Col 2>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 10 -> Ln 5, Col 2>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 3, Col 17 -> Ln 5, Col 2>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 4, Col 5 -> Ln 4, Col 14>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 11>
+            value: value3
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 4, Col 13 -> Ln 4, Col 14>
+            value: 3

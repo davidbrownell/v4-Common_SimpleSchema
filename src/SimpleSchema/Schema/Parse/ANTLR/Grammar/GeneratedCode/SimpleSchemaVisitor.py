@@ -99,11 +99,6 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SimpleSchemaParser#basic_string_expression.
-    def visitBasic_string_expression(self, ctx:SimpleSchemaParser.Basic_string_expressionContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SimpleSchemaParser#string_expression.
     def visitString_expression(self, ctx:SimpleSchemaParser.String_expressionContext):
         return self.visitChildren(ctx)

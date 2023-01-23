@@ -1,0 +1,82 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 8, Col 1>
+  statements:
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 8, Col 1>
+    visibility: Visibility.Public
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
+      value: value
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 1, Col 8 -> Ln 7, Col 2>
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 8 -> Ln 1, Col 14>
+        value: String
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 8 -> Ln 7, Col 2>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 8 -> Ln 7, Col 2>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 8 -> Ln 7, Col 2>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 1, Col 15 -> Ln 7, Col 2>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 2, Col 5 -> Ln 2, Col 18>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 11>
+            value: number
+          expression:
+            __type__: NumberExpression
+            range: entry_point <Ln 2, Col 13 -> Ln 2, Col 18>
+            value: 1.234
+        - __type__: MetadataItem
+          range: entry_point <Ln 3, Col 5 -> Ln 3, Col 27>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 5 -> Ln 3, Col 20>
+            value: negative_number
+          expression:
+            __type__: NumberExpression
+            range: entry_point <Ln 3, Col 22 -> Ln 3, Col 27>
+            value: -4.56
+        - __type__: MetadataItem
+          range: entry_point <Ln 4, Col 5 -> Ln 4, Col 16>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 12>
+            value: integer
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 4, Col 14 -> Ln 4, Col 16>
+            value: 56
+        - __type__: MetadataItem
+          range: entry_point <Ln 5, Col 5 -> Ln 5, Col 25>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 5, Col 5 -> Ln 5, Col 21>
+            value: negative_integer
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 5, Col 23 -> Ln 5, Col 25>
+            value: -1
+        - __type__: MetadataItem
+          range: entry_point <Ln 6, Col 5 -> Ln 6, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 6, Col 5 -> Ln 6, Col 9>
+            value: none
+          expression:
+            __type__: NoneExpression
+            range: entry_point <Ln 6, Col 11 -> Ln 6, Col 15>
+            value: ~

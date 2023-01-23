@@ -92,11 +92,17 @@ class AntlrException(Exception):
     ):
         location = Location(line, column)
 
-        super(AntlrException, self).__init__("{} ({} {})".format(message, source, location))
+        super(AntlrException, self).__init__("{} ({} <{}>)".format(message, source, location))
 
         self.source                         = source
         self.location                       = location
         self.ex                             = ex
+
+
+# ----------------------------------------------------------------------
+DEFAULT_FILE_EXTENSIONS: list[str]          = [
+    ".SimpleSchema",
+]
 
 
 # ----------------------------------------------------------------------
@@ -113,6 +119,7 @@ def Parse(
             Callable[[], str],              # content
         ],
     ],
+    file_extensions: Optional[list[str]]=None,
     *,
     single_threaded: bool=False,
     quiet: bool=False,
@@ -124,6 +131,9 @@ def Parse(
         Union[Exception, RootStatement],
     ],
 ]:
+    if file_extensions is None:
+        file_extensions = DEFAULT_FILE_EXTENSIONS
+
     workspace_names: list[Path] = [workspace.resolve() for workspace in workspaces]
 
     workspace_names.sort(
@@ -150,13 +160,15 @@ def Parse(
         # ----------------------------------------------------------------------
         def ResolveIncludeFilename(
             path: Path,
+            *,
+            allow_directory: bool,
         ) -> Optional[Path]:
             path = path.resolve()
 
-            if path.is_file():
+            if path.is_file() or (allow_directory and path.is_dir()):
                 return path
 
-            for extension in [".SimpleSchema", ]:
+            for extension in file_extensions:
                 potential_path = path.parent / (path.name + extension)
                 if potential_path.is_file():
                     return potential_path
@@ -178,9 +190,11 @@ def Parse(
                 [including_filename.parent, ],
                 workspace_names,
             ):
-                fullpath = (potential_root / filename_or_directory.value).resolve()
-
-                if fullpath.exists():
+                fullpath = ResolveIncludeFilename(
+                    potential_root / filename_or_directory.value,
+                    allow_directory=True,
+                )
+                if fullpath is not None:
                     root = fullpath
                     break
 
@@ -202,7 +216,11 @@ def Parse(
                 if len(items) != 1:
                     raise Errors.ParseCreateIncludeStatementTooManyItems.Create(items[1].range)
 
-                filename = ResolveIncludeFilename(root / items[0].element_name.value)
+                filename = ResolveIncludeFilename(
+                    root / items[0].element_name.value,
+                    allow_directory=False,
+                )
+
                 filename_range = Range(
                     filename_or_directory.range.filename,
                     filename_or_directory.range.begin,
@@ -220,6 +238,9 @@ def Parse(
                     include_type = ParseIncludeStatementType.Star
                 else:
                     include_type = ParseIncludeStatementType.Named
+
+                filename = root
+                filename_range = filename_or_directory.range
 
             assert filename is not None
             assert filename.is_file(), filename
@@ -434,7 +455,7 @@ class _VisitorMixin(object):
             *,
             is_star_include: bool,
         ) -> ParseIncludeStatement:
-            ...
+            ...  # pragma: no cover
 
     # ----------------------------------------------------------------------
     # |
@@ -521,6 +542,8 @@ class _VisitorMixin(object):
             if stop_line == ctx.stop.line:
                 stop_col += ctx.stop.column
 
+        self._OnProgress(stop_line)
+
         return Range.Create(
             self.filename,
             ctx.start.line,
@@ -534,7 +557,7 @@ class _VisitorMixin(object):
     # |  Protected Methods
     # |
     # ----------------------------------------------------------------------
-    def _GetChildren(self, ctx) -> list[Union[Expression, Statement]]:
+    def _GetChildren(self, ctx) -> list[Any]:
         prev_num_stack_items = len(self._stack)
 
         cast(SimpleSchemaVisitor, self).visitChildren(ctx)
@@ -543,13 +566,15 @@ class _VisitorMixin(object):
 
         self._stack = self._stack[:prev_num_stack_items]
 
-        assert all(isinstance(element, (Expression, Statement)) for element in results)
-        return cast(list[Union[Expression, Statement]], results)
+        return results
 
     # ----------------------------------------------------------------------
-    def _OnProgress(self, ctx):
-        if ctx.stop.line > self._current_line:
-            self._current_line = ctx.stop.line
+    def _OnProgress(
+        self,
+        end_line: int,
+    ):
+        if end_line > self._current_line:
+            self._current_line = end_line
             self._on_progress_func(self._current_line)
 
 
@@ -573,17 +598,17 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         children = self._GetChildren(ctx)
         assert all(isinstance(child, MetadataItem) for child in children), children
 
-        self._stack.append(Metadata(self._CreateRange(ctx), cast(list[MetadataItem], children)))
+        self._stack.append(Metadata(self.CreateRange(ctx), cast(list[MetadataItem], children)))
 
     # ----------------------------------------------------------------------
     def visitMetadata_clause_item(self, ctx:SimpleSchemaParser.Metadata_clause_itemContext):
         children = self._GetChildren(ctx)
 
         assert len(children) == 2, children
-        assert isinstance(children[0], tuple), children
+        assert isinstance(children[0], ParseIdentifier), children
         assert isinstance(children[1], Expression), children
 
-        name = children[0][0]
+        name = SimpleElement(children[0].range, children[0].value)
         value_expression = children[1]
 
         self._stack.append(MetadataItem(self.CreateRange(ctx), name, value_expression))
@@ -598,8 +623,8 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert isinstance(children[0], IntegerExpression), children
         min_expression = cast(IntegerExpression, children[0])
 
-        assert isinstance(children[1], IntegerExpression), children
-        max_expression = cast(IntegerExpression, children[1])
+        assert children[1] is None or isinstance(children[1], IntegerExpression), children
+        max_expression = cast(Optional[IntegerExpression], children[1])
 
         metadata: Optional[Metadata] = None
 
@@ -669,10 +694,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(NoneExpression(self.CreateRange(ctx)))
 
     # ----------------------------------------------------------------------
-    def visitBasic_string_expression(self, ctx:SimpleSchemaParser.Basic_string_expressionContext):
-        self.visitString_expression(ctx)
-
-    # ----------------------------------------------------------------------
     def visitString_expression(self, ctx:SimpleSchemaParser.String_expressionContext):
         context = ctx
 
@@ -702,8 +723,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                         whitespace += 1
                     elif line[index] == "\t":
                         whitespace += 4
-                    elif line[index] == "\n":
-                        break
                     else:
                         raise AntlrException(
                             Errors.AntlrInvalidIndentation,
@@ -775,9 +794,16 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
     # ----------------------------------------------------------------------
     def visitInclude_statement(self, ctx:SimpleSchemaParser.Include_statementContext):
         children = self._GetChildren(ctx)
-        assert len(children) >= 2, children
+        assert len(children) >= 1, children
+
+        range_value = self.CreateRange(ctx)
 
         filename = children.pop(0)
+
+        if isinstance(filename, ParseIncludeStatementItem):
+            children = [filename, ]
+            filename = SimpleElement(range_value, self.filename.parent)
+
         assert isinstance(filename, SimpleElement) and isinstance(filename.value, Path), filename
 
         if len(children) == 1 and isinstance(children[0], str) and children[0] == "*":
@@ -858,7 +884,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             ExtensionStatement(
                 self.CreateRange(ctx),
                 name,
-                positional_args or [],
+                cast(list[Expression], positional_args or []),
                 keyword_args or [],
             ),
         )
@@ -908,7 +934,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         children = self._GetChildren(ctx)
 
         num_children = len(children)
-        assert num_children > 1
+        assert num_children >= 1
 
         assert isinstance(children[0], ParseIdentifier), children
         name = children[0]
