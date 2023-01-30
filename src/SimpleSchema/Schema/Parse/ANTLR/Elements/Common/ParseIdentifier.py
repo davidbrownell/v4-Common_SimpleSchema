@@ -84,6 +84,10 @@ class ParseIdentifier(Element):
         return SimpleElement[Visibility](range_value, visibility)
 
     # ----------------------------------------------------------------------
+    def ToSimpleElement(self) -> SimpleElement[str]:
+        return SimpleElement[str](self.range, self.value)
+
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @staticmethod

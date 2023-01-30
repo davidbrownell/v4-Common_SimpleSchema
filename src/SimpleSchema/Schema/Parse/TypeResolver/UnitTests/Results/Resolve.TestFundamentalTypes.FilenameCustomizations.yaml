@@ -1,0 +1,81 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: standard
+    type:
+      __type__: FilenameType
+      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
+          value: 1
+      ensure_exists: true
+      match_any: false
+  - __type__: ItemStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 17>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 17>
+      value: no_ensure_exists
+    type:
+      __type__: FilenameType
+      range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
+          value: 1
+      ensure_exists: false
+      match_any: false
+  - __type__: ItemStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
+      value: match_any
+    type:
+      __type__: FilenameType
+      range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
+          value: 1
+      ensure_exists: true
+      match_any: true

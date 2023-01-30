@@ -33,6 +33,8 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
+    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
+
     from SimpleSchema.Schema.Parse.ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifier, ParseIdentifierType
 
 
@@ -66,54 +68,54 @@ def test_Standard():
 def test_DisplayNameSingle():
     assert ParseIdentifierType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(2, 2),
         None,
         [
             ParseIdentifier(Mock(), "Name"),
         ],
         None,
         None,
-    ).display_name == "Name"
+    ).display_name == "_Name[2]"
 
     assert ParseIdentifierType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(0, 1),
         None,
         [
             ParseIdentifier(Mock(), "Name"),
         ],
         Mock(),
         None,
-    ).display_name == "::Name"
+    ).display_name == "_::Name?"
 
     assert ParseIdentifierType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(1),
         None,
         [
             ParseIdentifier(Mock(), "Name"),
         ],
         None,
         Mock(),
-    ).display_name == "Name::item"
+    ).display_name == "_Name::item+"
 
     assert ParseIdentifierType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(1, 2),
         None,
         [
             ParseIdentifier(Mock(), "Name"),
         ],
         Mock(),
         Mock(),
-    ).display_name == "::Name::item"
+    ).display_name == "_::Name::item[1, 2]"
 
 
 # ----------------------------------------------------------------------
 def test_DisplayNameMultiple():
     assert ParseIdentifierType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(0, 1),
         None,
         [
             ParseIdentifier(Mock(), "Name1"),
@@ -122,11 +124,11 @@ def test_DisplayNameMultiple():
         ],
         None,
         None,
-    ).display_name == "Name1.Name2.Name3"
+    ).display_name == "_Name1.Name2.Name3?"
 
     assert ParseIdentifierType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(2),
         None,
         [
             ParseIdentifier(Mock(), "Name1"),
@@ -135,7 +137,7 @@ def test_DisplayNameMultiple():
         ],
         None,
         Mock(),
-    ).display_name == "Name1.Name2.Name3::item"
+    ).display_name == "_Name1.Name2.Name3::item[2+]"
 
 
 # ----------------------------------------------------------------------

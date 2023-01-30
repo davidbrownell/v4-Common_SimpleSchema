@@ -3,7 +3,6 @@
   statements:
   - __type__: ParseItemStatement
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 7>
@@ -11,10 +10,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
@@ -26,9 +21,13 @@
           __type__: IntegerExpression
           range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
+        value: String
+    visibility: Visibility.Public
   - __type__: ParseItemStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 2, Col 1 -> Ln 2, Col 9>
@@ -36,10 +35,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 2, Col 11 -> Ln 2, Col 18>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 2, Col 17 -> Ln 2, Col 18>
@@ -51,9 +46,13 @@
           __type__: IntegerExpression
           range: entry_point <Ln 2, Col 17 -> Ln 2, Col 18>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+        value: String
+    visibility: Visibility.Public
   - __type__: ParseItemStatement
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 13>
@@ -61,10 +60,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 3, Col 15 -> Ln 3, Col 22>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 3, Col 15 -> Ln 3, Col 21>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 3, Col 21 -> Ln 3, Col 22>
@@ -72,9 +67,13 @@
           __type__: IntegerExpression
           range: entry_point <Ln 3, Col 21 -> Ln 3, Col 22>
           value: 0
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 3, Col 15 -> Ln 3, Col 21>
+        value: String
+    visibility: Visibility.Public
   - __type__: ParseItemStatement
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 4, Col 1 -> Ln 4, Col 12>
@@ -82,10 +81,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 4, Col 14 -> Ln 4, Col 21>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 4, Col 14 -> Ln 4, Col 20>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 4, Col 20 -> Ln 4, Col 21>
@@ -93,9 +88,13 @@
           __type__: IntegerExpression
           range: entry_point <Ln 4, Col 20 -> Ln 4, Col 21>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 4, Col 14 -> Ln 4, Col 20>
+        value: String
+    visibility: Visibility.Public
   - __type__: ParseItemStatement
     range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 5, Col 1 -> Ln 5, Col 6>
@@ -103,10 +102,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 5, Col 8 -> Ln 5, Col 17>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 5, Col 8 -> Ln 5, Col 14>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 5, Col 14 -> Ln 5, Col 17>
@@ -118,9 +113,13 @@
           __type__: IntegerExpression
           range: entry_point <Ln 5, Col 15 -> Ln 5, Col 16>
           value: 3
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 5, Col 8 -> Ln 5, Col 14>
+        value: String
+    visibility: Visibility.Public
   - __type__: ParseItemStatement
     range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 6, Col 1 -> Ln 6, Col 6>
@@ -128,10 +127,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 6, Col 8 -> Ln 6, Col 21>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 6, Col 8 -> Ln 6, Col 14>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 6, Col 14 -> Ln 6, Col 21>
@@ -143,9 +138,13 @@
           __type__: IntegerExpression
           range: entry_point <Ln 6, Col 18 -> Ln 6, Col 20>
           value: 10
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 6, Col 8 -> Ln 6, Col 14>
+        value: String
+    visibility: Visibility.Public
   - __type__: ParseItemStatement
     range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 7, Col 1 -> Ln 7, Col 14>
@@ -153,10 +152,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 7, Col 16 -> Ln 7, Col 42>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 7, Col 16 -> Ln 7, Col 22>
-        value: String
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 7, Col 22 -> Ln 7, Col 42>
@@ -182,3 +177,8 @@
               __type__: StringExpression
               range: entry_point <Ln 7, Col 35 -> Ln 7, Col 40>
               value: Foo
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 7, Col 16 -> Ln 7, Col 22>
+        value: String
+    visibility: Visibility.Public

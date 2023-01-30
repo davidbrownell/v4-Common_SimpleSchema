@@ -20,6 +20,7 @@ import re
 import sys
 
 from contextlib import contextmanager
+from enum import Enum
 from pathlib import Path
 from typing import Any, Callable, Iterator, Match, Optional, Set
 from unittest.mock import MagicMock as Mock, patch
@@ -50,6 +51,17 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Expressions.TupleExpression import TupleExpression
 
     from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
+
+    from SimpleSchema.Schema.Elements.Types.FundamentalType import FundamentalType
+    from SimpleSchema.Schema.Elements.Types.FundamentalTypes.DirectoryType import DirectoryType
+    from SimpleSchema.Schema.Elements.Types.FundamentalTypes.EnumType import EnumType
+    from SimpleSchema.Schema.Elements.Types.FundamentalTypes.FilenameType import FilenameType
+    from SimpleSchema.Schema.Elements.Types.FundamentalTypes.IntegerType import IntegerType
+    from SimpleSchema.Schema.Elements.Types.FundamentalTypes.NumberType import NumberType
+    from SimpleSchema.Schema.Elements.Types.FundamentalTypes.StringType import StringType
+    from SimpleSchema.Schema.Elements.Types.StructureType import StructureType
+    from SimpleSchema.Schema.Elements.Types.Type import Type
+    from SimpleSchema.Schema.Elements.Types.TypedefType import TypedefType
 
     from SimpleSchema.Schema.Parse.ANTLR.Elements.Common.ParseIdentifier import ParseIdentifier
 
@@ -326,18 +338,40 @@ class _ToPythonDictVisitor(Visitor):
     @overridemethod
     def OnElementDetailsItem(self, name: str, element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType) -> Iterator[Optional[VisitResult]]:
         is_list = isinstance(element_or_elements, list)
-        prev_num_items = len(self._stack)
 
-        yield
+        # Special logic for references
+        if (
+            (is_list and element_or_elements and callable(element_or_elements[0]))
+            or (not is_list and callable(element_or_elements))
+        ):
+            assert self._processing_reference_element_ctr == 0
 
-        items = self._stack[prev_num_items:]
-        self._stack = self._stack[:prev_num_items]
+            self._processing_reference_element_ctr += 1
 
-        if not is_list:
-            assert len(items) == 1
-            items = items[0]
+            # ----------------------------------------------------------------------
+            def OnExit():
+                assert self._processing_reference_element_ctr > 0
+                self._processing_reference_element_ctr -= 1
 
-        self._stack[-1][name] = items
+            # ----------------------------------------------------------------------
+
+            on_exit_func = OnExit
+        else:
+            on_exit_func = lambda: None
+
+        with ExitStack(on_exit_func):
+            prev_num_items = len(self._stack)
+
+            yield
+
+            items = self._stack[prev_num_items:]
+            self._stack = self._stack[:prev_num_items]
+
+            if not is_list:
+                assert len(items) == 1
+                items = items[0]
+
+            self._stack[-1][name] = items
 
     # ----------------------------------------------------------------------
     # |
@@ -347,20 +381,22 @@ class _ToPythonDictVisitor(Visitor):
     @contextmanager
     @overridemethod
     def OnParseIdentifier(self, element: ParseIdentifier) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["value"] = element.value
         yield
+
+        self._stack[-1]["value"] = element.value
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnSimpleElement(self, element: SimpleElement) -> Iterator[Optional[VisitResult]]:
+        yield
+
         value = element.value
 
-        if isinstance(value, Path):
+        if isinstance(value, (Path, Enum)):
             value = str(value)
 
         self._stack[-1]["value"] = value
-        yield
 
     # ----------------------------------------------------------------------
     # |
@@ -370,15 +406,17 @@ class _ToPythonDictVisitor(Visitor):
     @contextmanager
     @overridemethod
     def OnBooleanExpression(self, element: BooleanExpression) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["value"] = element.value
         yield
+
+        self._stack[-1]["value"] = element.value
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnIntegerExpression(self, element: IntegerExpression) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["value"] = element.value
         yield
+
+        self._stack[-1]["value"] = element.value
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -403,22 +441,23 @@ class _ToPythonDictVisitor(Visitor):
     @contextmanager
     @overridemethod
     def OnNoneExpression(self, element: NoneExpression) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["value"] = element.value
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnNumberExpression(self, element: NumberExpression) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["value"] = element.value
         yield
+
+        self._stack[-1]["value"] = element.value
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnStringExpression(self, element: StringExpression) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["value"] = element.value
         yield
+
+        self._stack[-1]["value"] = element.value
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -447,15 +486,17 @@ class _ToPythonDictVisitor(Visitor):
     @contextmanager
     @overridemethod
     def OnParseIncludeStatement(self, element: ParseIncludeStatement) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["include_type"] = str(element.include_type)
         yield
+
+        self._stack[-1]["include_type"] = str(element.include_type)
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnParseItemStatement(self, element: ParseItemStatement) -> Iterator[Optional[VisitResult]]:
-        self._stack[-1]["visibility"] = str(element.name.visibility.value)
         yield
+
+        self._stack[-1]["visibility"] = str(element.name.visibility.value)
 
     # ----------------------------------------------------------------------
     # |
@@ -464,10 +505,123 @@ class _ToPythonDictVisitor(Visitor):
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
+    def OnDirectoryType(self, element: DirectoryType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        self._stack[-1]["ensure_exists"] = element.ensure_exists
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnEnumType(self, element: EnumType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        self._stack[-1]["values"] = [
+            {
+                "name": e.name,             # type: ignore
+                "value": e.value,           # type: ignore
+            }
+            for e in element.EnumClass      # type: ignore
+        ]
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnFilenameType(self, element: FilenameType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        self._stack[-1]["ensure_exists"] = element.ensure_exists
+        self._stack[-1]["match_any"] = element.match_any
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnIntegerType(self, element: IntegerType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        if element.min is not None:
+            self._stack[-1]["min"] = element.min
+        if element.max is not None:
+            self._stack[-1]["max"] = element.max
+        if element.bits is not None:
+            self._stack[-1]["bits"] = str(element.bits)
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnNumberType(self, element: NumberType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        if element.min is not None:
+            self._stack[-1]["min"] = element.min
+        if element.max is not None:
+            self._stack[-1]["max"] = element.max
+        if element.bits is not None:
+            self._stack[-1]["bits"] = str(element.bits)
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnStructureType(self, element: StructureType) -> Iterator[Optional[VisitResult]]:
+        if self._processing_reference_element_ctr != 0:
+            element.statement.name.Accept(self)
+            self._stack[-1]["reference"] = self._stack.pop()
+
+            if not element.cardinality.is_single:
+                element.cardinality.Accept(self)
+                self._stack[-1]["cardinality"] = self._stack.pop()
+
+            if element.metadata is not None:
+                element.metadata.Accept(self)
+                self._stack[-1]["metadata"] = self._stack.pop()
+
+            yield VisitResult.SkipAll
+            return
+
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnTypedefType(self, element: TypedefType) -> Iterator[Optional[VisitResult]]:
+        if self._processing_reference_element_ctr != 0:
+            element.name.Accept(self)
+            self._stack[-1]["reference"] = self._stack.pop()
+
+            if not element.cardinality.is_single:
+                element.cardinality.Accept(self)
+                self._stack[-1]["cardinality"] = self._stack.pop()
+
+            if element.metadata is not None:
+                element.metadata.Accept(self)
+                self._stack[-1]["metadata"] = self._stack.pop()
+
+            yield VisitResult.SkipAll
+            return
+
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnStringType(self, element: StringType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        self._stack[-1]["min_length"] = element.min_length
+
+        if element.max_length:
+            self._stack[-1]["max_length"] = element.max_length
+
+        if element.validation_expression:
+            self._stack[-1]["validation_expression"] = element.validation_expression
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
     def OnParseIdentifierType(self, element: ParseIdentifierType) -> Iterator[Optional[VisitResult]]:
+        yield
+
         if element.is_global_reference:
             self._stack[-1]["is_global_reference"] = str(element.is_global_reference)
         if element.is_item_reference:
             self._stack[-1]["is_item_reference"] = str(element.is_item_reference)
-
-        yield

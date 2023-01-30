@@ -191,6 +191,17 @@ def test_WithMetadata():
 
 
 # ----------------------------------------------------------------------
+def test_Strings():
+    assert str(Cardinality.CreateFromCode()) == ""
+    assert str(Cardinality.CreateFromCode(0, 1)) == "?"
+    assert str(Cardinality.CreateFromCode(0)) == "*"
+    assert str(Cardinality.CreateFromCode(1)) == "+"
+    assert str(Cardinality.CreateFromCode(3)) == "[3+]"
+    assert str(Cardinality.CreateFromCode(3, 3)) == "[3]"
+    assert str(Cardinality.CreateFromCode(3, 10)) == "[3, 10]"
+
+
+# ----------------------------------------------------------------------
 def test_ErrorInvalidCardinality():
     with pytest.raises(
         SimpleSchemaException,
@@ -216,3 +227,78 @@ def test_ErrorMetadata():
             None,
             Metadata(Range.Create(Path("the_file"), 10, 20, 30, 40), []),
         )
+
+
+# ----------------------------------------------------------------------
+class TestValidate(object):
+    # ----------------------------------------------------------------------
+    def test_Single(self):
+        c = Cardinality(Mock(), None, None, None)
+
+        c.Validate(10)
+        c.Validate(IntegerExpression(Mock(), 10))
+
+    # ----------------------------------------------------------------------
+    def test_Optional(self):
+        c = Cardinality.CreateFromCode(0, 1)
+
+        c.Validate(10)
+        c.Validate(IntegerExpression(Mock(), 10))
+        c.Validate(None)
+
+    # ----------------------------------------------------------------------
+    def test_Container(self):
+        c = Cardinality.CreateFromCode(2, 2)
+
+        c.Validate([10, 20])
+        c.Validate([IntegerExpression(Mock(), 10), IntegerExpression(Mock(), 20)])
+
+    # ----------------------------------------------------------------------
+    def test_ErrorContainerWithoutListPython(self):
+        with pytest.raises(
+            Exception,
+            match=re.escape("A list of items was expected."),
+        ):
+            Cardinality.CreateFromCode(2, 2).Validate(10)
+
+    # ----------------------------------------------------------------------
+    def test_ErrorContainerWithoutListExpression(self):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape("A list of items was expected. (filename <Ln 1, Col 2 -> Ln 3, Col 4>)"),
+        ):
+            Cardinality.CreateFromCode(2, 2).Validate(
+                IntegerExpression(Range.Create(Path("filename"), 1, 2, 3, 4), 10),
+            )
+
+    # ----------------------------------------------------------------------
+    def test_ErrorNotContainerWithList(self):
+        with pytest.raises(
+            Exception,
+            match=re.escape("A list of items was not expected."),
+        ):
+            Cardinality.CreateFromCode().Validate([10, 20])
+
+    # ----------------------------------------------------------------------
+    def test_ErrorSingleWithNone(self):
+        with pytest.raises(
+            Exception,
+            match=re.escape("None was not expected."),
+        ):
+            Cardinality.CreateFromCode().Validate(None)
+
+    # ----------------------------------------------------------------------
+    def test_ErrorTooFewContainerItems(self):
+        with pytest.raises(
+            Exception,
+            match=re.escape("At least 2 items were expected (1 item was found)."),
+        ):
+            Cardinality.CreateFromCode(2, 2).Validate([10, ])
+
+    # ----------------------------------------------------------------------
+    def test_ErrorTooManyContainerItems(self):
+        with pytest.raises(
+            Exception,
+            match=re.escape("No more than 2 items were expected (3 items were found)."),
+        ):
+            Cardinality.CreateFromCode(2, 2).Validate([10, 20, 30])

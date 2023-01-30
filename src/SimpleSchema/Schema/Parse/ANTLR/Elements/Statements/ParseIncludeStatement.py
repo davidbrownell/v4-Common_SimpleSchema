@@ -15,10 +15,10 @@
 # ----------------------------------------------------------------------
 """Contains the ParseIncludeStatement, ParseIncludeStatementItem, and ParseIncludeStatementType objects"""
 
-from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass
 from enum import auto, Enum
 from pathlib import Path
-from typing import cast, Optional
+from typing import cast
 
 from Common_Foundation.Types import overridemethod
 
@@ -54,37 +54,21 @@ class ParseIncludeStatementItem(Element):
 
     # ----------------------------------------------------------------------
     element_name: ParseIdentifier
-
-    reference_name_param: InitVar[Optional[ParseIdentifier]]
-    reference_name: ParseIdentifier         = field(init=False)
+    reference_name: ParseIdentifier
 
     # ----------------------------------------------------------------------
-    def __post_init__(
-        self,
-        reference_name_param: Optional[ParseIdentifier],
-    ):
+    def __post_init__(self):
         if not self.element_name.is_type:
             raise Errors.ParseIncludeStatementItemNotType.Create(
                 self.element_name.range,
                 self.element_name.value,
             )
 
-        if self.element_name.visibility.value != Visibility.Public:
-            raise Errors.ParseIncludeStatementItemNotPublic.Create(
-                self.element_name.visibility.range,
-                self.element_name.value,
-            )
-
-        if reference_name_param is None:
-            reference_name_param = self.element_name
-
-        if not reference_name_param.is_type:
+        if not self.reference_name.is_type:
             raise Errors.ParseIncludeStatementItemReferenceNotPublic.Create(
-                reference_name_param.visibility.range,
-                reference_name_param.value,
+                self.reference_name.visibility.range,
+                self.reference_name.value,
             )
-
-        object.__setattr__(self, "reference_name", reference_name_param)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

@@ -1,0 +1,302 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 13, Col 1>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
+      value: boolean
+    type:
+      __type__: BooleanType
+      range: entry_point <Ln 1, Col 10 -> Ln 1, Col 17>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 10 -> Ln 1, Col 17>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 10 -> Ln 1, Col 17>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 10 -> Ln 1, Col 17>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 9>
+      value: datetime
+    type:
+      __type__: DateTimeType
+      range: entry_point <Ln 2, Col 11 -> Ln 2, Col 19>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 19>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 11 -> Ln 2, Col 19>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 11 -> Ln 2, Col 19>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 5>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 5>
+      value: date
+    type:
+      __type__: DateType
+      range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 10>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 10>
+      value: directory
+    type:
+      __type__: DirectoryType
+      range: entry_point <Ln 4, Col 12 -> Ln 4, Col 21>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 4, Col 12 -> Ln 4, Col 21>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 12 -> Ln 4, Col 21>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 12 -> Ln 4, Col 21>
+          value: 1
+      ensure_exists: true
+  - __type__: ItemStatement
+    range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 9>
+      value: duration
+    type:
+      __type__: DurationType
+      range: entry_point <Ln 5, Col 11 -> Ln 5, Col 19>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 5, Col 11 -> Ln 5, Col 19>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 5, Col 11 -> Ln 5, Col 19>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 5, Col 11 -> Ln 5, Col 19>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 6, Col 1 -> Ln 6, Col 5>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 6, Col 1 -> Ln 6, Col 5>
+      value: enum
+    type:
+      __type__: EnumType
+      range: entry_point <Ln 6, Col 7 -> Ln 6, Col 39>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 6, Col 7 -> Ln 6, Col 39>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 6, Col 7 -> Ln 6, Col 39>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 6, Col 7 -> Ln 6, Col 39>
+          value: 1
+      values:
+      - name: a
+        value: 1
+      - name: b
+        value: 2
+      - name: c
+        value: 3
+  - __type__: ItemStatement
+    range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 9>
+      value: filename
+    type:
+      __type__: FilenameType
+      range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
+          value: 1
+      ensure_exists: true
+      match_any: false
+  - __type__: ItemStatement
+    range: entry_point <Ln 8, Col 1 -> Ln 9, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 8, Col 1 -> Ln 8, Col 5>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 8, Col 1 -> Ln 8, Col 5>
+      value: guid
+    type:
+      __type__: GuidType
+      range: entry_point <Ln 8, Col 7 -> Ln 8, Col 11>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 8, Col 7 -> Ln 8, Col 11>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 8, Col 7 -> Ln 8, Col 11>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 8, Col 7 -> Ln 8, Col 11>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 8>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 8>
+      value: integer
+    type:
+      __type__: IntegerType
+      range: entry_point <Ln 9, Col 10 -> Ln 9, Col 17>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 9, Col 10 -> Ln 9, Col 17>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 9, Col 10 -> Ln 9, Col 17>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 9, Col 10 -> Ln 9, Col 17>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 7>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 7>
+      value: number
+    type:
+      __type__: NumberType
+      range: entry_point <Ln 10, Col 9 -> Ln 10, Col 15>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 10, Col 9 -> Ln 10, Col 15>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 10, Col 9 -> Ln 10, Col 15>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 10, Col 9 -> Ln 10, Col 15>
+          value: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 11, Col 1 -> Ln 12, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 7>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 7>
+      value: string
+    type:
+      __type__: StringType
+      range: entry_point <Ln 11, Col 9 -> Ln 11, Col 15>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 11, Col 9 -> Ln 11, Col 15>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 11, Col 9 -> Ln 11, Col 15>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 11, Col 9 -> Ln 11, Col 15>
+          value: 1
+      min_length: 1
+  - __type__: ItemStatement
+    range: entry_point <Ln 12, Col 1 -> Ln 13, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 12, Col 1 -> Ln 12, Col 4>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 12, Col 1 -> Ln 12, Col 4>
+      value: uri
+    type:
+      __type__: UriType
+      range: entry_point <Ln 12, Col 6 -> Ln 12, Col 9>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 12, Col 6 -> Ln 12, Col 9>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 12, Col 6 -> Ln 12, Col 9>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 12, Col 6 -> Ln 12, Col 9>
+          value: 1

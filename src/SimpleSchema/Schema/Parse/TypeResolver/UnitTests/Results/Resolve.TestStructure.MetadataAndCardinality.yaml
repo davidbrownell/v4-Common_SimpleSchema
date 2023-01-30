@@ -1,0 +1,71 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 15, Col 1>
+  statements:
+  - __type__: StructureStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 5, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Metadata
+    metadata:
+      __type__: Metadata
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 21>
+      items:
+      - __type__: MetadataItem
+        range: entry_point <Ln 3, Col 3 -> Ln 3, Col 19>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 3, Col 3 -> Ln 3, Col 15>
+          value: custom_value
+        expression:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 17 -> Ln 3, Col 19>
+          value: 10
+  - __type__: StructureStatement
+    range: entry_point <Ln 5, Col 1 -> Ln 9, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 12>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 12>
+      value: Cardinality
+  - __type__: StructureStatement
+    range: entry_point <Ln 9, Col 1 -> Ln 15, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 23>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 23>
+      value: MetadataAndCardinality
+    metadata:
+      __type__: Metadata
+      range: entry_point <Ln 11, Col 1 -> Ln 14, Col 2>
+      items:
+      - __type__: MetadataItem
+        range: entry_point <Ln 12, Col 5 -> Ln 12, Col 22>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 12, Col 5 -> Ln 12, Col 18>
+          value: custom_value1
+        expression:
+          __type__: IntegerExpression
+          range: entry_point <Ln 12, Col 20 -> Ln 12, Col 22>
+          value: 10
+      - __type__: MetadataItem
+        range: entry_point <Ln 13, Col 5 -> Ln 13, Col 22>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 13, Col 5 -> Ln 13, Col 18>
+          value: custom_value2
+        expression:
+          __type__: IntegerExpression
+          range: entry_point <Ln 13, Col 20 -> Ln 13, Col 22>
+          value: 20

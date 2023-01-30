@@ -4,19 +4,18 @@ Subdir1/Subdir2/entry_point.SimpleSchema:
   statements:
   - __type__: ParseIncludeStatement
     range: Subdir1/Subdir2/entry_point.SimpleSchema <Ln 1, Col 1 -> Ln 2, Col 1>
-    include_type: ParseIncludeStatementType.Star
     filename:
       __type__: SimpleElement
       range: Subdir1/Subdir2/entry_point.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 15>
       value: Foo.SimpleSchema
     items: []
+    include_type: ParseIncludeStatementType.Star
 Foo.SimpleSchema:
 - __type__: RootStatement
   range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
   statements:
   - __type__: ParseItemStatement
     range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -24,10 +23,6 @@ Foo.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-        value: Two
       cardinality:
         __type__: Cardinality
         range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
@@ -39,3 +34,8 @@ Foo.SimpleSchema:
           __type__: IntegerExpression
           range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        value: Two
+    visibility: Visibility.Public

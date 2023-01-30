@@ -51,7 +51,7 @@ def test_Standard():
 # ----------------------------------------------------------------------
 def test_ErrorSetParent():
     with pytest.raises(
-        ValueError,
+        Exception,
         match=re.escape("Root statements cannot have parents."),
     ):
         RootStatement(Mock(), Mock()).SetParent(Mock())

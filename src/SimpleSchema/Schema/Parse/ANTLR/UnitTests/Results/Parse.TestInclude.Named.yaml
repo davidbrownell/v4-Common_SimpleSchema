@@ -4,7 +4,6 @@ entry_point:
   statements:
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 6 -> Ln 1, Col 9>
@@ -20,9 +19,9 @@ entry_point:
         __type__: ParseIdentifier
         range: entry_point <Ln 1, Col 17 -> Ln 1, Col 20>
         value: Bar
+    include_type: ParseIncludeStatementType.Named
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 2, Col 6 -> Ln 2, Col 9>
@@ -38,9 +37,9 @@ entry_point:
         __type__: ParseIdentifier
         range: entry_point <Ln 2, Col 24 -> Ln 2, Col 28>
         value: Bar_
+    include_type: ParseIncludeStatementType.Named
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
-    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 3, Col 6 -> Ln 3, Col 9>
@@ -56,9 +55,9 @@ entry_point:
         __type__: ParseIdentifier
         range: entry_point <Ln 3, Col 17 -> Ln 3, Col 20>
         value: Bar
+    include_type: ParseIncludeStatementType.Named
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
-    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 4, Col 6 -> Ln 4, Col 9>
@@ -84,9 +83,9 @@ entry_point:
         __type__: ParseIdentifier
         range: entry_point <Ln 4, Col 22 -> Ln 4, Col 25>
         value: Baz
+    include_type: ParseIncludeStatementType.Named
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 5, Col 1 -> Ln 9, Col 1>
-    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 5, Col 6 -> Ln 5, Col 9>
@@ -112,9 +111,9 @@ entry_point:
         __type__: ParseIdentifier
         range: entry_point <Ln 7, Col 12 -> Ln 7, Col 16>
         value: Baz_
+    include_type: ParseIncludeStatementType.Named
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
-    include_type: ParseIncludeStatementType.Named
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 9, Col 6 -> Ln 9, Col 22>
@@ -130,13 +129,13 @@ entry_point:
         __type__: ParseIdentifier
         range: entry_point <Ln 9, Col 30 -> Ln 9, Col 33>
         value: Bar
+    include_type: ParseIncludeStatementType.Named
 Foo.SimpleSchema:
 - __type__: RootStatement
   range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
   statements:
   - __type__: ParseItemStatement
     range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -144,10 +143,6 @@ Foo.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-        value: Two
       cardinality:
         __type__: Cardinality
         range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
@@ -159,3 +154,8 @@ Foo.SimpleSchema:
           __type__: IntegerExpression
           range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        value: Two
+    visibility: Visibility.Public

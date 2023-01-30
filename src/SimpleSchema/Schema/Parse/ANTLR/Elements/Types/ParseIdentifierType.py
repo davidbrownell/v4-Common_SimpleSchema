@@ -25,7 +25,9 @@ from .ParseType import ParseType
 
 from ..Common.ParseIdentifier import ParseIdentifier
 
+from .....Elements.Common.Cardinality import Cardinality
 from .....Elements.Common.Element import Element
+from .....Elements.Common.Metadata import Metadata
 
 from ......Common import Errors
 from ......Common.Range import Range
@@ -46,8 +48,6 @@ class ParseIdentifierType(ParseType):
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
-        super(ParseIdentifierType, self).__post_init__()
-
         if not self.identifiers:
             raise Errors.ParseIdentifierTypeEmpty.Create(self.range)
 
@@ -58,10 +58,14 @@ class ParseIdentifierType(ParseType):
         if self.is_global_reference and len(self.identifiers) > 1:
             raise Errors.ParseIdentifierTypeInvalidGlobal.Create(self.is_global_reference)
 
+        super(ParseIdentifierType, self).__post_init__()
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @cached_property
     @overridemethod
-    def display_name(self) -> str:
+    def _display_name(self) -> str:
         result = ".".join(identifier.value for identifier in self.identifiers)
 
         if self.is_global_reference:
@@ -69,13 +73,28 @@ class ParseIdentifierType(ParseType):
         if self.is_item_reference:
             result = "{}::item".format(result)
 
-        return result
+        return "_{}".format(result)
 
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield from super(ParseIdentifierType, self)._GenerateAcceptDetails()
+
         yield "identifiers", cast(list[Element], self.identifiers)
 
-        yield from super(ParseIdentifierType, self)._GenerateAcceptDetails()
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _CloneImpl(
+        self,
+        range_value: Range,
+        cardinality: Cardinality,
+        metadata: Optional[Metadata],
+    ) -> "ParseIdentifierType":
+        return ParseIdentifierType(
+            range_value,
+            cardinality,
+            metadata,
+            self.identifiers,
+            self.is_global_reference,
+            self.is_item_reference,
+        )

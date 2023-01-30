@@ -3,7 +3,6 @@
   statements:
   - __type__: ParseItemStatement
     range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -11,10 +10,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 1, Col 6 -> Ln 5, Col 2>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 1, Col 6 -> Ln 1, Col 9>
-        value: Two
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 6 -> Ln 5, Col 2>
@@ -40,3 +35,8 @@
             __type__: StringExpression
             range: entry_point <Ln 2, Col 13 -> Ln 4, Col 7>
             value: Hello
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 6 -> Ln 1, Col 9>
+        value: Two
+    visibility: Visibility.Public

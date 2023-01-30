@@ -4,27 +4,26 @@ entry_point:
   statements:
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-    include_type: ParseIncludeStatementType.Star
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 6 -> Ln 1, Col 16>
       value: Subdir/Foo.SimpleSchema
     items: []
+    include_type: ParseIncludeStatementType.Star
   - __type__: ParseIncludeStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-    include_type: ParseIncludeStatementType.Star
     filename:
       __type__: SimpleElement
       range: entry_point <Ln 2, Col 6 -> Ln 2, Col 9>
       value: Bar.SimpleSchema
     items: []
+    include_type: ParseIncludeStatementType.Star
 Subdir/Foo.SimpleSchema:
 - __type__: RootStatement
   range: Subdir/Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
   statements:
   - __type__: ParseItemStatement
     range: Subdir/Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 9>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: Subdir/Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -32,10 +31,6 @@ Subdir/Foo.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-        value: Two
       cardinality:
         __type__: Cardinality
         range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
@@ -47,13 +42,17 @@ Subdir/Foo.SimpleSchema:
           __type__: IntegerExpression
           range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+        value: Two
+    visibility: Visibility.Public
 Bar.SimpleSchema:
 - __type__: RootStatement
   range: Bar.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 12>
   statements:
   - __type__: ParseItemStatement
     range: Bar.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 12>
-    visibility: Visibility.Public
     name:
       __type__: ParseIdentifier
       range: Bar.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 6>
@@ -61,10 +60,6 @@ Bar.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
-        value: Four
       cardinality:
         __type__: Cardinality
         range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
@@ -76,3 +71,8 @@ Bar.SimpleSchema:
           __type__: IntegerExpression
           range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
+        value: Four
+    visibility: Visibility.Public

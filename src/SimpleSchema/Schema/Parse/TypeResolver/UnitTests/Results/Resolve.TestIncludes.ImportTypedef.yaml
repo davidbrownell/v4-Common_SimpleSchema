@@ -1,0 +1,57 @@
+entry_point:
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 5>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 5>
+      value: type
+    type:
+      __type__: TypedefType
+      range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+      reference:
+        __type__: SimpleElement
+        range: included <Ln 1, Col 1 -> Ln 1, Col 5>
+        value: Type
+included:
+- __type__: RootStatement
+  range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+  statements:
+  - __type__: TypedefType
+    range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+    cardinality:
+      __type__: Cardinality
+      range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+      min:
+        __type__: IntegerExpression
+        range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: included <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Type
+    type:
+      __type__: StringType
+      range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+      cardinality:
+        __type__: Cardinality
+        range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+        min:
+          __type__: IntegerExpression
+          range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+          value: 1
+      min_length: 2

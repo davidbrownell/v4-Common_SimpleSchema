@@ -13,7 +13,13 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for Parse.py"""
+"""\
+Unit tests for Parse.py
+
+Note that these tests are actually Integration tests (as they are using more than once
+class or function), but named UnitTests to ensure that they participate in code coverage
+collection and enforcement.
+"""
 
 import re
 import sys

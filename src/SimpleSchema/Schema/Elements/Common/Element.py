@@ -69,29 +69,6 @@ class Element(ABC):
 
     is_disabled: bool                                   = field(init=False, default=False)
 
-    _parent_ref: Optional[ReferenceType["Element"]]     = field(init=False, default=None)
-
-    # ----------------------------------------------------------------------
-    @property
-    def parent(self) -> "Element":
-        if self._parent_ref is None:
-            raise Exception("A parent has not been set for this element.")
-
-        parent = self._parent_ref()
-        assert parent is not None
-
-        return parent
-
-    # ----------------------------------------------------------------------
-    def SetParent(
-        self,
-        element: "Element",
-    ) -> None:
-        if self._parent_ref is not None:
-            raise Exception("A parent has already been set for this element.")
-
-        object.__setattr__(self, "_parent_ref", ref(element))
-
     # ----------------------------------------------------------------------
     def Disable(self) -> None:
         if self.is_disabled:

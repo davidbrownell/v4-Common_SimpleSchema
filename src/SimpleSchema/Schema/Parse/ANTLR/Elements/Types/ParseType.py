@@ -16,6 +16,7 @@
 """Contains the ParseType object"""
 
 from dataclasses import dataclass
+from typing import ClassVar, Tuple, Type as PythonType
 
 from Common_Foundation.Types import overridemethod
 
@@ -28,8 +29,11 @@ class ParseType(Type):
     """Temporary type generated during parsing and replaced during subsequent steps"""
 
     # ----------------------------------------------------------------------
+    SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (object, )
+
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        raise Exception("This should never be called on ParseType instances.")  # pragma: no cover
+    def _ItemToPythonImpl(self, *args, **kwargs):
+        raise ValueError("This method should never be called on ParseType instances.")
