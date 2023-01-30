@@ -15,14 +15,11 @@
 # ----------------------------------------------------------------------
 """Contains the Exception object"""
 
+import itertools
 import textwrap
 
-from abc import ABC, abstractmethod
-from dataclasses import dataclass, field, InitVar, make_dataclass
-from functools import cached_property
-from typing import Iterable, Type, Union
-
-from Common_Foundation.Types import overridemethod
+from dataclasses import dataclass, InitVar, make_dataclass
+from typing import ClassVar, Iterable, Type as PythonType, Union
 
 from .Range import Range
 
@@ -32,12 +29,103 @@ from .Range import Range
 # |  Public Types
 # |
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
-class SimpleSchemaException(ABC, Exception):
-    """Exception raised within SimpleSchema"""
+class SimpleSchemaException(Exception):
+    """Base class for exceptions thrown within SimpleSchema"""
 
-    range_or_ranges: InitVar[Union[Range, Iterable[Range]]]
-    ranges: list[Range]                     = field(init=False)
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        range_or_ranges: Union[Range, Iterable[Range]],
+        message: str,
+    ):
+        super(SimpleSchemaException, self).__init__(message)
+
+        ranges: list[Range] = []
+
+        if isinstance(range_or_ranges, Range):
+            ranges.append(range_or_ranges)
+        elif isinstance(range_or_ranges, list):
+            ranges += range_or_ranges
+        else:
+            assert False, range_or_ranges  # pragma: no cover
+
+        object.__setattr__(self, "_ranges", ranges)
+
+    # ----------------------------------------------------------------------
+    @property
+    def ranges(self) -> list[Range]:
+        return self._ranges  # type: ignore  # pylint: disable=no-member
+
+    # ----------------------------------------------------------------------
+    def __str__(self) -> str:
+        message = super(SimpleSchemaException, self).__str__()
+
+        if len(self.ranges) == 1 and "\n" not in message:
+            message = "{} ({})".format(message, self.ranges[0])
+        else:
+            message = textwrap.dedent(
+                """\
+                {}
+
+                {}
+                """,
+            ).format(
+                message.rstrip(),
+                "\n".join("    - {}".format(range_value) for range_value in self.ranges),
+            )
+
+        return message
+
+
+# ----------------------------------------------------------------------
+@dataclass(frozen=True)
+class DynamicSimpleSchemaException(SimpleSchemaException):
+    """SimpleSchemaException that is generated dynamically"""
+
+    # ----------------------------------------------------------------------
+    MESSAGE_TEMPLATE: ClassVar[str]         = ""
+
+    # ----------------------------------------------------------------------
+    @staticmethod
+    def CreateType(
+        message_template: str,
+        **args: PythonType,
+    ) -> PythonType["DynamicSimpleSchemaException"]:
+        dynamic_fields_class = make_dataclass(
+            "DynamicFields",
+            itertools.chain(
+                [
+                    ("range_or_ranges", InitVar[Union[Range, Iterable[Range]]]),
+                ],
+                args.items(),
+            ),
+            bases=(DynamicSimpleSchemaException, ),
+            frozen=True,
+            repr=False,
+        )
+
+        # ----------------------------------------------------------------------
+        @dataclass(frozen=True)
+        class Final(dynamic_fields_class):  # type: ignore
+            # ----------------------------------------------------------------------
+            MESSAGE_TEMPLATE: ClassVar[str]             = message_template
+
+            # ----------------------------------------------------------------------
+            def __post_init__(
+                self,
+                range_or_ranges: Union[Range, Iterable[Range]],
+            ):
+                super(Final, self).__post_init__()
+
+                SimpleSchemaException.__init__(
+                    self,
+                    range_or_ranges,
+                    self.__class__.MESSAGE_TEMPLATE.format(**self.__dict__),
+                )
+
+        # ----------------------------------------------------------------------
+
+        return Final
 
     # ----------------------------------------------------------------------
     @classmethod
@@ -48,79 +136,5 @@ class SimpleSchemaException(ABC, Exception):
         return cls(*args, **kwargs)
 
     # ----------------------------------------------------------------------
-    def __post_init__(
-        self,
-        range_or_ranges: Union[Range, Iterable[Range]],
-    ):
-        ranges: list[Range] = []
-
-        if isinstance(range_or_ranges, Range):
-            ranges.append(range_or_ranges)
-        elif isinstance(range_or_ranges, list):
-            ranges += range_or_ranges
-        else:
-            assert False, range_or_ranges  # pragma: no cover
-
-        object.__setattr__(self, "ranges", ranges)
-
-    # ----------------------------------------------------------------------
-    def __str__(self) -> str:
-        return self._string
-
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @cached_property
-    def _string(self) -> str:
-        message = self._message_template.format(**self.__dict__)
-
-        if len(self.ranges) == 1 and "\n" not in message:
-            return "{} ({})".format(message, self.ranges[0])
-
-        return textwrap.dedent(
-            """\
-            {}
-
-            {}
-            """,
-        ).format(
-            message.rstrip(),
-            "\n".join("    - {}".format(range_value) for range_value in self.ranges),
-        )
-
-    # ----------------------------------------------------------------------
-    @property
-    @abstractmethod
-    def _message_template(self) -> str:
-        raise Exception("Abstract method")  # pragma: no cover
-
-
-# ----------------------------------------------------------------------
-# |
-# |  Public Functions
-# |
-# ----------------------------------------------------------------------
-def CreateExceptionType(
-    message_template: str,
-    **args: Type,
-) -> Type[SimpleSchemaException]:
-    dynamic_fields_class = make_dataclass(
-        "DynamicFields",
-        args.items(),
-        bases=(SimpleSchemaException, ),
-        frozen=True,
-        repr=False,
-    )
-
-    # ----------------------------------------------------------------------
-    @dataclass(frozen=True)
-    class Final(dynamic_fields_class):  # type: ignore
-        # ----------------------------------------------------------------------
-        @property
-        @overridemethod
-        def _message_template(self) -> str:
-            return message_template
-
-    # ----------------------------------------------------------------------
-
-    return Final
+    def __post_init__(self):
+        assert self.MESSAGE_TEMPLATE, "Make sure to define MESSAGE_TEMPLATE."

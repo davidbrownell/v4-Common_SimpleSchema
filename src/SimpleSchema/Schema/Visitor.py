@@ -39,8 +39,27 @@ from .Elements.Expressions.StringExpression import StringExpression
 from .Elements.Expressions.TupleExpression import TupleExpression
 
 from .Elements.Statements.ExtensionStatement import ExtensionStatement, ExtensionStatementKeywordArg
+from .Elements.Statements.ItemStatement import ItemStatement
 from .Elements.Statements.RootStatement import RootStatement
+from .Elements.Statements.StructureStatement import StructureStatement
 
+from .Elements.Types.FundamentalTypes.BooleanType import BooleanType
+from .Elements.Types.FundamentalTypes.DateTimeType import DateTimeType
+from .Elements.Types.FundamentalTypes.DateType import DateType
+from .Elements.Types.FundamentalTypes.DirectoryType import DirectoryType
+from .Elements.Types.FundamentalTypes.DurationType import DurationType
+from .Elements.Types.FundamentalTypes.EnumType import EnumType
+from .Elements.Types.FundamentalTypes.FilenameType import FilenameType
+from .Elements.Types.FundamentalTypes.GuidType import GuidType
+from .Elements.Types.FundamentalTypes.IntegerType import IntegerType
+from .Elements.Types.FundamentalTypes.NumberType import NumberType
+from .Elements.Types.FundamentalTypes.StringType import StringType
+from .Elements.Types.FundamentalTypes.UriType import UriType
+
+from .Elements.Types.StructureType import StructureType
+from .Elements.Types.TupleType import TupleType
+from .Elements.Types.TypedefType import TypedefType
+from .Elements.Types.VariantType import VariantType
 
 # ----------------------------------------------------------------------
 # pylint: disable=unused-argument
@@ -190,7 +209,119 @@ class Visitor(ABC):
     # ----------------------------------------------------------------------
     @contextmanager
     @extensionmethod
+    def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
     def OnRootStatement(self, element: RootStatement) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    # |
+    # |  Types
+    # |
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnBooleanType(self, element: BooleanType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnDateTimeType(self, element: DateTimeType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnDateType(self, element: DateType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnDirectoryType(self, element: DirectoryType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnDurationType(self, element: DurationType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnFilenameType(self, element: FilenameType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnEnumType(self, element: EnumType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnGuidType(self, element: GuidType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnIntegerType(self, element: IntegerType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnNumberType(self, element: NumberType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnStringType(self, element: StringType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnStructureType(self, element: StructureType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnTupleType(self, element: TupleType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnTypedefType(self, element: TypedefType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnUriType(self, element: UriType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
+    def OnVariantType(self, element: VariantType) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------
@@ -206,6 +337,9 @@ class Visitor(ABC):
         with self.OnElementDetailsItem(member_name, element_or_elements) as visit_result:
             if visit_result == VisitResult.Terminate:
                 return visit_result
+
+            if visit_result and (visit_result & VisitResult.SkipAll):
+                return VisitResult.Continue
 
             elements: Optional[
                 Union[

@@ -77,6 +77,16 @@ def test_Standard(value):
 
 
 # ----------------------------------------------------------------------
+def test_ToSimpleElement():
+    id = ParseIdentifier(Mock(), "Value")
+
+    se = id.ToSimpleElement()
+
+    assert se.range is id.range
+    assert se.value == "Value"
+
+
+# ----------------------------------------------------------------------
 @pytest.mark.parametrize("value", ["", "_", "____"])
 def test_ErrorNoMeaningful(value):
     with pytest.raises(

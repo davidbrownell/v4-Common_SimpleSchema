@@ -1,0 +1,127 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 5, Col 1>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: standard
+    type:
+      __type__: EnumType
+      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 43>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 43>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 43>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 43>
+          value: 1
+      values:
+      - name: a
+        value: 1
+      - name: b
+        value: 2
+      - name: c
+        value: 3
+  - __type__: ItemStatement
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 15>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 15>
+      value: starting_value
+    type:
+      __type__: EnumType
+      range: entry_point <Ln 2, Col 17 -> Ln 2, Col 69>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 2, Col 17 -> Ln 2, Col 69>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 17 -> Ln 2, Col 69>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 2, Col 17 -> Ln 2, Col 69>
+          value: 1
+      values:
+      - name: a
+        value: 10
+      - name: b
+        value: 11
+      - name: c
+        value: 12
+  - __type__: ItemStatement
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 11>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 11>
+      value: int_values
+    type:
+      __type__: EnumType
+      range: entry_point <Ln 3, Col 13 -> Ln 3, Col 39>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 3, Col 13 -> Ln 3, Col 39>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 13 -> Ln 3, Col 39>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 13 -> Ln 3, Col 39>
+          value: 1
+      values:
+      - name: Value1
+        value: 1
+      - name: Value2
+        value: 2
+      - name: Value3
+        value: 3
+  - __type__: ItemStatement
+    range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 13>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 13>
+      value: tuple_values
+    type:
+      __type__: EnumType
+      range: entry_point <Ln 4, Col 15 -> Ln 4, Col 68>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 4, Col 15 -> Ln 4, Col 68>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 15 -> Ln 4, Col 68>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 15 -> Ln 4, Col 68>
+          value: 1
+      values:
+      - name: a
+        value: A
+      - name: b
+        value: B
+      - name: c
+        value: C

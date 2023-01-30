@@ -1,0 +1,108 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 8, Col 1>
+  statements:
+  - __type__: StructureStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Directory
+    children:
+    - __type__: ItemStatement
+      range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 5 -> Ln 2, Col 9>
+        value: Visibility.Public
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 5 -> Ln 2, Col 9>
+        value: name
+      type:
+        __type__: StringType
+        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+            value: 1
+        min_length: 1
+    - __type__: ItemStatement
+      range: entry_point <Ln 4, Col 5 -> Ln 5, Col 5>
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 5 -> Ln 4, Col 10>
+        value: Visibility.Public
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 5 -> Ln 4, Col 10>
+        value: files
+      type:
+        __type__: StringType
+        range: entry_point <Ln 4, Col 12 -> Ln 4, Col 19>
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <Ln 4, Col 18 -> Ln 4, Col 19>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <Ln 4, Col 18 -> Ln 4, Col 19>
+            value: 1
+        min_length: 1
+    - __type__: ItemStatement
+      range: entry_point <Ln 5, Col 5 -> Ln 6, Col 1>
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 5, Col 5 -> Ln 5, Col 16>
+        value: Visibility.Public
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 5, Col 5 -> Ln 5, Col 16>
+        value: directories
+      type:
+        __type__: StructureType
+        range: entry_point <Ln 5, Col 18 -> Ln 5, Col 28>
+        reference:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+          value: Directory
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <Ln 5, Col 27 -> Ln 5, Col 28>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <Ln 5, Col 27 -> Ln 5, Col 28>
+            value: 0
+  - __type__: ItemStatement
+    range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 12>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 12>
+      value: file_system
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 7, Col 14 -> Ln 7, Col 24>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+        value: Directory
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 7, Col 23 -> Ln 7, Col 24>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 7, Col 23 -> Ln 7, Col 24>
+          value: 0

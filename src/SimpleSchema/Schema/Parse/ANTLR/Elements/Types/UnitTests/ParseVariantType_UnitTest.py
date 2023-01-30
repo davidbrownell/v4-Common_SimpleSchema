@@ -33,6 +33,8 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
+    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
+
     from SimpleSchema.Schema.Parse.ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifier, ParseIdentifierType
     from SimpleSchema.Schema.Parse.ANTLR.Elements.Types.ParseVariantType import ParseVariantType
 
@@ -55,24 +57,31 @@ def test_Standard():
 def test_DisplayName():
     assert ParseVariantType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(1, 2),
         None,
         [
-            ParseIdentifierType(Mock(), Mock(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
-            ParseIdentifierType(Mock(), Mock(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(0, 1), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
         ],
-    ).display_name == "(Name1 | Name2)"
+    ).display_name == "_(_Name1 | _Name2?)[1, 2]"
 
     assert ParseVariantType(
         Mock(),
-        Mock(),
+        Cardinality.CreateFromCode(),
         None,
         [
-            ParseIdentifierType(Mock(), Mock(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
-            ParseIdentifierType(Mock(), Mock(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
-            ParseIdentifierType(Mock(), Mock(), None, [ParseIdentifier(Mock(), "Name3"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None, None),
         ],
-    ).display_name == "(Name1 | Name2 | Name3)"
+    ).display_name == "_(_Name1 | _Name2 | _Name3)"
+
+
+# ----------------------------------------------------------------------
+def test_Clone():
+    pvt = ParseVariantType(Mock(), Cardinality.CreateFromCode(), None, [Mock(), Mock()])
+
+    assert pvt.Clone() == pvt
 
 
 # ----------------------------------------------------------------------

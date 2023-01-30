@@ -17,17 +17,20 @@
 
 from dataclasses import dataclass, field, InitVar
 from functools import cached_property
-from typing import Optional
+from typing import Any, Optional, Union
 
 from Common_Foundation.Types import overridemethod
+from Common_FoundationEx.InflectEx import inflect
 
 from .Element import Element
 from .Metadata import Metadata
 
+from ..Expressions.Expression import Expression
 from ..Expressions.IntegerExpression import IntegerExpression
 
 from ....Common import Errors
 from ....Common.Range import Range
+from ....Common.SimpleSchemaException import SimpleSchemaException
 
 
 # ----------------------------------------------------------------------
@@ -103,6 +106,10 @@ class Cardinality(Element):
             raise Errors.CardinalityInvalidMetadata.Create(self.metadata.range)
 
     # ----------------------------------------------------------------------
+    def __str__(self) -> str:
+        return self._string
+
+    # ----------------------------------------------------------------------
     @cached_property
     def is_single(self) -> bool:
         return self.min.value == 1 and self.max is not None and self.max.value == 1
@@ -116,7 +123,90 @@ class Cardinality(Element):
         return self.max is None or self.max.value > 1
 
     # ----------------------------------------------------------------------
+    def Validate(
+        self,
+        expression_or_value: Union[Expression, Any],
+    ) -> None:
+        # ----------------------------------------------------------------------
+        def Impl(
+            value: Any,
+        ) -> None:
+            if self.is_container:
+                if not isinstance(value, list):
+                    raise Exception(Errors.cardinality_validate_list_required)
+
+                num_items = len(value)
+
+                if num_items < self.min.value:
+                    raise Exception(
+                        Errors.cardinality_validate_list_too_small.format(
+                            value=inflect.no("item", self.min.value),
+                            value_verb=inflect.plural_verb("was", self.min.value),
+                            found=inflect.no("item", num_items),
+                            found_verb=inflect.plural_verb("was", num_items),
+                        ),
+                    )
+
+                if self.max is not None and num_items > self.max.value:
+                    raise Exception(
+                        Errors.cardinality_validate_list_too_large.format(
+                            value=inflect.no("item", self.max.value),
+                            value_verb=inflect.plural_verb("was", self.max.value),
+                            found=inflect.no("item", num_items),
+                            found_verb=inflect.plural_verb("was", num_items),
+                        ),
+                    )
+
+                return
+
+            if isinstance(value, list):
+                raise Exception(Errors.cardinality_validate_list_not_expected)
+
+            if value is None and not self.is_optional:
+                raise Exception(Errors.cardinality_validate_none_not_expected)
+
+            return
+
+        # ----------------------------------------------------------------------
+
+        if isinstance(expression_or_value, Expression):
+            try:
+                Impl(expression_or_value.value)
+                return
+            except Exception as ex:
+                raise SimpleSchemaException(expression_or_value.range, str(ex)) from ex
+
+        Impl(expression_or_value)
+
     # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @cached_property
+    def _string(self) -> str:
+        if self.is_single:
+            return ""
+
+        if self.is_optional:
+            return "?"
+
+        assert self.is_container
+
+        if self.max is None:
+            if self.min.value == 0:
+                return "*"
+
+            if self.min.value == 1:
+                return "+"
+
+            return "[{}+]".format(self.min.value)
+
+        assert self.max is not None
+
+        if self.min.value == self.max.value:
+            return "[{}]".format(self.min.value)
+
+        return "[{}, {}]".format(self.min.value, self.max.value)
+
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover

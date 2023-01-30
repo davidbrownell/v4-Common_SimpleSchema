@@ -38,7 +38,6 @@
     children:
     - __type__: ParseItemStatement
       range: entry_point <Ln 5, Col 5 -> Ln 6, Col 5>
-      visibility: Visibility.Public
       name:
         __type__: ParseIdentifier
         range: entry_point <Ln 5, Col 5 -> Ln 5, Col 8>
@@ -46,10 +45,6 @@
       type:
         __type__: ParseIdentifierType
         range: entry_point <Ln 5, Col 10 -> Ln 5, Col 13>
-        identifiers:
-        - __type__: ParseIdentifier
-          range: entry_point <Ln 5, Col 10 -> Ln 5, Col 13>
-          value: Two
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 5, Col 10 -> Ln 5, Col 13>
@@ -61,9 +56,13 @@
             __type__: IntegerExpression
             range: entry_point <Ln 5, Col 10 -> Ln 5, Col 13>
             value: 1
+        identifiers:
+        - __type__: ParseIdentifier
+          range: entry_point <Ln 5, Col 10 -> Ln 5, Col 13>
+          value: Two
+      visibility: Visibility.Public
     - __type__: ParseItemStatement
       range: entry_point <Ln 6, Col 5 -> Ln 7, Col 1>
-      visibility: Visibility.Public
       name:
         __type__: ParseIdentifier
         range: entry_point <Ln 6, Col 5 -> Ln 6, Col 10>
@@ -71,10 +70,6 @@
       type:
         __type__: ParseIdentifierType
         range: entry_point <Ln 6, Col 12 -> Ln 6, Col 16>
-        identifiers:
-        - __type__: ParseIdentifier
-          range: entry_point <Ln 6, Col 12 -> Ln 6, Col 16>
-          value: Four
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 6, Col 12 -> Ln 6, Col 16>
@@ -86,6 +81,11 @@
             __type__: IntegerExpression
             range: entry_point <Ln 6, Col 12 -> Ln 6, Col 16>
             value: 1
+        identifiers:
+        - __type__: ParseIdentifier
+          range: entry_point <Ln 6, Col 12 -> Ln 6, Col 16>
+          value: Four
+      visibility: Visibility.Public
   - __type__: ParseStructureStatement
     range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
     name:
@@ -95,10 +95,6 @@
     bases:
     - __type__: ParseIdentifierType
       range: entry_point <Ln 8, Col 11 -> Ln 8, Col 15>
-      identifiers:
-      - __type__: ParseIdentifier
-        range: entry_point <Ln 8, Col 11 -> Ln 8, Col 15>
-        value: Base
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 8, Col 11 -> Ln 8, Col 15>
@@ -110,6 +106,10 @@
           __type__: IntegerExpression
           range: entry_point <Ln 8, Col 11 -> Ln 8, Col 15>
           value: 1
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 8, Col 11 -> Ln 8, Col 15>
+        value: Base
     cardinality:
       __type__: Cardinality
       range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
@@ -130,38 +130,38 @@
     bases:
     - __type__: ParseIdentifierType
       range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+          value: 1
       identifiers:
       - __type__: ParseIdentifier
         range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
         value: One
+    - __type__: ParseIdentifierType
+      range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
       cardinality:
         __type__: Cardinality
-        range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+        range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
         min:
           __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+          range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
           value: 1
         max:
           __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 17 -> Ln 11, Col 20>
+          range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
           value: 1
-    - __type__: ParseIdentifierType
-      range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
       identifiers:
       - __type__: ParseIdentifier
         range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
         value: Two
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 22 -> Ln 11, Col 25>
-          value: 1
     cardinality:
       __type__: Cardinality
       range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>

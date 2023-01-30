@@ -27,12 +27,12 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Common.SimpleSchemaException import CreateExceptionType, Range, SimpleSchemaException
+    from SimpleSchema.Common.SimpleSchemaException import DynamicSimpleSchemaException, Range, SimpleSchemaException
 
 
 # ----------------------------------------------------------------------
-Exception1              = CreateExceptionType("a: {a}; b: {b}; c: {c}", a=int, b=bool, c=str)
-Exception2              = CreateExceptionType(
+Exception1              = DynamicSimpleSchemaException.CreateType("a: {a}; b: {b}; c: {c}", a=int, b=bool, c=str)
+Exception2              = DynamicSimpleSchemaException.CreateType(
     textwrap.dedent(
         """\
         a: {a}

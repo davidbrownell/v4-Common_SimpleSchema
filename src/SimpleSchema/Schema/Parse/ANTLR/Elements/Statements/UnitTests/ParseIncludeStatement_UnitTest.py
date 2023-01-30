@@ -42,23 +42,12 @@ class TestParseIncludeStatementItem(object):
     def test_DefaultRef(self):
         range_mock = Mock()
         name = ParseIdentifier(Mock(), "ImportedType")
+        reference_name = ParseIdentifier(Mock(), "ReferenceType")
 
-        pisi = ParseIncludeStatementItem(range_mock, name, None)
+        pisi = ParseIncludeStatementItem(range_mock, name, reference_name)
 
         assert pisi.range is range_mock
         assert pisi.element_name is name
-        assert pisi.reference_name is name
-
-    # ----------------------------------------------------------------------
-    def test_ExplicitRef(self):
-        range_mock = Mock()
-        element_name = ParseIdentifier(Mock(), "ImportedType")
-        reference_name = ParseIdentifier(Mock(), "ReferenceType")
-
-        pisi = ParseIncludeStatementItem(range_mock, element_name, reference_name)
-
-        assert pisi.range is range_mock
-        assert pisi.element_name is element_name
         assert pisi.reference_name is reference_name
 
     # ----------------------------------------------------------------------
@@ -70,19 +59,7 @@ class TestParseIncludeStatementItem(object):
             ParseIncludeStatementItem(
                 Mock(),
                 ParseIdentifier(Range.Create(Path("the file"), 2, 4, 6, 8), "not_a_type"),
-                None,
-            )
-
-    # ----------------------------------------------------------------------
-    def test_ErrorNotPublic(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("The imported element '_NotPublic' is not a public type. (the file <Ln 2, Col 4 -> Ln 2, Col 5>)"),
-        ):
-            ParseIncludeStatementItem(
                 Mock(),
-                ParseIdentifier(Range.Create(Path("the file"), 2, 4, 6, 8), "_NotPublic"),
-                None,
             )
 
     # ----------------------------------------------------------------------

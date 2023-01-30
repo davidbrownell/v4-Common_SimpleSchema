@@ -2,6 +2,8 @@
     "exclude": [
         "**/*Tests/*",
         "**/Generated/*",
-        "Tools/*"
+        "Tools/*",
+
+        "src/SimpleSchema/Schema/Parse/ANTLR/Grammar/GeneratedCode/*"
     ]
 }

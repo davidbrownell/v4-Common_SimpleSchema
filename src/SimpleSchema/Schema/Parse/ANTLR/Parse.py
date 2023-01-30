@@ -669,7 +669,12 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert len(children) == 1, children
         assert isinstance(children[0], IntegerExpression), children
 
-        self._stack += [children[0], children[0]]
+        # There have to be 2 distinct IntegerExpression objects so that the parent
+        # can be set for each.
+        self._stack += [
+            children[0],
+            IntegerExpression(children[0].range, children[0].value),
+        ]
 
     # ----------------------------------------------------------------------
     # |  Expressions
@@ -725,7 +730,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                         whitespace += 4
                     else:
                         raise AntlrException(
-                            Errors.AntlrInvalidIndentation,
+                            Errors.antlr_invalid_indentation,
                             self.filename,
                             ctx.start.line + line_offset,
                             whitespace + 1,
@@ -743,7 +748,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             initial_line = lines[0].rstrip()
             if len(initial_line) != 3:
                 raise AntlrException(
-                    Errors.AntlrInvalidOpeningToken,
+                    Errors.antlr_invalid_opening_token,
                     self.filename,
                     ctx.start.line,
                     ctx.start.column + 1 + 3,
@@ -753,7 +758,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             final_line = lines[-1]
             if len(TrimPrefix(final_line, len(lines))) != 3:
                 raise AntlrException(
-                    Errors.AntlrInvalidClosingToken,
+                    Errors.antlr_invalid_closing_token,
                     self.filename,
                     ctx.start.line + len(lines) - 1,
                     ctx.start.column + 1,
@@ -787,7 +792,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         children = self._GetChildren(ctx)
         assert all(isinstance(child, Expression) for child in children), children
 
-        self._stack.append(TupleExpression(self.CreateRange(ctx), cast(list[Expression], children)))
+        self._stack.append(TupleExpression(self.CreateRange(ctx), cast(tuple[Expression], tuple(children))))
 
     # ----------------------------------------------------------------------
     # |  Statements
@@ -848,11 +853,11 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert isinstance(children[0], ParseIdentifier), children
         element_name = cast(ParseIdentifier, children[0])
 
-        reference_name: Optional[ParseIdentifier] = None
-
         if num_children > 1:
             assert isinstance(children[1], ParseIdentifier), children
             reference_name = children[1]
+        else:
+            reference_name = ParseIdentifier(element_name.range, element_name.value)
 
         self._stack.append(ParseIncludeStatementItem(self.CreateRange(ctx), element_name, reference_name))
 
@@ -864,7 +869,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert 1 <= num_children <= 3, children
 
         assert isinstance(children[0], ParseIdentifier), children
-        name = SimpleElement[str](children[0].range, children[0].value)
+        name = children[0].ToSimpleElement()
 
         positional_args: Optional[list[Element]] = None
         keyword_args: Optional[list[ExtensionStatementKeywordArg]] = None
@@ -914,7 +919,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         self._stack.append(
             ExtensionStatementKeywordArg(
                 self.CreateRange(ctx),
-                SimpleElement[str](children[0].range, children[0].value),
+                children[0].ToSimpleElement(),
                 children[1],
             ),
         )

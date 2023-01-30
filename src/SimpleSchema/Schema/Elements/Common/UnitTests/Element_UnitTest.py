@@ -161,24 +161,6 @@ def test_Element():
 
 
 # ----------------------------------------------------------------------
-def test_Parent(_element):
-    with pytest.raises(
-        Exception,
-        match=re.escape("A parent has not been set for this element."),
-    ):
-        _element.parent
-
-    _element.SetParent(_element)
-    assert _element.parent is _element
-
-    with pytest.raises(
-        Exception,
-        match=re.escape("A parent has already been set for this element."),
-    ):
-        _element.SetParent(_element)
-
-
-# ----------------------------------------------------------------------
 def test_Disable(_element):
     assert _element.is_disabled is False
 

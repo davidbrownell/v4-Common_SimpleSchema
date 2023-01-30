@@ -1,0 +1,27 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+  statements:
+  - __type__: StructureStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Metadata
+    metadata:
+      __type__: Metadata
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 21>
+      items:
+      - __type__: MetadataItem
+        range: entry_point <Ln 3, Col 3 -> Ln 3, Col 19>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 3, Col 3 -> Ln 3, Col 15>
+          value: custom_value
+        expression:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 17 -> Ln 3, Col 19>
+          value: 10

@@ -51,7 +51,7 @@ class RootStatement(Statement):
         self,
         element: Element,  # pylint: disable=unused-argument
     ) -> None:
-        raise ValueError("Root statements cannot have parents.")
+        raise Exception("Root statements cannot have parents.")
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
