@@ -1,0 +1,56 @@
+# ----------------------------------------------------------------------
+# |
+# |  TuplesAndVariants.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2023-01-30 14:36:25
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2023
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+Tuples ->
+    __Python__ {
+        import_statements: [
+            "import asyncio",
+            "import traceback",
+        ]
+    }
+
+    single: (String, )
+    multiple: (String, Integer, Number)
+
+    container: (String, Integer, Number)*
+
+    with_metadata: (
+        String { min_length: 5 },
+        Integer { min: 10 },
+        Number { min: 20.0 },
+    )
+
+    nested: (
+        String,
+        (String, Integer),
+        Number,
+        (String, (Number { max: 1.23 }, ), ),
+    )
+
+
+Variants ->
+    value: (String | Number)
+
+    with_metadata: (
+        String { min_length: 5 }
+        | Integer { min: 10 }
+        | Number { min: 20.0 }
+    )
+
+    nested_tuple: (
+        String
+        | (Integer, Number)
+    )
