@@ -1,0 +1,79 @@
+# ----------------------------------------------------------------------
+# |
+# |  FundamentalTypes.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2023-01-30 14:24:27
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2023
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
+FundamentalTypes ->
+    boolean: Boolean
+    date_time: DateTime
+    date: Date
+    directory: Directory
+    duration: Duration
+    enum: Enum { values: [1, 2, 3] }
+    filename: Filename
+    guid: Guid
+    integer: Integer
+    number: Number
+    string: String
+    time: Time
+    uri: Uri
+
+
+# ----------------------------------------------------------------------
+DirectoryCustomizations ->
+    default: Directory
+    no_ensure_exists: Directory { ensure_exists: False }
+
+
+# ----------------------------------------------------------------------
+EnumCustomizations ->
+    enum1: Enum { values: [1, 2, 3] }
+    enum2: Enum { values: ["One", "Two", "Three"] }
+    enum3: Enum { values: [(1, "1"), (2, "2"), (3, "3")] }
+    enum4: Enum { values: [("One", "1"), ("Two", "2"), ("Three", "3")] }
+    enum5: Enum { values: [1, 2, 3], starting_value: 100 }
+
+
+# ----------------------------------------------------------------------
+FilenameCustomizations ->
+    default: Filename
+    no_ensure_exists: Filename { ensure_exists: False }
+    match_any: Filename { match_any: True }
+
+
+# ----------------------------------------------------------------------
+IntegerCustomizations ->
+    default: Integer
+    min: Integer { min: 0 }
+    max: Integer { max: 10 }
+    min_and_max: Integer { min: 0, max: 10 }
+
+
+# ----------------------------------------------------------------------
+NumberCustomizations ->
+    default: Number
+    min: Number { min: 0.0 }
+    max: Number { max: 10.0 }
+    min_and_max: Number { min: 0.0, max: 10.0 }
+
+
+# ----------------------------------------------------------------------
+StringCustomizations ->
+    default: String
+    min_length: String { min_length: 10 }
+    max_length: String { max_length: 20 }
+    min_and_max_length: String { min_length: 10, max_length: 20 }
+    validation_expression: String { validation_expression: ".+" }

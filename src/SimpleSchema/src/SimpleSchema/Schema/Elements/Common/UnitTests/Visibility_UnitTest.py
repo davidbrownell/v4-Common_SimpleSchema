@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  SimpleSchema.py
+# |  Visibility_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-11 13:42:32
+# |      2023-01-19 08:53:53
 # |
 # ----------------------------------------------------------------------
 # |
@@ -13,31 +13,22 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Generates code based on a SimpleSchema schema definition and plugin."""
+"""Unit tests for Visibility.py"""
 
 import sys
 
 from pathlib import Path
-from typing import List
 
+from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation import PathEx
-from Common_Foundation import SubprocessEx
 
 
 # ----------------------------------------------------------------------
-def Execute(
-    args: List[str],
-) -> int:
-    entry_point = PathEx.EnsureFile(Path(__file__).parent.parent / "src" / "SimpleSchema" / "src" / "EntryPoint" / "__main__.py")
-
-    command_line = 'python "{script}"{args}'.format(
-        script=entry_point,
-        args=" {}".format(" ".join('"{}"'.format(arg) for arg in args[1:])) if len(args) > 1 else "",
-    )
-
-    return SubprocessEx.Stream(command_line, sys.stdout)
+sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
+with ExitStack(lambda: sys.path.pop(0)):
+    from SimpleSchema.Schema.Elements.Common.Visibility import *
 
 
 # ----------------------------------------------------------------------
-if __name__ == "__main__":
-    sys.exit(Execute(sys.argv))
+def test_Standard():
+    assert True
