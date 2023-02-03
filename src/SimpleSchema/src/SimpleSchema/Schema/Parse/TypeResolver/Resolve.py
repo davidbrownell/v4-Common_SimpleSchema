@@ -35,6 +35,7 @@ from ..ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 from ..Visitor import Visitor, VisitResult
 
 from ...Elements.Common.Cardinality import Cardinality
+from ...Elements.Common.Element import Element
 from ...Elements.Common.Visibility import Visibility
 
 from ...Elements.Statements.RootStatement import RootStatement
@@ -134,10 +135,20 @@ def Resolve(
 
     # Finalize types
     with dm.VerboseNested("Finalizing types...") as verbose_dm:
+        # ----------------------------------------------------------------------
+        def FinalizeType(
+            root_namespace: Namespace,
+        ) -> None:
+            root_namespace.Finalize()
+
+            root_namespace.statement.Accept(_FinalizeVisitor())
+
+        # ----------------------------------------------------------------------
+
         results = _ExecuteInParallel(
             verbose_dm,
             namespaces,
-            lambda root_namespace: root_namespace.Finalize(),
+            FinalizeType,
             quiet=quiet,
             max_num_threads=max_num_threads,
             raise_if_single_exception=raise_if_single_exception,
@@ -272,6 +283,51 @@ class _CreateNamespacesVisitor(Visitor):
         self._namespace_stack.append(namespace)
         with ExitStack(self._namespace_stack.pop):
             yield
+
+
+# ----------------------------------------------------------------------
+class _FinalizeVisitor(Visitor):
+    # ----------------------------------------------------------------------
+    def __init__(self):
+        super(_FinalizeVisitor, self).__init__()
+
+        self._elements: list[Element]       = []
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnElement(
+        self,
+        element: Element,
+    ) -> Iterator[Optional[VisitResult]]:
+        if self._elements:
+            element.SetParent(self._elements[-1])
+
+        self._elements.append(element)
+        with ExitStack(self._elements.pop):
+            yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnElementDetailsItem(
+        self,
+        name: str,
+        element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType,
+    ) -> Iterator[Optional[VisitResult]]:
+        if (
+            (
+                isinstance(element_or_elements, list)
+                and element_or_elements
+                and callable(element_or_elements[0])
+            )
+            or (not isinstance(element_or_elements, list) and callable(element_or_elements))
+        ):
+            # We are looking at types; don't follow
+            yield VisitResult.SkipAll
+            return
+
+        yield
 
 
 # ----------------------------------------------------------------------

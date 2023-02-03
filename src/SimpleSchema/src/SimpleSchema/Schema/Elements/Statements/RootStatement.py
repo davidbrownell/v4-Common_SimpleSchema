@@ -49,7 +49,7 @@ class RootStatement(Statement):
     # ----------------------------------------------------------------------
     def SetParent(
         self,
-        element: Element,  # pylint: disable=unused-argument
+        parent: Element,  # pylint: disable=unused-argument
     ) -> None:
         raise Exception("Root statements cannot have parents.")
 
