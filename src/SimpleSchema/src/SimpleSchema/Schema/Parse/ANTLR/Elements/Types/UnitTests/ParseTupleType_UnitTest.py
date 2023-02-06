@@ -84,12 +84,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    ptt = ParseTupleType(Mock(), Mock(), None, [Mock(),])
-    assert ptt.Clone() == ptt
-
-
-# ----------------------------------------------------------------------
 def test_ErrorNoTypes():
     with pytest.raises(
         SimpleSchemaException,

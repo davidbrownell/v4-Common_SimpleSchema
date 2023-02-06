@@ -58,13 +58,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    gt = GuidType(Mock(), Mock(), Mock())
-
-    assert gt.Clone() == gt
-
-
-# ----------------------------------------------------------------------
 def test_ToPython():
     value = uuid4()
 

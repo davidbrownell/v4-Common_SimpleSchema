@@ -17,16 +17,16 @@
 
 from abc import abstractmethod
 from contextlib import contextmanager
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, Field, MISSING
 from functools import cached_property
 from types import NoneType
-from typing import Any, ClassVar, Iterator, Optional, Tuple, Type as PythonType, Union
+from typing import Any, Callable, ClassVar, Iterator, Optional, Tuple, Type as PythonType, Union
 
 from Common_Foundation.Types import DoesNotExist, extensionmethod, overridemethod
 
 from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
-from ..Common.Metadata import Metadata
+from ..Common.Metadata import Metadata, MetadataItem
 
 from ..Expressions.Expression import Expression
 from ..Expressions.ListExpression import ListExpression
@@ -46,18 +46,43 @@ class Type(Element):
     NAME: ClassVar[str]                                                     = DoesNotExist.instance  # type: ignore
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = DoesNotExist.instance  # type: ignore
 
+    FIELDS: ClassVar[dict[str, Field]]      = field(init=False)
+
     cardinality: Cardinality
     metadata: Optional[Metadata]
 
     _single_item_type: Optional["Type"]     = field(init=False)
 
     # ----------------------------------------------------------------------
-    def __post_init__(self):
-        assert self.NAME != DoesNotExist.instance, "Make sure to define the type's name."
-        assert self.SUPPORTED_PYTHON_TYPES != DoesNotExist.instance, "Make sure to define the supported python types."
+    @classmethod
+    def __new__(cls, *args, **kwargs):  # pylint: disable=unused-argument
+        assert cls.NAME != DoesNotExist.instance, "Make sure to define the type's name."
+        assert cls.SUPPORTED_PYTHON_TYPES != DoesNotExist.instance, "Make sure to define the supported python types."
 
-        if self.cardinality.is_container:
-            single_item_type = self.Clone(cardinality=Cardinality.CreateFromCode())
+        cls.__initialize_fields__()
+        return super(Type, cls).__new__(cls)
+
+    # ----------------------------------------------------------------------
+    @classmethod
+    def CreateFromMetadata(
+        cls,
+        range_value: Range,
+        cardinality: Cardinality,
+        metadata: Optional[Metadata],
+    ) -> "Type":
+        cls.__initialize_fields__()
+
+        return cls._CreateTypeInstance(
+            range_value,
+            cardinality,
+            metadata,
+            lambda field_name: DoesNotExist.instance,
+        )
+
+    # ----------------------------------------------------------------------
+    def __post_init__(self):
+        if self.cardinality.is_container is True:
+            single_item_type = self.Clone(Range.CreateFromCode(), Cardinality.CreateFromCode())
         else:
             single_item_type = None
 
@@ -79,19 +104,36 @@ class Type(Element):
         return "{}{}".format(self._display_name, self.cardinality)
 
     # ----------------------------------------------------------------------
+    def DeriveType(
+        self,
+        range_value: Range,
+        cardinality: Cardinality,
+        metadata: Metadata,
+    ) -> "Type":
+        """Return a new type that is derived from this type"""
+
+        return self.__class__._CreateTypeInstance(  # pylint: disable=protected-access
+            range_value,
+            cardinality,
+            metadata,
+            lambda field_name: getattr(self, field_name),
+        )
+
+    # ----------------------------------------------------------------------
+    @extensionmethod
     def Clone(
         self,
-        *,
-        range: Union[DoesNotExist, Range]=DoesNotExist.instance,  # pylint: disable=redefined-builtin
-        cardinality: Union[DoesNotExist, Cardinality]=DoesNotExist.instance,
-        metadata: Union[DoesNotExist, None, Metadata]=DoesNotExist.instance,
+        range_value: Range,
+        cardinality: Cardinality,
     ) -> "Type":
-        with self.Resolve() as resolved_type:
-            return resolved_type._CloneImpl(  # pylint: disable=protected-access
-                resolved_type.range if isinstance(range, DoesNotExist) else range,
-                resolved_type.cardinality if isinstance(cardinality, DoesNotExist) else cardinality,
-                resolved_type.metadata if isinstance(metadata, DoesNotExist) else metadata,
-            )
+        """Return the same type with a different cardinality"""
+
+        return self.__class__._CreateTypeInstance(  # pylint: disable=protected-access
+            range_value,
+            cardinality,
+            self.metadata,
+            lambda field_name: getattr(self, field_name),
+        )
 
     # ----------------------------------------------------------------------
     @extensionmethod
@@ -154,6 +196,83 @@ class Type(Element):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
+    @classmethod
+    def __initialize_fields__(cls):
+        if hasattr(cls, "FIELDS"):
+            return
+
+        type_fields: dict[str, Field] = {
+                type_field.name: type_field
+                for type_field in fields(Type)
+                if type_field.init
+            }
+
+        class_fields: dict[str, Field] = {
+            class_field.name: class_field
+            for class_field in fields(cls)
+            if class_field.init and class_field.name not in type_fields
+        }
+
+        cls.FIELDS = class_fields
+
+    # ----------------------------------------------------------------------
+    @classmethod
+    def _CreateTypeInstance(
+        cls,
+        range_value: Range,
+        cardinality: Cardinality,
+        metadata: Optional[Metadata],
+        on_missing_metadata_func: Callable[[str], Union[DoesNotExist, Any]],
+    ) -> "Type":
+        if metadata is None:
+            pop_metadata_item_func = lambda name: DoesNotExist.instance
+        else:
+            pop_metadata_item_func = lambda name: metadata.items.pop(name, DoesNotExist.instance)
+
+        construct_args: dict[str, Any] = {
+            "range": range_value,
+            "cardinality": cardinality,
+            "metadata": metadata,
+        }
+
+        for class_field in cls.FIELDS.values():
+            assert class_field.name not in construct_args, class_field.name
+
+            metadata_item = pop_metadata_item_func(class_field.name)
+
+            if isinstance(metadata_item, DoesNotExist):
+                metadata_value = on_missing_metadata_func(class_field.name)
+                if isinstance(metadata_value, DoesNotExist):
+                    continue
+            else:
+                assert isinstance(metadata_item, MetadataItem), metadata_item
+
+                # Note that this content is imported here to avoid circular dependencies
+                from .FundamentalTypes.Impl.CreateTypeFromAnnotation import CreateTypeFromAnnotation
+
+                metadata_value = CreateTypeFromAnnotation(
+                    class_field.type,
+                    has_default_value=class_field.default is not MISSING or class_field.default_factory is not MISSING,
+                ).ToPython(metadata_item.expression)
+
+            if (
+                metadata_value is not None
+                or (class_field.default is MISSING and class_field.default_factory is MISSING)
+            ):
+                construct_args[class_field.name] = metadata_value
+
+        if metadata is not None and not metadata.items:
+            construct_args["metadata"] = None
+
+        try:
+            return cls(**construct_args)
+        except Exception as ex:
+            raise SimpleSchemaException(
+                metadata.range if metadata is not None else range_value,
+                str(ex),
+            ) from ex
+
+    # ----------------------------------------------------------------------
     @extensionmethod
     @property
     def _display_name(self) -> str:
@@ -166,16 +285,6 @@ class Type(Element):
 
         if self.metadata:
             yield "metadata", self.metadata
-
-    # ----------------------------------------------------------------------
-    @abstractmethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "Type":
-        raise Exception("Abstract method")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     @abstractmethod

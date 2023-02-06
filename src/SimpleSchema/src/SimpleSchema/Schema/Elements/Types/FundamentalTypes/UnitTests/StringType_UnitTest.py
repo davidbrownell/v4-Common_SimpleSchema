@@ -65,14 +65,6 @@ def test_DisplayName():
     assert StringType(Mock(), Cardinality.CreateFromCode(0, 1), None, 2, 10, 'does not make sense').display_name == "String (>= 2 characters, <= 10 characters, 'does not make sense')?"
 
 
-
-# ----------------------------------------------------------------------
-def test_Clone():
-    st = StringType(Mock(), Mock(), None)
-
-    assert st.Clone() == st
-
-
 # ----------------------------------------------------------------------
 def test_ErrorInvalidMin():
     with pytest.raises(

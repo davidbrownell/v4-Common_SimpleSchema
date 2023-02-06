@@ -231,10 +231,41 @@ class TestTypedef(object):
                 """\
                 Typedef1: String { min_length: 4 }
                 Typedef2: Typedef1
+                Typedef3: Typedef2
 
-                value1: Typedef1
-                value2: Typedef2
-                value3: Typedef2*
+                AddMax1: Typedef1 { max_length: 10 }
+                AddMax2: Typedef2 { max_length: 11 }
+                AddMax3: Typedef3 { max_length: 12 }
+
+                AddMaxWithMetadata1: Typedef1 { max_length: 10, generic: 20 }
+                AddMaxWithMetadata2: Typedef2 { max_length: 11, generic: 21 }
+                AddMaxWithMetadata3: Typedef3 { max_length: 12, generic: 22 }
+
+                AddValidation: AddMax1 { validation_expression: "foo" }
+                AddValidationWithMetadata: AddMaxWithMetadata1 { validation_expression: "bar", generic2: 200 }
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_Cardinality(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Typedef: String { min_length: 2 }
+
+                Array: Typedef+
+                ArrayOfArrays: Array*
+                ArrayOfArraysOfArrays: ArrayOfArrays[10]
+
+                Optional: Typedef?
+                Optional2: Optional
+
+                # In the following typedefs, the metadata should stick with the typedef
+                # (rather than apply to the underlying type), as the referenced
+                # type is a container.
+                ContainerWithMetadata: Array { min_length: 10 }
+                ContainerOfContainersWithMetadata: ArrayOfArrays { min_length: 10 }
                 """,
             ),
         )
@@ -246,9 +277,9 @@ class TestTypedef(object):
                 """\
                 Container: String { min_length: 10, custom_value: "10" }+
 
-                container: Container
-                container_item: Container::item
-                container_item_with_mods: Container::item { custom_value: "2" }[2]
+                Container1: Container
+                ContainerItem: Container::item
+                ContainerItemWithMods: Container::item { custom_value: "2" }[2]
                 """,
             ),
         )
@@ -266,6 +297,32 @@ class TestTypedef(object):
                         pass
 
                     bad_structure_item: Structure::item
+                    """,
+                ),
+            )
+
+    # ----------------------------------------------------------------------
+    def test_ErrorItemReferenceOnSingleItem(self):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape(
+                textwrap.dedent(
+                    """\
+                    The type '(Typedef (SingleItem) -> String)' is not a container or optional and cannot be used with an item reference.
+
+                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                        - {entry_point} <Ln 1, Col 13 -> Ln 1, Col 19>
+                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                    """,
+                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
+            ),
+        ):
+            _Test(
+                textwrap.dedent(
+                    """\
+                    SingleItem: String
+
+                    bad_item: SingleItem::item
                     """,
                 ),
             )

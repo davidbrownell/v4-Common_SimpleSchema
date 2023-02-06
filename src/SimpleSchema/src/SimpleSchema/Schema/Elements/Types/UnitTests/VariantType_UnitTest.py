@@ -243,18 +243,6 @@ def test_ValidateExpressionChildCardinality():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
-    types = [Mock(), Mock(), ]
-
-    vt = VariantType(range_mock, cardinality_mock, metadata_mock, types)  # type: ignore
-
-    assert vt.Clone() == vt
-
-
-# ----------------------------------------------------------------------
 def test_ErrorNotEnoughTypes():
     with pytest.raises(
         SimpleSchemaException,
@@ -389,10 +377,7 @@ class _SimpleStringType(Type):
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                 = (str, )
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        return _SimpleStringType(*args, **kwargs)
-
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
     def _ItemToPythonImpl(
@@ -412,10 +397,7 @@ class _SimpleIntegerType(Type):
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                 = (int, )
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        return _SimpleStringType(*args, **kwargs)
-
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
     def _ItemToPythonImpl(

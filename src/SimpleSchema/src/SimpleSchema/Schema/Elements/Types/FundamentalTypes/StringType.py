@@ -27,11 +27,7 @@ from Common_FoundationEx.InflectEx import inflect
 
 from ..FundamentalType import FundamentalType
 
-from ...Common.Cardinality import Cardinality
-from ...Common.Metadata import Metadata
-
 from .....Common import Errors
-from .....Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -87,23 +83,6 @@ class StringType(FundamentalType):
             return result
 
         return "{} ({})".format(result, ", ".join(constraints))
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "StringType":
-        return StringType(
-            range_value,
-            cardinality,
-            metadata,
-            self.min_length,
-            self.max_length,
-            self.validation_expression,
-        )
 
     # ----------------------------------------------------------------------
     @overridemethod

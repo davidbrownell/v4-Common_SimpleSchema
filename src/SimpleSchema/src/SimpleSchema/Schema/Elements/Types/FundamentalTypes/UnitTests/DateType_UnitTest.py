@@ -57,13 +57,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    dt = DateType(Mock(), Mock(), Mock())
-
-    assert dt.Clone() == dt
-
-
-# ----------------------------------------------------------------------
 def test_ToPython():
     value = date.today()
 

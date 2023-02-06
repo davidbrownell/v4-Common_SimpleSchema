@@ -57,13 +57,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    dt = DurationType(Mock(), Mock(), Mock())
-
-    assert dt.Clone() == dt
-
-
-# ----------------------------------------------------------------------
 def test_ToPython():
     value = timedelta(seconds=1.234)
 

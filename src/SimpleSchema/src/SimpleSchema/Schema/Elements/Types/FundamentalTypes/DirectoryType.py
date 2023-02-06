@@ -18,17 +18,13 @@
 from dataclasses import dataclass, field
 from functools import cached_property
 from pathlib import Path
-from typing import ClassVar, Optional, Tuple, Type as PythonType
+from typing import ClassVar, Tuple, Type as PythonType
 
 from Common_Foundation.Types import overridemethod
 
 from ..FundamentalType import FundamentalType
 
-from ...Common.Cardinality import Cardinality
-from ...Common.Metadata import Metadata
-
 from .....Common import Errors
-from .....Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -53,16 +49,6 @@ class DirectoryType(FundamentalType):
             result += "!"
 
         return result
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "DirectoryType":
-        return DirectoryType(range_value, cardinality, metadata, ensure_exists=self.ensure_exists)
 
     # ----------------------------------------------------------------------
     @overridemethod

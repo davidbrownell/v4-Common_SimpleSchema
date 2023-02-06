@@ -39,11 +39,6 @@ class MyFundamentalType(FundamentalType):
     NAME: ClassVar[str]                                                     = "MyFundamentalType"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (object, )
 
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        return MyFundamentalType(*args, **kwargs)
-
 
 # ----------------------------------------------------------------------
 def test_Standard():

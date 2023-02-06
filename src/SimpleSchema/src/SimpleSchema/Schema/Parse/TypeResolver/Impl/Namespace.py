@@ -20,8 +20,6 @@ from pathlib import Path
 from typing import Optional, Tuple, Type as PythonType, Union
 from weakref import ref, ReferenceType
 
-from Common_Foundation.Types import DoesNotExist
-
 from .ElementFactories import StructureStatementFactory, TypedefTypeFactory
 
 from ...ANTLR.Elements.Statements.ParseIncludeStatement import ParseIncludeStatement, ParseIncludeStatementType
@@ -36,6 +34,7 @@ from ...ANTLR.Elements.Types.ParseType import ParseType
 
 from ....Elements.Common.Cardinality import Cardinality
 from ....Elements.Common.Element import Element
+from ....Elements.Common.Metadata import Metadata, MetadataItem
 from ....Elements.Common.SimpleElement import SimpleElement
 from ....Elements.Common.Visibility import Visibility
 
@@ -45,7 +44,6 @@ from ....Elements.Statements.Statement import Statement
 from ....Elements.Statements.StructureStatement import StructureStatement
 
 from ....Elements.Types.FundamentalType import FundamentalType
-from ....Elements.Types.FundamentalTypes.FundamentalTypeCreator import CreateFromMetadata as CreateFundamentalTypeFromMetadata
 from ....Elements.Types.StructureType import StructureType
 from ....Elements.Types.TupleType import TupleType
 from ....Elements.Types.Type import Type
@@ -435,7 +433,9 @@ class Namespace(object):
     ) -> SimpleElement[Visibility]:
         if isinstance(item, Namespace):
             if isinstance(item.statement, RootStatement):
-                return SimpleElement[Visibility](item.statement.range, item.visibility)
+                # This line will never be invoked, but it just seems wrong not to include it.
+                # Disabling coverage on this line.
+                return SimpleElement[Visibility](item.statement.range, item.visibility)  # pragma: no cover
             elif isinstance(item.statement, ParseIncludeStatement):
                 return SimpleElement[Visibility](item.statement.range, item.visibility)
             elif isinstance(item.statement, ParseStructureStatement):
@@ -543,18 +543,42 @@ class Namespace(object):
                 if isinstance(namespaced_element, Type):
                     the_type = namespaced_element
 
+                    # Resolve the item reference (if necessary)
                     if parse_type.is_item_reference:
-                        the_type = the_type.Clone(
-                            range=parse_type.range,
-                            cardinality=Cardinality(parse_type.is_item_reference, None, None, None),
-                        )
+                        with the_type.Resolve() as resolved_type:
+                            if resolved_type.cardinality.is_single:
+                                raise Errors.NamespaceInvalidItemReference.Create(
+                                    the_type.range,
+                                    the_type.display_name,
+                                )
 
-                    if not parse_type.cardinality.is_single or parse_type.metadata is not None:
-                        the_type = the_type.Clone(
-                            range=parse_type.range,
-                            cardinality=DoesNotExist.instance if parse_type.cardinality.is_single else parse_type.cardinality,
-                            metadata=DoesNotExist.instance if parse_type.metadata is None else parse_type.metadata,
-                        )
+                            the_type = resolved_type.Clone(
+                                parse_type.range,
+                                Cardinality(parse_type.is_item_reference, None, None, None),
+                            )
+
+                    # Determine if there is type-altering metadata present
+                    if parse_type.metadata is not None:
+                        with the_type.Resolve() as resolved_type:
+                            if resolved_type.cardinality.is_single:
+                                type_metadata_items: list[MetadataItem] = []
+
+                                for metadata_item in list(parse_type.metadata.items.values()):
+                                    if metadata_item.name.value in resolved_type.FIELDS:
+                                        type_metadata_items.append(
+                                            parse_type.metadata.items.pop(metadata_item.name.value),
+                                        )
+
+                                if type_metadata_items:
+                                    the_type = resolved_type.DeriveType(
+                                        parse_type.range,
+                                        Cardinality(parse_type.range, None, None, None),
+                                        Metadata(parse_type.range, type_metadata_items),
+                                    )
+
+                    # Apply cardinality (if necessary)
+                    if not parse_type.cardinality.is_single:
+                        the_type = the_type.Clone(parse_type.range, parse_type.cardinality)
 
                     return the_type
 
@@ -577,8 +601,7 @@ class Namespace(object):
                 if parse_type.is_item_reference:
                     raise Errors.NamespaceFundamentalItemReference.Create(parse_type.is_item_reference)
 
-                return CreateFundamentalTypeFromMetadata(
-                    fundamental_class,
+                return fundamental_class.CreateFromMetadata(
                     parse_type.range,
                     parse_type.cardinality,
                     parse_type.metadata,

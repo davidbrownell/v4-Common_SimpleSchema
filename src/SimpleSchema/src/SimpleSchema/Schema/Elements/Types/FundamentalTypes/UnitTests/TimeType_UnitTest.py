@@ -54,13 +54,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    tt = TimeType(Mock(), Mock(), Mock())
-
-    assert tt.Clone() == tt
-
-
-# ----------------------------------------------------------------------
 def test_ToPython():
     value = datetime.now().time()
 

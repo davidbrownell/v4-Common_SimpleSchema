@@ -60,13 +60,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    s = StructureType(Mock(), Mock(), Mock(), Mock())
-
-    assert s.Clone() == s
-
-
-# ----------------------------------------------------------------------
 def test_ErrorToPython():
     with pytest.raises(
         Exception,

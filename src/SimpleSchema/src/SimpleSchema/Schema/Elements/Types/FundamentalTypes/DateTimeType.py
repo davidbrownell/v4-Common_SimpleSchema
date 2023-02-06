@@ -19,8 +19,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import ClassVar, Tuple, Type as PythonType
 
-from Common_Foundation.Types import overridemethod
-
 from ..FundamentalType import FundamentalType
 
 
@@ -32,10 +30,3 @@ class DateTimeType(FundamentalType):
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "DateTime"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (datetime, )
-
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs) -> "DateTimeType":
-        return DateTimeType(*args, **kwargs)

@@ -19,8 +19,6 @@ from dataclasses import dataclass
 from typing import ClassVar, Tuple, Type as PythonType
 from uuid import UUID
 
-from Common_Foundation.Types import overridemethod
-
 from ..FundamentalType import FundamentalType
 
 
@@ -32,10 +30,3 @@ class GuidType(FundamentalType):
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "Guid"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (UUID, )
-
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs) -> "GuidType":
-        return GuidType(*args, **kwargs)

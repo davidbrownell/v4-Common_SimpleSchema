@@ -98,12 +98,6 @@ class TestUriType(object):
         assert UriType(Mock(), Cardinality.CreateFromCode(), None).display_name == "Uri"
 
     # ----------------------------------------------------------------------
-    def test_Clone(self):
-        ut = UriType(Mock(), Mock(), Mock())
-
-        assert ut.Clone() == ut
-
-    # ----------------------------------------------------------------------
     @pytest.mark.parametrize("trailing_slash", ["", "/"])
     def test_ToPython(self, trailing_slash):
         uri_type = UriType(Mock(), Cardinality.CreateFromCode(), None)

@@ -61,6 +61,8 @@ NamespaceDuplicateTypeName                  = DynamicSimpleSchemaException.Creat
 NamespaceFundamentalItemReference           = DynamicSimpleSchemaException.CreateType("Item references to fundamental types are not valid (as they are already item references).")
 NamespaceInvalidIncludeItem                 = DynamicSimpleSchemaException.CreateType("The included item '{name}' does not exist.", name=str)
 NamespaceInvalidIncludeItemVisibility       = DynamicSimpleSchemaException.CreateType("The included item '{name}' exists but is not accessible due to its visibility.", name=str)
+NamespaceInvalidItemReference               = DynamicSimpleSchemaException.CreateType("The type '{name}' is not a container or optional and cannot be used with an item reference.", name=str)
+
 NamespaceInvalidType                        = DynamicSimpleSchemaException.CreateType("The type '{name}' was not found.", name=str)
 NamespaceStructureItemReference             = DynamicSimpleSchemaException.CreateType("Item references to structures are not valid (as they are already item references).")
 NamespaceVisibilityError                    = DynamicSimpleSchemaException.CreateType("The visibility 'protected' is not valid for root elements.")
@@ -122,11 +124,11 @@ cardinality_validate_list_too_large         = "No more than {value} {value_verb}
 cardinality_validate_list_too_small         = "At least {value} {value_verb} expected ({found} {found_verb} found)."
 cardinality_validate_none_not_expected      = "None was not expected."
 
+create_type_from_annotation_invalid_type    = "'{value}' is not a supported python type."
+
 directory_type_invalid_dir                  = "'{value}' is not a valid directory."
 
 enum_type_invalid_value                     = "'{value}' is not a valid enum value."
-
-fundamental_type_creator_invalid_type       = "'{value}' is not a supported python type."
 
 filename_type_does_not_exist                = "'{value}' is not a valid filename or directory."
 filename_type_invalid_file                  = "'{value}' is not a valid filename."

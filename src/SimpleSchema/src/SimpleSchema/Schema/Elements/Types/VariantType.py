@@ -17,20 +17,17 @@
 
 from dataclasses import dataclass, field
 from functools import cached_property
-from typing import Any, Callable, cast, ClassVar, Optional, Tuple, Type as PythonType, Union
+from typing import Any, Callable, cast, ClassVar, Tuple, Type as PythonType, Union
 
 from Common_Foundation.Types import overridemethod
 
 from .Type import Type
 
-from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
-from ..Common.Metadata import Metadata
 
 from ..Expressions.Expression import Expression
 
 from ....Common import Errors
-from ....Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -103,16 +100,6 @@ class VariantType(Type):
         yield from super(VariantType, self)._GenerateAcceptDetails()
 
         yield "types", cast(list[Element], self.types)
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "VariantType":
-        return VariantType(range_value, cardinality, metadata, self.types)
 
     # ----------------------------------------------------------------------
     @overridemethod

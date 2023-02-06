@@ -17,18 +17,15 @@
 
 from dataclasses import dataclass
 from functools import cached_property
-from typing import cast, ClassVar, Optional
+from typing import cast, ClassVar
 
 from Common_Foundation.Types import overridemethod
 
 from .ParseType import ParseType
 
-from .....Elements.Common.Cardinality import Cardinality
 from .....Elements.Common.Element import Element
-from .....Elements.Common.Metadata import Metadata
 
 from ......Common import Errors
-from ......Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -65,13 +62,3 @@ class ParseVariantType(ParseType):
         yield "types", cast(list[Element], self.types)
 
         yield from super(ParseVariantType, self)._GenerateAcceptDetails()
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "ParseVariantType":
-        return ParseVariantType(range_value, cardinality, metadata, self.types)

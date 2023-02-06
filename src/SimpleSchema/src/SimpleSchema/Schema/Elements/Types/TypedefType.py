@@ -50,8 +50,12 @@ class TypedefType(Type):
     @contextmanager
     def Resolve(self) -> Iterator[Type]:
         try:
-            with self.type.Resolve() as resolved_type:
-                yield resolved_type
+            if self.type.cardinality.is_single:
+                with self.type.Resolve() as resolved_type:
+                    yield resolved_type
+            else:
+                yield self.type
+
         except SimpleSchemaException as ex:
             ex.ranges.append(self.range)
             raise
@@ -71,14 +75,6 @@ class TypedefType(Type):
 
         yield "name", self.name
         yield "type", cast(ReferenceType[Element], ref(self.type))
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        # This code can't be tested, because Type will call Resolve before invoking CloneImpl.
-        # The local implementation on Resolve makes sure that an instance different from this
-        # one will be returned.
-        raise Exception("This method should never be called for TypedefType instances.")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     @overridemethod

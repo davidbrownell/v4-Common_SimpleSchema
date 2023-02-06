@@ -56,13 +56,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    bt = BooleanType(Mock(), Mock(), Mock())
-
-    assert bt.Clone() == bt
-
-
-# ----------------------------------------------------------------------
 def test_ToPython():
     bt = BooleanType(Mock(), Cardinality.CreateFromCode(), None)
 

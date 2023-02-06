@@ -24,11 +24,7 @@ from Common_Foundation.Types import overridemethod
 
 from ..FundamentalType import FundamentalType
 
-from ...Common.Cardinality import Cardinality
-from ...Common.Metadata import Metadata
-
 from .....Common import Errors
-from .....Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -81,16 +77,6 @@ class IntegerType(FundamentalType):
             return result
 
         return "{} ({})".format(result, ", ".join(constraints))
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "IntegerType":
-        return IntegerType(range_value, cardinality, metadata, self.min, self.max, self.bits)
 
     # ----------------------------------------------------------------------
     @overridemethod

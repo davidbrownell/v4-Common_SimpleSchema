@@ -39,6 +39,7 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
     from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
 
+    from SimpleSchema.Schema.Elements.Types.StructureType import StructureType
     from SimpleSchema.Schema.Elements.Types.TypedefType import TypedefType
 
 
@@ -90,6 +91,29 @@ def test_DisplayName():
             final_type,
         ),
     ).display_name == "(Typedef (Foo) -> (Typedef (Bar) -> Final Type)+)*"
+
+
+# ----------------------------------------------------------------------
+def test_Resolve():
+    single_type = StructureType(
+        Mock(),
+        Cardinality.CreateFromCode(),
+        None,
+        Mock(),
+    )
+
+    array_type = StructureType(
+        Mock(),
+        Cardinality.CreateFromCode(10, 10),
+        None,
+        Mock(),
+    )
+
+    with TypedefType(Mock(), Mock(), None, Mock(), Mock(), single_type).Resolve() as resolved_type:
+        assert resolved_type is single_type
+
+    with TypedefType(Mock(), Mock(), None, Mock(), Mock(), array_type).Resolve() as resolved_type:
+        assert resolved_type is array_type
 
 
 # ----------------------------------------------------------------------
