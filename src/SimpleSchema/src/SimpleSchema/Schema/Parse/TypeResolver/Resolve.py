@@ -264,9 +264,6 @@ class _CreateNamespacesVisitor(Visitor):
 
         assert element.name.is_type
 
-        if not element.cardinality.is_single:
-            raise Errors.ResolveStructureStatementWithCardinality.Create(element.cardinality.range)
-
         namespace = Namespace(
             self._namespace_stack[-1],
             element.name.visibility.value,

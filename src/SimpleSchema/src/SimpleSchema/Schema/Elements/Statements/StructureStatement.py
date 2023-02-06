@@ -24,6 +24,7 @@ from Common_Foundation.Types import overridemethod
 
 from .Statement import Statement
 
+from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
 from ..Common.Metadata import Metadata
 from ..Common.SimpleElement import SimpleElement
@@ -47,6 +48,7 @@ class StructureStatement(Statement):
     visibility: SimpleElement[Visibility]
     name: SimpleElement[str]
     base_types: list[Type]                  # Can be an empty list
+    cardinality: Cardinality
     metadata: Optional[Metadata]
     children: list[Statement]               # Can be an empty list
 

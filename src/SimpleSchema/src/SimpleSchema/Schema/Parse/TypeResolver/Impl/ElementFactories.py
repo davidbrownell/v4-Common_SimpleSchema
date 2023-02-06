@@ -165,6 +165,7 @@ class StructureStatementFactory(_ElementFactory):
             statement.name.visibility,
             statement_name,
             base_types,
+            statement.cardinality,
             statement.metadata,
             [], # Statements are added during finalization
         )
