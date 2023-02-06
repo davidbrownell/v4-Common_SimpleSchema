@@ -45,8 +45,6 @@ class Cardinality(Element):
     min: IntegerExpression                  = field(init=False)
     max: Optional[IntegerExpression]        = field(init=False)
 
-    metadata: Optional[Metadata]
-
     # ----------------------------------------------------------------------
     @classmethod
     def CreateFromCode(
@@ -55,7 +53,6 @@ class Cardinality(Element):
         max_value: Optional[int]=None,
         *,
         range_value: Optional[Range]=None,
-        metadata: Optional[Metadata]=None,
     ) -> "Cardinality":
         if min_value is None:
             min_param = None
@@ -70,7 +67,7 @@ class Cardinality(Element):
         if range_value is None:
             range_value = Range.CreateFromCode(callstack_offset=1)
 
-        return cls(range_value, min_param, max_param, metadata)
+        return cls(range_value, min_param, max_param)
 
     # ----------------------------------------------------------------------
     def __post_init__(
@@ -101,9 +98,6 @@ class Cardinality(Element):
         # Commit the results
         object.__setattr__(self, "min", min_param)
         object.__setattr__(self, "max", max_param)
-
-        if self.is_single and self.metadata is not None:
-            raise Errors.CardinalityInvalidMetadata.Create(self.metadata.range)
 
     # ----------------------------------------------------------------------
     def __str__(self) -> str:
@@ -214,6 +208,3 @@ class Cardinality(Element):
 
         if self.max is not None:
             yield "max", self.max
-
-        if self.metadata is not None:
-            yield "metadata", self.metadata

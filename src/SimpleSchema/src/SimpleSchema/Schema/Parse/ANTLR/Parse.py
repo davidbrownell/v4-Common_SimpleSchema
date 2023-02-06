@@ -617,8 +617,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
     def visitCardinality_clause(self, ctx:SimpleSchemaParser.Cardinality_clauseContext):
         children = self._GetChildren(ctx)
 
-        num_children = len(children)
-        assert 2 <= num_children <= 3
+        assert len(children) == 2, children
 
         assert isinstance(children[0], IntegerExpression), children
         min_expression = cast(IntegerExpression, children[0])
@@ -626,14 +625,8 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert children[1] is None or isinstance(children[1], IntegerExpression), children
         max_expression = cast(Optional[IntegerExpression], children[1])
 
-        metadata: Optional[Metadata] = None
-
-        if num_children > 2:
-            assert isinstance(children[2], Metadata), children
-            metadata = cast(Metadata, children[2])
-
         self._stack.append(
-            Cardinality(self.CreateRange(ctx), min_expression, max_expression, metadata),
+            Cardinality(self.CreateRange(ctx), min_expression, max_expression),
         )
 
     # ----------------------------------------------------------------------
@@ -985,7 +978,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         range_value = self.CreateRange(ctx)
 
         if cardinality is None:
-            cardinality = Cardinality(range_value, None, None, None)
+            cardinality = Cardinality(range_value, None, None)
 
         self._stack.append(
             ParseStructureStatement(
@@ -1012,7 +1005,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 range_value,
                 children[0],
                 None,
-                Cardinality(range_value, None, None, None),
+                Cardinality(range_value, None, None),
                 children[1],
                 [],
             ),
@@ -1058,7 +1051,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         range_value = self.CreateRange(ctx)
 
         if cardinality is None:
-            cardinality = Cardinality(range_value, None, None, None)
+            cardinality = Cardinality(range_value, None, None)
 
         self._stack.append(create_func(range_value, cardinality, metadata))
 

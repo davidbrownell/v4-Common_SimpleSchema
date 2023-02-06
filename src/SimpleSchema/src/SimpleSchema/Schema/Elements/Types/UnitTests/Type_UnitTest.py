@@ -33,7 +33,7 @@ from Common_Foundation.Types import overridemethod
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Common.Errors import CardinalityInvalidMetadata
+    from SimpleSchema.Common.Errors import NamespaceFundamentalItemReference
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
     from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
@@ -218,7 +218,7 @@ def test_Resolve():
 
     try:
         with t.Resolve() as resolved_type:
-            raise CardinalityInvalidMetadata.Create(range2)
+            raise NamespaceFundamentalItemReference.Create(range2)
     except SimpleSchemaException as ex:
         assert len(ex.ranges) == 2
         assert ex.ranges[0] is range2

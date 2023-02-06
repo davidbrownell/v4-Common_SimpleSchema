@@ -130,7 +130,7 @@ cardinality_clause:                         (
                                                 | cardinality_clause_one_or_more
                                                 | cardinality_clause_fixed
                                                 | cardinality_clause_range__
-                                            ) metadata_clause?;
+                                            );
 
 cardinality_clause_optional:                '?';
 cardinality_clause_zero_or_more:            '*';
@@ -211,7 +211,7 @@ parse_structure_statement:                  (
                                                 ) DEDENT
                                                 (
                                                     (
-                                                        (metadata_clause NEWLINE* cardinality_clause)
+                                                        (cardinality_clause NEWLINE* metadata_clause)
                                                         | metadata_clause
                                                         | cardinality_clause
                                                     )
@@ -227,7 +227,7 @@ parse_type:                                 (
                                                 parse_tuple_type
                                                 | parse_variant_type
                                                 | parse_identifier_type
-                                            ) metadata_clause? cardinality_clause?;
+                                            ) cardinality_clause? metadata_clause?;
 
 parse_identifier_type:                      parse_identifier_type_global? identifier ('.' identifier)* parse_identifier_type_item?;
 parse_identifier_type_global:               '::';

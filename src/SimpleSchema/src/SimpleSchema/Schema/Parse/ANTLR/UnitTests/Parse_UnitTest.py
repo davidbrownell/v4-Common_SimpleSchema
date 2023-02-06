@@ -494,7 +494,7 @@ class TestStructure(object):
 
                 WithBaseAndMetadata: Base ->
                     pass
-                { one: 1 } ?
+                ? { one: 1 }
                 """,
             ),
         )

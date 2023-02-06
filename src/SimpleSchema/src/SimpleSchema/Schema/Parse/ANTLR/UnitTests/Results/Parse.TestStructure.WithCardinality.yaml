@@ -71,26 +71,26 @@
         value: Base
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 11, Col 12 -> Ln 11, Col 13>
+      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 2>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 11, Col 12 -> Ln 11, Col 13>
+        range: entry_point <Ln 11, Col 1 -> Ln 11, Col 2>
         value: 0
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 11, Col 12 -> Ln 11, Col 13>
+        range: entry_point <Ln 11, Col 1 -> Ln 11, Col 2>
         value: 1
     metadata:
       __type__: Metadata
-      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 11>
+      range: entry_point <Ln 11, Col 3 -> Ln 11, Col 13>
       items:
       - __type__: MetadataItem
-        range: entry_point <Ln 11, Col 3 -> Ln 11, Col 9>
+        range: entry_point <Ln 11, Col 5 -> Ln 11, Col 11>
         name:
           __type__: SimpleElement
-          range: entry_point <Ln 11, Col 3 -> Ln 11, Col 6>
+          range: entry_point <Ln 11, Col 5 -> Ln 11, Col 8>
           value: one
         expression:
           __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 8 -> Ln 11, Col 9>
+          range: entry_point <Ln 11, Col 10 -> Ln 11, Col 11>
           value: 1

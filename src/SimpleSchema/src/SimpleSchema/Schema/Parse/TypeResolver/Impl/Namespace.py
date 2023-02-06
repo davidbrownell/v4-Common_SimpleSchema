@@ -554,7 +554,7 @@ class Namespace(object):
 
                             the_type = resolved_type.Clone(
                                 parse_type.range,
-                                Cardinality(parse_type.is_item_reference, None, None, None),
+                                Cardinality(parse_type.is_item_reference, None, None),
                             )
 
                     # Determine if there is type-altering metadata present
@@ -572,7 +572,7 @@ class Namespace(object):
                                 if type_metadata_items:
                                     the_type = resolved_type.DeriveType(
                                         parse_type.range,
-                                        Cardinality(parse_type.range, None, None, None),
+                                        Cardinality(parse_type.range, None, None),
                                         Metadata(parse_type.range, type_metadata_items),
                                     )
 

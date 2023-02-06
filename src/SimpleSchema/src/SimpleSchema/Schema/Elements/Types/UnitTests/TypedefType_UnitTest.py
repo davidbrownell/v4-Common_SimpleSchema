@@ -32,7 +32,7 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Common.Errors import CardinalityInvalidMetadata
+    from SimpleSchema.Common.Errors import NamespaceFundamentalItemReference
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
@@ -156,7 +156,7 @@ def test_ResolveErrors():
         ).Resolve() as resolved_type:
             assert resolved_type is final_type
 
-            raise CardinalityInvalidMetadata.Create(internal_range)
+            raise NamespaceFundamentalItemReference.Create(internal_range)
 
     except SimpleSchemaException as ex:
         assert len(ex.ranges) == 4
@@ -167,7 +167,7 @@ def test_ResolveErrors():
 
         assert str(ex) == textwrap.dedent(
             """\
-            Metadata cannot be associated with single elements.
+            Item references to fundamental types are not valid (as they are already item references).
 
                 - filename4 <Ln 100, Col 200 -> Ln 300, Col 400>
                 - filename3 <Ln 5, Col 10 -> Ln 15, Col 20>

@@ -294,29 +294,29 @@
       value: applied_cardinality_and_metadata
     type:
       __type__: StructureType
-      range: entry_point <Ln 20, Col 35 -> Ln 20, Col 64>
+      range: entry_point <Ln 20, Col 35 -> Ln 20, Col 63>
       reference:
         __type__: SimpleElement
         range: entry_point <Ln 10, Col 1 -> Ln 10, Col 10>
         value: MultiBase
       cardinality:
         __type__: Cardinality
-        range: entry_point <Ln 20, Col 63 -> Ln 20, Col 64>
+        range: entry_point <Ln 20, Col 44 -> Ln 20, Col 45>
         min:
           __type__: IntegerExpression
-          range: entry_point <Ln 20, Col 63 -> Ln 20, Col 64>
+          range: entry_point <Ln 20, Col 44 -> Ln 20, Col 45>
           value: 0
       metadata:
         __type__: Metadata
-        range: entry_point <Ln 20, Col 45 -> Ln 20, Col 62>
+        range: entry_point <Ln 20, Col 46 -> Ln 20, Col 63>
         items:
         - __type__: MetadataItem
-          range: entry_point <Ln 20, Col 47 -> Ln 20, Col 60>
+          range: entry_point <Ln 20, Col 48 -> Ln 20, Col 61>
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 20, Col 47 -> Ln 20, Col 56>
+            range: entry_point <Ln 20, Col 48 -> Ln 20, Col 57>
             value: new_value
           expression:
             __type__: IntegerExpression
-            range: entry_point <Ln 20, Col 58 -> Ln 20, Col 60>
+            range: entry_point <Ln 20, Col 59 -> Ln 20, Col 61>
             value: 10
