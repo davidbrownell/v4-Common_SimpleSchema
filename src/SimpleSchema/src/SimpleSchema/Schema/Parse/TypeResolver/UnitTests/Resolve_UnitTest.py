@@ -285,10 +285,10 @@ class TestTypedef(object):
         )
 
     # ----------------------------------------------------------------------
-    def test_ErrorItemRefereceStructure(self):
+    def test_ErrorItemReferenceStructure(self):
         with pytest.raises(
             SimpleSchemaException,
-            match=re.escape("Item references to structures are not valid (as they are already item references). ({} <Ln 4, Col 30 -> Ln 4, Col 36>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
+            match=re.escape("The type 'Structure' is not a container or optional and cannot be used with an item reference. ({} <Ln 4, Col 30 -> Ln 4, Col 36>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
         ):
             _Test(
                 textwrap.dedent(
@@ -310,7 +310,7 @@ class TestTypedef(object):
                     """\
                     The type '(Typedef (SingleItem) -> String)' is not a container or optional and cannot be used with an item reference.
 
-                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                        - {entry_point} <Ln 3, Col 21 -> Ln 3, Col 27>
                         - {entry_point} <Ln 1, Col 13 -> Ln 1, Col 19>
                         - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
                     """,
@@ -440,22 +440,6 @@ class TestStructure(object):
                 """,
             ),
         )
-
-    # ----------------------------------------------------------------------
-    def test_ErrorStructureWithCardinality(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("Structure statements cannot specify a cardinality value. ({} <Ln 3, Col 1 -> Ln 3, Col 2>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    Structure ->
-                        value: String
-                    *
-                    """,
-                ),
-            )
 
     # ----------------------------------------------------------------------
     def test_ErrorCircularStructureDef(self):

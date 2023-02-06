@@ -548,7 +548,7 @@ class Namespace(object):
                         with the_type.Resolve() as resolved_type:
                             if resolved_type.cardinality.is_single:
                                 raise Errors.NamespaceInvalidItemReference.Create(
-                                    the_type.range,
+                                    parse_type.is_item_reference,
                                     the_type.display_name,
                                 )
 
@@ -584,11 +584,19 @@ class Namespace(object):
 
                 if isinstance(namespaced_element, StructureStatement):
                     if parse_type.is_item_reference:
-                        raise Errors.NamespaceStructureItemReference.Create(parse_type.is_item_reference)
+                        if namespaced_element.cardinality.is_single:
+                            raise Errors.NamespaceInvalidItemReference.Create(
+                                parse_type.is_item_reference,
+                                namespaced_element.name.value,
+                            )
+
+                        cardinality = Cardinality(parse_type.is_item_reference, None, None)
+                    else:
+                        cardinality = parse_type.cardinality
 
                     return StructureType(
                         parse_type.range,
-                        parse_type.cardinality,
+                        cardinality,
                         parse_type.metadata,
                         namespaced_element,
                     )

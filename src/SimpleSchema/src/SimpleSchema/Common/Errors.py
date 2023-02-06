@@ -63,7 +63,6 @@ NamespaceInvalidIncludeItemVisibility       = DynamicSimpleSchemaException.Creat
 NamespaceInvalidItemReference               = DynamicSimpleSchemaException.CreateType("The type '{name}' is not a container or optional and cannot be used with an item reference.", name=str)
 
 NamespaceInvalidType                        = DynamicSimpleSchemaException.CreateType("The type '{name}' was not found.", name=str)
-NamespaceStructureItemReference             = DynamicSimpleSchemaException.CreateType("Item references to structures are not valid (as they are already item references).")
 NamespaceVisibilityError                    = DynamicSimpleSchemaException.CreateType("The visibility 'protected' is not valid for root elements.")
 
 ParseIdentifierNoChars                      = DynamicSimpleSchemaException.CreateType("'{id}' does not have any identifiable characters.", id=str)
@@ -108,7 +107,6 @@ VariantTypeInvalidValue                     = DynamicSimpleSchemaException.Creat
 # |  Resolve Errors
 # |
 # ----------------------------------------------------------------------
-ResolveStructureStatementWithCardinality    = DynamicSimpleSchemaException.CreateType("Structure statements cannot specify a cardinality value.")
 ResolveStructureStatementEmptyPseudoElement = DynamicSimpleSchemaException.CreateType("Pseudo structure definitions must contain at least one child.")
 
 
