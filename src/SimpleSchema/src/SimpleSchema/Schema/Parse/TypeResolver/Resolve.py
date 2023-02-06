@@ -231,7 +231,7 @@ class _CreateNamespacesVisitor(Visitor):
                 element.range,
                 ParseIdentifier(element.range, unique_type_name),
                 element.bases,
-                Cardinality(element.range, None, None, None),
+                Cardinality(element.range, None, None),
                 element.metadata,
                 element.children,
             )

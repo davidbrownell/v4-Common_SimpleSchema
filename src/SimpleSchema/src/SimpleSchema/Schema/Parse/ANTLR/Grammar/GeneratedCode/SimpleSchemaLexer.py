@@ -1,4 +1,4 @@
-# Generated from C:\Code\v4\Common\SimpleSchema\src\SimpleSchema\Schema\Parse\ANTLR\Grammar\SimpleSchema.g4 by ANTLR 4.11.1
+# Generated from C:\Code\v4\Common\SimpleSchema\src\SimpleSchema\src\SimpleSchema\Schema\Parse\ANTLR\Grammar\SimpleSchema.g4 by ANTLR 4.11.1
 from antlr4 import *
 from io import StringIO
 import sys

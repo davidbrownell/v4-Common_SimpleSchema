@@ -16,17 +16,17 @@
         value: 1
     metadata:
       __type__: Metadata
-      range: entry_point <Ln 1, Col 19 -> Ln 1, Col 57>
+      range: entry_point <Ln 1, Col 20 -> Ln 1, Col 58>
       items:
       - __type__: MetadataItem
-        range: entry_point <Ln 1, Col 37 -> Ln 1, Col 55>
+        range: entry_point <Ln 1, Col 38 -> Ln 1, Col 56>
         name:
           __type__: SimpleElement
-          range: entry_point <Ln 1, Col 37 -> Ln 1, Col 49>
+          range: entry_point <Ln 1, Col 38 -> Ln 1, Col 50>
           value: custom_value
         expression:
           __type__: StringExpression
-          range: entry_point <Ln 1, Col 51 -> Ln 1, Col 55>
+          range: entry_point <Ln 1, Col 52 -> Ln 1, Col 56>
           value: '10'
     name:
       __type__: SimpleElement
@@ -37,24 +37,24 @@
       range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
       cardinality:
         __type__: Cardinality
-        range: entry_point <Ln 1, Col 57 -> Ln 1, Col 58>
+        range: entry_point <Ln 1, Col 18 -> Ln 1, Col 19>
         min:
           __type__: IntegerExpression
-          range: entry_point <Ln 1, Col 57 -> Ln 1, Col 58>
+          range: entry_point <Ln 1, Col 18 -> Ln 1, Col 19>
           value: 1
       metadata:
         __type__: Metadata
-        range: entry_point <Ln 1, Col 19 -> Ln 1, Col 57>
+        range: entry_point <Ln 1, Col 20 -> Ln 1, Col 58>
         items:
         - __type__: MetadataItem
-          range: entry_point <Ln 1, Col 37 -> Ln 1, Col 55>
+          range: entry_point <Ln 1, Col 38 -> Ln 1, Col 56>
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 1, Col 37 -> Ln 1, Col 49>
+            range: entry_point <Ln 1, Col 38 -> Ln 1, Col 50>
             value: custom_value
           expression:
             __type__: StringExpression
-            range: entry_point <Ln 1, Col 51 -> Ln 1, Col 55>
+            range: entry_point <Ln 1, Col 52 -> Ln 1, Col 56>
             value: '10'
       min_length: 10
   - __type__: TypedefType
@@ -83,17 +83,17 @@
         value: Container
       metadata:
         __type__: Metadata
-        range: entry_point <Ln 1, Col 19 -> Ln 1, Col 57>
+        range: entry_point <Ln 1, Col 20 -> Ln 1, Col 58>
         items:
         - __type__: MetadataItem
-          range: entry_point <Ln 1, Col 37 -> Ln 1, Col 55>
+          range: entry_point <Ln 1, Col 38 -> Ln 1, Col 56>
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 1, Col 37 -> Ln 1, Col 49>
+            range: entry_point <Ln 1, Col 38 -> Ln 1, Col 50>
             value: custom_value
           expression:
             __type__: StringExpression
-            range: entry_point <Ln 1, Col 51 -> Ln 1, Col 55>
+            range: entry_point <Ln 1, Col 52 -> Ln 1, Col 56>
             value: '10'
   - __type__: TypedefType
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
@@ -128,17 +128,17 @@
           value: 1
       metadata:
         __type__: Metadata
-        range: entry_point <Ln 1, Col 19 -> Ln 1, Col 57>
+        range: entry_point <Ln 1, Col 20 -> Ln 1, Col 58>
         items:
         - __type__: MetadataItem
-          range: entry_point <Ln 1, Col 37 -> Ln 1, Col 55>
+          range: entry_point <Ln 1, Col 38 -> Ln 1, Col 56>
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 1, Col 37 -> Ln 1, Col 49>
+            range: entry_point <Ln 1, Col 38 -> Ln 1, Col 50>
             value: custom_value
           expression:
             __type__: StringExpression
-            range: entry_point <Ln 1, Col 51 -> Ln 1, Col 55>
+            range: entry_point <Ln 1, Col 52 -> Ln 1, Col 56>
             value: '10'
       min_length: 10
   - __type__: TypedefType
@@ -156,17 +156,17 @@
         value: 1
     metadata:
       __type__: Metadata
-      range: entry_point <Ln 5, Col 40 -> Ln 5, Col 61>
+      range: entry_point <Ln 5, Col 43 -> Ln 5, Col 64>
       items:
       - __type__: MetadataItem
-        range: entry_point <Ln 5, Col 42 -> Ln 5, Col 59>
+        range: entry_point <Ln 5, Col 45 -> Ln 5, Col 62>
         name:
           __type__: SimpleElement
-          range: entry_point <Ln 5, Col 42 -> Ln 5, Col 54>
+          range: entry_point <Ln 5, Col 45 -> Ln 5, Col 57>
           value: custom_value
         expression:
           __type__: StringExpression
-          range: entry_point <Ln 5, Col 56 -> Ln 5, Col 59>
+          range: entry_point <Ln 5, Col 59 -> Ln 5, Col 62>
           value: '2'
     name:
       __type__: SimpleElement
@@ -177,27 +177,27 @@
       range: entry_point <Ln 5, Col 24 -> Ln 5, Col 64>
       cardinality:
         __type__: Cardinality
-        range: entry_point <Ln 5, Col 61 -> Ln 5, Col 64>
+        range: entry_point <Ln 5, Col 39 -> Ln 5, Col 42>
         min:
           __type__: IntegerExpression
-          range: entry_point <Ln 5, Col 62 -> Ln 5, Col 63>
+          range: entry_point <Ln 5, Col 40 -> Ln 5, Col 41>
           value: 2
         max:
           __type__: IntegerExpression
-          range: entry_point <Ln 5, Col 62 -> Ln 5, Col 63>
+          range: entry_point <Ln 5, Col 40 -> Ln 5, Col 41>
           value: 2
       metadata:
         __type__: Metadata
-        range: entry_point <Ln 1, Col 19 -> Ln 1, Col 57>
+        range: entry_point <Ln 1, Col 20 -> Ln 1, Col 58>
         items:
         - __type__: MetadataItem
-          range: entry_point <Ln 1, Col 37 -> Ln 1, Col 55>
+          range: entry_point <Ln 1, Col 38 -> Ln 1, Col 56>
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 1, Col 37 -> Ln 1, Col 49>
+            range: entry_point <Ln 1, Col 38 -> Ln 1, Col 50>
             value: custom_value
           expression:
             __type__: StringExpression
-            range: entry_point <Ln 1, Col 51 -> Ln 1, Col 55>
+            range: entry_point <Ln 1, Col 52 -> Ln 1, Col 56>
             value: '10'
       min_length: 10

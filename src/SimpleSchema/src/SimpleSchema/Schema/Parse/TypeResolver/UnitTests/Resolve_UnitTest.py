@@ -275,11 +275,11 @@ class TestTypedef(object):
         _Test(
             textwrap.dedent(
                 """\
-                Container: String { min_length: 10, custom_value: "10" }+
+                Container: String+ { min_length: 10, custom_value: "10" }
 
                 Container1: Container
                 ContainerItem: Container::item
-                ContainerItemWithMods: Container::item { custom_value: "2" }[2]
+                ContainerItemWithMods: Container::item[2] { custom_value: "2" }
                 """,
             ),
         )
@@ -424,7 +424,7 @@ class TestStructure(object):
 
                 applied_cardinality: MultiBase*
                 applied_metadata: MultiBase { new_value: 10 }
-                applied_cardinality_and_metadata: MultiBase { new_value: 10 } *
+                applied_cardinality_and_metadata: MultiBase* { new_value: 10 }
                 """,
             ),
         )
@@ -516,10 +516,11 @@ class TestStructure(object):
 
                 everything: String ->
                     value1: Boolean
+                ?
                 {
                     custom_value1: 10
                     custom_value2: 20
-                } ?
+                }
                 """,
             ),
         )

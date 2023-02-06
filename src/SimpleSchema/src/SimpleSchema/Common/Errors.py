@@ -49,7 +49,6 @@ ParseStructureStatementInvalidTupleBaseItem = DynamicSimpleSchemaException.Creat
 # |  Element Construction Errors
 # |
 # ----------------------------------------------------------------------
-CardinalityInvalidMetadata                  = DynamicSimpleSchemaException.CreateType("Metadata cannot be associated with single elements.")
 CardinalityInvalidRange                     = DynamicSimpleSchemaException.CreateType("Invalid cardinality ({min} > {max}).", min=int, max=min)
 
 ExtensionStatementDuplicateKeywordArg       = DynamicSimpleSchemaException.CreateType("An argument for the parameter '{name}' was already provided at '{range}'.", name=str, range=Range)

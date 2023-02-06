@@ -69,7 +69,7 @@ def test_CreateFromCode():
 def test_Single():
     range_mock = Mock()
 
-    c = Cardinality(range_mock, None, None, None)
+    c = Cardinality(range_mock, None, None)
 
     assert c.range is range_mock
 
@@ -79,8 +79,6 @@ def test_Single():
     assert c.max is not None
     assert c.max.value == 1
     assert c.max.range is range_mock
-
-    assert c.metadata is None
 
     assert c.is_single
     assert c.is_optional is False
@@ -92,7 +90,7 @@ def test_Optional():
     range_mock = Mock()
     expression_mock = Mock()
 
-    c = Cardinality(range_mock, None, IntegerExpression(expression_mock, 1), None)
+    c = Cardinality(range_mock, None, IntegerExpression(expression_mock, 1))
 
     assert c.range is range_mock
 
@@ -102,8 +100,6 @@ def test_Optional():
     assert c.max is not None
     assert c.max.value == 1
     assert c.max.range is expression_mock
-
-    assert c.metadata is None
 
     assert c.is_single is False
     assert c.is_optional
@@ -120,7 +116,6 @@ def test_ContainerBounded():
         range_mock,
         IntegerExpression(min_expression_mock, 0),
         IntegerExpression(max_expression_mock, 3),
-        None,
     )
 
     assert c.range is range_mock
@@ -131,8 +126,6 @@ def test_ContainerBounded():
     assert c.max is not None
     assert c.max.value == 3
     assert c.max.range is max_expression_mock
-
-    assert c.metadata is None
 
     assert c.is_single is False
     assert c.is_optional is False
@@ -148,7 +141,6 @@ def test_ContainerUnbounded():
         range_mock,
         IntegerExpression(min_expression_mock, 0),
         None,
-        None,
     )
 
     assert c.range is range_mock
@@ -158,36 +150,9 @@ def test_ContainerUnbounded():
 
     assert c.max is None
 
-    assert c.metadata is None
-
     assert c.is_single is False
     assert c.is_optional is False
     assert c.is_container
-
-
-# ----------------------------------------------------------------------
-def test_WithMetadata():
-    range_mock = Mock()
-    metadata_mock = Mock()
-
-    c = Cardinality(
-        range_mock,
-        IntegerExpression(Mock(), 0),
-        IntegerExpression(Mock(), 1),
-        metadata_mock,
-    )
-
-    assert c.range is range_mock
-
-    assert c.min.value == 0
-    assert c.max is not None
-    assert c.max.value == 1
-
-    assert c.metadata is metadata_mock
-
-    assert c.is_single is False
-    assert c.is_optional
-    assert c.is_container is False
 
 
 # ----------------------------------------------------------------------
@@ -211,21 +176,6 @@ def test_ErrorInvalidCardinality():
             Mock(),
             IntegerExpression(Mock(), 10),
             IntegerExpression(Range.Create(Path("file"), 1, 3, 5, 7), 1),
-            None,
-        )
-
-
-# ----------------------------------------------------------------------
-def test_ErrorMetadata():
-    with pytest.raises(
-        SimpleSchemaException,
-        match=re.escape("Metadata cannot be associated with single elements. (the_file <Ln 10, Col 20 -> Ln 30, Col 40>)"),
-    ):
-        Cardinality(
-            Mock(),
-            None,
-            None,
-            Metadata(Range.Create(Path("the_file"), 10, 20, 30, 40), []),
         )
 
 
@@ -233,7 +183,7 @@ def test_ErrorMetadata():
 class TestValidate(object):
     # ----------------------------------------------------------------------
     def test_Single(self):
-        c = Cardinality(Mock(), None, None, None)
+        c = Cardinality(Mock(), None, None)
 
         c.Validate(10)
         c.Validate(IntegerExpression(Mock(), 10))

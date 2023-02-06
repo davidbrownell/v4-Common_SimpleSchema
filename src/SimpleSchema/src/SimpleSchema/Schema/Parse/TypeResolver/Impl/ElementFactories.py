@@ -210,7 +210,7 @@ class TypedefTypeFactory(_ElementFactory):
 
         return TypedefType(
             statement.range,
-            Cardinality(statement.range, None, None, None),
+            Cardinality(statement.range, None, None),
             metadata,
             statement.name.visibility,
             statement.name.ToSimpleElement(),
