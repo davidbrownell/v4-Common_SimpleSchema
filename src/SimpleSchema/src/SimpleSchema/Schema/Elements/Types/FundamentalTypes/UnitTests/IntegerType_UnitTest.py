@@ -75,13 +75,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    it = IntegerType(Mock(), Mock(), Mock(), 2, 4)
-
-    assert it.Clone() == it
-
-
-# ----------------------------------------------------------------------
 def test_ToPython():
     single = Cardinality.CreateFromCode()
 

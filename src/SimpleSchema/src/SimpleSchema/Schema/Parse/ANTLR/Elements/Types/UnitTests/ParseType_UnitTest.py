@@ -45,11 +45,6 @@ class MyParseType(ParseType):
     NAME: ClassVar[str]                                                     = "MyParseType"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (object, )
 
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        return MyParseType(*args, **kwargs)
-
 
 # ----------------------------------------------------------------------
 def test_Standard():

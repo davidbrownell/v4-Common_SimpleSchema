@@ -64,13 +64,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    ft = FilenameType(Mock(), Mock(), Mock(), ensure_exists=False)
-
-    assert ft.Clone() == ft
-
-
-# ----------------------------------------------------------------------
 class TestToPython(object):
     valid_filename                          = Path(__file__)
     valid_dir                               = valid_filename.parent

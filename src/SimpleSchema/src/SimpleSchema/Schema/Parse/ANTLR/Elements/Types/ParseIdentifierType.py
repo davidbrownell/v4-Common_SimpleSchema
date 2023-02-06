@@ -25,9 +25,7 @@ from .ParseType import ParseType
 
 from ..Common.ParseIdentifier import ParseIdentifier
 
-from .....Elements.Common.Cardinality import Cardinality
 from .....Elements.Common.Element import Element
-from .....Elements.Common.Metadata import Metadata
 
 from ......Common import Errors
 from ......Common.Range import Range
@@ -81,20 +79,3 @@ class ParseIdentifierType(ParseType):
         yield from super(ParseIdentifierType, self)._GenerateAcceptDetails()
 
         yield "identifiers", cast(list[Element], self.identifiers)
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "ParseIdentifierType":
-        return ParseIdentifierType(
-            range_value,
-            cardinality,
-            metadata,
-            self.identifiers,
-            self.is_global_reference,
-            self.is_item_reference,
-        )

@@ -78,13 +78,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    pvt = ParseVariantType(Mock(), Cardinality.CreateFromCode(), None, [Mock(), Mock()])
-
-    assert pvt.Clone() == pvt
-
-
-# ----------------------------------------------------------------------
 def test_ErrorNoTypes():
     with pytest.raises(
         SimpleSchemaException,

@@ -58,6 +58,22 @@ def test_Standard():
 
 
 # ----------------------------------------------------------------------
+def test_CreateFromExisting():
+    et = EnumType(Mock(), Mock(), None, [1, 2, 3])
+
+    range_mock = Mock()
+    cardinality = Cardinality.CreateFromCode()
+    metadata_mock = Mock()
+
+    et2 = EnumType(range_mock, cardinality, metadata_mock, [], 0, et.EnumClass)
+
+    assert et2.range is range_mock
+    assert et2.cardinality is cardinality
+    assert et2.metadata is metadata_mock
+    assert et2.EnumClass is et.EnumClass
+
+
+# ----------------------------------------------------------------------
 def test_DisplayName():
     assert EnumType(Mock(), Cardinality.CreateFromCode(), None, [1, 2, 3]).display_name == "Enum"
 
@@ -66,7 +82,9 @@ def test_DisplayName():
 def test_Clone():
     et = EnumType(Mock(), Mock(), None, [1, 2, 3])
 
-    assert et.Clone() == et
+    et2 = et.Clone(Mock(), Mock())
+
+    assert et2.EnumClass is et.EnumClass
 
 
 # ----------------------------------------------------------------------

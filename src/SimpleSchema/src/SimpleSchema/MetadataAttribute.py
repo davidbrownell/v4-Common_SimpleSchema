@@ -23,6 +23,9 @@ from Common_Foundation.Types import extensionmethod
 from .Schema.Elements.Common.Element import Element
 from .Schema.Elements.Types.Type import Type
 
+# TODO: Traits
+#       - Inheritable
+#       - Flag applied to resolved type
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)

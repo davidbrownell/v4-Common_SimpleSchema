@@ -18,7 +18,7 @@
 import re
 import sys
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, ClassVar, Optional, Tuple, Type as PythonType
 from unittest.mock import MagicMock as Mock
@@ -36,12 +36,14 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Errors import CardinalityInvalidMetadata
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
+    from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
+
     from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
     from SimpleSchema.Schema.Elements.Expressions.ListExpression import ListExpression
     from SimpleSchema.Schema.Elements.Expressions.NoneExpression import NoneExpression
     from SimpleSchema.Schema.Elements.Expressions.StringExpression import Expression, StringExpression
 
-    from SimpleSchema.Schema.Elements.Types.Type import Cardinality, Metadata, Range, Type
+    from SimpleSchema.Schema.Elements.Types.Type import Cardinality, Metadata, MetadataItem, Range, Type
 
 
 # ----------------------------------------------------------------------
@@ -52,18 +54,11 @@ class MyType(Type):
 
     SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]      = (str, )
 
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "MyType":
-        return MyType(range_value, cardinality, metadata)
+    value1: Optional[int]                   = field(default=None)
+    value2: Optional[int]                   = field(default=None)
 
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
     def _ItemToPythonImpl(
@@ -94,31 +89,124 @@ def test_Standard():
 
 
 # ----------------------------------------------------------------------
+def test_CreateFromMetadata():
+    range_mock = Mock()
+    cardinality_mock = Mock()
+
+    t = MyType.CreateFromMetadata(
+        range_mock,
+        cardinality_mock,
+        Metadata(
+            Mock(),
+            [
+                MetadataItem(Mock(), SimpleElement[str](Mock(), "value2"), IntegerExpression(Mock(), 123)),
+                MetadataItem(Mock(), SimpleElement[str](Mock(), "extra_data"), IntegerExpression(Mock(), 456)),
+            ],
+        ),
+    )
+
+    assert isinstance(t, MyType)
+
+    assert t.range is range_mock
+    assert t.cardinality is cardinality_mock
+
+    assert (
+        t.metadata is not None
+        and len(t.metadata.items) == 1
+        and "extra_data" in t.metadata.items
+    )
+
+    assert t.value1 is None
+    assert t.value2 == 123
+
+
+# ----------------------------------------------------------------------
 def test_DisplayName():
     assert MyType(Mock(), Cardinality.CreateFromCode(3, 12), None).display_name == "MyType[3, 12]"
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
+def test_DeriveType():
+    # T1
     range_mock = Mock()
     cardinality_mock = Mock()
     metadata_mock = Mock()
 
-    t = MyType(range_mock, cardinality_mock, metadata_mock).Clone()
+    t1 = MyType(range_mock, cardinality_mock, metadata_mock)
 
-    assert t.range is range_mock
-    assert t.cardinality is cardinality_mock
-    assert t.metadata is metadata_mock
+    assert t1.range is range_mock
+    assert t1.cardinality is cardinality_mock
+    assert t1.metadata is metadata_mock
 
-    t = MyType(Mock(), Mock(), None).Clone(
-        range=range_mock,
-        cardinality=cardinality_mock,
-        metadata=metadata_mock,
+    assert t1.value1 is None
+    assert t1.value2 is None
+
+    # T2
+    range2_mock = Mock()
+    cardinality2_mock = Mock()
+
+    t2 = t1.DeriveType(
+        range2_mock,
+        cardinality2_mock,
+        Metadata(
+            Mock(),
+            [
+                MetadataItem(
+                    Mock(),
+                    SimpleElement[str](Mock(), "value1"),
+                    IntegerExpression(Mock(), 10),
+                ),
+                MetadataItem(
+                    Mock(),
+                    SimpleElement[str](Mock(), "extra_data"),
+                    IntegerExpression(Mock(), -1234),
+                ),
+            ],
+        ),
     )
 
-    assert t.range is range_mock
-    assert t.cardinality is cardinality_mock
-    assert t.metadata is metadata_mock
+    assert isinstance(t2, MyType)
+
+    assert t2.range is range2_mock
+    assert t2.cardinality is cardinality2_mock
+
+    assert (
+        t2.metadata is not None
+        and len(t2.metadata.items) == 1
+        and "extra_data" in t2.metadata.items
+    )
+
+    assert t2.value1 == 10
+    assert t2.value2 is None
+
+    # T3
+    range3_mock = Mock()
+    cardinality3_mock = Mock()
+
+
+    t3 = t2.DeriveType(
+        range3_mock,
+        cardinality3_mock,
+        Metadata(
+            Mock(),
+            [
+                MetadataItem(
+                    Mock(),
+                    SimpleElement[str](Mock(), "value2"),
+                    IntegerExpression(Mock(), 20),
+                ),
+            ],
+        ),
+    )
+
+    assert isinstance(t3, MyType)
+
+    assert t3.range is range3_mock
+    assert t3.cardinality is cardinality3_mock
+    assert t3.metadata is None
+
+    assert t3.value1 == 10
+    assert t3.value2 == 20
 
 
 # ----------------------------------------------------------------------
@@ -130,7 +218,7 @@ def test_Resolve():
 
     try:
         with t.Resolve() as resolved_type:
-            raise CardinalityInvalidMetadata(range2)
+            raise CardinalityInvalidMetadata.Create(range2)
     except SimpleSchemaException as ex:
         assert len(ex.ranges) == 2
         assert ex.ranges[0] is range2
@@ -138,15 +226,53 @@ def test_Resolve():
 
 
 # ----------------------------------------------------------------------
+def testCreateFromMetadataError():
+    # ----------------------------------------------------------------------
+    @dataclass(frozen=True)
+    class MyBadType(Type):
+        NAME: ClassVar[str]                                                 = "MyBadType"
+        SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]            = (object, )
+
+        # ----------------------------------------------------------------------
+        def __post_init__(self):
+            raise Exception("This is the exception")
+
+        # ----------------------------------------------------------------------
+        @overridemethod
+        def _ItemToPythonImpl(self, value: Any) -> Any:
+            raise ValueError("Never Called")
+
+    # ----------------------------------------------------------------------
+
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape("This is the exception (filename <Ln 1, Col 2 -> Ln 3, Col 4>)"),
+    ):
+        MyBadType.CreateFromMetadata(
+            Range.Create(Path("filename"), 1, 2, 3, 4),
+            Mock(),
+            None,
+        )
+
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape("This is the exception (filename <Ln 1, Col 2 -> Ln 3, Col 4>)"),
+    ):
+        MyBadType.CreateFromMetadata(
+            Mock(),
+            Mock(),
+            Metadata(
+                Range.Create(Path("filename"), 1, 2, 3, 4),
+                [],
+            ),
+        )
+
+
+# ----------------------------------------------------------------------
 class TestClassVarErrors(object):
     # ----------------------------------------------------------------------
     @dataclass(frozen=True)
     class MyBadType(Type):
-        # ----------------------------------------------------------------------
-        @overridemethod
-        def _CloneImpl(self, *args, **kwargs):
-            raise ValueError("Never Called")
-
         # ----------------------------------------------------------------------
         @overridemethod
         def _ItemToPythonImpl(self, value: Any) -> Any:
@@ -158,7 +284,7 @@ class TestClassVarErrors(object):
             AssertionError,
             match=re.escape("Make sure to define the type's name."),
         ):
-            TestClassVarErrors.MyBadType(Mock(), Mock(), None)
+            TestClassVarErrors.MyBadType(Mock(), Cardinality.CreateFromCode(), None)
 
     # ----------------------------------------------------------------------
     def test_ErrorSupportedPythonTypes(self):
@@ -181,11 +307,6 @@ class SimpleStringType(Type):
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "SimpleString"
     SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]      = (str, )
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs):
-        return SimpleStringType(*args, **kwargs)
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -214,11 +335,6 @@ class TestValidateExpression(object):
 
         # ----------------------------------------------------------------------
         @overridemethod
-        def _CloneImpl(self, *args, **kwargs):
-            raise Exception("Not implemented")  # pragma: no cover
-
-        # ----------------------------------------------------------------------
-        @overridemethod
         def _ValidatePythonItemImpl(self, value: Any) -> None:
             raise Exception("Not implemented")  # pragma: no cover
 
@@ -228,11 +344,6 @@ class TestValidateExpression(object):
         # ----------------------------------------------------------------------
         NAME: ClassVar[str]                                                 = "SimpleInteger"
         SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]  = (int, )
-
-        # ----------------------------------------------------------------------
-        @overridemethod
-        def _CloneImpl(self, *args, **kwargs):
-            raise Exception("Not implemented")  # pragma: no cover
 
         # ----------------------------------------------------------------------
         @overridemethod

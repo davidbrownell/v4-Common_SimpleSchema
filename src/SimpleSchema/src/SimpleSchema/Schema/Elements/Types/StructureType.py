@@ -17,18 +17,14 @@
 
 from dataclasses import dataclass
 from functools import cached_property
-from typing import Any, cast, ClassVar, Optional, Tuple, Type as PythonType, TYPE_CHECKING
+from typing import Any, cast, ClassVar, Tuple, Type as PythonType, TYPE_CHECKING
 from weakref import ref, ReferenceType
 
 from Common_Foundation.Types import overridemethod
 
 from .Type import Type
 
-from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
-from ..Common.Metadata import Metadata
-
-from ....Common.Range import Range
 
 if TYPE_CHECKING:
     from ..Statements.StructureStatement import StructureStatement  # pragma: no cover
@@ -58,16 +54,6 @@ class StructureType(Type):
         yield from super(StructureType, self)._GenerateAcceptDetails()
 
         yield "statement", cast(ReferenceType[Element], ref(self.statement))
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "StructureType":
-        return StructureType(range_value, cardinality, metadata, self.statement)
 
     # ----------------------------------------------------------------------
     @overridemethod

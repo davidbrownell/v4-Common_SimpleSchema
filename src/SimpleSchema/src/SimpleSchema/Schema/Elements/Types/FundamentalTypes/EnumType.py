@@ -26,7 +26,6 @@ from Common_Foundation.Types import overridemethod
 from ..FundamentalType import FundamentalType
 
 from ...Common.Cardinality import Cardinality
-from ...Common.Metadata import Metadata
 
 from .....Common import Errors
 from .....Common.Range import Range
@@ -48,23 +47,23 @@ class EnumType(FundamentalType):
         list[Tuple[str, str]],
     ]
 
-    starting_value: int                     = 1
+    starting_value: int                                 = 1
 
-    cloned_enum_class_param: InitVar[Optional[EnumMeta]]                    = None
+    enum_class_param: InitVar[Optional[EnumMeta]]       = None
 
-    EnumClass: EnumMeta                     = field(init=False)
+    EnumClass: EnumMeta                                 = field(init=False)
 
     # ----------------------------------------------------------------------
     def __post_init__(
         self,
-        cloned_enum_class_param: Optional[EnumMeta],
+        enum_class_param: Optional[EnumMeta],
     ):
-        if not self.values:
-            raise ValueError("Values must be provided.")
-
-        if cloned_enum_class_param is not None:
-            enum_class = cloned_enum_class_param
+        if enum_class_param is not None:
+            enum_class = enum_class_param
         else:
+            if not self.values:
+                raise ValueError("Values must be provided.")
+
             if isinstance(self.values[0], tuple):
                 # ----------------------------------------------------------------------
                 def GetTupleValue(index) -> Union[int, str]:
@@ -153,24 +152,23 @@ class EnumType(FundamentalType):
         super(EnumType, self).__post_init__()
 
     # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
     @overridemethod
-    def _CloneImpl(
+    def Clone(
         self,
         range_value: Range,
         cardinality: Cardinality,
-        metadata: Optional[Metadata],
     ) -> "EnumType":
-        return EnumType(
+        return self.__class__(
             range_value,
             cardinality,
-            metadata,
-            self.values,
-            self.starting_value,
+            self.metadata,
+            [],
+            0,
             self.EnumClass,
         )
 
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
     def _ItemToPythonImpl(

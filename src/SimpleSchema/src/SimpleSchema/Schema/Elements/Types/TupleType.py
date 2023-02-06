@@ -111,16 +111,6 @@ class TupleType(Type):
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _CloneImpl(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-        metadata: Optional[Metadata],
-    ) -> "TupleType":
-        return TupleType(range_value, cardinality, metadata, self.types)
-
-    # ----------------------------------------------------------------------
-    @overridemethod
     def _ItemToPythonImpl(
         self,
         value: Tuple[Any, ...],

@@ -96,18 +96,6 @@ def test_DisplayName():
 
 
 # ----------------------------------------------------------------------
-def test_Clone():
-    range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
-    types = [Mock(), Mock(), ]
-
-    tt = TupleType(range_mock, cardinality_mock, metadata_mock, types)  # type: ignore
-
-    assert tt.Clone() == tt
-
-
-# ----------------------------------------------------------------------
 def test_ErrorNoTypes():
     with pytest.raises(
         SimpleSchemaException,
@@ -462,10 +450,7 @@ class TestToPython(object):
         SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]  = (str, )
 
         # ----------------------------------------------------------------------
-        @overridemethod
-        def _CloneImpl(self, *args, **kwargs):
-            return TestToPython._SimpleStringType(*args, **kwargs)
-
+        # ----------------------------------------------------------------------
         # ----------------------------------------------------------------------
         @overridemethod
         def _ItemToPythonImpl(
@@ -482,11 +467,6 @@ class TestToPython(object):
     class _SimpleIntegerType(Type):
         NAME: ClassVar[str]                                                 = "SimpleInteger"
         SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]  = (int, )
-
-        # ----------------------------------------------------------------------
-        @overridemethod
-        def _CloneImpl(self, *args, **kwargs):
-            return TestToPython._SimpleIntegerType(*args, **kwargs)
 
         # ----------------------------------------------------------------------
         @overridemethod

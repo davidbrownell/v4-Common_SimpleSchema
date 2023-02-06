@@ -145,11 +145,6 @@ class UriType(FundamentalType):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _CloneImpl(self, *args, **kwargs) -> "UriType":
-        return UriType(*args, **kwargs)
-
-    # ----------------------------------------------------------------------
-    @overridemethod
     def _ItemToPythonImpl(
         self,
         value: Union[str, Uri],

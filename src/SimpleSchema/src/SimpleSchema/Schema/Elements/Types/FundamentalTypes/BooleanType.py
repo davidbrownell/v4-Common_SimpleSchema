@@ -18,8 +18,6 @@
 from dataclasses import dataclass
 from typing import ClassVar, Tuple, Type as PythonType
 
-from Common_Foundation.Types import overridemethod
-
 from ..FundamentalType import FundamentalType
 
 
@@ -31,10 +29,3 @@ class BooleanType(FundamentalType):
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "Boolean"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (bool, )
-
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _CloneImpl(self, *args, **kwargs) -> "BooleanType":
-        return BooleanType(*args, **kwargs)

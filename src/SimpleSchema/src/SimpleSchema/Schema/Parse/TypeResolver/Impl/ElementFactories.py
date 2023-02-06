@@ -196,16 +196,23 @@ class TypedefTypeFactory(_ElementFactory):
     ) -> TypedefType:
         statement = self.statement
 
+        resolved_type = self.active_namespace.ParseTypeToType(
+            statement.type,
+            statement.name.ToSimpleElement(),
+            ancestors,
+            fundamental_types,
+        )
+
+        metadata = statement.type.metadata
+
+        if metadata is not None and not metadata.items:
+            metadata = None
+
         return TypedefType(
             statement.range,
             Cardinality(statement.range, None, None, None),
-            None,
+            metadata,
             statement.name.visibility,
             statement.name.ToSimpleElement(),
-            self.active_namespace.ParseTypeToType(
-                statement.type,
-                statement.name.ToSimpleElement(),
-                ancestors,
-                fundamental_types,
-            ),
+            resolved_type,
         )

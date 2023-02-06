@@ -1,0 +1,267 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 15, Col 1>
+  statements:
+  - __type__: TypedefType
+    range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
+      value: Typedef
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
+          value: 1
+      min_length: 2
+  - __type__: TypedefType
+    range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 6>
+      value: Array
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 3, Col 8 -> Ln 3, Col 16>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
+        value: Typedef
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 3, Col 15 -> Ln 3, Col 16>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 3, Col 15 -> Ln 3, Col 16>
+          value: 1
+  - __type__: TypedefType
+    range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 14>
+      value: ArrayOfArrays
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 4, Col 16 -> Ln 4, Col 22>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 3, Col 1 -> Ln 3, Col 6>
+        value: Array
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 4, Col 21 -> Ln 4, Col 22>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 4, Col 21 -> Ln 4, Col 22>
+          value: 0
+  - __type__: TypedefType
+    range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 22>
+      value: ArrayOfArraysOfArrays
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 5, Col 24 -> Ln 5, Col 41>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 1 -> Ln 4, Col 14>
+        value: ArrayOfArrays
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 5, Col 37 -> Ln 5, Col 41>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 5, Col 38 -> Ln 5, Col 40>
+          value: 10
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 5, Col 38 -> Ln 5, Col 40>
+          value: 10
+  - __type__: TypedefType
+    range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 9>
+      value: Optional
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
+        value: Typedef
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 7, Col 18 -> Ln 7, Col 19>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 7, Col 18 -> Ln 7, Col 19>
+          value: 0
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 7, Col 18 -> Ln 7, Col 19>
+          value: 1
+  - __type__: TypedefType
+    range: entry_point <Ln 8, Col 1 -> Ln 13, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 8, Col 1 -> Ln 13, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 8, Col 1 -> Ln 13, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 8, Col 1 -> Ln 13, Col 1>
+        value: 1
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 8, Col 1 -> Ln 8, Col 10>
+      value: Optional2
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 7, Col 1 -> Ln 7, Col 9>
+        value: Optional
+  - __type__: TypedefType
+    range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
+        value: 1
+    metadata:
+      __type__: Metadata
+      range: entry_point <Ln 13, Col 30 -> Ln 13, Col 48>
+      items:
+      - __type__: MetadataItem
+        range: entry_point <Ln 13, Col 32 -> Ln 13, Col 46>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 13, Col 32 -> Ln 13, Col 42>
+          value: min_length
+        expression:
+          __type__: IntegerExpression
+          range: entry_point <Ln 13, Col 44 -> Ln 13, Col 46>
+          value: 10
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 13, Col 1 -> Ln 13, Col 22>
+      value: ContainerWithMetadata
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 3, Col 1 -> Ln 3, Col 6>
+        value: Array
+  - __type__: TypedefType
+    range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+        value: 1
+    metadata:
+      __type__: Metadata
+      range: entry_point <Ln 14, Col 50 -> Ln 14, Col 68>
+      items:
+      - __type__: MetadataItem
+        range: entry_point <Ln 14, Col 52 -> Ln 14, Col 66>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 14, Col 52 -> Ln 14, Col 62>
+          value: min_length
+        expression:
+          __type__: IntegerExpression
+          range: entry_point <Ln 14, Col 64 -> Ln 14, Col 66>
+          value: 10
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 14, Col 1 -> Ln 14, Col 34>
+      value: ContainerOfContainersWithMetadata
+    type:
+      __type__: TypedefType
+      range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+      reference:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 1 -> Ln 4, Col 14>
+        value: ArrayOfArrays

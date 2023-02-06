@@ -38,16 +38,16 @@ with ExitStack(lambda: sys.path.pop(0)):
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
+    cardinality = Cardinality.CreateFromCode()
     metadata_mock = Mock()
 
-    dt = DirectoryType(range_mock, cardinality_mock, metadata_mock)
+    dt = DirectoryType(range_mock, cardinality, metadata_mock)
 
     assert dt.NAME == "Directory"
     assert dt.SUPPORTED_PYTHON_TYPES == (Path, )
 
     assert dt.range is range_mock
-    assert dt.cardinality is cardinality_mock
+    assert dt.cardinality is cardinality
     assert dt.metadata is metadata_mock
 
     assert dt.ensure_exists is True
@@ -57,14 +57,6 @@ def test_Standard():
 def test_DisplayName():
     assert DirectoryType(Mock(), Cardinality.CreateFromCode(), None, ensure_exists=True).display_name == "Directory!"
     assert DirectoryType(Mock(), Cardinality.CreateFromCode(), None, ensure_exists=False).display_name == "Directory"
-
-
-# ----------------------------------------------------------------------
-@pytest.mark.parametrize("ensure_exists", [True, False])
-def test_Clone(ensure_exists):
-    dt = DirectoryType(Mock(), Mock(), Mock(), ensure_exists=ensure_exists)
-
-    assert dt.Clone() == dt
 
 
 # ----------------------------------------------------------------------
