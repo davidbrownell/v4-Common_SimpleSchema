@@ -4,6 +4,6 @@
         "**/Generated/*",
         "Tools/*",
 
-        "src/SimpleSchema/SimpleSchema/Schema/Parse/ANTLR/Grammar/GeneratedCode/*"
+        "src/SimpleSchema/src/SimpleSchema/Schema/Parse/ANTLR/Grammar/GeneratedCode/*"
     ]
 }

@@ -18,14 +18,13 @@
 # Note that this file will be invoked outside of an activated environment and cannot take a dependency
 # on anything in this repository or Common_Foundation.
 
-import os
 import subprocess
 import stat
 import sys
 import textwrap
 
 from pathlib import Path
-from typing import List, Optional, Set
+from typing import List
 
 
 # ----------------------------------------------------------------------
