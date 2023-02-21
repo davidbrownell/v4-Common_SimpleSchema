@@ -43,96 +43,151 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Expressions.NumberExpression import NumberExpression
     from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
 
-    from SimpleSchema.Schema.Elements.Types.VariantType import Type, VariantType
+    from SimpleSchema.Schema.Elements.Types.BasicType import BasicType
+    from SimpleSchema.Schema.Elements.Types.ReferenceType import ReferenceType
+    from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
     types_mock = [Mock(), Mock()]
 
-    v = VariantType(range_mock, cardinality_mock, metadata_mock, types_mock)  # type: ignore
+    v = VariantType(range_mock, types_mock)  # type: ignore
 
     assert v.range is range_mock
-    assert v.cardinality is cardinality_mock
-    assert v.metadata is metadata_mock
     assert v.types is types_mock
 
 
 # ----------------------------------------------------------------------
-def test_VariantCardinality():
-    child_type_mock1 = Mock()
-    child_type_mock1.cardinality = Cardinality.CreateFromCode()
-
-    child_type_mock2 = Mock()
-    child_type_mock2.cardinality = Cardinality.CreateFromCode()
-
-    VariantType(
-        Mock(),
-        Cardinality.CreateFromCode(0, 1),
-        None,
-        [child_type_mock1, child_type_mock2],
-    )
-
-
-# ----------------------------------------------------------------------
 def test_ElementCardinality():
-    child_type_mock1 = Mock()
-    child_type_mock1.cardinality = Cardinality.CreateFromCode(0, 1)
-
-    child_type_mock2 = Mock()
-    child_type_mock2.cardinality = Cardinality.CreateFromCode(5, 5)
-
     VariantType(
         Mock(),
-        Cardinality.CreateFromCode(),
-        None,
-        [child_type_mock1, child_type_mock2],
+        [
+            ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(0, 1), None),
+            ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(5, 5), None),
+        ],
     )
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
+def test_DisplayType():
     type1 = Mock()
-    type1.display_name = "Type1"
+    type1.display_type = "Type1"
 
     type2 = Mock()
-    type2.display_name = "Type2"
+    type2.display_type = "Type2[2]"
 
     type3 = Mock()
-    type3.display_name = "Type3"
+    type3.display_type = "Type3 {constraint}"
 
-    assert VariantType(
+    assert VariantType(Mock(),[type1, type2]).display_type == "(Type1 | Type2[2])"
+    assert VariantType(Mock(), [type1, type2, type3]).display_type == "(Type1 | Type2[2] | <Type3 {constraint}>)"
+
+
+# ----------------------------------------------------------------------
+def test_ReferenceTypeToPython():
+    rt = ReferenceType.Create(
+        Mock(),
+        Mock(),
+        Mock(),
+        VariantType(
+            Mock(),
+            [
+                ReferenceType.Create(
+                    Mock(),
+                    Mock(),
+                    Mock(),
+                    _SimpleStringType(Mock()),
+                    Cardinality.CreateFromCode(),
+                    None,
+                ),
+                ReferenceType.Create(
+                    Mock(),
+                    Mock(),
+                    Mock(),
+                    _SimpleIntegerType(Mock()),
+                    Cardinality.CreateFromCode(),
+                    None,
+                ),
+            ],
+        ),
+        Cardinality.CreateFromCode(2, 2),
+        None,
+    )
+
+    assert rt.ToPython(["foo", "bar"]) == ["foo", "bar"]
+    assert rt.ToPython([123, 456]) == [123, 456]
+
+
+# ----------------------------------------------------------------------
+def test_ReferenceTypeToPythonWithChildCardinality():
+    rt = ReferenceType(
+        Mock(),
+        VariantType(
+            Mock(),
+            [
+                ReferenceType(
+                    Mock(),
+                    _SimpleStringType(Mock()),
+                    Mock(),
+                    Mock(),
+                    Cardinality.CreateFromCode(2, 2),
+                    None,
+                    force_single_cardinality=False,
+                    was_dynamically_generated=False,
+                ),
+                ReferenceType(
+                    Mock(),
+                    _SimpleIntegerType(Mock()),
+                    Mock(),
+                    Mock(),
+                    Cardinality.CreateFromCode(2, 2),
+                    None,
+                    force_single_cardinality=False,
+                    was_dynamically_generated=False,
+                ),
+            ],
+        ),
+        Mock(),
         Mock(),
         Cardinality.CreateFromCode(3, 3),
         None,
-        [type1, type2],
-    ).display_name == "(Type1 | Type2)[3]"
+        force_single_cardinality=False,
+        was_dynamically_generated=False,
+    )
 
-    assert VariantType(
-        Mock(),
-        Cardinality.CreateFromCode(),
-        None,
-        [type1, type2, type3],
-    ).display_name == "(Type1 | Type2 | Type3)"
+    assert rt.ToPython(
+            [
+                ["foo", "bar"],
+                [1, 2],
+                [3, 4],
+            ],
+        ) == [
+            ["foo", "bar"],
+            [1, 2],
+            [3, 4],
+        ]
 
 
 # ----------------------------------------------------------------------
 def test_ValidateChildCardinalityPython():
     vt = VariantType(
         Mock(),
-        Cardinality.CreateFromCode(),
-        None,
         [
-            _SimpleStringType(
+            ReferenceType.Create(
                 Mock(),
+                Mock(),
+                Mock(),
+                _SimpleStringType(Mock()),
                 Cardinality.CreateFromCode(2, 2),
                 None,
             ),
-            _SimpleIntegerType(
+            ReferenceType.Create(
                 Mock(),
+                Mock(),
+                Mock(),
+                _SimpleIntegerType(Mock()),
                 Cardinality.CreateFromCode(0, 1),
                 None,
             ),
@@ -145,75 +200,23 @@ def test_ValidateChildCardinalityPython():
 
 
 # ----------------------------------------------------------------------
-def test_ValidateParentCardinalityPython():
-    vt = VariantType(
-        Mock(),
-        Cardinality.CreateFromCode(2, 2),
-        None,
-        [
-            _SimpleStringType(
-                Mock(),
-                Cardinality.CreateFromCode(),
-                None,
-            ),
-            _SimpleIntegerType(
-                Mock(),
-                Cardinality.CreateFromCode(),
-                None,
-            ),
-        ],
-    )
-
-    assert vt.ToPython(["one", "two"]) == ["one", "two"]
-    assert vt.ToPython([10, 20]) == [10, 20]
-    assert vt.ToPython(["one", 20]) == ["one", 20]
-
-
-# ----------------------------------------------------------------------
-def test_ValidateExpressionParentCardinality():
-    vt = VariantType(
-        Mock(),
-        Cardinality.CreateFromCode(2, 2),
-        None,
-        [
-            _SimpleStringType(
-                Mock(),
-                Cardinality.CreateFromCode(),
-                None,
-            ),
-            _SimpleIntegerType(
-                Mock(),
-                Cardinality.CreateFromCode(),
-                None,
-            ),
-        ],
-    )
-
-    assert vt.ToPython(
-        ListExpression(
-            Mock(),
-            [
-                StringExpression(Mock(), "one"),
-                StringExpression(Mock(), "two"),
-            ],
-        ),
-    ) == ["one", "two"]
-
-
-# ----------------------------------------------------------------------
 def test_ValidateExpressionChildCardinality():
     vt = VariantType(
         Mock(),
-        Cardinality.CreateFromCode(),
-        None,
         [
-            _SimpleStringType(
+            ReferenceType.Create(
                 Mock(),
+                Mock(),
+                Mock(),
+                _SimpleStringType(Mock()),
                 Cardinality.CreateFromCode(2, 2),
                 None,
             ),
-            _SimpleIntegerType(
+            ReferenceType.Create(
                 Mock(),
+                Mock(),
+                Mock(),
+                _SimpleIntegerType(Mock()),
                 Cardinality.CreateFromCode(3, 3),
                 None,
             ),
@@ -243,6 +246,41 @@ def test_ValidateExpressionChildCardinality():
 
 
 # ----------------------------------------------------------------------
+def test_ToPythonSubtleCardinality():
+    rt = ReferenceType.Create(
+        Mock(),
+        Mock(),
+        Mock(),
+        VariantType(
+            Mock(),
+            [
+                ReferenceType.Create(
+                    Mock(),
+                    Mock(),
+                    Mock(),
+                    _SimpleIntegerType(Mock()),
+                    Cardinality.CreateFromCode(),
+                    None,
+                ),
+                ReferenceType.Create(
+                    Mock(),
+                    Mock(),
+                    Mock(),
+                    _SimpleStringType(Mock()),
+                    Cardinality.CreateFromCode(3, 3),
+                    None,
+                ),
+            ],
+        ),
+        Cardinality.CreateFromCode(),
+        None,
+    )
+
+    assert rt.ToPython(["foo", "bar", "baz"],) == ["foo", "bar", "baz", ]
+    assert rt.ToPython(123) == 123
+
+
+# ----------------------------------------------------------------------
 def test_ErrorNotEnoughTypes():
     with pytest.raises(
         SimpleSchemaException,
@@ -250,8 +288,6 @@ def test_ErrorNotEnoughTypes():
     ):
         VariantType(
             Range.Create(Path("bad variant"), 10, 11, 12, 13),
-            Mock(),
-            None,
             [Mock(), ],
         )
 
@@ -264,14 +300,10 @@ def test_ErrorNested():
     ):
         VariantType(
             Mock(),
-            Mock(),
-            None,
             [
                 Mock(),
                 VariantType(
                     Range.Create(Path("the bad file"), 100, 200, 300, 400),
-                    Mock(),
-                    None,
                     [Mock(), Mock(), ],
                 ),
                 Mock(),
@@ -280,44 +312,16 @@ def test_ErrorNested():
 
 
 # ----------------------------------------------------------------------
-def test_ErrorElementCardinality():
-    with pytest.raises(
-        SimpleSchemaException,
-        match=re.escape("Types nested within a variant cannot specify cardinality when the variant specifies cardinality as well; either remove cardinality values from all nested items or remove the cardinality from the variant itself. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
-    ):
-        element1_mock = Mock()
-        element1_mock.cardinality = Cardinality.CreateFromCode()
-
-        element2_mock = Mock()
-        element2_mock.cardinality = Cardinality.CreateFromCode(2, 2)
-
-        object.__setattr__(
-            element2_mock.cardinality,
-            "range",
-            Range.Create(Path("filename"), 100, 200, 300, 400),
-        )
-
-        VariantType(
-            Mock(),
-            Cardinality.CreateFromCode(0, 1),
-            None,
-            [element1_mock, element2_mock, ],
-        )
-
-
-# ----------------------------------------------------------------------
 def test_ErrorNoMatchesPython():
     with pytest.raises(
         Exception,
-        match=re.escape("The python 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)"),
+        match=re.escape("A 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)"),
     ):
         VariantType(
             Mock(),
-            Cardinality.CreateFromCode(),
-            None,
             [
-                _SimpleStringType(Mock(), Cardinality.CreateFromCode(), None),
-                _SimpleIntegerType(Mock(), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(3.14)
 
@@ -326,15 +330,13 @@ def test_ErrorNoMatchesPython():
 def test_ErrorNoMatchesExpression():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("The python 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)'. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
+        match=re.escape("A 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)'. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
     ):
         VariantType(
             Mock(),
-            Cardinality.CreateFromCode(),
-            None,
             [
-                _SimpleStringType(Mock(), Cardinality.CreateFromCode(), None),
-                _SimpleIntegerType(Mock(), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(
             NumberExpression(
@@ -348,15 +350,13 @@ def test_ErrorNoMatchesExpression():
 def test_ErrorNoMatchesExpressionChildCardinality():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("The expression 'List' does not produce a value that corresponds to any types within '(SimpleString[2] | SimpleInteger)'. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
+        match=re.escape("A 'list' value does not correspond to any types within '(SimpleString[2] | SimpleInteger)'. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
     ):
         VariantType(
             Mock(),
-            Cardinality.CreateFromCode(),
-            None,
             [
-                _SimpleStringType(Mock(), Cardinality.CreateFromCode(2, 2), None),
-                _SimpleIntegerType(Mock(), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(2, 2), None),
+                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(
             ListExpression(
@@ -372,7 +372,7 @@ def test_ErrorNoMatchesExpressionChildCardinality():
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class _SimpleStringType(Type):
+class _SimpleStringType(BasicType):
     NAME: ClassVar[str]                                                     = "SimpleString"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                 = (str, )
 
@@ -380,7 +380,7 @@ class _SimpleStringType(Type):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: str,
     ) -> str:
@@ -392,7 +392,7 @@ class _SimpleStringType(Type):
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class _SimpleIntegerType(Type):
+class _SimpleIntegerType(BasicType):
     NAME: ClassVar[str]                                                     = "SimpleInteger"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                 = (int, )
 
@@ -400,7 +400,7 @@ class _SimpleIntegerType(Type):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: int,
     ) -> int:

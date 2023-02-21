@@ -23,7 +23,6 @@ from Common_Foundation.Types import overridemethod
 from Common_FoundationEx.InflectEx import inflect
 
 from .Element import Element
-from .Metadata import Metadata
 
 from ..Expressions.Expression import Expression
 from ..Expressions.IntegerExpression import IntegerExpression
@@ -167,6 +166,7 @@ class Cardinality(Element):
             try:
                 Impl(expression_or_value.value)
                 return
+
             except Exception as ex:
                 raise SimpleSchemaException(expression_or_value.range, str(ex)) from ex
 

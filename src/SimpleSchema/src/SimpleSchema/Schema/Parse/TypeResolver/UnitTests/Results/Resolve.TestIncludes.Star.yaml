@@ -13,12 +13,12 @@ entry_point:
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 4>
       value: bar
     type:
-      __type__: StructureType
+      __type__: ReferenceType
       range: entry_point <Ln 3, Col 6 -> Ln 3, Col 9>
+      display_type: _Bar-Ln1
       reference:
-        __type__: SimpleElement
-        range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
-        value: Bar
+        name: Bar
+        range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ItemStatement
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
     visibility:
@@ -30,18 +30,71 @@ entry_point:
       range: entry_point <Ln 4, Col 1 -> Ln 4, Col 4>
       value: baz
     type:
-      __type__: StructureType
+      __type__: ReferenceType
       range: entry_point <Ln 4, Col 6 -> Ln 4, Col 9>
+      display_type: _Baz-Ln4
       reference:
-        __type__: SimpleElement
-        range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 4, Col 4>
-        value: Baz
+        name: Baz
+        range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
 Foo.SimpleSchema:
 - __type__: RootStatement
   range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 6, Col 1>
   statements:
-  - __type__: StructureStatement
+  - __type__: ReferenceType
     range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+    display_type: _Bar-Ln1
+    type:
+      __type__: StructureType
+      range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+      structure:
+        __type__: StructureStatement
+        range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+        visibility:
+          __type__: SimpleElement
+          range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+          value: Visibility.Private
+        name:
+          __type__: SimpleElement
+          range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+          value: _Bar-Ln1
+        children:
+        - __type__: ItemStatement
+          range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
+          visibility:
+            __type__: SimpleElement
+            range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 2, Col 10>
+            value: Visibility.Public
+          name:
+            __type__: SimpleElement
+            range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 2, Col 10>
+            value: value
+          type:
+            __type__: ReferenceType
+            range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+            display_type: String
+            type:
+              __type__: StringType
+              range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+              min_length: 1
+            visibility:
+              __type__: SimpleElement
+              range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
+              value: Visibility.Private
+            name:
+              __type__: SimpleElement
+              range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
+              value: _ItemStatement-Ln2
+            cardinality:
+              __type__: Cardinality
+              range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+              min:
+                __type__: IntegerExpression
+                range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+                value: 1
+              max:
+                __type__: IntegerExpression
+                range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+                value: 1
     visibility:
       __type__: SimpleElement
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -50,34 +103,71 @@ Foo.SimpleSchema:
       __type__: SimpleElement
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
       value: Bar
-    children:
-    - __type__: ItemStatement
-      range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
-      visibility:
-        __type__: SimpleElement
-        range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 2, Col 10>
-        value: Visibility.Public
-      name:
-        __type__: SimpleElement
-        range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 2, Col 10>
-        value: value
-      type:
-        __type__: StringType
-        range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
-        cardinality:
-          __type__: Cardinality
-          range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
-          min:
-            __type__: IntegerExpression
-            range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
-            value: 1
-          max:
-            __type__: IntegerExpression
-            range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
-            value: 1
-        min_length: 1
-  - __type__: StructureStatement
+    cardinality:
+      __type__: Cardinality
+      range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: 1
+  - __type__: ReferenceType
     range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+    display_type: _Baz-Ln4
+    type:
+      __type__: StructureType
+      range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+      structure:
+        __type__: StructureStatement
+        range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+        visibility:
+          __type__: SimpleElement
+          range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+          value: Visibility.Private
+        name:
+          __type__: SimpleElement
+          range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+          value: _Baz-Ln4
+        children:
+        - __type__: ItemStatement
+          range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
+          visibility:
+            __type__: SimpleElement
+            range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 5, Col 10>
+            value: Visibility.Public
+          name:
+            __type__: SimpleElement
+            range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 5, Col 10>
+            value: value
+          type:
+            __type__: ReferenceType
+            range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+            display_type: Number
+            type:
+              __type__: NumberType
+              range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+            visibility:
+              __type__: SimpleElement
+              range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
+              value: Visibility.Private
+            name:
+              __type__: SimpleElement
+              range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
+              value: _ItemStatement-Ln5
+            cardinality:
+              __type__: Cardinality
+              range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+              min:
+                __type__: IntegerExpression
+                range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+                value: 1
+              max:
+                __type__: IntegerExpression
+                range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+                value: 1
     visibility:
       __type__: SimpleElement
       range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 4, Col 4>
@@ -86,28 +176,14 @@ Foo.SimpleSchema:
       __type__: SimpleElement
       range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 4, Col 4>
       value: Baz
-    children:
-    - __type__: ItemStatement
-      range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
-      visibility:
-        __type__: SimpleElement
-        range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 5, Col 10>
-        value: Visibility.Public
-      name:
-        __type__: SimpleElement
-        range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 5, Col 10>
-        value: value
-      type:
-        __type__: NumberType
-        range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
-        cardinality:
-          __type__: Cardinality
-          range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
-          min:
-            __type__: IntegerExpression
-            range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
-            value: 1
-          max:
-            __type__: IntegerExpression
-            range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
-            value: 1
+    cardinality:
+      __type__: Cardinality
+      range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+        value: 1

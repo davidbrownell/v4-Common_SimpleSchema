@@ -23,8 +23,8 @@ from Common_Foundation.Types import overridemethod
 
 from Common_FoundationEx import ExecuteTasks
 
-from .Impl.ElementFactories import StructureStatementFactory, TypedefTypeFactory
 from .Impl.Namespace import Namespace
+from .Impl.TypeFactories import ReferenceTypeFactory, StructureTypeFactory
 
 from ..ANTLR.Elements.Common.ParseIdentifier import ParseIdentifier
 from ..ANTLR.Elements.Statements.ParseIncludeStatement import ParseIncludeStatement
@@ -35,7 +35,6 @@ from ..ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 from ..Visitor import Visitor, VisitResult
 
 from ...Elements.Common.Cardinality import Cardinality
-from ...Elements.Common.Element import Element
 from ...Elements.Common.Visibility import Visibility
 
 from ...Elements.Statements.RootStatement import RootStatement
@@ -135,20 +134,10 @@ def Resolve(
 
     # Finalize types
     with dm.VerboseNested("Finalizing types...") as verbose_dm:
-        # ----------------------------------------------------------------------
-        def FinalizeType(
-            root_namespace: Namespace,
-        ) -> None:
-            root_namespace.Finalize()
-
-            root_namespace.statement.Accept(_FinalizeVisitor())
-
-        # ----------------------------------------------------------------------
-
         results = _ExecuteInParallel(
             verbose_dm,
             namespaces,
-            FinalizeType,
+            lambda root_namespace: root_namespace.Finalize(),
             quiet=quiet,
             max_num_threads=max_num_threads,
             raise_if_single_exception=raise_if_single_exception,
@@ -176,8 +165,6 @@ class _CreateNamespacesVisitor(Visitor):
 
         self._namespace_stack: list[Namespace]          = [root_namespace, ]
 
-        self._pseudo_type_ctr: int                      = 0
-
     # ----------------------------------------------------------------------
     @overridemethod
     @contextmanager
@@ -203,7 +190,7 @@ class _CreateNamespacesVisitor(Visitor):
         if element.name.is_type:
             self._namespace_stack[-1].AddNestedItem(
                 element.name.ToSimpleElement(),
-                TypedefTypeFactory(element, self._namespace_stack[-1]),
+                ReferenceTypeFactory(element, self._namespace_stack[-1]),
             )
 
         elif element.name.is_expression:
@@ -224,14 +211,13 @@ class _CreateNamespacesVisitor(Visitor):
                 raise Errors.ResolveStructureStatementEmptyPseudoElement.Create(element.range)
 
             # Create a pseudo element for this Typedef
-            unique_type_name = "_PseudoType{}".format(self._pseudo_type_ctr)
-            self._pseudo_type_ctr += 1
+            unique_type_name = "_PseudoType-Ln{}".format(element.range.begin.line)
 
             new_structure = ParseStructureStatement(
                 element.range,
                 ParseIdentifier(element.range, unique_type_name),
                 element.bases,
-                Cardinality(element.range, None, None),
+                element.cardinality,
                 element.metadata,
                 element.children,
             )
@@ -241,7 +227,7 @@ class _CreateNamespacesVisitor(Visitor):
                 element.name,
                 ParseIdentifierType(
                     element.range,
-                    element.cardinality,
+                    Cardinality(element.range, None, None),
                     None,
                     [
                         ParseIdentifier(element.range, unique_type_name),
@@ -269,7 +255,7 @@ class _CreateNamespacesVisitor(Visitor):
             element.name.visibility.value,
             element.name.value,
             element,
-            StructureStatementFactory(element, self._namespace_stack[-1]),
+            StructureTypeFactory(element, self._namespace_stack[-1]),
         )
 
         self._namespace_stack[-1].AddNestedItem(
@@ -280,51 +266,6 @@ class _CreateNamespacesVisitor(Visitor):
         self._namespace_stack.append(namespace)
         with ExitStack(self._namespace_stack.pop):
             yield
-
-
-# ----------------------------------------------------------------------
-class _FinalizeVisitor(Visitor):
-    # ----------------------------------------------------------------------
-    def __init__(self):
-        super(_FinalizeVisitor, self).__init__()
-
-        self._elements: list[Element]       = []
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnElement(
-        self,
-        element: Element,
-    ) -> Iterator[Optional[VisitResult]]:
-        if self._elements:
-            element.SetParent(self._elements[-1])
-
-        self._elements.append(element)
-        with ExitStack(self._elements.pop):
-            yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnElementDetailsItem(
-        self,
-        name: str,
-        element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType,
-    ) -> Iterator[Optional[VisitResult]]:
-        if (
-            (
-                isinstance(element_or_elements, list)
-                and element_or_elements
-                and callable(element_or_elements[0])
-            )
-            or (not isinstance(element_or_elements, list) and callable(element_or_elements))
-        ):
-            # We are looking at types; don't follow
-            yield VisitResult.SkipAll
-            return
-
-        yield
 
 
 # ----------------------------------------------------------------------

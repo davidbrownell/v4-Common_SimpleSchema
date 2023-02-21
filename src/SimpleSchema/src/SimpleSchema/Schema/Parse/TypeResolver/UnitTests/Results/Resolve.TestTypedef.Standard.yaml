@@ -1,197 +1,151 @@
 - __type__: RootStatement
   range: entry_point <Ln 1, Col 1 -> Ln 15, Col 1>
   statements:
-  - __type__: TypedefType
+  - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-        value: 1
+    display_type: String {>= 4 characters}
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
+      min_length: 4
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
+      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
       value: Typedef1
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
+        value: 1
+  - __type__: ReferenceType
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    display_type: String {>= 4 characters}
+    reference:
+      name: Typedef1
+      range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+  - __type__: ReferenceType
+    range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+    display_type: String {>= 4 characters}
+    reference:
+      name: Typedef2
+      range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+  - __type__: ReferenceType
+    range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
+    display_type: String {>= 4 characters, <= 10 characters}
     type:
       __type__: StringType
-      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
-          value: 1
+      range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
       min_length: 4
-  - __type__: TypedefType
-    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-        value: 1
-    name:
+      max_length: 10
+    visibility:
       __type__: SimpleElement
-      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 9>
-      value: Typedef2
-    type:
-      __type__: TypedefType
-      range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-      reference:
-        __type__: SimpleElement
-        range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
-        value: Typedef1
-  - __type__: TypedefType
-    range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-        value: 1
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 9>
-      value: Typedef3
-    type:
-      __type__: TypedefType
-      range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-      reference:
-        __type__: SimpleElement
-        range: entry_point <Ln 2, Col 1 -> Ln 2, Col 9>
-        value: Typedef2
-  - __type__: TypedefType
-    range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-        value: 1
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
+      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
       value: AddMax1
-    type:
-      __type__: StringType
-      range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
-          value: 1
-      min_length: 4
-      max_length: 10
-  - __type__: TypedefType
-    range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
+      range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
+        range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
         value: 1
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
+        range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
         value: 1
+  - __type__: ReferenceType
+    range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
+    display_type: String {>= 4 characters, <= 11 characters}
+    type:
+      __type__: StringType
+      range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
+      min_length: 4
+      max_length: 11
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 6, Col 1 -> Ln 6, Col 8>
+      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 6, Col 1 -> Ln 6, Col 8>
       value: AddMax2
-    type:
-      __type__: StringType
-      range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
-          value: 1
-      min_length: 4
-      max_length: 11
-  - __type__: TypedefType
-    range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+      range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+        range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
         value: 1
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+        range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
         value: 1
+  - __type__: ReferenceType
+    range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+    display_type: String {>= 4 characters, <= 12 characters}
+    type:
+      __type__: StringType
+      range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
+      min_length: 4
+      max_length: 12
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 8>
+      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 7, Col 1 -> Ln 7, Col 8>
       value: AddMax3
-    type:
-      __type__: StringType
-      range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
-          value: 1
-      min_length: 4
-      max_length: 12
-  - __type__: TypedefType
-    range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+      range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+        range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
         value: 1
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+        range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
+        value: 1
+  - __type__: ReferenceType
+    range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+    display_type: String {>= 4 characters, <= 10 characters}
+    type:
+      __type__: StringType
+      range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
+      min_length: 4
+      max_length: 10
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 20>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 20>
+      value: AddMaxWithMetadata1
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
         value: 1
     metadata:
       __type__: Metadata
@@ -207,38 +161,32 @@
           __type__: IntegerExpression
           range: entry_point <Ln 9, Col 58 -> Ln 9, Col 60>
           value: 20
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 20>
-      value: AddMaxWithMetadata1
+  - __type__: ReferenceType
+    range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+    display_type: String {>= 4 characters, <= 11 characters}
     type:
       __type__: StringType
-      range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
-          value: 1
+      range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
       min_length: 4
-      max_length: 10
-  - __type__: TypedefType
-    range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+      max_length: 11
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 20>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 20>
+      value: AddMaxWithMetadata2
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+      range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+        range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
         value: 1
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+        range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
         value: 1
     metadata:
       __type__: Metadata
@@ -254,38 +202,32 @@
           __type__: IntegerExpression
           range: entry_point <Ln 10, Col 58 -> Ln 10, Col 60>
           value: 21
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 20>
-      value: AddMaxWithMetadata2
+  - __type__: ReferenceType
+    range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
+    display_type: String {>= 4 characters, <= 12 characters}
     type:
       __type__: StringType
-      range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
-          value: 1
+      range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
       min_length: 4
-      max_length: 11
-  - __type__: TypedefType
-    range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
+      max_length: 12
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 20>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 20>
+      value: AddMaxWithMetadata3
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
+      range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
+        range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
         value: 1
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
+        range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
         value: 1
     metadata:
       __type__: Metadata
@@ -301,72 +243,61 @@
           __type__: IntegerExpression
           range: entry_point <Ln 11, Col 58 -> Ln 11, Col 60>
           value: 22
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 20>
-      value: AddMaxWithMetadata3
+  - __type__: ReferenceType
+    range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
+    display_type: String {>= 4 characters, <= 10 characters, 'foo'}
     type:
       __type__: StringType
-      range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
-          value: 1
+      range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
       min_length: 4
-      max_length: 12
-  - __type__: TypedefType
-    range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
-        value: 1
+      max_length: 10
+      validation_expression: foo
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 13, Col 1 -> Ln 13, Col 14>
+      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 13, Col 1 -> Ln 13, Col 14>
       value: AddValidation
-    type:
-      __type__: StringType
-      range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
-          value: 1
-      min_length: 4
-      max_length: 10
-      validation_expression: foo
-  - __type__: TypedefType
-    range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+      range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+        range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
         value: 1
       max:
         __type__: IntegerExpression
-        range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+        range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
+        value: 1
+  - __type__: ReferenceType
+    range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+    display_type: String {>= 4 characters, <= 10 characters, 'bar'}
+    type:
+      __type__: StringType
+      range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
+      min_length: 4
+      max_length: 10
+      validation_expression: bar
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 14, Col 1 -> Ln 14, Col 26>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 14, Col 1 -> Ln 14, Col 26>
+      value: AddValidationWithMetadata
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
         value: 1
     metadata:
       __type__: Metadata
@@ -382,24 +313,3 @@
           __type__: IntegerExpression
           range: entry_point <Ln 14, Col 90 -> Ln 14, Col 93>
           value: 200
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 14, Col 1 -> Ln 14, Col 26>
-      value: AddValidationWithMetadata
-    type:
-      __type__: StringType
-      range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
-          value: 1
-      min_length: 4
-      max_length: 10
-      validation_expression: bar

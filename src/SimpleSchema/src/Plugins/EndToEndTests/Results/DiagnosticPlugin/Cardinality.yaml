@@ -1,0 +1,410 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 39, Col 1)
+  statements:
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
+    dotted_name: Cardinality
+    display_type: _Cardinality-Ln19
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
+        visibility: Visibility.Private
+        name: _Cardinality-Ln19
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 20, Col 5 -> Ln 22, Col 5)
+          visibility: Visibility.Public
+          name: standard
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 20, Col 15 -> Ln 20, Col 21)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln20
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 20, Col 15 -> Ln 20, Col 21)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln20
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 5)
+          visibility: Visibility.Public
+          name: zero_or_more
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 22, Col 19 -> Ln 22, Col 26)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln22
+            display_type: String*
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 22, Col 19 -> Ln 22, Col 26)
+              dotted_name: _Cardinality-Ln19.__ItemStatement-Ln22_Item-Ln22
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 22, Col 19 -> Ln 22, Col 26)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln22_Item-Ln22
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln22
+            cardinality: '*'
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 23, Col 5 -> Ln 24, Col 5)
+          visibility: Visibility.Public
+          name: one_or_more
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 25)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln23
+            display_type: String+
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 25)
+              dotted_name: _Cardinality-Ln19.__ItemStatement-Ln23_Item-Ln23
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 25)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln23_Item-Ln23
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln23
+            cardinality: +
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 24, Col 5 -> Ln 25, Col 5)
+          visibility: Visibility.Public
+          name: constrained
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 24, Col 18 -> Ln 24, Col 31)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln24
+            display_type: String[3, 10]
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 24, Col 18 -> Ln 24, Col 31)
+              dotted_name: _Cardinality-Ln19.__ItemStatement-Ln24_Item-Ln24
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 24, Col 18 -> Ln 24, Col 31)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln24_Item-Ln24
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln24
+            cardinality: '[3, 10]'
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 25, Col 5 -> Ln 27, Col 5)
+          visibility: Visibility.Public
+          name: fixed
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 25, Col 12 -> Ln 25, Col 24)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln25
+            display_type: String[3]
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 25, Col 12 -> Ln 25, Col 24)
+              dotted_name: _Cardinality-Ln19.__ItemStatement-Ln25_Item-Ln25
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 25, Col 12 -> Ln 25, Col 24)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln25_Item-Ln25
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln25
+            cardinality: '[3]'
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 27, Col 5 -> Ln 28, Col 5)
+          visibility: Visibility.Public
+          name: optional
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 27, Col 15 -> Ln 27, Col 22)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln27
+            display_type: String?
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 27, Col 15 -> Ln 27, Col 22)
+              dotted_name: _Cardinality-Ln19.__ItemStatement-Ln27_Item-Ln27
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 27, Col 15 -> Ln 27, Col 22)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln27_Item-Ln27
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln27
+            cardinality: '?'
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 28, Col 5 -> Ln 29, Col 1)
+          visibility: Visibility.Public
+          name: optional_with_default
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 28, Col 28 -> Ln 28, Col 54)
+            dotted_name: _Cardinality-Ln19._ItemStatement-Ln28
+            display_type: String?
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            resolved_metadata:
+              default:
+                range: Cardinality.SimpleSchema (Ln 28, Col 47 -> Ln 28, Col 52)
+                value: foo
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 28, Col 28 -> Ln 28, Col 54)
+              dotted_name: _Cardinality-Ln19.__ItemStatement-Ln28_Item-Ln28
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 28, Col 28 -> Ln 28, Col 54)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln28_Item-Ln28
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln28
+            cardinality: '?'
+            metadata:
+              __type__: Metadata
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 28, Col 36 -> Ln 28, Col 54)
+              items:
+              - __type__: MetadataItem
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 28, Col 38 -> Ln 28, Col 52)
+                name: default
+                expression:
+                  __type__: StringExpression
+                  __disabled__: false
+                  range: Cardinality.SimpleSchema (Ln 28, Col 47 -> Ln 28, Col 52)
+                  value: foo
+    visibility: Visibility.Public
+    name: Cardinality
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Cardinality.SimpleSchema (Ln 30, Col 1 -> Ln 34, Col 1)
+    visibility: Visibility.Public
+    name: cardinality
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Cardinality.SimpleSchema (Ln 30, Col 14 -> Ln 30, Col 26)
+      dotted_name: _ItemStatement-Ln30
+      display_type: _Cardinality-Ln19?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln30
+      cardinality: '?'
+      reference:
+        dotted_name: Cardinality
+        range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
+    dotted_name: OptionalObject
+    display_type: _OptionalObject-Ln34?
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    - StructureCollectionRef
+    - DefinedInline
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
+      dotted_name: _OptionalObject_Item-Ln34
+      display_type: _OptionalObject-Ln34
+      flags:
+      - Type
+      - BasicRef
+      - StructureRef
+      - DynamicallyGenerated
+      - DefinedInline
+      type:
+        __type__: StructureType
+        __disabled__: false
+        range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
+        structure:
+          __type__: StructureStatement
+          __disabled__: false
+          range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
+          visibility: Visibility.Private
+          name: _OptionalObject-Ln34
+          children:
+          - __type__: ItemStatement
+            __disabled__: false
+            range: Cardinality.SimpleSchema (Ln 35, Col 5 -> Ln 35, Col 18)
+            visibility: Visibility.Public
+            name: value
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Cardinality.SimpleSchema (Ln 35, Col 12 -> Ln 35, Col 18)
+              dotted_name: _OptionalObject-Ln34._ItemStatement-Ln35
+              display_type: String
+              flags:
+              - Alias
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Cardinality.SimpleSchema (Ln 35, Col 12 -> Ln 35, Col 18)
+                min_length: 1
+              visibility: Visibility.Private
+              name: _ItemStatement-Ln35
+              cardinality: <single>
+      visibility: Visibility.Private
+      name: _OptionalObject_Item-Ln34
+      cardinality: <single>
+    visibility: Visibility.Public
+    name: OptionalObject
+    cardinality: '?'
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Cardinality.SimpleSchema (Ln 38, Col 1 -> Ln 39, Col 1)
+    visibility: Visibility.Public
+    name: optional_object
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Cardinality.SimpleSchema (Ln 38, Col 18 -> Ln 38, Col 32)
+      dotted_name: _ItemStatement-Ln38
+      display_type: _OptionalObject-Ln34?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln38
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObject
+        range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)

@@ -1,0 +1,1350 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 145, Col 1)
+  statements:
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
+    dotted_name: Str
+    display_type: String
+    flags:
+    - Alias
+    - BasicRef
+    - DefinedInline
+    type:
+      __type__: StringType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 21, Col 6 -> Ln 21, Col 12)
+      min_length: 1
+    visibility: Visibility.Public
+    name: Str
+    cardinality: <single>
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
+    dotted_name: StrAlias
+    display_type: String
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: StrAlias
+    cardinality: <single>
+    reference:
+      dotted_name: Str
+      range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 24, Col 1 -> Ln 25, Col 1)
+    dotted_name: Strs
+    display_type: String+
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: Strs
+    cardinality: +
+    reference:
+      dotted_name: Str
+      range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 25, Col 1 -> Ln 27, Col 1)
+    dotted_name: StrAliases
+    display_type: String+
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: StrAliases
+    cardinality: +
+    reference:
+      dotted_name: StrAlias
+      range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 27, Col 1 -> Ln 28, Col 1)
+    dotted_name: StrsItem
+    display_type: String
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: StrsItem
+    cardinality: <single>
+    reference:
+      dotted_name: Str
+      range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 28, Col 1 -> Ln 31, Col 1)
+    dotted_name: StrAliasesItem
+    display_type: String
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: StrAliasesItem
+    cardinality: <single>
+    reference:
+      dotted_name: StrAlias
+      range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 31, Col 1 -> Ln 32, Col 1)
+    visibility: Visibility.Public
+    name: str
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 31, Col 6 -> Ln 31, Col 9)
+      dotted_name: _ItemStatement-Ln31
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln31
+      cardinality: <single>
+      reference:
+        dotted_name: Str
+        range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 32, Col 1 -> Ln 34, Col 1)
+    visibility: Visibility.Public
+    name: str_alias
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 32, Col 12 -> Ln 32, Col 20)
+      dotted_name: _ItemStatement-Ln32
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln32
+      cardinality: <single>
+      reference:
+        dotted_name: StrAlias
+        range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 34, Col 1 -> Ln 35, Col 1)
+    visibility: Visibility.Public
+    name: strs
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 34, Col 7 -> Ln 34, Col 11)
+      dotted_name: _ItemStatement-Ln34
+      display_type: String+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln34
+      cardinality: <single>
+      reference:
+        dotted_name: Strs
+        range: Typedefs.SimpleSchema (Ln 24, Col 1 -> Ln 25, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 35, Col 1 -> Ln 37, Col 1)
+    visibility: Visibility.Public
+    name: str_aliases
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 35, Col 14 -> Ln 35, Col 24)
+      dotted_name: _ItemStatement-Ln35
+      display_type: String+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln35
+      cardinality: <single>
+      reference:
+        dotted_name: StrAliases
+        range: Typedefs.SimpleSchema (Ln 25, Col 1 -> Ln 27, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 37, Col 1 -> Ln 38, Col 1)
+    visibility: Visibility.Public
+    name: strs_item
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 37, Col 12 -> Ln 37, Col 20)
+      dotted_name: _ItemStatement-Ln37
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln37
+      cardinality: <single>
+      reference:
+        dotted_name: StrsItem
+        range: Typedefs.SimpleSchema (Ln 27, Col 1 -> Ln 28, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 38, Col 1 -> Ln 40, Col 1)
+    visibility: Visibility.Public
+    name: str_aliases_item
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 38, Col 19 -> Ln 38, Col 33)
+      dotted_name: _ItemStatement-Ln38
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln38
+      cardinality: <single>
+      reference:
+        dotted_name: StrAliasesItem
+        range: Typedefs.SimpleSchema (Ln 28, Col 1 -> Ln 31, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 40, Col 1 -> Ln 41, Col 1)
+    visibility: Visibility.Public
+    name: strs_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 40, Col 17 -> Ln 40, Col 22)
+      dotted_name: _ItemStatement-Ln40
+      display_type: String+*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln40
+      cardinality: '*'
+      reference:
+        dotted_name: Strs
+        range: Typedefs.SimpleSchema (Ln 24, Col 1 -> Ln 25, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 41, Col 1 -> Ln 43, Col 1)
+    visibility: Visibility.Public
+    name: str_aliases_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 41, Col 24 -> Ln 41, Col 35)
+      dotted_name: _ItemStatement-Ln41
+      display_type: String+*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln41
+      cardinality: '*'
+      reference:
+        dotted_name: StrAliases
+        range: Typedefs.SimpleSchema (Ln 25, Col 1 -> Ln 27, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 43, Col 1 -> Ln 44, Col 1)
+    visibility: Visibility.Public
+    name: strs_item_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 43, Col 22 -> Ln 43, Col 33)
+      dotted_name: _ItemStatement-Ln43
+      display_type: String[3]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln43
+      cardinality: '[3]'
+      reference:
+        dotted_name: StrsItem
+        range: Typedefs.SimpleSchema (Ln 27, Col 1 -> Ln 28, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 44, Col 1 -> Ln 50, Col 1)
+    visibility: Visibility.Public
+    name: str_aliases_item_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 44, Col 29 -> Ln 44, Col 46)
+      dotted_name: _ItemStatement-Ln44
+      display_type: String[3]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln44
+      cardinality: '[3]'
+      reference:
+        dotted_name: StrAliasesItem
+        range: Typedefs.SimpleSchema (Ln 28, Col 1 -> Ln 31, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+    dotted_name: Object
+    display_type: _Object-Ln50
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+        visibility: Visibility.Private
+        name: _Object-Ln50
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Typedefs.SimpleSchema (Ln 51, Col 5 -> Ln 52, Col 1)
+          visibility: Visibility.Public
+          name: value
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Typedefs.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 18)
+            dotted_name: _Object-Ln50._ItemStatement-Ln51
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: Typedefs.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 18)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln51
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: Object
+    cardinality: <single>
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
+    dotted_name: ObjectAlias
+    display_type: _Object-Ln50
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: ObjectAlias
+    cardinality: <single>
+    reference:
+      dotted_name: Object
+      range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 55, Col 1 -> Ln 56, Col 1)
+    dotted_name: Objects
+    display_type: _Object-Ln50+
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: Objects
+    cardinality: +
+    reference:
+      dotted_name: Object
+      range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
+    dotted_name: ObjectAliases
+    display_type: _Object-Ln50+
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: ObjectAliases
+    cardinality: +
+    reference:
+      dotted_name: ObjectAlias
+      range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 58, Col 1 -> Ln 59, Col 1)
+    dotted_name: ObjectsItem
+    display_type: _Object-Ln50
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: ObjectsItem
+    cardinality: <single>
+    reference:
+      dotted_name: Object
+      range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 59, Col 1 -> Ln 62, Col 1)
+    dotted_name: ObjectAliasesItem
+    display_type: _Object-Ln50
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: ObjectAliasesItem
+    cardinality: <single>
+    reference:
+      dotted_name: ObjectAlias
+      range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 62, Col 1 -> Ln 63, Col 1)
+    visibility: Visibility.Public
+    name: object
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 62, Col 9 -> Ln 62, Col 15)
+      dotted_name: _ItemStatement-Ln62
+      display_type: _Object-Ln50
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln62
+      cardinality: <single>
+      reference:
+        dotted_name: Object
+        range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 63, Col 1 -> Ln 65, Col 1)
+    visibility: Visibility.Public
+    name: object_alias
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 63, Col 15 -> Ln 63, Col 26)
+      dotted_name: _ItemStatement-Ln63
+      display_type: _Object-Ln50
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln63
+      cardinality: <single>
+      reference:
+        dotted_name: ObjectAlias
+        range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 65, Col 1 -> Ln 66, Col 1)
+    visibility: Visibility.Public
+    name: objects
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 65, Col 10 -> Ln 65, Col 17)
+      dotted_name: _ItemStatement-Ln65
+      display_type: _Object-Ln50+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln65
+      cardinality: <single>
+      reference:
+        dotted_name: Objects
+        range: Typedefs.SimpleSchema (Ln 55, Col 1 -> Ln 56, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 66, Col 1 -> Ln 68, Col 1)
+    visibility: Visibility.Public
+    name: object_aliases
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 66, Col 17 -> Ln 66, Col 30)
+      dotted_name: _ItemStatement-Ln66
+      display_type: _Object-Ln50+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln66
+      cardinality: <single>
+      reference:
+        dotted_name: ObjectAliases
+        range: Typedefs.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 68, Col 1 -> Ln 69, Col 1)
+    visibility: Visibility.Public
+    name: objects_item
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 68, Col 15 -> Ln 68, Col 26)
+      dotted_name: _ItemStatement-Ln68
+      display_type: _Object-Ln50
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln68
+      cardinality: <single>
+      reference:
+        dotted_name: ObjectsItem
+        range: Typedefs.SimpleSchema (Ln 58, Col 1 -> Ln 59, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 69, Col 1 -> Ln 71, Col 1)
+    visibility: Visibility.Public
+    name: objects_aliases_item
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 69, Col 23 -> Ln 69, Col 40)
+      dotted_name: _ItemStatement-Ln69
+      display_type: _Object-Ln50
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln69
+      cardinality: <single>
+      reference:
+        dotted_name: ObjectAliasesItem
+        range: Typedefs.SimpleSchema (Ln 59, Col 1 -> Ln 62, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 71, Col 1 -> Ln 72, Col 1)
+    visibility: Visibility.Public
+    name: objects_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 71, Col 20 -> Ln 71, Col 28)
+      dotted_name: _ItemStatement-Ln71
+      display_type: _Object-Ln50+*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln71
+      cardinality: '*'
+      reference:
+        dotted_name: Objects
+        range: Typedefs.SimpleSchema (Ln 55, Col 1 -> Ln 56, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 72, Col 1 -> Ln 74, Col 1)
+    visibility: Visibility.Public
+    name: object_aliases_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 72, Col 27 -> Ln 72, Col 41)
+      dotted_name: _ItemStatement-Ln72
+      display_type: _Object-Ln50+*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln72
+      cardinality: '*'
+      reference:
+        dotted_name: ObjectAliases
+        range: Typedefs.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 74, Col 1 -> Ln 75, Col 1)
+    visibility: Visibility.Public
+    name: objects_item_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 74, Col 25 -> Ln 74, Col 39)
+      dotted_name: _ItemStatement-Ln74
+      display_type: _Object-Ln50[3]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln74
+      cardinality: '[3]'
+      reference:
+        dotted_name: ObjectsItem
+        range: Typedefs.SimpleSchema (Ln 58, Col 1 -> Ln 59, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 75, Col 1 -> Ln 81, Col 1)
+    visibility: Visibility.Public
+    name: object_aliases_item_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 75, Col 32 -> Ln 75, Col 52)
+      dotted_name: _ItemStatement-Ln75
+      display_type: _Object-Ln50[3]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln75
+      cardinality: '[3]'
+      reference:
+        dotted_name: ObjectAliasesItem
+        range: Typedefs.SimpleSchema (Ln 59, Col 1 -> Ln 62, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+    dotted_name: OptionalObject
+    display_type: _OptionalObject-Ln81?
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    - StructureCollectionRef
+    - DefinedInline
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+      dotted_name: _OptionalObject_Item-Ln81
+      display_type: _OptionalObject-Ln81
+      flags:
+      - Type
+      - BasicRef
+      - StructureRef
+      - DynamicallyGenerated
+      - DefinedInline
+      type:
+        __type__: StructureType
+        __disabled__: false
+        range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+        structure:
+          __type__: StructureStatement
+          __disabled__: false
+          range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+          visibility: Visibility.Private
+          name: _OptionalObject-Ln81
+          children:
+          - __type__: ItemStatement
+            __disabled__: false
+            range: Typedefs.SimpleSchema (Ln 82, Col 5 -> Ln 82, Col 18)
+            visibility: Visibility.Public
+            name: value
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Typedefs.SimpleSchema (Ln 82, Col 12 -> Ln 82, Col 18)
+              dotted_name: _OptionalObject-Ln81._ItemStatement-Ln82
+              display_type: String
+              flags:
+              - Alias
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Typedefs.SimpleSchema (Ln 82, Col 12 -> Ln 82, Col 18)
+                min_length: 1
+              visibility: Visibility.Private
+              name: _ItemStatement-Ln82
+              cardinality: <single>
+      visibility: Visibility.Private
+      name: _OptionalObject_Item-Ln81
+      cardinality: <single>
+    visibility: Visibility.Public
+    name: OptionalObject
+    cardinality: '?'
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
+    dotted_name: OptionalObjectAlias
+    display_type: _OptionalObject-Ln81?
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: OptionalObjectAlias
+    cardinality: <single>
+    reference:
+      dotted_name: OptionalObject
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 87, Col 1 -> Ln 88, Col 1)
+    dotted_name: ConcreteOptionalObject
+    display_type: _OptionalObject-Ln81
+    flags:
+    - Alias
+    - ReferenceRef
+    - BasicCollectionRef
+    - StructureCollectionRef
+    visibility: Visibility.Public
+    name: ConcreteOptionalObject
+    cardinality: <single>
+    reference:
+      dotted_name: _OptionalObject_Item-Ln81
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 88, Col 1 -> Ln 90, Col 1)
+    dotted_name: ConcreteOptionalObjectAlias
+    display_type: _OptionalObject-Ln81
+    flags:
+    - Alias
+    - ReferenceRef
+    - BasicCollectionRef
+    - StructureCollectionRef
+    visibility: Visibility.Public
+    name: ConcreteOptionalObjectAlias
+    cardinality: <single>
+    reference:
+      dotted_name: _OptionalObject_Item-Ln81
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 90, Col 1 -> Ln 91, Col 1)
+    dotted_name: OptionalObjects
+    display_type: _OptionalObject-Ln81?+
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: OptionalObjects
+    cardinality: +
+    reference:
+      dotted_name: OptionalObject
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 91, Col 1 -> Ln 93, Col 1)
+    dotted_name: OptionalObjectAliases
+    display_type: _OptionalObject-Ln81?+
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: OptionalObjectAliases
+    cardinality: +
+    reference:
+      dotted_name: OptionalObjectAlias
+      range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 93, Col 1 -> Ln 94, Col 1)
+    dotted_name: OptionalObjectsItem
+    display_type: _OptionalObject-Ln81?
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: OptionalObjectsItem
+    cardinality: <single>
+    reference:
+      dotted_name: OptionalObject
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 94, Col 1 -> Ln 96, Col 1)
+    dotted_name: OptionalObjectAliasesItem
+    display_type: _OptionalObject-Ln81?
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: OptionalObjectAliasesItem
+    cardinality: <single>
+    reference:
+      dotted_name: OptionalObjectAlias
+      range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 96, Col 1 -> Ln 97, Col 1)
+    dotted_name: ConcreteOptionalObjects
+    display_type: _OptionalObject-Ln81+
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    - StructureCollectionRef
+    visibility: Visibility.Public
+    name: ConcreteOptionalObjects
+    cardinality: +
+    reference:
+      dotted_name: _OptionalObject_Item-Ln81
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 97, Col 1 -> Ln 100, Col 1)
+    dotted_name: ConcreteOptionalObjectAliases
+    display_type: _OptionalObject-Ln81+
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    - StructureCollectionRef
+    visibility: Visibility.Public
+    name: ConcreteOptionalObjectAliases
+    cardinality: +
+    reference:
+      dotted_name: _OptionalObject_Item-Ln81
+      range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 100, Col 1 -> Ln 101, Col 1)
+    visibility: Visibility.Public
+    name: optional_object
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 100, Col 18 -> Ln 100, Col 32)
+      dotted_name: _ItemStatement-Ln100
+      display_type: _OptionalObject-Ln81?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln100
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObject
+        range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 101, Col 1 -> Ln 103, Col 1)
+    visibility: Visibility.Public
+    name: optional_object_alias
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 101, Col 24 -> Ln 101, Col 43)
+      dotted_name: _ItemStatement-Ln101
+      display_type: _OptionalObject-Ln81?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln101
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObjectAlias
+        range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 103, Col 1 -> Ln 104, Col 1)
+    visibility: Visibility.Public
+    name: optional_objects
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 103, Col 19 -> Ln 103, Col 34)
+      dotted_name: _ItemStatement-Ln103
+      display_type: _OptionalObject-Ln81?+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln103
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObjects
+        range: Typedefs.SimpleSchema (Ln 90, Col 1 -> Ln 91, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 104, Col 1 -> Ln 106, Col 1)
+    visibility: Visibility.Public
+    name: optional_object_aliases
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 104, Col 26 -> Ln 104, Col 47)
+      dotted_name: _ItemStatement-Ln104
+      display_type: _OptionalObject-Ln81?+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln104
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObjectAliases
+        range: Typedefs.SimpleSchema (Ln 91, Col 1 -> Ln 93, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 106, Col 1 -> Ln 107, Col 1)
+    visibility: Visibility.Public
+    name: optional_objects_item
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 106, Col 24 -> Ln 106, Col 43)
+      dotted_name: _ItemStatement-Ln106
+      display_type: _OptionalObject-Ln81?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln106
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObjectsItem
+        range: Typedefs.SimpleSchema (Ln 93, Col 1 -> Ln 94, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 107, Col 1 -> Ln 109, Col 1)
+    visibility: Visibility.Public
+    name: optional_objects_aliases_item
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 107, Col 32 -> Ln 107, Col 57)
+      dotted_name: _ItemStatement-Ln107
+      display_type: _OptionalObject-Ln81?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln107
+      cardinality: <single>
+      reference:
+        dotted_name: OptionalObjectAliasesItem
+        range: Typedefs.SimpleSchema (Ln 94, Col 1 -> Ln 96, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 109, Col 1 -> Ln 110, Col 1)
+    visibility: Visibility.Public
+    name: optional_objects_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 109, Col 29 -> Ln 109, Col 45)
+      dotted_name: _ItemStatement-Ln109
+      display_type: _OptionalObject-Ln81?+*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln109
+      cardinality: '*'
+      reference:
+        dotted_name: OptionalObjects
+        range: Typedefs.SimpleSchema (Ln 90, Col 1 -> Ln 91, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 110, Col 1 -> Ln 112, Col 1)
+    visibility: Visibility.Public
+    name: optional_object_aliases_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 110, Col 36 -> Ln 110, Col 58)
+      dotted_name: _ItemStatement-Ln110
+      display_type: _OptionalObject-Ln81?+*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln110
+      cardinality: '*'
+      reference:
+        dotted_name: OptionalObjectAliases
+        range: Typedefs.SimpleSchema (Ln 91, Col 1 -> Ln 93, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 112, Col 1 -> Ln 113, Col 1)
+    visibility: Visibility.Public
+    name: optional_objects_item_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 112, Col 34 -> Ln 112, Col 56)
+      dotted_name: _ItemStatement-Ln112
+      display_type: _OptionalObject-Ln81?[3]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln112
+      cardinality: '[3]'
+      reference:
+        dotted_name: OptionalObjectsItem
+        range: Typedefs.SimpleSchema (Ln 93, Col 1 -> Ln 94, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 113, Col 1 -> Ln 119, Col 1)
+    visibility: Visibility.Public
+    name: optional_object_aliases_item_container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 113, Col 41 -> Ln 113, Col 69)
+      dotted_name: _ItemStatement-Ln113
+      display_type: _OptionalObject-Ln81?[3]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln113
+      cardinality: '[3]'
+      reference:
+        dotted_name: OptionalObjectAliasesItem
+        range: Typedefs.SimpleSchema (Ln 94, Col 1 -> Ln 96, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
+    dotted_name: NestedTypes
+    display_type: _NestedTypes-Ln119
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
+        visibility: Visibility.Private
+        name: _NestedTypes-Ln119
+        children:
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
+          dotted_name: _NestedTypes-Ln119.NestedStr
+          display_type: String
+          flags:
+          - Alias
+          - BasicRef
+          - DefinedInline
+          type:
+            __type__: StringType
+            __disabled__: false
+            range: Typedefs.SimpleSchema (Ln 120, Col 16 -> Ln 120, Col 22)
+            min_length: 1
+          visibility: Visibility.Public
+          name: NestedStr
+          cardinality: <single>
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Typedefs.SimpleSchema (Ln 121, Col 5 -> Ln 122, Col 1)
+          dotted_name: _NestedTypes-Ln119.NestedStrAlias
+          display_type: String
+          flags:
+          - Alias
+          - ReferenceRef
+          visibility: Visibility.Public
+          name: NestedStrAlias
+          cardinality: <single>
+          reference:
+            dotted_name: _NestedTypes-Ln119.NestedStr
+            range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
+    visibility: Visibility.Public
+    name: NestedTypes
+    cardinality: <single>
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 123, Col 1 -> Ln 124, Col 1)
+    dotted_name: NestedTypes_NestedStr
+    display_type: String
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: NestedTypes_NestedStr
+    cardinality: <single>
+    reference:
+      dotted_name: _NestedTypes-Ln119.NestedStr
+      range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 124, Col 1 -> Ln 127, Col 1)
+    dotted_name: NestedTypes_NestedStrAlias
+    display_type: String
+    flags:
+    - Alias
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: NestedTypes_NestedStrAlias
+    cardinality: <single>
+    reference:
+      dotted_name: _NestedTypes-Ln119.NestedStrAlias
+      range: Typedefs.SimpleSchema (Ln 121, Col 5 -> Ln 122, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 127, Col 1 -> Ln 128, Col 1)
+    visibility: Visibility.Public
+    name: nested_types_nested_str
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 127, Col 26 -> Ln 127, Col 47)
+      dotted_name: _ItemStatement-Ln127
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln127
+      cardinality: <single>
+      reference:
+        dotted_name: _NestedTypes-Ln119.NestedStr
+        range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 128, Col 1 -> Ln 130, Col 1)
+    visibility: Visibility.Public
+    name: nested_types_nested_str_alias
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 128, Col 32 -> Ln 128, Col 58)
+      dotted_name: _ItemStatement-Ln128
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln128
+      cardinality: <single>
+      reference:
+        dotted_name: _NestedTypes-Ln119.NestedStrAlias
+        range: Typedefs.SimpleSchema (Ln 121, Col 5 -> Ln 122, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 130, Col 1 -> Ln 131, Col 1)
+    visibility: Visibility.Public
+    name: nested_types_nested_str_type
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 130, Col 32 -> Ln 130, Col 53)
+      dotted_name: _ItemStatement-Ln130
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln130
+      cardinality: <single>
+      reference:
+        dotted_name: NestedTypes_NestedStr
+        range: Typedefs.SimpleSchema (Ln 123, Col 1 -> Ln 124, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 131, Col 1 -> Ln 137, Col 1)
+    visibility: Visibility.Public
+    name: nested_types_nested_str_alias_type
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 131, Col 37 -> Ln 131, Col 63)
+      dotted_name: _ItemStatement-Ln131
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln131
+      cardinality: <single>
+      reference:
+        dotted_name: NestedTypes_NestedStrAlias
+        range: Typedefs.SimpleSchema (Ln 124, Col 1 -> Ln 127, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
+    dotted_name: Container
+    display_type: <Integer {>= 0}>+
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    - DefinedInline
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
+      dotted_name: _Container_Item-Ln137
+      display_type: Integer {>= 0}
+      flags:
+      - Type
+      - BasicRef
+      - DynamicallyGenerated
+      - DefinedInline
+      type:
+        __type__: IntegerType
+        __disabled__: false
+        range: Typedefs.SimpleSchema (Ln 137, Col 12 -> Ln 137, Col 31)
+        min: 0
+      visibility: Visibility.Private
+      name: _Container_Item-Ln137
+      cardinality: <single>
+    visibility: Visibility.Public
+    name: Container
+    cardinality: +
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 138, Col 1 -> Ln 139, Col 1)
+    dotted_name: Containers
+    display_type: <Integer {>= 0}>+*
+    flags:
+    - Type
+    - ReferenceRef
+    visibility: Visibility.Public
+    name: Containers
+    cardinality: '*'
+    reference:
+      dotted_name: Container
+      range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 139, Col 1 -> Ln 141, Col 1)
+    dotted_name: AlteredContainers
+    display_type: <Integer {>= 0}>[10]
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    visibility: Visibility.Public
+    name: AlteredContainers
+    cardinality: '[10]'
+    reference:
+      dotted_name: _Container_Item-Ln137
+      range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 141, Col 1 -> Ln 142, Col 1)
+    visibility: Visibility.Public
+    name: container
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 141, Col 12 -> Ln 141, Col 21)
+      dotted_name: _ItemStatement-Ln141
+      display_type: <Integer {>= 0}>+
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln141
+      cardinality: <single>
+      reference:
+        dotted_name: Container
+        range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 142, Col 1 -> Ln 143, Col 1)
+    visibility: Visibility.Public
+    name: containers
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 142, Col 13 -> Ln 142, Col 23)
+      dotted_name: _ItemStatement-Ln142
+      display_type: <Integer {>= 0}>+*
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln142
+      cardinality: <single>
+      reference:
+        dotted_name: Containers
+        range: Typedefs.SimpleSchema (Ln 138, Col 1 -> Ln 139, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 143, Col 1 -> Ln 144, Col 1)
+    visibility: Visibility.Public
+    name: altered_containers
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 143, Col 21 -> Ln 143, Col 38)
+      dotted_name: _ItemStatement-Ln143
+      display_type: <Integer {>= 0}>[10]
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln143
+      cardinality: <single>
+      reference:
+        dotted_name: AlteredContainers
+        range: Typedefs.SimpleSchema (Ln 139, Col 1 -> Ln 141, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Typedefs.SimpleSchema (Ln 144, Col 1 -> Ln 145, Col 1)
+    visibility: Visibility.Public
+    name: altered_altered_Containers
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Typedefs.SimpleSchema (Ln 144, Col 29 -> Ln 144, Col 56)
+      dotted_name: _ItemStatement-Ln144
+      display_type: <Integer {>= 0}>[20]
+      flags:
+      - Type
+      - ReferenceRef
+      - BasicCollectionRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln144
+      cardinality: '[20]'
+      reference:
+        dotted_name: _Container_Item-Ln137
+        range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)

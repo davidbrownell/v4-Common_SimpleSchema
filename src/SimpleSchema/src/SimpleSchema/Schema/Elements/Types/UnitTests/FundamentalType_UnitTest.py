@@ -43,13 +43,9 @@ class MyFundamentalType(FundamentalType):
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
 
-    ft = MyFundamentalType(range_mock, cardinality_mock, metadata_mock)
+    ft = MyFundamentalType(range_mock)
 
     assert ft.range is range_mock
-    assert ft.cardinality is cardinality_mock
-    assert ft.metadata is metadata_mock
 
     assert ft.ToPython(10) == 10

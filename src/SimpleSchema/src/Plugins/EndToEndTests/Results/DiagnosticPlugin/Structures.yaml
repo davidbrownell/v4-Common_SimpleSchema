@@ -1,0 +1,491 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 58, Col 1)
+  statements:
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
+    dotted_name: BasicStructure
+    display_type: _BasicStructure-Ln19
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
+        visibility: Visibility.Private
+        name: _BasicStructure-Ln19
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 20, Col 5 -> Ln 23, Col 5)
+          visibility: Visibility.Public
+          name: value
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Structures.SimpleSchema (Ln 20, Col 12 -> Ln 20, Col 18)
+            dotted_name: _BasicStructure-Ln19._ItemStatement-Ln20
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: Structures.SimpleSchema (Ln 20, Col 12 -> Ln 20, Col 18)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln20
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: BasicStructure
+    cardinality: <single>
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 41, Col 1)
+    dotted_name: Nested0
+    display_type: _Nested0-Ln24
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 41, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 41, Col 1)
+        visibility: Visibility.Private
+        name: _Nested0-Ln24
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 25, Col 5 -> Ln 27, Col 5)
+          visibility: Visibility.Public
+          name: value0
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Structures.SimpleSchema (Ln 25, Col 13 -> Ln 25, Col 19)
+            dotted_name: _Nested0-Ln24._ItemStatement-Ln25
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: Structures.SimpleSchema (Ln 25, Col 13 -> Ln 25, Col 19)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln25
+            cardinality: <single>
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 27, Col 5 -> Ln 39, Col 1)
+          dotted_name: _Nested0-Ln24.Nested1
+          display_type: _Nested1-Ln27
+          flags:
+          - Alias
+          - BasicRef
+          - StructureRef
+          - DefinedInline
+          type:
+            __type__: StructureType
+            __disabled__: false
+            range: Structures.SimpleSchema (Ln 27, Col 5 -> Ln 39, Col 1)
+            structure:
+              __type__: StructureStatement
+              __disabled__: false
+              range: Structures.SimpleSchema (Ln 27, Col 5 -> Ln 39, Col 1)
+              visibility: Visibility.Private
+              name: _Nested1-Ln27
+              children:
+              - __type__: ItemStatement
+                __disabled__: false
+                range: Structures.SimpleSchema (Ln 28, Col 9 -> Ln 30, Col 9)
+                visibility: Visibility.Public
+                name: value1
+                type:
+                  __type__: ReferenceType
+                  __disabled__: false
+                  range: Structures.SimpleSchema (Ln 28, Col 17 -> Ln 28, Col 23)
+                  dotted_name: _Nested0-Ln24._Nested1-Ln27._ItemStatement-Ln28
+                  display_type: String
+                  flags:
+                  - Alias
+                  - BasicRef
+                  - DynamicallyGenerated
+                  - DefinedInline
+                  type:
+                    __type__: StringType
+                    __disabled__: false
+                    range: Structures.SimpleSchema (Ln 28, Col 17 -> Ln 28, Col 23)
+                    min_length: 1
+                  visibility: Visibility.Private
+                  name: _ItemStatement-Ln28
+                  cardinality: <single>
+              - __type__: ReferenceType
+                __disabled__: false
+                range: Structures.SimpleSchema (Ln 30, Col 9 -> Ln 37, Col 1)
+                dotted_name: _Nested0-Ln24._Nested1-Ln27.Nested2
+                display_type: _Nested2-Ln30
+                flags:
+                - Alias
+                - BasicRef
+                - StructureRef
+                - DefinedInline
+                type:
+                  __type__: StructureType
+                  __disabled__: false
+                  range: Structures.SimpleSchema (Ln 30, Col 9 -> Ln 37, Col 1)
+                  structure:
+                    __type__: StructureStatement
+                    __disabled__: false
+                    range: Structures.SimpleSchema (Ln 30, Col 9 -> Ln 37, Col 1)
+                    visibility: Visibility.Private
+                    name: _Nested2-Ln30
+                    children:
+                    - __type__: ItemStatement
+                      __disabled__: false
+                      range: Structures.SimpleSchema (Ln 31, Col 13 -> Ln 33, Col
+                        13)
+                      visibility: Visibility.Public
+                      name: value2
+                      type:
+                        __type__: ReferenceType
+                        __disabled__: false
+                        range: Structures.SimpleSchema (Ln 31, Col 21 -> Ln 31, Col
+                          27)
+                        dotted_name: _Nested0-Ln24._Nested1-Ln27._Nested2-Ln30._ItemStatement-Ln31
+                        display_type: String
+                        flags:
+                        - Alias
+                        - BasicRef
+                        - DynamicallyGenerated
+                        - DefinedInline
+                        type:
+                          __type__: StringType
+                          __disabled__: false
+                          range: Structures.SimpleSchema (Ln 31, Col 21 -> Ln 31,
+                            Col 27)
+                          min_length: 1
+                        visibility: Visibility.Private
+                        name: _ItemStatement-Ln31
+                        cardinality: <single>
+                    - __type__: ReferenceType
+                      __disabled__: false
+                      range: Structures.SimpleSchema (Ln 33, Col 13 -> Ln 35, Col
+                        1)
+                      dotted_name: _Nested0-Ln24._Nested1-Ln27._Nested2-Ln30.Nested3
+                      display_type: _Nested3-Ln33
+                      flags:
+                      - Alias
+                      - BasicRef
+                      - StructureRef
+                      - DefinedInline
+                      type:
+                        __type__: StructureType
+                        __disabled__: false
+                        range: Structures.SimpleSchema (Ln 33, Col 13 -> Ln 35, Col
+                          1)
+                        structure:
+                          __type__: StructureStatement
+                          __disabled__: false
+                          range: Structures.SimpleSchema (Ln 33, Col 13 -> Ln 35,
+                            Col 1)
+                          visibility: Visibility.Private
+                          name: _Nested3-Ln33
+                          children:
+                          - __type__: ItemStatement
+                            __disabled__: false
+                            range: Structures.SimpleSchema (Ln 34, Col 17 -> Ln 35,
+                              Col 1)
+                            visibility: Visibility.Public
+                            name: value3
+                            type:
+                              __type__: ReferenceType
+                              __disabled__: false
+                              range: Structures.SimpleSchema (Ln 34, Col 25 -> Ln
+                                34, Col 31)
+                              dotted_name: _Nested0-Ln24._Nested1-Ln27._Nested2-Ln30._Nested3-Ln33._ItemStatement-Ln34
+                              display_type: String
+                              flags:
+                              - Alias
+                              - BasicRef
+                              - DynamicallyGenerated
+                              - DefinedInline
+                              type:
+                                __type__: StringType
+                                __disabled__: false
+                                range: Structures.SimpleSchema (Ln 34, Col 25 -> Ln
+                                  34, Col 31)
+                                min_length: 1
+                              visibility: Visibility.Private
+                              name: _ItemStatement-Ln34
+                              cardinality: <single>
+                      visibility: Visibility.Public
+                      name: Nested3
+                      cardinality: <single>
+                    - __type__: ItemStatement
+                      __disabled__: false
+                      range: Structures.SimpleSchema (Ln 36, Col 13 -> Ln 37, Col
+                        1)
+                      visibility: Visibility.Public
+                      name: nested_value
+                      type:
+                        __type__: ReferenceType
+                        __disabled__: false
+                        range: Structures.SimpleSchema (Ln 36, Col 27 -> Ln 36, Col
+                          34)
+                        dotted_name: _Nested0-Ln24._Nested1-Ln27._Nested2-Ln30._ItemStatement-Ln36
+                        display_type: _Nested3-Ln33
+                        flags:
+                        - Alias
+                        - ReferenceRef
+                        - DynamicallyGenerated
+                        visibility: Visibility.Private
+                        name: _ItemStatement-Ln36
+                        cardinality: <single>
+                        reference:
+                          dotted_name: _Nested0-Ln24._Nested1-Ln27._Nested2-Ln30.Nested3
+                          range: Structures.SimpleSchema (Ln 33, Col 13 -> Ln 35,
+                            Col 1)
+                visibility: Visibility.Public
+                name: Nested2
+                cardinality: <single>
+              - __type__: ItemStatement
+                __disabled__: false
+                range: Structures.SimpleSchema (Ln 38, Col 9 -> Ln 39, Col 1)
+                visibility: Visibility.Public
+                name: nested_value
+                type:
+                  __type__: ReferenceType
+                  __disabled__: false
+                  range: Structures.SimpleSchema (Ln 38, Col 23 -> Ln 38, Col 30)
+                  dotted_name: _Nested0-Ln24._Nested1-Ln27._ItemStatement-Ln38
+                  display_type: _Nested2-Ln30
+                  flags:
+                  - Alias
+                  - ReferenceRef
+                  - DynamicallyGenerated
+                  visibility: Visibility.Private
+                  name: _ItemStatement-Ln38
+                  cardinality: <single>
+                  reference:
+                    dotted_name: _Nested0-Ln24._Nested1-Ln27.Nested2
+                    range: Structures.SimpleSchema (Ln 30, Col 9 -> Ln 37, Col 1)
+          visibility: Visibility.Public
+          name: Nested1
+          cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 41, Col 1)
+          visibility: Visibility.Public
+          name: nested_value
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Structures.SimpleSchema (Ln 40, Col 19 -> Ln 40, Col 26)
+            dotted_name: _Nested0-Ln24._ItemStatement-Ln40
+            display_type: _Nested1-Ln27
+            flags:
+            - Alias
+            - ReferenceRef
+            - DynamicallyGenerated
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln40
+            cardinality: <single>
+            reference:
+              dotted_name: _Nested0-Ln24.Nested1
+              range: Structures.SimpleSchema (Ln 27, Col 5 -> Ln 39, Col 1)
+    visibility: Visibility.Public
+    name: Nested0
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Structures.SimpleSchema (Ln 42, Col 1 -> Ln 46, Col 1)
+    visibility: Visibility.Public
+    name: nested_value
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Structures.SimpleSchema (Ln 42, Col 15 -> Ln 42, Col 22)
+      dotted_name: _ItemStatement-Ln42
+      display_type: _Nested0-Ln24
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln42
+      cardinality: <single>
+      reference:
+        dotted_name: Nested0
+        range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 41, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Structures.SimpleSchema (Ln 46, Col 1 -> Ln 50, Col 73)
+    dotted_name: SingleBasicBase
+    display_type: _SingleBasicBase-Ln46
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Structures.SimpleSchema (Ln 46, Col 1 -> Ln 50, Col 73)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Structures.SimpleSchema (Ln 46, Col 1 -> Ln 50, Col 73)
+        visibility: Visibility.Private
+        name: _SingleBasicBase-Ln46
+        base_types:
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 46, Col 18 -> Ln 46, Col 43)
+          dotted_name: _SingleBasicBase-Ln46._SingleBasicBase-Ln46_Base0
+          display_type: String {<= 10 characters}
+          flags:
+          - Alias
+          - BasicRef
+          - DynamicallyGenerated
+          - DefinedInline
+          type:
+            __type__: StringType
+            __disabled__: false
+            range: Structures.SimpleSchema (Ln 46, Col 18 -> Ln 46, Col 43)
+            min_length: 1
+            max_length: 10
+          visibility: Visibility.Private
+          name: _SingleBasicBase-Ln46_Base0
+          cardinality: <single>
+    visibility: Visibility.Public
+    name: SingleBasicBase
+    cardinality: <single>
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Structures.SimpleSchema (Ln 51, Col 1 -> Ln 55, Col 73)
+    dotted_name: SingleStructureBase
+    display_type: _SingleStructureBase-Ln51
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Structures.SimpleSchema (Ln 51, Col 1 -> Ln 55, Col 73)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Structures.SimpleSchema (Ln 51, Col 1 -> Ln 55, Col 73)
+        visibility: Visibility.Private
+        name: _SingleStructureBase-Ln51
+        base_types:
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 51, Col 22 -> Ln 51, Col 45)
+          dotted_name: _SingleStructureBase-Ln51._SingleStructureBase-Ln51_Base0
+          display_type: _Nested2-Ln30
+          flags:
+          - Alias
+          - ReferenceRef
+          - DynamicallyGenerated
+          visibility: Visibility.Private
+          name: _SingleStructureBase-Ln51_Base0
+          cardinality: <single>
+          reference:
+            dotted_name: _Nested0-Ln24._Nested1-Ln27.Nested2
+            range: Structures.SimpleSchema (Ln 30, Col 9 -> Ln 37, Col 1)
+    visibility: Visibility.Public
+    name: SingleStructureBase
+    cardinality: <single>
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Structures.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
+    dotted_name: MultipleStructureBase
+    display_type: _MultipleStructureBase-Ln56
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Structures.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Structures.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
+        visibility: Visibility.Private
+        name: _MultipleStructureBase-Ln56
+        base_types:
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 56, Col 25 -> Ln 56, Col 32)
+          dotted_name: _MultipleStructureBase-Ln56._MultipleStructureBase-Ln56_Base0
+          display_type: _Nested0-Ln24
+          flags:
+          - Alias
+          - ReferenceRef
+          - DynamicallyGenerated
+          visibility: Visibility.Private
+          name: _MultipleStructureBase-Ln56_Base0
+          cardinality: <single>
+          reference:
+            dotted_name: Nested0
+            range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 41, Col 1)
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 56, Col 34 -> Ln 56, Col 49)
+          dotted_name: _MultipleStructureBase-Ln56._MultipleStructureBase-Ln56_Base1
+          display_type: _Nested1-Ln27
+          flags:
+          - Alias
+          - ReferenceRef
+          - DynamicallyGenerated
+          visibility: Visibility.Private
+          name: _MultipleStructureBase-Ln56_Base1
+          cardinality: <single>
+          reference:
+            dotted_name: _Nested0-Ln24.Nested1
+            range: Structures.SimpleSchema (Ln 27, Col 5 -> Ln 39, Col 1)
+        - __type__: ReferenceType
+          __disabled__: false
+          range: Structures.SimpleSchema (Ln 56, Col 51 -> Ln 56, Col 74)
+          dotted_name: _MultipleStructureBase-Ln56._MultipleStructureBase-Ln56_Base2
+          display_type: _Nested2-Ln30
+          flags:
+          - Alias
+          - ReferenceRef
+          - DynamicallyGenerated
+          visibility: Visibility.Private
+          name: _MultipleStructureBase-Ln56_Base2
+          cardinality: <single>
+          reference:
+            dotted_name: _Nested0-Ln24._Nested1-Ln27.Nested2
+            range: Structures.SimpleSchema (Ln 30, Col 9 -> Ln 37, Col 1)
+    visibility: Visibility.Public
+    name: MultipleStructureBase
+    cardinality: <single>

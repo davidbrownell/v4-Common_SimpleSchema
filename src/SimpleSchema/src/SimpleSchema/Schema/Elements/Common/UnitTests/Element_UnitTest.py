@@ -472,26 +472,6 @@ class TestVisitor(object):
 
 
 # ----------------------------------------------------------------------
-def test_Parent(_element):
-    with pytest.raises(
-        Exception,
-        match=re.escape("The parent has not been set yet."),
-    ):
-        _element.parent
-
-    parent = Mock()
-
-    _element.SetParent(parent)
-    assert _element.parent is parent
-
-    with pytest.raises(
-        Exception,
-        match=re.escape("The parent has already been set."),
-    ):
-        _element.SetParent(Mock())
-
-
-# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 @pytest.fixture

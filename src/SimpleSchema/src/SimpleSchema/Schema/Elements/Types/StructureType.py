@@ -3,7 +3,7 @@
 # |  StructureType.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-24 12:46:31
+# |      2023-02-13 12:17:33
 # |
 # ----------------------------------------------------------------------
 # |
@@ -16,48 +16,43 @@
 """Contains the StructureType object"""
 
 from dataclasses import dataclass
-from functools import cached_property
-from typing import Any, cast, ClassVar, Tuple, Type as PythonType, TYPE_CHECKING
-from weakref import ref, ReferenceType
+from typing import Any, ClassVar, Tuple, Type as PythonType
 
 from Common_Foundation.Types import overridemethod
 
-from .Type import Type
+from .BasicType import BasicType
 
 from ..Common.Element import Element
 
-if TYPE_CHECKING:
-    from ..Statements.StructureStatement import StructureStatement  # pragma: no cover
+from ..Statements.StructureStatement import StructureStatement
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class StructureType(Type):
-    """A variable that points to a structure definition"""
+class StructureType(BasicType):
+    """Type based on a StructureStatement"""
 
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "Structure"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (object, )
 
-    statement: "StructureStatement"
+    structure: StructureStatement
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    @cached_property
-    def _display_name(self) -> str:
-        return self.statement.name.value
+    @property
+    def _display_type(self) -> str:
+        return self.structure.name.value
 
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
-        yield from super(StructureType, self)._GenerateAcceptDetails()
-
-        yield "statement", cast(ReferenceType[Element], ref(self.statement))
+        yield "structure", self.structure
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Any,  # pylint: disable=unused-argument
     ) -> Any:

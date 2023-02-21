@@ -553,36 +553,6 @@ class TestStructure(object):
                 ),
             )
 
-    # ----------------------------------------------------------------------
-    def test_ErrorInvalidBaseCardinality(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("Base types must have a cardinality of 1. ({} <Ln 1, Col 22 -> Ln 1, Col 23>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    InvalidStructure: One* ->
-                        pass
-                    """,
-                ),
-            )
-
-    # ----------------------------------------------------------------------
-    def test_ErrorInvalidBaseTupleItemCardinality(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("Base types must have a cardinality of 1. ({} <Ln 1, Col 28 -> Ln 1, Col 29>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    InvalidStructure: (One, Two?, Three) ->
-                        pass
-                    """,
-                ),
-            )
-
 
 # ----------------------------------------------------------------------
 def test_SimpleStructure():

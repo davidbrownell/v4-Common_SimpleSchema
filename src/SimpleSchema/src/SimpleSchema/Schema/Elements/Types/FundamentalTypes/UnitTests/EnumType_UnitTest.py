@@ -31,24 +31,19 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
     from SimpleSchema.Schema.Elements.Types.FundamentalTypes.EnumType import EnumType
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
 
-    et = EnumType(range_mock, cardinality_mock, metadata_mock, [1, 2, 3])
+    et = EnumType(range_mock, [1, 2, 3])
 
     assert et.NAME == "Enum"
     assert et.SUPPORTED_PYTHON_TYPES == (Enum, str, int, )
 
     assert et.range is range_mock
-    assert et.cardinality is cardinality_mock
-    assert et.metadata is metadata_mock
 
     assert [(e.name, e.value) for e in et.EnumClass] == [
         ("Value1", 1),
@@ -59,37 +54,24 @@ def test_Standard():
 
 # ----------------------------------------------------------------------
 def test_CreateFromExisting():
-    et = EnumType(Mock(), Mock(), None, [1, 2, 3])
+    et = EnumType(Mock(), [1, 2, 3])
 
     range_mock = Mock()
-    cardinality = Cardinality.CreateFromCode()
-    metadata_mock = Mock()
 
-    et2 = EnumType(range_mock, cardinality, metadata_mock, [], 0, et.EnumClass)
+    et2 = EnumType(range_mock, [], 0, et.EnumClass)
 
     assert et2.range is range_mock
-    assert et2.cardinality is cardinality
-    assert et2.metadata is metadata_mock
     assert et2.EnumClass is et.EnumClass
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
-    assert EnumType(Mock(), Cardinality.CreateFromCode(), None, [1, 2, 3]).display_name == "Enum"
-
-
-# ----------------------------------------------------------------------
-def test_Clone():
-    et = EnumType(Mock(), Mock(), None, [1, 2, 3])
-
-    et2 = et.Clone(Mock(), Mock())
-
-    assert et2.EnumClass is et.EnumClass
+def test_DisplayType():
+    assert EnumType(Mock(), [1, 2, 3]).display_type == "Enum"
 
 
 # ----------------------------------------------------------------------
 def test_ToPython():
-    et = EnumType(Mock(), Cardinality.CreateFromCode(), None, [1, 2, 3])
+    et = EnumType(Mock(), [1, 2, 3])
 
     assert et.ToPython(et.EnumClass.Value1) == et.EnumClass.Value1
     assert et.ToPython("Value2") == et.EnumClass.Value2
@@ -98,7 +80,7 @@ def test_ToPython():
 
 # ----------------------------------------------------------------------
 def test_EnumStrings():
-    et = EnumType(Mock(), Cardinality.CreateFromCode(), None, ["One", "Two", "Three"])
+    et = EnumType(Mock(), ["One", "Two", "Three"])
 
     assert et.ToPython(et.EnumClass.One) == et.EnumClass.One
     assert et.ToPython("Two") == et.EnumClass.Two
@@ -109,8 +91,6 @@ def test_EnumStrings():
 def test_IntTuples():
     et = EnumType(
         Mock(),
-        Cardinality.CreateFromCode(),
-        None,
         [
             (1, "OneValue"),
             (2, "TwoValue"),
@@ -127,8 +107,6 @@ def test_IntTuples():
 def test_StringTuples():
     et = EnumType(
         Mock(),
-        Cardinality.CreateFromCode(),
-        None,
         [
             ("One", "OneValue"),
             ("Two", "TwoValue"),
@@ -143,7 +121,7 @@ def test_StringTuples():
 
 # ----------------------------------------------------------------------
 def test_StartingValue():
-    et = EnumType(Mock(), Cardinality.CreateFromCode(), None, [1, 2, 3], starting_value=101)
+    et = EnumType(Mock(), [1, 2, 3], starting_value=101)
 
     assert et.ToPython(et.EnumClass.Value1) == et.EnumClass.Value1
     assert et.ToPython(102) == et.EnumClass.Value2
@@ -156,7 +134,7 @@ def test_ErrorNoValues():
         ValueError,
         match=re.escape("Values must be provided."),
     ):
-        EnumType(Mock(), Mock(), None, [])
+        EnumType(Mock(), [])
 
 
 # ----------------------------------------------------------------------
@@ -165,7 +143,7 @@ def test_ErrorInvalidValue():
         ValueError,
         match=re.escape("An Integer or String value was expected."),
     ):
-        EnumType(Mock(), Mock(), None, [1.1, 2, 3])
+        EnumType(Mock(), [1.1, 2, 3])
 
 
 # ----------------------------------------------------------------------
@@ -174,7 +152,7 @@ def test_ErrorStringWithIntValues():
         ValueError,
         match=re.escape("An Integer was expected (index: 2)."),
     ):
-        EnumType(Mock(), Mock(), None, [1, 2, "3"])
+        EnumType(Mock(), [1, 2, "3"])
 
 
 # ----------------------------------------------------------------------
@@ -183,7 +161,7 @@ def test_ErrorIntWithStringValues():
         ValueError,
         match=re.escape("A String was expected (index: 1)."),
     ):
-        EnumType(Mock(), Mock(), None, ["1", 2, "3"])
+        EnumType(Mock(), ["1", 2, "3"])
 
 
 # ----------------------------------------------------------------------
@@ -192,7 +170,7 @@ def test_ErrorTuplesWithRawValues():
         ValueError,
         match=re.escape("A tuple was not expected (index: 2)."),
     ):
-        EnumType(Mock(), Mock(), None, [1, 2, (3, "Three")])
+        EnumType(Mock(), [1, 2, (3, "Three")])
 
 
 # ----------------------------------------------------------------------
@@ -201,7 +179,7 @@ def test_ErrorRawValueWithTuples():
         ValueError,
         match=re.escape("A tuple was expected (index: 1)."),
     ):
-        EnumType(Mock(), Mock(), None, [(1, "one"), 2, (3, "three")])
+        EnumType(Mock(), [(1, "one"), 2, (3, "three")])
 
 
 # ----------------------------------------------------------------------
@@ -210,7 +188,7 @@ def test_ErrorTupleStringWithTupleInts():
         ValueError,
         match=re.escape("An Integer was expected (index: 1)."),
     ):
-        EnumType(Mock(), Mock(), None, [(1, "one"), ("2", "two")])
+        EnumType(Mock(), [(1, "one"), ("2", "two")])
 
 
 # ----------------------------------------------------------------------
@@ -219,7 +197,7 @@ def test_ErrorTupleIntWithTupleStrings():
         ValueError,
         match=re.escape("A String was expected (index: 1)."),
     ):
-        EnumType(Mock(), Mock(), None, [("1", "one"), (2, "two")])
+        EnumType(Mock(), [("1", "one"), (2, "two")])
 
 
 # ----------------------------------------------------------------------
@@ -228,7 +206,7 @@ def test_ErrorNonStringDescInTuple():
         ValueError,
         match=re.escape("A string value is required."),
     ):
-        EnumType(Mock(), Mock(), None, [(1, "1"), (2, "")])
+        EnumType(Mock(), [(1, "1"), (2, "")])
 
 
 # ----------------------------------------------------------------------
@@ -237,4 +215,4 @@ def test_ErrorUnrecognizedValue():
         Exception,
         match=re.escape("'not valid' is not a valid enum value."),
     ):
-        EnumType(Mock(), Mock(), None, [1, 2, 3]).ToPython("not valid")
+        EnumType(Mock(), [1, 2, 3]).ToPython("not valid")

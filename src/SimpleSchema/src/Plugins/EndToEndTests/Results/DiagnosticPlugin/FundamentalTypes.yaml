@@ -1,0 +1,1270 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 96, Col 1)
+  statements:
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
+    dotted_name: FundamentalTypes
+    display_type: _FundamentalTypes-Ln19
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
+        visibility: Visibility.Private
+        name: _FundamentalTypes-Ln19
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 20, Col 5 -> Ln 21, Col 5)
+          visibility: Visibility.Public
+          name: boolean
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 20, Col 14 -> Ln 20, Col 21)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln20
+            display_type: Boolean
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: BooleanType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 20, Col 14 -> Ln 20, Col 21)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln20
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 21, Col 5 -> Ln 22, Col 5)
+          visibility: Visibility.Public
+          name: date_time
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 21, Col 16 -> Ln 21, Col 24)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln21
+            display_type: DateTime
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: DateTimeType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 21, Col 16 -> Ln 21, Col 24)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln21
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 5)
+          visibility: Visibility.Public
+          name: date
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 22, Col 11 -> Ln 22, Col 15)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln22
+            display_type: Date
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: DateType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 22, Col 11 -> Ln 22, Col 15)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln22
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 23, Col 5 -> Ln 24, Col 5)
+          visibility: Visibility.Public
+          name: directory
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 23, Col 16 -> Ln 23, Col 25)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln23
+            display_type: Directory!
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: DirectoryType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 23, Col 16 -> Ln 23, Col 25)
+              ensure_exists: true
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln23
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 24, Col 5 -> Ln 25, Col 5)
+          visibility: Visibility.Public
+          name: duration
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 24, Col 15 -> Ln 24, Col 23)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln24
+            display_type: Duration
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: DurationType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 24, Col 15 -> Ln 24, Col 23)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln24
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 25, Col 5 -> Ln 26, Col 5)
+          visibility: Visibility.Public
+          name: enum
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 25, Col 11 -> Ln 25, Col 37)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln25
+            display_type: Enum
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: EnumType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 25, Col 11 -> Ln 25, Col 37)
+              values:
+              - name: Value1
+                value: 1
+              - name: Value2
+                value: 2
+              - name: Value3
+                value: 3
+              starting_value: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln25
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 26, Col 5 -> Ln 27, Col 5)
+          visibility: Visibility.Public
+          name: filename
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 26, Col 15 -> Ln 26, Col 23)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln26
+            display_type: Filename!
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: FilenameType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 26, Col 15 -> Ln 26, Col 23)
+              ensure_exists: true
+              match_any: false
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln26
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 27, Col 5 -> Ln 28, Col 5)
+          visibility: Visibility.Public
+          name: guid
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 27, Col 11 -> Ln 27, Col 15)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln27
+            display_type: Guid
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: GuidType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 27, Col 11 -> Ln 27, Col 15)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln27
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 28, Col 5 -> Ln 29, Col 5)
+          visibility: Visibility.Public
+          name: integer
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 28, Col 14 -> Ln 28, Col 21)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln28
+            display_type: Integer
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: IntegerType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 28, Col 14 -> Ln 28, Col 21)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln28
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 29, Col 5 -> Ln 30, Col 5)
+          visibility: Visibility.Public
+          name: number
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 29, Col 13 -> Ln 29, Col 19)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln29
+            display_type: Number
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: NumberType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 29, Col 13 -> Ln 29, Col 19)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln29
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 30, Col 5 -> Ln 31, Col 5)
+          visibility: Visibility.Public
+          name: string
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 30, Col 13 -> Ln 30, Col 19)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln30
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 30, Col 13 -> Ln 30, Col 19)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln30
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 31, Col 5 -> Ln 32, Col 5)
+          visibility: Visibility.Public
+          name: time
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 31, Col 11 -> Ln 31, Col 15)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln31
+            display_type: Time
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: TimeType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 31, Col 11 -> Ln 31, Col 15)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln31
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 32, Col 5 -> Ln 33, Col 1)
+          visibility: Visibility.Public
+          name: uri
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 32, Col 10 -> Ln 32, Col 13)
+            dotted_name: _FundamentalTypes-Ln19._ItemStatement-Ln32
+            display_type: Uri
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: UriType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 32, Col 10 -> Ln 32, Col 13)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln32
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: FundamentalTypes
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
+    visibility: Visibility.Public
+    name: fundamental_types
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 34, Col 20 -> Ln 34, Col 37)
+      dotted_name: _ItemStatement-Ln34
+      display_type: _FundamentalTypes-Ln19?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln34
+      cardinality: '?'
+      reference:
+        dotted_name: FundamentalTypes
+        range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
+    dotted_name: DirectoryCustomizations
+    display_type: _DirectoryCustomizations-Ln38
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
+        visibility: Visibility.Private
+        name: _DirectoryCustomizations-Ln38
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 39, Col 5 -> Ln 40, Col 5)
+          visibility: Visibility.Public
+          name: default
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 39, Col 14 -> Ln 39, Col 23)
+            dotted_name: _DirectoryCustomizations-Ln38._ItemStatement-Ln39
+            display_type: Directory!
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: DirectoryType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 39, Col 14 -> Ln 39, Col 23)
+              ensure_exists: true
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln39
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 40, Col 5 -> Ln 41, Col 1)
+          visibility: Visibility.Public
+          name: no_ensure_exists
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 40, Col 23 -> Ln 40, Col 57)
+            dotted_name: _DirectoryCustomizations-Ln38._ItemStatement-Ln40
+            display_type: Directory
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: DirectoryType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 40, Col 23 -> Ln 40, Col 57)
+              ensure_exists: false
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln40
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: DirectoryCustomizations
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 42, Col 1 -> Ln 46, Col 1)
+    visibility: Visibility.Public
+    name: directory_customizations
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 42, Col 27 -> Ln 42, Col 51)
+      dotted_name: _ItemStatement-Ln42
+      display_type: _DirectoryCustomizations-Ln38?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln42
+      cardinality: '?'
+      reference:
+        dotted_name: DirectoryCustomizations
+        range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
+    dotted_name: EnumCustomizations
+    display_type: _EnumCustomizations-Ln46
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
+        visibility: Visibility.Private
+        name: _EnumCustomizations-Ln46
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 47, Col 5 -> Ln 48, Col 5)
+          visibility: Visibility.Public
+          name: enum1
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 47, Col 12 -> Ln 47, Col 38)
+            dotted_name: _EnumCustomizations-Ln46._ItemStatement-Ln47
+            display_type: Enum
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: EnumType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 47, Col 12 -> Ln 47, Col 38)
+              values:
+              - name: Value1
+                value: 1
+              - name: Value2
+                value: 2
+              - name: Value3
+                value: 3
+              starting_value: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln47
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 48, Col 5 -> Ln 49, Col 5)
+          visibility: Visibility.Public
+          name: enum2
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 48, Col 12 -> Ln 48, Col 52)
+            dotted_name: _EnumCustomizations-Ln46._ItemStatement-Ln48
+            display_type: Enum
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: EnumType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 48, Col 12 -> Ln 48, Col 52)
+              values:
+              - name: One
+                value: 1
+              - name: Two
+                value: 2
+              - name: Three
+                value: 3
+              starting_value: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln48
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 49, Col 5 -> Ln 50, Col 5)
+          visibility: Visibility.Public
+          name: enum3
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 49, Col 12 -> Ln 49, Col 59)
+            dotted_name: _EnumCustomizations-Ln46._ItemStatement-Ln49
+            display_type: Enum
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: EnumType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 49, Col 12 -> Ln 49, Col 59)
+              values:
+              - name: Value1
+                value: '1'
+              - name: Value2
+                value: '2'
+              - name: Value3
+                value: '3'
+              starting_value: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln49
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 50, Col 5 -> Ln 51, Col 5)
+          visibility: Visibility.Public
+          name: enum4
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 50, Col 12 -> Ln 50, Col 73)
+            dotted_name: _EnumCustomizations-Ln46._ItemStatement-Ln50
+            display_type: Enum
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: EnumType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 50, Col 12 -> Ln 50, Col 73)
+              values:
+              - name: One
+                value: '1'
+              - name: Two
+                value: '2'
+              - name: Three
+                value: '3'
+              starting_value: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln50
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 51, Col 5 -> Ln 52, Col 1)
+          visibility: Visibility.Public
+          name: enum5
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 59)
+            dotted_name: _EnumCustomizations-Ln46._ItemStatement-Ln51
+            display_type: Enum
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: EnumType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 59)
+              values:
+              - name: Value1
+                value: 100
+              - name: Value2
+                value: 101
+              - name: Value3
+                value: 102
+              starting_value: 100
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln51
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: EnumCustomizations
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 53, Col 1 -> Ln 57, Col 1)
+    visibility: Visibility.Public
+    name: enum_customizations
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 53, Col 22 -> Ln 53, Col 41)
+      dotted_name: _ItemStatement-Ln53
+      display_type: _EnumCustomizations-Ln46?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln53
+      cardinality: '?'
+      reference:
+        dotted_name: EnumCustomizations
+        range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
+    dotted_name: FilenameCustomizations
+    display_type: _FilenameCustomizations-Ln57
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
+        visibility: Visibility.Private
+        name: _FilenameCustomizations-Ln57
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 58, Col 5 -> Ln 59, Col 5)
+          visibility: Visibility.Public
+          name: default
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 58, Col 14 -> Ln 58, Col 22)
+            dotted_name: _FilenameCustomizations-Ln57._ItemStatement-Ln58
+            display_type: Filename!
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: FilenameType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 58, Col 14 -> Ln 58, Col 22)
+              ensure_exists: true
+              match_any: false
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln58
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 59, Col 5 -> Ln 60, Col 5)
+          visibility: Visibility.Public
+          name: no_ensure_exists
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 59, Col 23 -> Ln 59, Col 56)
+            dotted_name: _FilenameCustomizations-Ln57._ItemStatement-Ln59
+            display_type: Filename
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: FilenameType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 59, Col 23 -> Ln 59, Col 56)
+              ensure_exists: false
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln59
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 60, Col 5 -> Ln 61, Col 1)
+          visibility: Visibility.Public
+          name: match_any
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 60, Col 16 -> Ln 60, Col 44)
+            dotted_name: _FilenameCustomizations-Ln57._ItemStatement-Ln60
+            display_type: Filename!^
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: FilenameType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 60, Col 16 -> Ln 60, Col 44)
+              ensure_exists: true
+              match_any: true
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln60
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: FilenameCustomizations
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 62, Col 1 -> Ln 66, Col 1)
+    visibility: Visibility.Public
+    name: filename_customizations
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 62, Col 26 -> Ln 62, Col 49)
+      dotted_name: _ItemStatement-Ln62
+      display_type: _FilenameCustomizations-Ln57?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln62
+      cardinality: '?'
+      reference:
+        dotted_name: FilenameCustomizations
+        range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
+    dotted_name: IntegerCustomizations
+    display_type: _IntegerCustomizations-Ln66
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
+        visibility: Visibility.Private
+        name: _IntegerCustomizations-Ln66
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 67, Col 5 -> Ln 68, Col 5)
+          visibility: Visibility.Public
+          name: default
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 67, Col 14 -> Ln 67, Col 21)
+            dotted_name: _IntegerCustomizations-Ln66._ItemStatement-Ln67
+            display_type: Integer
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: IntegerType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 67, Col 14 -> Ln 67, Col 21)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln67
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 68, Col 5 -> Ln 69, Col 5)
+          visibility: Visibility.Public
+          name: min
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 68, Col 10 -> Ln 68, Col 28)
+            dotted_name: _IntegerCustomizations-Ln66._ItemStatement-Ln68
+            display_type: Integer {>= 0}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: IntegerType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 68, Col 10 -> Ln 68, Col 28)
+              min: 0
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln68
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 69, Col 5 -> Ln 70, Col 5)
+          visibility: Visibility.Public
+          name: max
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 69, Col 10 -> Ln 69, Col 29)
+            dotted_name: _IntegerCustomizations-Ln66._ItemStatement-Ln69
+            display_type: Integer {<= 10}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: IntegerType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 69, Col 10 -> Ln 69, Col 29)
+              max: 10
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln69
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 70, Col 5 -> Ln 71, Col 5)
+          visibility: Visibility.Public
+          name: min_and_max
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 70, Col 18 -> Ln 70, Col 45)
+            dotted_name: _IntegerCustomizations-Ln66._ItemStatement-Ln70
+            display_type: Integer {>= 0, <= 10}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: IntegerType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 70, Col 18 -> Ln 70, Col 45)
+              min: 0
+              max: 10
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln70
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 71, Col 5 -> Ln 72, Col 1)
+          visibility: Visibility.Public
+          name: with_bits
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 71, Col 16 -> Ln 71, Col 43)
+            dotted_name: _IntegerCustomizations-Ln66._ItemStatement-Ln71
+            display_type: Integer
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: IntegerType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 71, Col 16 -> Ln 71, Col 43)
+              bits: BitsEnum.Value16
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln71
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: IntegerCustomizations
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 73, Col 1 -> Ln 77, Col 1)
+    visibility: Visibility.Public
+    name: integer_customizations
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 73, Col 25 -> Ln 73, Col 47)
+      dotted_name: _ItemStatement-Ln73
+      display_type: _IntegerCustomizations-Ln66?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln73
+      cardinality: '?'
+      reference:
+        dotted_name: IntegerCustomizations
+        range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
+    dotted_name: NumberCustomizations
+    display_type: _NumberCustomizations-Ln77
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
+        visibility: Visibility.Private
+        name: _NumberCustomizations-Ln77
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 78, Col 5 -> Ln 79, Col 5)
+          visibility: Visibility.Public
+          name: default
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 78, Col 14 -> Ln 78, Col 20)
+            dotted_name: _NumberCustomizations-Ln77._ItemStatement-Ln78
+            display_type: Number
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: NumberType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 78, Col 14 -> Ln 78, Col 20)
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln78
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 79, Col 5 -> Ln 80, Col 5)
+          visibility: Visibility.Public
+          name: min
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 79, Col 10 -> Ln 79, Col 29)
+            dotted_name: _NumberCustomizations-Ln77._ItemStatement-Ln79
+            display_type: Number {>= 0.0}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: NumberType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 79, Col 10 -> Ln 79, Col 29)
+              min: 0.0
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln79
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 80, Col 5 -> Ln 81, Col 5)
+          visibility: Visibility.Public
+          name: max
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 80, Col 10 -> Ln 80, Col 30)
+            dotted_name: _NumberCustomizations-Ln77._ItemStatement-Ln80
+            display_type: Number {<= 10.0}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: NumberType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 80, Col 10 -> Ln 80, Col 30)
+              max: 10.0
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln80
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 81, Col 5 -> Ln 82, Col 5)
+          visibility: Visibility.Public
+          name: min_and_max
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 81, Col 18 -> Ln 81, Col 48)
+            dotted_name: _NumberCustomizations-Ln77._ItemStatement-Ln81
+            display_type: Number {>= 0.0, <= 10.0}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: NumberType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 81, Col 18 -> Ln 81, Col 48)
+              min: 0.0
+              max: 10.0
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln81
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 82, Col 5 -> Ln 83, Col 1)
+          visibility: Visibility.Public
+          name: with_bits
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 82, Col 16 -> Ln 82, Col 42)
+            dotted_name: _NumberCustomizations-Ln77._ItemStatement-Ln82
+            display_type: Number
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: NumberType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 82, Col 16 -> Ln 82, Col 42)
+              bits: BitsEnum.Value16
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln82
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: NumberCustomizations
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 84, Col 1 -> Ln 88, Col 1)
+    visibility: Visibility.Public
+    name: number_customizations
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 84, Col 24 -> Ln 84, Col 45)
+      dotted_name: _ItemStatement-Ln84
+      display_type: _NumberCustomizations-Ln77?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln84
+      cardinality: '?'
+      reference:
+        dotted_name: NumberCustomizations
+        range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
+    dotted_name: StringCustomizations
+    display_type: _StringCustomizations-Ln88
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
+        visibility: Visibility.Private
+        name: _StringCustomizations-Ln88
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 89, Col 5 -> Ln 90, Col 5)
+          visibility: Visibility.Public
+          name: default
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 89, Col 14 -> Ln 89, Col 20)
+            dotted_name: _StringCustomizations-Ln88._ItemStatement-Ln89
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 89, Col 14 -> Ln 89, Col 20)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln89
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 90, Col 5 -> Ln 91, Col 5)
+          visibility: Visibility.Public
+          name: min_length
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 90, Col 17 -> Ln 90, Col 42)
+            dotted_name: _StringCustomizations-Ln88._ItemStatement-Ln90
+            display_type: String {>= 10 characters}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 90, Col 17 -> Ln 90, Col 42)
+              min_length: 10
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln90
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 91, Col 5 -> Ln 92, Col 5)
+          visibility: Visibility.Public
+          name: max_length
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 91, Col 17 -> Ln 91, Col 42)
+            dotted_name: _StringCustomizations-Ln88._ItemStatement-Ln91
+            display_type: String {<= 20 characters}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 91, Col 17 -> Ln 91, Col 42)
+              min_length: 1
+              max_length: 20
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln91
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 92, Col 5 -> Ln 93, Col 5)
+          visibility: Visibility.Public
+          name: min_and_max_length
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 92, Col 25 -> Ln 92, Col 66)
+            dotted_name: _StringCustomizations-Ln88._ItemStatement-Ln92
+            display_type: String {>= 10 characters, <= 20 characters}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 92, Col 25 -> Ln 92, Col 66)
+              min_length: 10
+              max_length: 20
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln92
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: FundamentalTypes.SimpleSchema (Ln 93, Col 5 -> Ln 94, Col 1)
+          visibility: Visibility.Public
+          name: validation_expression
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: FundamentalTypes.SimpleSchema (Ln 93, Col 28 -> Ln 93, Col 70)
+            dotted_name: _StringCustomizations-Ln88._ItemStatement-Ln93
+            display_type: String {'__.+__'}
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: FundamentalTypes.SimpleSchema (Ln 93, Col 28 -> Ln 93, Col 70)
+              min_length: 1
+              validation_expression: __.+__
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln93
+            cardinality: <single>
+    visibility: Visibility.Public
+    name: StringCustomizations
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: FundamentalTypes.SimpleSchema (Ln 95, Col 1 -> Ln 96, Col 1)
+    visibility: Visibility.Public
+    name: string_customizations
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: FundamentalTypes.SimpleSchema (Ln 95, Col 24 -> Ln 95, Col 45)
+      dotted_name: _ItemStatement-Ln95
+      display_type: _StringCustomizations-Ln88?
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln95
+      cardinality: '?'
+      reference:
+        dotted_name: StringCustomizations
+        range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)

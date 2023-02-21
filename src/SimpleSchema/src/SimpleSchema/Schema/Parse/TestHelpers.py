@@ -26,7 +26,6 @@ from unittest.mock import MagicMock as Mock, patch
 
 import pytest
 
-from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Types import overridemethod
 
 pytest.register_assert_rewrite("Common_PythonDevelopment.TestHelpers")
@@ -56,8 +55,8 @@ from ..Elements.Types.FundamentalTypes.FilenameType import FilenameType
 from ..Elements.Types.FundamentalTypes.IntegerType import IntegerType
 from ..Elements.Types.FundamentalTypes.NumberType import NumberType
 from ..Elements.Types.FundamentalTypes.StringType import StringType
+from ..Elements.Types.ReferenceType import ReferenceType
 from ..Elements.Types.StructureType import StructureType
-from ..Elements.Types.TypedefType import TypedefType
 
 from ..Parse.ANTLR.Elements.Common.ParseIdentifier import ParseIdentifier
 
@@ -67,6 +66,8 @@ from ..Parse.ANTLR.Elements.Statements.ParseItemStatement import ParseItemStatem
 from ..Parse.ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 
 from ..Parse.Visitor import Visitor
+
+from ...Common.SafeYaml import ToYamlString
 
 
 # ----------------------------------------------------------------------
@@ -97,45 +98,6 @@ def CompareResultsFromFile(
         decorate_test_name_func=lambda value: value[len("test_"):],
         decorate_stem_func=DecorateStem,
     )
-
-
-# ----------------------------------------------------------------------
-def ToYamlString(
-    content: Any,
-) -> str:
-    # Here, we are going to great effort to ensure that the yaml package outputs consistently
-    # formatted output (rounding-tripping via rtyaml and subclassing to prevent the generation
-    # of complex keys).
-
-    # Import here as we need to money patch content in yaml so rtyaml doesn't use the binary
-    # version of yaml libraries.
-    import yaml
-
-    yaml.CSafeLoader = yaml.SafeLoader
-    yaml.CDumper = yaml.Dumper
-
-    import rtyaml
-
-    # Create a dumper that never produces complex keys
-    # ----------------------------------------------------------------------
-    class CustomDumper(rtyaml.Dumper):
-        # ----------------------------------------------------------------------
-        def check_simple_key(self):
-            # Always use simple keys
-            return True
-
-    # ----------------------------------------------------------------------
-    def CustomDumpFunc(
-        data,
-        stream=None,
-        Dumper=rtyaml.Dumper,  # pylint: disable=unused-argument
-        **kwargs,
-    ):
-        return yaml.dump(data, stream, CustomDumper, **kwargs)
-
-    # ----------------------------------------------------------------------
-
-    return rtyaml.do_dump(content, None, CustomDumpFunc)
 
 
 # ----------------------------------------------------------------------
@@ -329,7 +291,6 @@ class _ToPythonDictVisitor(Visitor):
         self.include_disabled_status        = include_disabled_status
 
         self._stack: list[dict[str, Any]]               = []
-        self._processing_reference_element_ctr          = 0
 
     # ----------------------------------------------------------------------
     @property
@@ -374,39 +335,18 @@ class _ToPythonDictVisitor(Visitor):
     def OnElementDetailsItem(self, name: str, element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType) -> Iterator[Optional[VisitResult]]:
         is_list = isinstance(element_or_elements, list)
 
-        # Special logic for references
-        if (
-            (is_list and element_or_elements and callable(element_or_elements[0]))
-            or (not is_list and callable(element_or_elements))
-        ):
-            assert self._processing_reference_element_ctr == 0
+        prev_num_items = len(self._stack)
 
-            self._processing_reference_element_ctr += 1
+        yield
 
-            # ----------------------------------------------------------------------
-            def OnExit():
-                assert self._processing_reference_element_ctr > 0
-                self._processing_reference_element_ctr -= 1
+        items = self._stack[prev_num_items:]
+        self._stack = self._stack[:prev_num_items]
 
-            # ----------------------------------------------------------------------
+        if not is_list:
+            assert len(items) == 1
+            items = items[0]
 
-            on_exit_func = OnExit
-        else:
-            on_exit_func = lambda: None
-
-        with ExitStack(on_exit_func):
-            prev_num_items = len(self._stack)
-
-            yield
-
-            items = self._stack[prev_num_items:]
-            self._stack = self._stack[:prev_num_items]
-
-            if not is_list:
-                assert len(items) == 1
-                items = items[0]
-
-            self._stack[-1][name] = items
+        self._stack[-1][name] = items
 
     # ----------------------------------------------------------------------
     # |
@@ -597,39 +537,20 @@ class _ToPythonDictVisitor(Visitor):
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnStructureType(self, element: StructureType) -> Iterator[Optional[VisitResult]]:
-        if self._processing_reference_element_ctr != 0:
-            element.statement.name.Accept(self)
-            self._stack[-1]["reference"] = self._stack.pop()
+    def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
+        self._stack[-1]["display_type"] = element.display_type
 
-            if not element.cardinality.is_single:
-                element.cardinality.Accept(self)
-                self._stack[-1]["cardinality"] = self._stack.pop()
+        if not (element.flags & ReferenceType.Flag.DefinedInline):
+            if element.flags & ReferenceType.Flag.BasicRef:
+                name = element.type.display_type
+            else:
+                assert isinstance(element.type, ReferenceType)
+                name = element.type.name.value
 
-            if element.metadata is not None:
-                element.metadata.Accept(self)
-                self._stack[-1]["metadata"] = self._stack.pop()
-
-            yield VisitResult.SkipAll
-            return
-
-        yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnTypedefType(self, element: TypedefType) -> Iterator[Optional[VisitResult]]:
-        if self._processing_reference_element_ctr != 0:
-            element.name.Accept(self)
-            self._stack[-1]["reference"] = self._stack.pop()
-
-            if not element.cardinality.is_single:
-                element.cardinality.Accept(self)
-                self._stack[-1]["cardinality"] = self._stack.pop()
-
-            if element.metadata is not None:
-                element.metadata.Accept(self)
-                self._stack[-1]["metadata"] = self._stack.pop()
+            self._stack[-1]["reference"] = {
+                "name": name,
+                "range": str(element.type.range),
+            }
 
             yield VisitResult.SkipAll
             return

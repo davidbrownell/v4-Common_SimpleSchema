@@ -12,8 +12,21 @@
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
       value: standard
     type:
-      __type__: DirectoryType
+      __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
+      display_type: Directory!
+      type:
+        __type__: DirectoryType
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
+        ensure_exists: true
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: _ItemStatement-Ln1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
@@ -25,7 +38,6 @@
           __type__: IntegerExpression
           range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
           value: 1
-      ensure_exists: true
   - __type__: ItemStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
     visibility:
@@ -37,8 +49,21 @@
       range: entry_point <Ln 2, Col 1 -> Ln 2, Col 17>
       value: no_ensure_exists
     type:
-      __type__: DirectoryType
+      __type__: ReferenceType
       range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
+      display_type: Directory
+      type:
+        __type__: DirectoryType
+        range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
+        ensure_exists: false
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+        value: _ItemStatement-Ln2
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
@@ -50,4 +75,3 @@
           __type__: IntegerExpression
           range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
           value: 1
-      ensure_exists: false

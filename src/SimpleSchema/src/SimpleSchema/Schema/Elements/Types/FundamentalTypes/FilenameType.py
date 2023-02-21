@@ -16,7 +16,6 @@
 """Contains the FilenameType object"""
 
 from dataclasses import dataclass, field
-from functools import cached_property
 from pathlib import Path
 from typing import ClassVar, Tuple, Type as PythonType
 
@@ -44,14 +43,13 @@ class FilenameType(FundamentalType):
         if self.match_any and not self.ensure_exists:
             raise ValueError("'match_any' should only be set when 'ensure_exists' is set as well.")
 
-        super(FilenameType, self).__post_init__()
-
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    @cached_property
-    def _display_name(self) -> str:
-        result = super(FilenameType, self)._display_name
+    @property
+    @overridemethod
+    def _display_type(self) -> str:
+        result = super(FilenameType, self)._display_type  # pylint: disable=no-member
 
         if self.ensure_exists:
             result += "!"
@@ -63,7 +61,7 @@ class FilenameType(FundamentalType):
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Path,
     ) -> Path:

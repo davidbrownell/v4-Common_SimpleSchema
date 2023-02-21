@@ -18,7 +18,6 @@
 import re
 
 from dataclasses import dataclass, field
-from functools import cached_property
 from typing import ClassVar, Optional, Pattern, Tuple, Type as PythonType
 
 from Common_Foundation.Types import overridemethod
@@ -61,13 +60,12 @@ class StringType(FundamentalType):
 
         object.__setattr__(self, "_validation_regex", validation_regex)
 
-        super(StringType, self).__post_init__()
-
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    @cached_property
-    def _display_name(self) -> str:
+    @property
+    @overridemethod
+    def _display_type(self) -> str:
         constraints: list[str] = []
 
         if self.min_length != 1:
@@ -77,16 +75,16 @@ class StringType(FundamentalType):
         if self.validation_expression:
             constraints.append("'{}'".format(self.validation_expression))
 
-        result = super(StringType, self)._display_name
+        result = super(StringType, self)._display_type
 
         if not constraints:
             return result
 
-        return "{} ({})".format(result, ", ".join(constraints))
+        return "{} {{{}}}".format(result, ", ".join(constraints))
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: str,
     ) -> str:

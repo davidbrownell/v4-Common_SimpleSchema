@@ -1,0 +1,59 @@
+# ----------------------------------------------------------------------
+# |
+# |  Metadata.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2023-02-07 12:16:14
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2023
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+
+Object ->
+    value: String {
+        name: "A value"
+        description: "A description of a value"
+    }
+{
+    name: "The object"
+    description: "A description of the object"
+}
+
+Typedef: Object[10] {
+    name: "The objects (name)"
+    plural_name: "The objects (plural)"
+    description: "A description of the objects"
+}
+
+no_metadata_object: Object
+no_metadata_typedef: Typedef
+no_metadata_typedefs: Typedef[5]
+
+object: Object { name: "A object" }
+typedef: Typedef { name: "A typedef" }
+typedefs: Typedef[5] { name: "2d Objects" }
+
+DefaultObject: String? { default: "null" }
+
+default_object: DefaultObject
+default_object_with_override: DefaultObject { default: "NONE" }
+
+
+# ----------------------------------------------------------------------
+MetadataTypes ->
+    pass
+{
+    boolean: True
+    integer: 10
+    list: [10, 20]
+    none: None
+    number: 1.234
+    string: "Hello"
+    tuple: (1, "two", 3.0)
+}

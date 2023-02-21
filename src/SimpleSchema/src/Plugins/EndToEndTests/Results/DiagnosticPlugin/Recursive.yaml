@@ -1,0 +1,133 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 26, Col 1)
+  statements:
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
+    dotted_name: Directory
+    display_type: _Directory-Ln19
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
+        visibility: Visibility.Private
+        name: _Directory-Ln19
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Recursive.SimpleSchema (Ln 20, Col 5 -> Ln 22, Col 5)
+          visibility: Visibility.Public
+          name: name
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Recursive.SimpleSchema (Ln 20, Col 11 -> Ln 20, Col 17)
+            dotted_name: _Directory-Ln19._ItemStatement-Ln20
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: Recursive.SimpleSchema (Ln 20, Col 11 -> Ln 20, Col 17)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln20
+            cardinality: <single>
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Recursive.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 5)
+          visibility: Visibility.Public
+          name: files
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
+            dotted_name: _Directory-Ln19._ItemStatement-Ln22
+            display_type: String+
+            flags:
+            - Type
+            - ReferenceRef
+            - BasicCollectionRef
+            - DynamicallyGenerated
+            - DefinedInline
+            type:
+              __type__: ReferenceType
+              __disabled__: false
+              range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
+              dotted_name: _Directory-Ln19.__ItemStatement-Ln22_Item-Ln22
+              display_type: String
+              flags:
+              - Type
+              - BasicRef
+              - DynamicallyGenerated
+              - DefinedInline
+              type:
+                __type__: StringType
+                __disabled__: false
+                range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
+                min_length: 1
+              visibility: Visibility.Private
+              name: __ItemStatement-Ln22_Item-Ln22
+              cardinality: <single>
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln22
+            cardinality: +
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Recursive.SimpleSchema (Ln 23, Col 5 -> Ln 24, Col 1)
+          visibility: Visibility.Public
+          name: directories
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Recursive.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 28)
+            dotted_name: _Directory-Ln19._ItemStatement-Ln23
+            display_type: _Directory-Ln19*
+            flags:
+            - Type
+            - ReferenceRef
+            - DynamicallyGenerated
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln23
+            cardinality: '*'
+            reference:
+              dotted_name: Directory
+              range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
+    visibility: Visibility.Public
+    name: Directory
+    cardinality: <single>
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Recursive.SimpleSchema (Ln 25, Col 1 -> Ln 26, Col 1)
+    visibility: Visibility.Public
+    name: file_system
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Recursive.SimpleSchema (Ln 25, Col 14 -> Ln 25, Col 24)
+      dotted_name: _ItemStatement-Ln25
+      display_type: _Directory-Ln19*
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln25
+      cardinality: '*'
+      reference:
+        dotted_name: Directory
+        range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)

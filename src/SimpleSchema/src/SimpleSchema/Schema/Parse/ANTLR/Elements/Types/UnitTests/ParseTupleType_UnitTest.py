@@ -54,7 +54,7 @@ def test_Standard():
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
+def test_DisplayType():
     assert ParseTupleType(
         Mock(),
         Cardinality.CreateFromCode(0, 1),
@@ -69,7 +69,7 @@ def test_DisplayName():
                 None,
             ),
         ],
-    ).display_name == "_(_Name[2], )?"
+    ).display_type == "(Name[2], )?"
 
     assert ParseTupleType(
         Mock(),
@@ -80,7 +80,7 @@ def test_DisplayName():
             ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
             ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None, None),
         ],
-    ).display_name == "_(_Name1, _Name2, _Name3, )"
+    ).display_type == "(Name1, Name2, Name3, )"
 
 
 # ----------------------------------------------------------------------

@@ -194,6 +194,16 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SimpleSchemaParser#parse_structure_statement_base_single__.
+    def visitParse_structure_statement_base_single__(self, ctx:SimpleSchemaParser.Parse_structure_statement_base_single__Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SimpleSchemaParser#parse_structure_statement_base_multi__.
+    def visitParse_structure_statement_base_multi__(self, ctx:SimpleSchemaParser.Parse_structure_statement_base_multi__Context):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SimpleSchemaParser#parse_structure_simplified_statement.
     def visitParse_structure_simplified_statement(self, ctx:SimpleSchemaParser.Parse_structure_simplified_statementContext):
         return self.visitChildren(ctx)

@@ -16,24 +16,39 @@
 """Contains the ParseType object"""
 
 from dataclasses import dataclass
-from typing import ClassVar, Tuple, Type as PythonType
+from typing import Optional
 
 from Common_Foundation.Types import overridemethod
 
-from .....Elements.Types.Type import Type
+from .....Elements.Common.Cardinality import Cardinality
+from .....Elements.Common.Element import Element
+from .....Elements.Common.Metadata import Metadata
+
+from .....Elements.Types.Impl.BaseType import BaseType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class ParseType(Type):
+class ParseType(BaseType):
     """Temporary type generated during parsing and replaced during subsequent steps"""
 
     # ----------------------------------------------------------------------
-    SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (object, )
+    cardinality: Cardinality
+    metadata: Optional[Metadata]
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def ToPython(self, *args, **kwargs):  # pylint: disable=unused-argument
+        raise Exception("This method should never be called on ParseType instances.")
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(self, *args, **kwargs):
-        raise ValueError("This method should never be called on ParseType instances.")
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield from super(ParseType, self)._GenerateAcceptDetails()
+
+        yield "cardinality", self.cardinality
+
+        if self.metadata is not None:
+            yield "metadata", self.metadata

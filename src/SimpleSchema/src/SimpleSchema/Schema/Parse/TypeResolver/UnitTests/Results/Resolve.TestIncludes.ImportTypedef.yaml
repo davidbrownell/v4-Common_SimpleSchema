@@ -13,45 +13,39 @@ entry_point:
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 5>
       value: type
     type:
-      __type__: TypedefType
-      range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+      __type__: ReferenceType
+      range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
+      display_type: String {>= 2 characters}
       reference:
-        __type__: SimpleElement
-        range: included <Ln 1, Col 1 -> Ln 1, Col 5>
-        value: Type
+        name: Type
+        range: included <Ln 1, Col 1 -> Ln 1, Col 31>
 included:
 - __type__: RootStatement
   range: included <Ln 1, Col 1 -> Ln 1, Col 31>
   statements:
-  - __type__: TypedefType
+  - __type__: ReferenceType
     range: included <Ln 1, Col 1 -> Ln 1, Col 31>
-    cardinality:
-      __type__: Cardinality
-      range: included <Ln 1, Col 1 -> Ln 1, Col 31>
-      min:
-        __type__: IntegerExpression
-        range: included <Ln 1, Col 1 -> Ln 1, Col 31>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: included <Ln 1, Col 1 -> Ln 1, Col 31>
-        value: 1
+    display_type: String {>= 2 characters}
+    type:
+      __type__: StringType
+      range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+      min_length: 2
+    visibility:
+      __type__: SimpleElement
+      range: included <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: included <Ln 1, Col 1 -> Ln 1, Col 5>
       value: Type
-    type:
-      __type__: StringType
+    cardinality:
+      __type__: Cardinality
       range: included <Ln 1, Col 7 -> Ln 1, Col 31>
-      cardinality:
-        __type__: Cardinality
+      min:
+        __type__: IntegerExpression
         range: included <Ln 1, Col 7 -> Ln 1, Col 31>
-        min:
-          __type__: IntegerExpression
-          range: included <Ln 1, Col 7 -> Ln 1, Col 31>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: included <Ln 1, Col 7 -> Ln 1, Col 31>
-          value: 1
-      min_length: 2
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+        value: 1

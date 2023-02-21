@@ -30,7 +30,6 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
     from SimpleSchema.Schema.Elements.Types.FundamentalTypes.UriType import Uri, UriType
 
 
@@ -81,26 +80,22 @@ class TestUriType(object):
     # ----------------------------------------------------------------------
     def test_Standard(self):
         range_mock = Mock()
-        cardinality_mock = Mock()
-        metadata_mock = Mock()
 
-        ut = UriType(range_mock, cardinality_mock, metadata_mock)
+        ut = UriType(range_mock)
 
         assert ut.NAME == "Uri"
         assert ut.SUPPORTED_PYTHON_TYPES == (str, Uri, )
 
         assert ut.range is range_mock
-        assert ut.cardinality is cardinality_mock
-        assert ut.metadata is metadata_mock
 
     # ----------------------------------------------------------------------
-    def test_DisplayName(self):
-        assert UriType(Mock(), Cardinality.CreateFromCode(), None).display_name == "Uri"
+    def test_DisplayType(self):
+        assert UriType(Mock()).display_type == "Uri"
 
     # ----------------------------------------------------------------------
     @pytest.mark.parametrize("trailing_slash", ["", "/"])
     def test_ToPython(self, trailing_slash):
-        uri_type = UriType(Mock(), Cardinality.CreateFromCode(), None)
+        uri_type = UriType(Mock())
 
         uri = uri_type.ToPython("https://foo.bar{}".format(trailing_slash))
 

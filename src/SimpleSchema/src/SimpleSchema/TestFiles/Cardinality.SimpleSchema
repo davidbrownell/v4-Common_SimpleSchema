@@ -1,0 +1,38 @@
+# ----------------------------------------------------------------------
+# |
+# |  Cardinality.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2023-01-30 14:32:14
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2023
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
+Cardinality ->
+    standard: String
+
+    zero_or_more: String*
+    one_or_more: String+
+    constrained: String[3, 10]
+    fixed: String[3, 3]
+
+    optional: String?
+    optional_with_default: String? { default: "foo" }
+
+cardinality: Cardinality?
+
+
+# ----------------------------------------------------------------------
+OptionalObject ->
+    value: String
+?
+
+optional_object: OptionalObject

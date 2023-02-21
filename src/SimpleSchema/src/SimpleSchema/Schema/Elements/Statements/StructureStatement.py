@@ -17,24 +17,19 @@
 
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import cast, ClassVar, Optional
-from weakref import ref, ReferenceType
+from typing import cast, ClassVar, TYPE_CHECKING
+from weakref import ref, ReferenceType as WeakReferenceType
 
 from Common_Foundation.Types import overridemethod
 
 from .Statement import Statement
 
-from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
-from ..Common.Metadata import Metadata
 from ..Common.SimpleElement import SimpleElement
 from ..Common.Visibility import Visibility
 
-from ..Types.FundamentalType import FundamentalType
-from ..Types.Type import Type
-from ..Types.StructureType import StructureType
-
-from ....Common import Errors
+if TYPE_CHECKING:
+    from ..Types.ReferenceType import ReferenceType  # pragma: no cover
 
 
 # ----------------------------------------------------------------------
@@ -47,22 +42,8 @@ class StructureStatement(Statement):
 
     visibility: SimpleElement[Visibility]
     name: SimpleElement[str]
-    base_types: list[Type]                  # Can be an empty list
-    cardinality: Cardinality
-    metadata: Optional[Metadata]
+    base_types: list["ReferenceType"]       # Can be an empty list
     children: list[Statement]               # Can be an empty list
-
-    # ----------------------------------------------------------------------
-    def __post_init__(self):
-        if len(self.base_types) == 1:
-            with self.base_types[0].Resolve() as resolved_base_type:
-                if not isinstance(resolved_base_type, (FundamentalType, StructureType)):
-                    raise Errors.StructureStatementInvalidSingleBase.Create(self.base_types[0].range)
-        else:
-            for base_type in self.base_types:
-                with base_type.Resolve() as resolved_base_type:
-                    if not isinstance(resolved_base_type, StructureType):
-                        raise Errors.StructureStatementInvalidBase.Create(base_type.range)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -73,10 +54,7 @@ class StructureStatement(Statement):
         yield "name", self.name
 
         if self.base_types:
-            yield "base_types", cast(list[ReferenceType[Element]], [ref(base_type) for base_type in self.base_types])
-
-        if self.metadata:
-            yield "metadata", self.metadata
+            yield "base_types", cast(list[WeakReferenceType[Element]], [ref(base_type) for base_type in self.base_types])
 
     # ----------------------------------------------------------------------
     @overridemethod

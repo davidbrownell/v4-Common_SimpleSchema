@@ -49,6 +49,7 @@ def GetConfigurations() -> Union[
     common_python_libraries: List[Configuration.VersionInfo] = [
         Configuration.VersionInfo("antlr4-python3-runtime", SemVer.coerce("4.11.1")),
         Configuration.VersionInfo("antlr-denter", SemVer.coerce("1.3.1")),
+        Configuration.VersionInfo("rtyaml", SemVer("1.0.0")),
     ]
 
     configurations: Dict[str, Configuration.Configuration] = {
@@ -84,7 +85,6 @@ def GetConfigurations() -> Union[
                 {
                     "Python": common_python_libraries + [
                         Configuration.VersionInfo("cx_freeze", SemVer("6.13.1")),
-                        Configuration.VersionInfo("rtyaml", SemVer("1.0.0")),
                     ],
                 },                             # libraries
             ),

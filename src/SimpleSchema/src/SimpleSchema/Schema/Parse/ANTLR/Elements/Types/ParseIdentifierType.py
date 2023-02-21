@@ -16,8 +16,7 @@
 """Contains the ParseIdentifierType object"""
 
 from dataclasses import dataclass
-from functools import cached_property
-from typing import cast, ClassVar, Optional
+from typing import cast, Optional
 
 from Common_Foundation.Types import overridemethod
 
@@ -37,9 +36,6 @@ class ParseIdentifierType(ParseType):
     """Temporary identifier generated during parsing and replaced in subsequent steps"""
 
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = "ParseIdentifier"
-
-    # ----------------------------------------------------------------------
     identifiers: list[ParseIdentifier]
     is_global_reference: Optional[Range]
     is_item_reference: Optional[Range]
@@ -56,26 +52,22 @@ class ParseIdentifierType(ParseType):
         if self.is_global_reference and len(self.identifiers) > 1:
             raise Errors.ParseIdentifierTypeInvalidGlobal.Create(self.is_global_reference)
 
-        super(ParseIdentifierType, self).__post_init__()
-
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @cached_property
-    @overridemethod
-    def _display_name(self) -> str:
-        result = ".".join(identifier.value for identifier in self.identifiers)
-
-        if self.is_global_reference:
-            result = "::{}".format(result)
-        if self.is_item_reference:
-            result = "{}::item".format(result)
-
-        return "_{}".format(result)
-
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield from super(ParseIdentifierType, self)._GenerateAcceptDetails()
 
         yield "identifiers", cast(list[Element], self.identifiers)
+
+    # ----------------------------------------------------------------------
+    @property
+    @overridemethod
+    def _display_type(self) -> str:
+        return "{global_value}{identifiers}{item}{cardinality}".format(
+            global_value="::" if self.is_global_reference else "",
+            identifiers=".".join(identifier.value for identifier in self.identifiers),
+            item="::item" if self.is_item_reference else "",
+            cardinality=self.cardinality,
+        )

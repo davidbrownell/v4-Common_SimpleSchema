@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------
 # |
-# |  Cardinality.SimpleSchema
+# |  Recursive.SimpleSchema
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-01-30 14:32:14
+# |      2023-02-20 13:48:16
 # |
 # ----------------------------------------------------------------------
 # |
@@ -14,13 +14,12 @@
 # |
 # ----------------------------------------------------------------------
 
-Cardinality ->
-    standard: String
 
-    zero_or_more: String*
-    one_or_more: String+
-    constrained: String[3, 10]
-    fixed: String[3, 3]
+# ----------------------------------------------------------------------
+Directory ->
+    name: String
 
-    optional: String?
-    optional_with_default: String? { default: "foo" }
+    files: String+
+    directories: Directory*
+
+file_system: Directory*

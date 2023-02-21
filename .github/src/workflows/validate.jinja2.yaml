@@ -117,7 +117,7 @@ jobs:
       execute_IntegrationTests: 1
       execute_SystemTests: 1
       execute_LocalEndToEndTests: 1
-      execute_EndToEndTests: 0
+      execute_EndToEndTests: 1
       execute_BuildVerificationTests: 1
       execute_PerformanceTests: 0
 
@@ -181,6 +181,6 @@ jobs:
 
       - name: Run Test
         run: |
-          python3 "${{ steps.checkout_source.outputs.repo_dir }}/src/SimpleSchema/src/BinaryTests/Binary_BuildVerificationTest.py" "${{ steps.unbundle.outputs.artifacts_dir }}"
+          python3 "${{ steps.checkout_source.outputs.repo_dir }}/src/SimpleSchema/src/SimpleSchema/TestFiles/Binary_BuildVerificationTest.py" "${{ steps.unbundle.outputs.artifacts_dir }}"
 
 <<% endfor %>>

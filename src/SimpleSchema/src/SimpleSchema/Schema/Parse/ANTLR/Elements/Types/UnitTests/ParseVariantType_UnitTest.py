@@ -54,7 +54,7 @@ def test_Standard():
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
+def test_DisplayType():
     assert ParseVariantType(
         Mock(),
         Cardinality.CreateFromCode(1, 2),
@@ -63,7 +63,7 @@ def test_DisplayName():
             ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
             ParseIdentifierType(Mock(), Cardinality.CreateFromCode(0, 1), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
         ],
-    ).display_name == "_(_Name1 | _Name2?)[1, 2]"
+    ).display_type == "(Name1 | Name2?)[1, 2]"
 
     assert ParseVariantType(
         Mock(),
@@ -74,7 +74,7 @@ def test_DisplayName():
             ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
             ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None, None),
         ],
-    ).display_name == "_(_Name1 | _Name2 | _Name3)"
+    ).display_type == "(Name1 | Name2 | Name3)"
 
 
 # ----------------------------------------------------------------------
