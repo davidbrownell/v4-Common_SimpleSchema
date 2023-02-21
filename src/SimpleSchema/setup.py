@@ -65,14 +65,6 @@ else:
 # ----------------------------------------------------------------------
 include_files: list[Tuple[str, str]] = []
 
-for child in Path("Samples").iterdir():
-    if not child.is_file() or child.suffix != ".SimpleSchema":
-        continue
-
-    child = str(child)
-
-    include_files.append((child, child))
-
 for child in Path("src/Plugins").iterdir():
     if (
         not child.is_file
@@ -123,6 +115,7 @@ setup(
             "optimize": 0,
             "packages": [
                 "antlr_denter",
+                "rtyaml",
             ],
             "include_files": include_files,
         },

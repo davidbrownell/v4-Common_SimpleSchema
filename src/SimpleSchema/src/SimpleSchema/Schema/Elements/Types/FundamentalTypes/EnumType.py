@@ -25,10 +25,7 @@ from Common_Foundation.Types import overridemethod
 
 from ..FundamentalType import FundamentalType
 
-from ...Common.Cardinality import Cardinality
-
 from .....Common import Errors
-from .....Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -149,29 +146,11 @@ class EnumType(FundamentalType):
         # Commit
         object.__setattr__(self, "EnumClass", enum_class)
 
-        super(EnumType, self).__post_init__()
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def Clone(
-        self,
-        range_value: Range,
-        cardinality: Cardinality,
-    ) -> "EnumType":
-        return self.__class__(
-            range_value,
-            cardinality,
-            self.metadata,
-            [],
-            0,
-            self.EnumClass,
-        )
-
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Union[Enum, str, int],
     ) -> EnumMeta:

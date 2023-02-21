@@ -31,11 +31,15 @@ FundamentalTypes ->
     time: Time
     uri: Uri
 
+fundamental_types: FundamentalTypes?
+
 
 # ----------------------------------------------------------------------
 DirectoryCustomizations ->
     default: Directory
     no_ensure_exists: Directory { ensure_exists: False }
+
+directory_customizations: DirectoryCustomizations?
 
 
 # ----------------------------------------------------------------------
@@ -46,12 +50,16 @@ EnumCustomizations ->
     enum4: Enum { values: [("One", "1"), ("Two", "2"), ("Three", "3")] }
     enum5: Enum { values: [1, 2, 3], starting_value: 100 }
 
+enum_customizations: EnumCustomizations?
+
 
 # ----------------------------------------------------------------------
 FilenameCustomizations ->
     default: Filename
     no_ensure_exists: Filename { ensure_exists: False }
     match_any: Filename { match_any: True }
+
+filename_customizations: FilenameCustomizations?
 
 
 # ----------------------------------------------------------------------
@@ -60,6 +68,9 @@ IntegerCustomizations ->
     min: Integer { min: 0 }
     max: Integer { max: 10 }
     min_and_max: Integer { min: 0, max: 10 }
+    with_bits: Integer { bits: "Value16" }
+
+integer_customizations: IntegerCustomizations?
 
 
 # ----------------------------------------------------------------------
@@ -68,6 +79,9 @@ NumberCustomizations ->
     min: Number { min: 0.0 }
     max: Number { max: 10.0 }
     min_and_max: Number { min: 0.0, max: 10.0 }
+    with_bits: Number { bits: "Value16" }
+
+number_customizations: NumberCustomizations?
 
 
 # ----------------------------------------------------------------------
@@ -76,4 +90,6 @@ StringCustomizations ->
     min_length: String { min_length: 10 }
     max_length: String { max_length: 20 }
     min_and_max_length: String { min_length: 10, max_length: 20 }
-    validation_expression: String { validation_expression: ".+" }
+    validation_expression: String { validation_expression: "__.+__" }
+
+string_customizations: StringCustomizations?

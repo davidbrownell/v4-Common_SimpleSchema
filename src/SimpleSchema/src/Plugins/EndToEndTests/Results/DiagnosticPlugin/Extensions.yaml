@@ -1,0 +1,96 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: Extensions.SimpleSchema (Ln 19, Col 1 -> Ln 38, Col 1)
+  statements:
+  - __type__: ExtensionStatement
+    __disabled__: true
+    range: Extensions.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 1)
+    name: NoArgs
+    positional_args: []
+    keyword_args: []
+  - __type__: ExtensionStatement
+    __disabled__: true
+    range: Extensions.SimpleSchema (Ln 23, Col 1 -> Ln 24, Col 1)
+    name: SinglePositionalArg
+    positional_args:
+    - __type__: IntegerExpression
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 23, Col 21 -> Ln 23, Col 23)
+      value: 10
+    keyword_args: []
+  - __type__: ExtensionStatement
+    __disabled__: true
+    range: Extensions.SimpleSchema (Ln 24, Col 1 -> Ln 28, Col 1)
+    name: MultiplePositionalArgs
+    positional_args:
+    - __type__: IntegerExpression
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 24, Col 24 -> Ln 24, Col 26)
+      value: 10
+    - __type__: IntegerExpression
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 24, Col 28 -> Ln 24, Col 30)
+      value: 20
+    - __type__: IntegerExpression
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 24, Col 32 -> Ln 24, Col 34)
+      value: 30
+    keyword_args: []
+  - __type__: ExtensionStatement
+    __disabled__: true
+    range: Extensions.SimpleSchema (Ln 28, Col 1 -> Ln 30, Col 1)
+    name: SingleKeywordArg
+    positional_args: []
+    keyword_args:
+    - __type__: ExtensionStatementKeywordArg
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 28, Col 18 -> Ln 28, Col 27)
+      name: foo
+      expression:
+        __type__: StringExpression
+        __disabled__: false
+        range: Extensions.SimpleSchema (Ln 28, Col 22 -> Ln 28, Col 27)
+        value: bar
+  - __type__: ExtensionStatement
+    __disabled__: true
+    range: Extensions.SimpleSchema (Ln 30, Col 1 -> Ln 37, Col 1)
+    name: MultipleKeywordArgs
+    positional_args: []
+    keyword_args:
+    - __type__: ExtensionStatementKeywordArg
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 31, Col 5 -> Ln 31, Col 14)
+      name: foo
+      expression:
+        __type__: StringExpression
+        __disabled__: false
+        range: Extensions.SimpleSchema (Ln 31, Col 9 -> Ln 31, Col 14)
+        value: bar
+    - __type__: ExtensionStatementKeywordArg
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 32, Col 5 -> Ln 32, Col 14)
+      name: biz
+      expression:
+        __type__: StringExpression
+        __disabled__: false
+        range: Extensions.SimpleSchema (Ln 32, Col 9 -> Ln 32, Col 14)
+        value: baz
+  - __type__: ExtensionStatement
+    __disabled__: true
+    range: Extensions.SimpleSchema (Ln 37, Col 1 -> Ln 38, Col 1)
+    name: KeywordAndPositional
+    positional_args:
+    - __type__: IntegerExpression
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 37, Col 22 -> Ln 37, Col 24)
+      value: 10
+    keyword_args:
+    - __type__: ExtensionStatementKeywordArg
+      __disabled__: false
+      range: Extensions.SimpleSchema (Ln 37, Col 26 -> Ln 37, Col 35)
+      name: foo
+      expression:
+        __type__: StringExpression
+        __disabled__: false
+        range: Extensions.SimpleSchema (Ln 37, Col 30 -> Ln 37, Col 35)
+        value: bar

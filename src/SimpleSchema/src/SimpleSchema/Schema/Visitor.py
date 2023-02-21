@@ -20,7 +20,7 @@ import re
 from abc import ABC
 from contextlib import contextmanager
 from typing import Iterator, Optional, Union
-from weakref import ReferenceType
+from weakref import ReferenceType as WeakReferenceType
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Types import extensionmethod
@@ -54,11 +54,12 @@ from .Elements.Types.FundamentalTypes.GuidType import GuidType
 from .Elements.Types.FundamentalTypes.IntegerType import IntegerType
 from .Elements.Types.FundamentalTypes.NumberType import NumberType
 from .Elements.Types.FundamentalTypes.StringType import StringType
+from .Elements.Types.FundamentalTypes.TimeType import TimeType
 from .Elements.Types.FundamentalTypes.UriType import UriType
 
+from .Elements.Types.ReferenceType import ReferenceType
 from .Elements.Types.StructureType import StructureType
 from .Elements.Types.TupleType import TupleType
-from .Elements.Types.TypedefType import TypedefType
 from .Elements.Types.VariantType import VariantType
 
 # ----------------------------------------------------------------------
@@ -297,19 +298,25 @@ class Visitor(ABC):
     # ----------------------------------------------------------------------
     @contextmanager
     @extensionmethod
+    def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
+        yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @extensionmethod
     def OnStructureType(self, element: StructureType) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @extensionmethod
-    def OnTupleType(self, element: TupleType) -> Iterator[Optional[VisitResult]]:
+    def OnTimeType(self, element: TimeType) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @extensionmethod
-    def OnTypedefType(self, element: TypedefType) -> Iterator[Optional[VisitResult]]:
+    def OnTupleType(self, element: TupleType) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------
@@ -344,7 +351,7 @@ class Visitor(ABC):
             elements: Optional[
                 Union[
                     list[Element],
-                    list[ReferenceType[Element]],
+                    list[WeakReferenceType[Element]],
                 ],
             ] = None
 
@@ -378,3 +385,5 @@ class Visitor(ABC):
                         visit_result = element.Accept(self, include_disabled=include_disabled)
                         if visit_result == VisitResult.Terminate:
                             return visit_result
+
+        return VisitResult.Continue

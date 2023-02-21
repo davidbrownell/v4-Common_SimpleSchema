@@ -48,8 +48,8 @@ with ExitStack(lambda: sys.path.pop(0)):
 
 
 # code_coverage: include = ../Resolve.py
-# code_coverage: include = ../Impl/ElementFactories.py
 # code_coverage: include = ../Impl/Namespace.py
+# code_coverage: include = ../Impl/TypeFactories.py
 
 
 # ----------------------------------------------------------------------
@@ -288,7 +288,16 @@ class TestTypedef(object):
     def test_ErrorItemReferenceStructure(self):
         with pytest.raises(
             SimpleSchemaException,
-            match=re.escape("The type 'Structure' is not a container or optional and cannot be used with an item reference. ({} <Ln 4, Col 30 -> Ln 4, Col 36>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
+            match=re.escape(
+                textwrap.dedent(
+                    """\
+                    The type 'Structure' is not a container or optional and cannot be used with an item reference.
+
+                        - {entry_point} <Ln 4, Col 30 -> Ln 4, Col 36>
+                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                    """,
+                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
+            ),
         ):
             _Test(
                 textwrap.dedent(
@@ -308,10 +317,9 @@ class TestTypedef(object):
             match=re.escape(
                 textwrap.dedent(
                     """\
-                    The type '(Typedef (SingleItem) -> String)' is not a container or optional and cannot be used with an item reference.
+                    The type 'SingleItem' is not a container or optional and cannot be used with an item reference.
 
                         - {entry_point} <Ln 3, Col 21 -> Ln 3, Col 27>
-                        - {entry_point} <Ln 1, Col 13 -> Ln 1, Col 19>
                         - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
                     """,
                 ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
@@ -448,17 +456,15 @@ class TestStructure(object):
             match=re.escape(
                 textwrap.dedent(
                     """\
-                    A cycle was detected in the definition of 'One':
+                    A cycle was detected in the definition of '_One-Ln1_Base0':
 
-                        * 'One' {filename} <Ln 1, Col 1 -> Ln 1, Col 4>
-                        * 'Two' {filename} <Ln 4, Col 1 -> Ln 4, Col 4>
-                        * 'Three' {filename} <Ln 7, Col 1 -> Ln 7, Col 6>
+                        * '_One-Ln1_Base0' {entry_point} <Ln 1, Col 6 -> Ln 1, Col 9>
+                        * '_Two-Ln4_Base0' {entry_point} <Ln 4, Col 7 -> Ln 4, Col 12>
+                        * '_Three-Ln7_Base0' {entry_point} <Ln 7, Col 8 -> Ln 7, Col 11>
 
-                        - {filename} <Ln 1, Col 1 -> Ln 1, Col 4>
+                        - {entry_point} <Ln 1, Col 6 -> Ln 1, Col 9>
                     """,
-                ).format(
-                    filename=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point",
-                ),
+                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
             ),
         ):
             _Test(
@@ -643,6 +649,92 @@ class TestStructure(object):
                                     pass
 
                     value: One.Two.Three.DoesNotExist
+                    """,
+                ),
+            )
+
+    # ----------------------------------------------------------------------
+    def test_ErrorInvalidBaseCardinality(self):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape(
+                textwrap.dedent(
+                    """\
+                    Base types must have a cardinality of 1.
+
+                        - {entry_point} <Ln 4, Col 9 -> Ln 4, Col 16>
+                        - {entry_point} <Ln 1, Col 1 -> Ln 2, Col 1>
+                        - {entry_point} <Ln 2, Col 1 -> Ln 4, Col 1>
+                    """,
+                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
+            ),
+        ):
+            _Test(
+                textwrap.dedent(
+                    """\
+                    InvalidBase: String+
+                    Typedef: InvalidBase
+
+                    Struct: Typedef ->
+                        pass
+                    """,
+                ),
+            )
+
+    # ----------------------------------------------------------------------
+    def test_ErrorInvalidBaseType(self):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape(
+                textwrap.dedent(
+                    """\
+                    Base types must be structure- or fundamental-types.
+
+                        - {entry_point} <Ln 3, Col 9 -> Ln 3, Col 20>
+                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                    """,
+                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
+            ),
+        ):
+            _Test(
+                textwrap.dedent(
+                    """\
+                    InvalidBase: (String | Integer)
+
+                    Struct: InvalidBase ->
+                        pass
+                    """,
+                ),
+            )
+
+    # ----------------------------------------------------------------------
+    def test_ErrorInvalidMultipleBaseType(self):
+        with pytest.raises(
+            SimpleSchemaException,
+            match=re.escape(
+                textwrap.dedent(
+                    """\
+                    Base types must be structure types when multiple base types are specified.
+
+                        - {entry_point} <Ln 8, Col 18 -> Ln 8, Col 23>
+                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                        - {entry_point} <Ln 6, Col 1 -> Ln 8, Col 1>
+                    """,
+                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
+            ),
+        ):
+            _Test(
+                textwrap.dedent(
+                    """\
+                    StringType: String
+
+                    Base1 ->
+                        pass
+
+                    Base2: StringType
+
+                    Derived: (Base1, Base2) ->
+                        pass
                     """,
                 ),
             )
@@ -852,13 +944,13 @@ class TestIncludes(object):
 
         expected_error = textwrap.dedent(
             """\
-            A cycle was detected in the definition of 'One':
+            A cycle was detected in the definition of '_One-Ln3_Base0':
 
-                * 'One' {entry_point_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
-                * 'Two' {included_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
-                * 'Three' {entry_point_filename} <Ln 6, Col 1 -> Ln 6, Col 6>
+                * '_One-Ln3_Base0' {entry_point_filename} <Ln 3, Col 6 -> Ln 3, Col 9>
+                * '_Two-Ln3_Base0' {included_filename} <Ln 3, Col 6 -> Ln 3, Col 11>
+                * '_Three-Ln6_Base0' {entry_point_filename} <Ln 6, Col 8 -> Ln 6, Col 11>
 
-                - {entry_point_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
+                - {entry_point_filename} <Ln 3, Col 6 -> Ln 3, Col 9>
             """,
         ).format(
             entry_point_filename=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point",

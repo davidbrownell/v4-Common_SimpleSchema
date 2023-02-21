@@ -16,8 +16,7 @@
 """Contains the ParseTupleType object"""
 
 from dataclasses import dataclass
-from functools import cached_property
-from typing import cast, ClassVar
+from typing import cast
 
 from Common_Foundation.Types import overridemethod
 
@@ -34,8 +33,6 @@ class ParseTupleType(ParseType):
     """A list of types used during the parsing process; subsequent steps will overwrite this value"""
 
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = "ParseTuple"
-
     types: list[ParseType]
 
     # ----------------------------------------------------------------------
@@ -43,18 +40,20 @@ class ParseTupleType(ParseType):
         if not self.types:
             raise Errors.ParseTupleTypeMissingTypes.Create(self.range)
 
-        super(ParseTupleType, self).__post_init__()
-
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @cached_property
-    def _display_name(self) -> str:
-        return "_({}, )".format(", ".join(the_type.display_name for the_type in self.types))
-
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield from super(ParseTupleType, self)._GenerateAcceptDetails()
 
         yield "types", cast(list[Element], self.types)
+
+    # ----------------------------------------------------------------------
+    @property
+    @overridemethod
+    def _display_type(self) -> str:
+        return "({}, ){}".format(
+            ", ".join(child_type.display_type for child_type in self.types),
+            self.cardinality,
+        )

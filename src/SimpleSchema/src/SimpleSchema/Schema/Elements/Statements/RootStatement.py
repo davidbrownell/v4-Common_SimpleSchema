@@ -42,18 +42,6 @@ class RootStatement(Statement):
                 raise Errors.RootStatementInvalidNested.Create(statement.range)
 
     # ----------------------------------------------------------------------
-    @property
-    def parent(self) -> None:
-        return None
-
-    # ----------------------------------------------------------------------
-    def SetParent(
-        self,
-        parent: Element,  # pylint: disable=unused-argument
-    ) -> None:
-        raise Exception("Root statements cannot have parents.")
-
-    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod

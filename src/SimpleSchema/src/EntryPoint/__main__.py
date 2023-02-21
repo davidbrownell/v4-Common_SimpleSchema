@@ -21,16 +21,15 @@ import sys
 import textwrap
 import traceback
 
-from contextlib import contextmanager
 from enum import auto, Enum
 from pathlib import Path
-from typing import Any, Callable, cast, Generator, Iterator, Optional, Tuple
+from typing import Any, Callable, cast, Generator, Optional, Tuple
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation import PathEx
 from Common_Foundation.Streams.DoneManager import DoneManager
 from Common_Foundation import TextwrapEx
-from Common_Foundation.Types import overridemethod
+from Common_Foundation.Types import DoesNotExist, overridemethod
 
 from Common_FoundationEx.CompilerImpl.CodeGenerator import CodeGenerator as CodeGeneratorBase, CreateCleanCommandLineFunc, CreateGenerateCommandLineFunc, CreateListCommandLineFunc, InputType, InvokeReason
 from Common_FoundationEx.CompilerImpl.Mixins.CodeGeneratorPluginHostMixin import CodeGeneratorPluginHostMixin
@@ -63,20 +62,10 @@ with ExitStack(lambda: sys.path.pop(0)):
 
     from SimpleSchema.Plugin import Plugin                                                      # pylint: disable=import-error
 
-    from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException                 # pylint: disable=import-error
-
-    from SimpleSchema.Schema.Elements.Common.Element import Element                             # pylint: disable=import-error
-    from SimpleSchema.Schema.Elements.Common.Metadata import Metadata                           # pylint: disable=import-error
-
-    from SimpleSchema.Schema.Elements.Statements.ExtensionStatement import ExtensionStatement   # pylint: disable=import-error
-    from SimpleSchema.Schema.Elements.Statements.ItemStatement import ItemStatement             # pylint: disable=import-error
     from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement             # pylint: disable=import-error
-    from SimpleSchema.Schema.Elements.Statements.StructureStatement import StructureStatement   # pylint: disable=import-error
 
     from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse                                     # pylint: disable=import-error
     from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve                          # pylint: disable=import-error
-
-    from SimpleSchema.Schema.Visitor import Visitor, VisitResult                                # pylint: disable=import-error
 
 
 # ----------------------------------------------------------------------
@@ -135,6 +124,8 @@ class CodeGenerator(
 
         assert default_metadata["filter_unsupported_extensions"] is False
         assert default_metadata["filter_unsupported_metadata"] is False
+        assert default_metadata["filter_unsupported_root_elements"] is False
+        assert default_metadata["filter_unsupported_nested_elements"] is False
 
         assert default_metadata["preserve_dir_structure"] is True
 
@@ -145,6 +136,8 @@ class CodeGenerator(
 
             "filter_unsupported_extensions": (bool, typer.Option(default_metadata["filter_unsupported_extensions"], "--filter-unsupported_extensions", help="Do not issue an error (and instead ignore it) when an extension is found that is not supported by the current plugin.")),
             "filter_unsupported_metadata": (bool, typer.Option(default_metadata["filter_unsupported_metadata"], "--filter-unsupported-metadata", help="Do not issue an error (and instead ignore it) when metadata is found that is not supported by the current plugin.")),
+            "filter_unsupported_root_elements": (bool, typer.Option(default_metadata["filter_unsupported_root_elements"], "--filter-unsupported-root-elements", help="Do not issue an error (and instead ignore it) when a root element is encountered by a plugin that does not support root elements of that type.")),
+            "filter_unsupported_nested_elements": (bool, typer.Option(default_metadata["filter_unsupported_nested_elements"], "--filter-unsupported-nested-elements", help="Do not issue an error (and instead ignore it) when a nested element is encountered by a plugin that does not support nested elements of that type.")),
 
             "preserve_dir_structure": (bool, typer.Option(default_metadata["preserve_dir_structure"], "--no-preserve-dir-structure", help="Output all files to the output directory, rather than creating a hierarchy based on the input files encountered.")),
 
@@ -184,6 +177,18 @@ class CodeGenerator(
         )
 
         if metadata.pop("plugin_help", False):
+            # ----------------------------------------------------------------------
+            def GetParamName(
+                name: str,
+                info: TyperEx.typer_models.OptionInfo,
+            ) -> str:
+                if info.param_decls:
+                    return info.param_decls[0]
+
+                return "--{}".format(name)
+
+            # ----------------------------------------------------------------------
+
             dm.WriteLine(
                 textwrap.dedent(
                     """\
@@ -199,15 +204,17 @@ class CodeGenerator(
                             [
                                 "Arg Name",
                                 "Type",
+                                "Default Value",
                                 "Description",
                             ],
                             [
                                 [
-                                    name,
+                                    GetParamName(plugin_type_name, plugin_type_def.option_info),
                                     plugin_type_def.python_type.__name__,
+                                    str(plugin_type_def.option_info.default),
                                     plugin_type_def.option_info.help or "",
                                 ]
-                                for name, plugin_type_def in plugin_type_definitions.items()
+                                for plugin_type_name, plugin_type_def in plugin_type_definitions.items()
                             ],
                         ),
                         4,
@@ -251,6 +258,8 @@ class CodeGenerator(
 
         yield "filter_unsupported_extensions", False
         yield "filter_unsupported_metadata", False
+        yield "filter_unsupported_root_elements", False
+        yield "filter_unsupported_nested_elements", False
 
         yield "preserve_dir_structure", True
 
@@ -378,18 +387,23 @@ class CodeGenerator(
 
         plugin = self.GetPlugin(context)
 
+        filter_unsupported_extensions = context.pop("filter_unsupported_extensions", False)
+        filter_unsupported_metadata = context.pop("filter_unsupported_metadata", False)
+        filter_unsupported_root_elements = context.pop("filter_unsupported_root_elements", False)
+        filter_unsupported_nested_elements = context.pop("filter_unsupported_nested_elements", False)
+
         # ----------------------------------------------------------------------
         def Validate(
-            filename: Path,  # pylint: disable=unused-argument
+            filename: Path,                             # pylint: disable=unused-argument
             root: RootStatement,
-            on_status_func: Callable[[str], None],  # pylint: disable=unused-argument
+            on_status_func: Callable[[str], None],      # pylint: disable=unused-argument
         ) -> None:
-            root.Accept(
-                _ValidateVisitor(
-                    plugin,
-                    filter_unsupported_extensions=context.pop("filter_unsupported_extensions", False),
-                    filter_unsupported_metadata=context.pop("filter_unsupported_metadata", False),
-                ),
+            plugin.Validate(
+                root,
+                filter_unsupported_extensions=filter_unsupported_extensions,
+                filter_unsupported_metadata=filter_unsupported_metadata,
+                filter_unsupported_root_elements=filter_unsupported_root_elements,
+                filter_unsupported_nested_elements=filter_unsupported_nested_elements,
             )
 
         # ----------------------------------------------------------------------
@@ -404,6 +418,16 @@ class CodeGenerator(
         if dm.result < 0:
             return None
 
+        # Extract the context info requested by the plugin
+        plugin_context: dict[str, Any] = {}
+
+        for attribute_name in plugin.GetCommandLineArgs().keys():
+            context_value = context.get(attribute_name, DoesNotExist.instance)
+            if context_value is DoesNotExist.instance:
+                continue
+
+            plugin_context[attribute_name] = context_value
+
         # Generate
         on_progress_func(CodeGenerator._Steps.Generating.value, "Generating...")
 
@@ -417,6 +441,7 @@ class CodeGenerator(
             assert key in context[self.__class__._FILENAME_MAP_ATTRIBUTE_NAME], key  # pylint: disable=protected-access
 
             plugin.Generate(
+                plugin_context,
                 root,
                 context[self.__class__._FILENAME_MAP_ATTRIBUTE_NAME][key],  # pylint: disable=protected-access
                 on_status_func,
@@ -494,139 +519,6 @@ app                                         = typer.Typer(
 Generate                                    = CreateGenerateCommandLineFunc(app, _code_generator, process_plugin_args=True)
 Clean                                       = CreateCleanCommandLineFunc(app, _code_generator, process_plugin_args=True)
 List                                        = CreateListCommandLineFunc(app, _code_generator, process_plugin_args=True)
-
-
-# ----------------------------------------------------------------------
-# |
-# |  Private Types
-# |
-# ----------------------------------------------------------------------
-class _ValidateVisitor(Visitor):
-    # ----------------------------------------------------------------------
-    def __init__(
-        self,
-        plugin: Plugin,
-        *,
-        filter_unsupported_extensions: bool,
-        filter_unsupported_metadata: bool,
-    ):
-        super(_ValidateVisitor, self).__init__()
-
-        self.plugin                         = plugin
-
-        self.filter_unsupported_extensions  = filter_unsupported_extensions
-        self.filter_unsupported_metadata    = filter_unsupported_metadata
-
-        self._elements: list[Element]       = []
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
-        self._elements.append(element)
-        with ExitStack(self._elements.pop):
-            yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnExtensionStatement(self, element: ExtensionStatement) -> Iterator[Optional[VisitResult]]:
-        if element.name.value not in self.plugin.custom_extension_names:
-            if self.filter_unsupported_extensions:
-                element.Disable()
-
-                yield VisitResult.SkipAll
-                return
-
-            raise SimpleSchemaException(
-                element.name.range,
-                "The extension '{}' is not recognized by the '{}' plugin.".format(
-                    element.name.value,
-                    self.plugin.name,
-                ),
-            )
-
-        yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        is_root = len(self._elements) == 2
-
-        if is_root and not self.plugin.flags & Plugin.Flag.AllowRootItems:
-            raise SimpleSchemaException(
-                element.range,
-                "Root items are not supported by the '{}' plugin.".format(self.plugin.name),
-            )
-
-        if not is_root and not self.plugin.flags & Plugin.Flag.AllowNestedItems:
-            raise SimpleSchemaException(
-                element.range,
-                "Nested items are not supported by the '{}' plugin.".format(self.plugin.name),
-            )
-
-        yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-        is_root = len(self._elements) == 2
-
-        if is_root and not self.plugin.flags & Plugin.Flag.AllowRootStructures:
-            raise SimpleSchemaException(
-                element.range,
-                "Root structures are not supported by the '{}' plugin.".format(self.plugin.name),
-            )
-
-        if not is_root and not self.plugin.flags & Plugin.Flag.AllowNestedStructures:
-            raise SimpleSchemaException(
-                element.range,
-                "Nested structures are not supported by the '{}' plugin.".format(self.plugin.name),
-            )
-
-        yield
-
-    # ----------------------------------------------------------------------
-    # |
-    # |  Private Methods
-    # |
-    # ----------------------------------------------------------------------
-    def _ResolveMetadata(
-        self,
-        element: Element,
-        metadata: Optional[Metadata],
-    ) -> dict[str, Plugin.ResolvedMetadata]:
-        results: dict[str, Plugin.ResolvedMetadata] = {}
-
-        if metadata is not None:
-            for metadata_item in list(metadata.items.values()):
-                # Resolve the metadata according to the plugins attribute definition
-                attribute = self.plugin.custom_metadata_attributes.get(metadata_item.name.value, None)
-                if attribute is None:
-                    if self.filter_unsupported_metadata:
-                        metadata_item.Disable()
-                        continue
-
-                    raise SimpleSchemaException(
-                        metadata_item.name.range,
-                        "The metadata item '{}' is not supported by the '{}' plugin.".format(
-                            metadata_item.name.value,
-                            self.plugin.name,
-                        ),
-                    )
-
-                attribute.Validate(element)
-
-                attribute_value = attribute.type.ToPython(metadata_item.expression)
-
-                results[metadata_item.name.value] = Plugin.ResolvedMetadata(
-                    metadata_item.expression,
-                    attribute_value,
-                )
-
-        return results
 
 
 # ----------------------------------------------------------------------

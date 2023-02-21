@@ -30,8 +30,6 @@ from .....Elements.Common.Metadata import Metadata
 
 from .....Elements.Statements.Statement import Element, Statement
 
-from ......Common import Errors
-
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
@@ -46,13 +44,6 @@ class ParseStructureStatement(Statement):
     cardinality: Cardinality
     metadata: Optional[Metadata]
     children: list[Statement]  # Can be Empty
-
-    # ----------------------------------------------------------------------
-    def __post_init__(self):
-        if self.bases is not None:
-            for base in self.bases:
-                if not base.cardinality.is_single:
-                    raise Errors.ParseStructureStatementInvalidBaseCardinality.Create(base.cardinality.range)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

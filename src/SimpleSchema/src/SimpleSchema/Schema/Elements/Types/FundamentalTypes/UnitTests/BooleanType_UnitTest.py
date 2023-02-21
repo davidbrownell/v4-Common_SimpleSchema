@@ -30,34 +30,29 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
     from SimpleSchema.Schema.Elements.Types.FundamentalTypes.BooleanType import BooleanType
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
 
-    bt = BooleanType(range_mock, cardinality_mock, metadata_mock)
+    bt = BooleanType(range_mock)
 
     assert bt.NAME == "Boolean"
     assert bt.SUPPORTED_PYTHON_TYPES == (bool, )
 
     assert bt.range is range_mock
-    assert bt.cardinality is cardinality_mock
-    assert bt.metadata is metadata_mock
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
-    assert BooleanType(Mock(), Cardinality.CreateFromCode(), None).display_name == "Boolean"
+def test_DisplayType():
+    assert BooleanType(Mock()).display_type == "Boolean"
 
 
 # ----------------------------------------------------------------------
 def test_ToPython():
-    bt = BooleanType(Mock(), Cardinality.CreateFromCode(), None)
+    bt = BooleanType(Mock())
 
     assert bt.ToPython(True) is True
     assert bt.ToPython(False) is False

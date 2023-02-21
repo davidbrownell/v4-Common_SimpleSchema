@@ -20,19 +20,19 @@ from typing import Any
 
 from Common_Foundation.Types import overridemethod
 
-from .Type import Type
+from .BasicType import BasicType
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class FundamentalType(Type):
+class FundamentalType(BasicType):
     """Abstract base class for fundamental types"""
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Any,
     ) -> Any:

@@ -17,38 +17,41 @@
 
 from dataclasses import dataclass, field
 from functools import cached_property
-from typing import Any, Callable, cast, ClassVar, Tuple, Type as PythonType, Union
+from typing import Any, cast, ClassVar, Tuple, Type as PythonType, Union, TYPE_CHECKING
 
 from Common_Foundation.Types import overridemethod
 
-from .Type import Type
+from .BasicType import BasicType
 
 from ..Common.Element import Element
 
 from ..Expressions.Expression import Expression
 
 from ....Common import Errors
+from ....Common.SimpleSchemaException import SimpleSchemaException
+
+if TYPE_CHECKING:
+    from .ReferenceType import ReferenceType  # pragma: no cover
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class VariantType(Type):
+class VariantType(BasicType):
     """A list of types"""
 
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "Variant"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (object, )
 
-    types: list[Type]
+    types: list["ReferenceType"]
 
-    _to_python_func: Callable[[Union[Expression, Any]], Any]                = field(init=False, compare=False)
+    has_child_cardinality: bool                                             = field(init=False, compare=False)
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
         if len(self.types) < 2:
             raise Errors.VariantTypeNotEnoughTypes.Create(self.range)
 
-        has_parent_cardinality = not self.cardinality.is_single
         has_child_cardinality = False
 
         for the_type in self.types:
@@ -56,27 +59,34 @@ class VariantType(Type):
                 raise Errors.VariantTypeNested.Create(the_type.range)
 
             if not the_type.cardinality.is_single:
-                if has_parent_cardinality:
-                    raise Errors.VariantTypeCardinality.Create(the_type.cardinality.range)
-
                 has_child_cardinality = True
+                break
 
-        # If there are child cardinalities involved, we want to completely replace
-        # the default ToPython  method (which checks cardinality) with the one that
-        # is custom to variant types (which defer cardinality checks to the subtypes themselves).
-        if has_child_cardinality:
-            to_python_func = lambda expression_or_value: (
-                self._ToPythonImpl(
-                    expression_or_value,
-                    lambda the_type: the_type.ToPython(expression_or_value),
-                )
-            )
-        else:
-            to_python_func = super(VariantType, self).ToPython
-
-        object.__setattr__(self, "_to_python_func", to_python_func)
+        object.__setattr__(self, "has_child_cardinality", has_child_cardinality)
 
         super(VariantType, self).__post_init__()
+
+    # ----------------------------------------------------------------------
+    def ToPythonReferenceOverride(
+        self,
+        reference: "ReferenceType",
+        expression_or_value: Union[Expression, Any],
+    ) -> Any:
+        # If here, the following matching cases may apply when the input is valid:
+        #
+        #   1) There are one ore more expression items and they correspond to a single subtype
+        #   2) There are multiple expression items and they correspond to multiple subtypes
+
+        if self.has_child_cardinality:
+            # 1
+            try:
+                return self.ToPython(expression_or_value)
+            except Exception:
+                # No match
+                pass
+
+        # 2
+        return reference.ToPythonImpl(expression_or_value)
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -84,15 +94,53 @@ class VariantType(Type):
         self,
         expression_or_value: Union[Expression, Any],
     ) -> Any:
-        return self._to_python_func(expression_or_value)
+        # ----------------------------------------------------------------------
+        def Impl(
+            value: Any,
+        ) -> Any:
+            for sub_type in self.types:
+                try:
+                    return sub_type.ToPython(value)
+                except:  # pylint: disable=bare-except
+                    # The type did not match
+                    pass
+
+            # If here, we didn't find a matching type
+            raise Exception(
+                Errors.variant_type_invalid_value.format(
+                    python_type=type(value).__name__,
+                    type=self.display_type,
+                ),
+            )
+
+        # ----------------------------------------------------------------------
+
+        if isinstance(expression_or_value, Expression):
+            try:
+                return Impl(expression_or_value.value)
+
+            except Exception as ex:
+                raise SimpleSchemaException(expression_or_value.range, str(ex)) from ex
+
+        return Impl(expression_or_value)
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @cached_property
     @overridemethod
-    def _display_name(self) -> str:
-        return "({})".format(" | ".join(the_type.display_name for the_type in self.types))
+    def _display_type(self) -> str:
+        display_values: list[str] = []
+
+        for child_type in self.types:
+            child_display = child_type.display_type
+
+            if "{" in child_display and not (child_display.startswith("<") and child_display.endswith(">")):
+                child_display = "<{}>".format(child_display)
+
+            display_values.append(child_display)
+
+        return "({})".format(" | ".join(display_values))
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -103,42 +151,8 @@ class VariantType(Type):
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
-        self,
-        value: Union[Expression, Any],
-    ) -> Any:
-        # If here, it means that that this element's cardinality was set and none
-        # of the contained cardinalities were set.
-        assert not self.cardinality.is_single or all(the_type.cardinality.is_single for the_type in self.types)
-
-        return self._ToPythonImpl(
-            value,
-            lambda the_type: the_type.ItemToPython(value),
-        )
-
-    # ----------------------------------------------------------------------
     def _ToPythonImpl(
         self,
-        expression_or_value: Union[Expression, Any],
-        to_python_func: Callable[[Type], Any],
+        value: Any,
     ) -> Any:
-        for the_type in self.types:
-            try:
-                return to_python_func(the_type)
-            except:  # pylint: disable=bare-except
-                # This type didn't match, try the next one
-                pass
-
-        if isinstance(expression_or_value, Expression):
-            raise Errors.VariantTypeInvalidValue.Create(
-                expression_or_value.range,
-                expression=expression_or_value.NAME,
-                type=self.display_name,
-            )
-
-        raise Exception(
-            Errors.variant_type_invalid_value.format(
-                python_type=type(expression_or_value).__name__,
-                type=self.display_name,
-            ),
-        )
+        raise Exception("This will never be called for variant types.")  # pragma: no cover

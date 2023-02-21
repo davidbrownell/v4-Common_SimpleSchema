@@ -69,32 +69,3 @@ def test_Standard(has_base, has_metadata, has_children):
     assert s.cardinality is cardinality_mock
     assert s.metadata is metadata_mock
     assert s.children is children
-
-
-# ----------------------------------------------------------------------
-def test_ErrorInvalidBase():
-    with pytest.raises(
-        SimpleSchemaException,
-        match=re.escape("Base types must have a cardinality of 1. (structure_error <Ln 20, Col 21 -> Ln 22, Col 23>)"),
-    ):
-        ParseStructureStatement(
-            Mock(),
-            Mock(),
-            [
-                ParseIdentifierType(
-                    Mock(),
-                    Cardinality.CreateFromCode(
-                        4,
-                        10,
-                        range_value=Range.Create(Path("structure_error"), 20, 21, 22, 23),
-                    ),
-                    None,
-                    [Mock(), ],
-                    None,
-                    None,
-                ),
-            ],
-            Mock(),
-            None,
-            [],
-        )

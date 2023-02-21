@@ -145,7 +145,7 @@ class UriType(FundamentalType):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Union[str, Uri],
     ) -> Uri:

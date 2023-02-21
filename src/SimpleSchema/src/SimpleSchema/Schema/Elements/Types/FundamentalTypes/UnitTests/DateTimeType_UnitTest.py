@@ -31,33 +31,28 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
     from SimpleSchema.Schema.Elements.Types.FundamentalTypes.DateTimeType import DateTimeType
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
 
-    dtt = DateTimeType(range_mock, cardinality_mock, metadata_mock)
+    dtt = DateTimeType(range_mock)
 
     assert dtt.NAME == "DateTime"
     assert dtt.SUPPORTED_PYTHON_TYPES == (datetime, )
 
     assert dtt.range is range_mock
-    assert dtt.cardinality is cardinality_mock
-    assert dtt.metadata is metadata_mock
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
-    assert DateTimeType(Mock(), Cardinality.CreateFromCode(), None).display_name == "DateTime"
+def test_DisplayType():
+    assert DateTimeType(Mock()).display_type == "DateTime"
 
 
 # ----------------------------------------------------------------------
 def test_ToPython():
     value = datetime.now()
 
-    assert DateTimeType(Mock(), Cardinality.CreateFromCode(), None).ToPython(value) == value
+    assert DateTimeType(Mock()).ToPython(value) == value

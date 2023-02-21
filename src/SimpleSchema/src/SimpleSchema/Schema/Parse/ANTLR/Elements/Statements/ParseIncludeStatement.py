@@ -26,7 +26,6 @@ from ..Common.ParseIdentifier import ParseIdentifier
 
 from .....Elements.Common.Element import Element
 from .....Elements.Common.SimpleElement import SimpleElement
-from .....Elements.Common.Visibility import Visibility
 
 from .....Elements.Statements.Statement import Statement
 

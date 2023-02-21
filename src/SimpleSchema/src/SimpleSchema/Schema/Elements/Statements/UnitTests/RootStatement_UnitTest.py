@@ -45,16 +45,6 @@ def test_Standard():
     assert r.range is range_mock
     assert r.statements is statements_mock
     assert r.CHILDREN_NAME == "statements"
-    assert r.parent is None
-
-
-# ----------------------------------------------------------------------
-def test_ErrorSetParent():
-    with pytest.raises(
-        Exception,
-        match=re.escape("Root statements cannot have parents."),
-    ):
-        RootStatement(Mock(), Mock()).SetParent(Mock())
 
 
 # ----------------------------------------------------------------------

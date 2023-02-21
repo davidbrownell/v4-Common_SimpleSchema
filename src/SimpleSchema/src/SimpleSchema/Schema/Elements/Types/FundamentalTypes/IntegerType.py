@@ -17,7 +17,6 @@
 
 from dataclasses import dataclass, field
 from enum import Enum
-from functools import cached_property
 from typing import ClassVar, Optional, Tuple, Type as PythonType
 
 from Common_Foundation.Types import overridemethod
@@ -57,13 +56,12 @@ class IntegerType(FundamentalType):
         if self.min and self.max and self.min > self.max:
             raise ValueError("{} > {}".format(self.min, self.max))
 
-        super(IntegerType, self).__post_init__()
-
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    @cached_property
-    def _display_name(self) -> str:
+    @property
+    @overridemethod
+    def _display_type(self) -> str:
         constraints: list[str] = []
 
         if self.min is not None:
@@ -71,16 +69,16 @@ class IntegerType(FundamentalType):
         if self.max is not None:
             constraints.append("<= {}".format(self.max))
 
-        result = super(IntegerType, self)._display_name
+        result = super(IntegerType, self)._display_type  # pylint: disable=no-member
 
         if not constraints:
             return result
 
-        return "{} ({})".format(result, ", ".join(constraints))
+        return "{} {{{}}}".format(result, ", ".join(constraints))
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: int,
     ) -> int:

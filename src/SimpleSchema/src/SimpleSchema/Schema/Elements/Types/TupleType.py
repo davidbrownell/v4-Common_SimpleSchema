@@ -18,89 +18,53 @@
 import itertools
 
 from dataclasses import dataclass
-from functools import cached_property
-from typing import Any, cast, ClassVar, Optional, Tuple, Type as PythonType, Union
+from typing import Any, cast, ClassVar, Tuple, Type as PythonType
 
 from Common_Foundation.Types import DoesNotExist, overridemethod
 
 from Common_FoundationEx.InflectEx import inflect
 
-from .Type import Type
+from .BasicType import BasicType
+from .ReferenceType import ReferenceType
 
-from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
-from ..Common.Metadata import Metadata
-
-from ..Expressions.TupleExpression import Expression, TupleExpression
 
 from ....Common import Errors
-from ....Common.Range import Range
-from ....Common.SimpleSchemaException import SimpleSchemaException
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class TupleType(Type):
+class TupleType(BasicType):
     """A list of types"""
 
     # ----------------------------------------------------------------------
     NAME: ClassVar[str]                                                     = "Tuple"
     SUPPORTED_PYTHON_TYPES: ClassVar[Tuple[PythonType, ...]]                = (tuple, )
 
-    types: list[Type]
+    types: list[ReferenceType]
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
         if not self.types:
             raise Errors.TupleTypeNoTypes.Create(self.range)
 
-        super(TupleType, self).__post_init__()
-
     # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @property
     @overridemethod
-    def ItemToPython(
-        self,
-        expression_or_value: Union[Expression, Any],
-    ) -> Any:
-        if isinstance(expression_or_value, Expression):
-            if not isinstance(expression_or_value, TupleExpression):
-                raise Errors.TupleTypeTupleExpressionExpected.Create(expression_or_value.range)
+    def _display_type(self) -> str:
+        display_values: list[str] = []
 
-            tuple_items: list[Any] = []
+        for child_type in self.types:
+            child_display = child_type.display_type
 
-            for sub_type, sub_expression in itertools.zip_longest(
-                self.types,
-                expression_or_value.value,
-                fillvalue=DoesNotExist.instance,
-            ):
-                if isinstance(sub_type, DoesNotExist) or isinstance(sub_expression, DoesNotExist):
-                    raise SimpleSchemaException(
-                        expression_or_value.range,
-                        Errors.tuple_type_item_mismatch.format(
-                            value=inflect.no("tuple item", len(self.types)),
-                            value_verb=inflect.plural_verb("was", len(self.types)),
-                            found=inflect.no("tuple item", len(expression_or_value.value)),
-                            found_verb=inflect.plural_verb("was", len(expression_or_value.value)),
-                        ),
-                    )
+            if "{" in child_display and not (child_display.startswith("<") and child_display.endswith(">")):
+                child_display = "<{}>".format(child_display)
 
-                try:
-                    tuple_items.append(sub_type.ToPython(sub_expression))
-                except SimpleSchemaException as ex:
-                    ex.ranges.append(expression_or_value.range)
-                    raise
+            display_values.append(child_display)
 
-            return tuple(tuple_items)
-
-        return super(TupleType, self).ItemToPython(expression_or_value)
-
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    # ----------------------------------------------------------------------
-    @cached_property
-    @overridemethod
-    def _display_name(self) -> str:
-        return "({}, )".format(", ".join(sub_type.display_name for sub_type in self.types))
+        return "({}, )".format(", ".join(display_values))
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -111,14 +75,18 @@ class TupleType(Type):
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Tuple[Any, ...],
     ) -> Tuple[Any, ...]:
         tuple_items: list[Any] = []
 
-        for sub_type, sub_value in itertools.zip_longest(self.types, value, fillvalue=DoesNotExist.instance):
-            if isinstance(sub_type, DoesNotExist) or isinstance(sub_value, DoesNotExist):
+        for child_type, child_expression_or_value in itertools.zip_longest(
+            self.types,
+            value,
+            fillvalue=DoesNotExist.instance,
+        ):
+            if isinstance(child_type, DoesNotExist) or isinstance(child_expression_or_value, DoesNotExist):
                 raise Exception(
                     Errors.tuple_type_item_mismatch.format(
                         value=inflect.no("tuple item", len(self.types)),
@@ -128,6 +96,6 @@ class TupleType(Type):
                     ),
                 )
 
-            tuple_items.append(sub_type.ToPython(sub_value))
+            tuple_items.append(child_type.ToPython(child_expression_or_value))
 
         return tuple(tuple_items)

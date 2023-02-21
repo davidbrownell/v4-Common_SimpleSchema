@@ -33,8 +33,6 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
-    from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
-
     from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
     from SimpleSchema.Schema.Elements.Types.FundamentalTypes.StringType import StringType
 
@@ -42,13 +40,10 @@ with ExitStack(lambda: sys.path.pop(0)):
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    metadata_mock = Mock()
 
-    s = StringType(range_mock, Cardinality.CreateFromCode(), metadata_mock)
+    s = StringType(range_mock)
 
     assert s.range is range_mock
-    assert s.cardinality.is_single
-    assert s.metadata is metadata_mock
     assert s.min_length == 1
     assert s.max_length is None
     assert s.validation_expression is None
@@ -57,12 +52,12 @@ def test_Standard():
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
-    assert StringType(Mock(), Cardinality.CreateFromCode(0, 1), None).display_name == "String?"
-    assert StringType(Mock(), Cardinality.CreateFromCode(0, 1), None, min_length=0).display_name == "String (>= no characters)?"
-    assert StringType(Mock(), Cardinality.CreateFromCode(0, 1), None, max_length=10).display_name == "String (<= 10 characters)?"
-    assert StringType(Mock(), Cardinality.CreateFromCode(0, 1), None, validation_expression="foo").display_name == "String ('foo')?"
-    assert StringType(Mock(), Cardinality.CreateFromCode(0, 1), None, 2, 10, 'does not make sense').display_name == "String (>= 2 characters, <= 10 characters, 'does not make sense')?"
+def test_DisplayType():
+    assert StringType(Mock()).display_type == "String"
+    assert StringType(Mock(), min_length=0).display_type == "String {>= no characters}"
+    assert StringType(Mock(), max_length=10).display_type == "String {<= 10 characters}"
+    assert StringType(Mock(), validation_expression="foo").display_type == "String {'foo'}"
+    assert StringType(Mock(), 2, 10, 'does not make sense').display_type == "String {>= 2 characters, <= 10 characters, 'does not make sense'}"
 
 
 # ----------------------------------------------------------------------
@@ -71,7 +66,7 @@ def test_ErrorInvalidMin():
         Exception,
         match=re.escape("-1 < 0"),
     ):
-        StringType(Mock(), Mock(), None, -1)
+        StringType(Mock(), -1)
 
 
 # ----------------------------------------------------------------------
@@ -80,7 +75,7 @@ def test_ErrorInvalidMax():
         Exception,
         match=re.escape("10 > 1"),
     ):
-        StringType(Mock(), Mock(), None, 10, 1)
+        StringType(Mock(), 10, 1)
 
 
 # ----------------------------------------------------------------------
@@ -89,7 +84,7 @@ def test_ErrorValidateMin():
         SimpleSchemaException,
         match=re.escape("At least 2 characters were expected (1 character was found). (a file <Ln 10, Col 20 -> Ln 30, Col 40>)"),
     ):
-        s = StringType(Mock(), Cardinality.CreateFromCode(), None, 2)
+        s = StringType(Mock(), 2)
 
         assert s.ToPython(StringExpression(Mock(), "123")) == "123"
         assert s.ToPython(StringExpression(Mock(), "12")) == "12"
@@ -103,7 +98,7 @@ def test_ErrorValidateMax():
         SimpleSchemaException,
         match=re.escape("No more than 3 characters were expected (4 characters were found). (a file <Ln 10, Col 20 -> Ln 30, Col 40>)"),
     ):
-        s = StringType(Mock(), Cardinality.CreateFromCode(), None, max_length=3)
+        s = StringType(Mock(), max_length=3)
 
         assert s.ToPython(StringExpression(Mock(), "12")) == "12"
         assert s.ToPython(StringExpression(Mock(), "123")) == "123"
@@ -117,7 +112,7 @@ def test_ErrorValidateExpression():
         SimpleSchemaException,
         match=re.escape("The value 'bar' does not match the regular expression 'foo'. (a file <Ln 10, Col 20 -> Ln 30, Col 40>)"),
     ):
-        s = StringType(Mock(), Cardinality.CreateFromCode(), None, validation_expression="foo")
+        s = StringType(Mock(), validation_expression="foo")
 
         assert s.ToPython(StringExpression(Mock(), "foo")) == "foo"
 

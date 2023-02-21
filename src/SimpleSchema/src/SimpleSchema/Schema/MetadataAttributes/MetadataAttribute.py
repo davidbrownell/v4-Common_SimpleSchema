@@ -17,15 +17,20 @@
 
 from dataclasses import dataclass
 from enum import auto, IntFlag
+from typing import Optional
 
 from Common_Foundation.Types import extensionmethod
 
-from .Schema.Elements.Common.Element import Element
-from .Schema.Elements.Types.Type import Type
+from ..Elements.Common.Cardinality import Cardinality
+from ..Elements.Common.Element import Element
+from ..Elements.Common.SimpleElement import SimpleElement
+from ..Elements.Common.Visibility import Visibility
 
-# TODO: Traits
-#       - Inheritable
-#       - Flag applied to resolved type
+from ..Elements.Types.BasicType import BasicType
+from ..Elements.Types.ReferenceType import ReferenceType
+
+from ...Common.Range import Range
+
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
@@ -39,39 +44,52 @@ class MetadataAttribute(object):
     # ----------------------------------------------------------------------
     class Flag(IntFlag):
         # Element Types
-        TopLevelItem                        = auto()
+        RootItem                            = auto()
         NestedItem                          = auto()
 
-        TopLevelStructure                   = auto()
+        RootStructure                       = auto()
         NestedStructure                     = auto()
 
-        TopLevelType                        = auto()
+        RootType                            = auto()
         NestedType                          = auto()
+
+        BaseType                            = auto()
 
         _ElementTypeDelimiter               = auto()
 
         # Cardinality
-        StandardCardinality                 = auto()
+        SingleCardinality                   = auto()
         OptionalCardinality                 = auto()
-        CollectionCardinality               = auto()
+        ContainerCardinality                = auto()
         ZeroOrMoreCardinality               = auto()
         OneOrMoreCardinality                = auto()
-        FixedCollectionCardinality          = auto()
+        FixedContainerCardinality           = auto()
 
         _CardinalityDelimiter               = auto()
 
-        # Amalgamations
-        Item                                = TopLevelItem | NestedItem
-        Structure                           = TopLevelStructure | NestedStructure
-        Type                                = TopLevelType | NestedType
+        # Traits
+        Inheritable                         = auto()
 
-        TopLevelElement                     = TopLevelItem | TopLevelStructure | TopLevelType
+        _TraitsDelimiter                    = auto()
+
+        # ----------------------------------------------------------------------
+        # |  Amalgamations
+        # ----------------------------------------------------------------------
+
+        # Element Types
+        Item                                = RootItem | NestedItem
+        Structure                           = RootStructure | NestedStructure
+        Type                                = RootType | NestedType
+
+        RootElement                         = RootItem | RootStructure | RootType
         NestedElement                       = NestedItem | NestedStructure | NestedType
 
         Element                             = Item | Structure | Type
 
-        ElementMask                         = Element
-        CardinalityMask                     = (_CardinalityDelimiter - 1) & ~ElementMask
+        # Masks
+        ElementTypeMask                     = Element
+        CardinalityMask                     = (_CardinalityDelimiter - 1) & (~ElementTypeMask | 0)
+        TraitsMask                          = (_TraitsDelimiter -1) & (~ElementTypeMask | ~CardinalityMask)
 
     # ----------------------------------------------------------------------
     # |
@@ -81,12 +99,30 @@ class MetadataAttribute(object):
     flags: Flag
 
     name: str
-    type: Type
+    type: ReferenceType
 
     # ----------------------------------------------------------------------
     # |
     # |  Public Methods
     # |
+    # ----------------------------------------------------------------------
+    @classmethod
+    def CreateType(
+        cls,
+        basic_type: BasicType,
+        cardinality: Optional[Cardinality]=None,
+    ) -> ReferenceType:
+        range_value = Range.CreateFromCode(callstack_offset=1)
+
+        return ReferenceType.Create(
+            range_value,
+            SimpleElement[Visibility](range_value, Visibility.Private),
+            SimpleElement[str](range_value, basic_type.NAME),
+            basic_type,
+            cardinality or Cardinality.CreateFromCode(),
+            None,
+        )
+
     # ----------------------------------------------------------------------
     @extensionmethod
     def Validate(

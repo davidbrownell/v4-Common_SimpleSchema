@@ -12,8 +12,22 @@
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
       value: standard
     type:
-      __type__: FilenameType
+      __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
+      display_type: Filename!
+      type:
+        __type__: FilenameType
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
+        ensure_exists: true
+        match_any: false
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: _ItemStatement-Ln1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
@@ -25,8 +39,6 @@
           __type__: IntegerExpression
           range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
           value: 1
-      ensure_exists: true
-      match_any: false
   - __type__: ItemStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
     visibility:
@@ -38,8 +50,22 @@
       range: entry_point <Ln 2, Col 1 -> Ln 2, Col 17>
       value: no_ensure_exists
     type:
-      __type__: FilenameType
+      __type__: ReferenceType
       range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
+      display_type: Filename
+      type:
+        __type__: FilenameType
+        range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
+        ensure_exists: false
+        match_any: false
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+        value: _ItemStatement-Ln2
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
@@ -51,8 +77,6 @@
           __type__: IntegerExpression
           range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
           value: 1
-      ensure_exists: false
-      match_any: false
   - __type__: ItemStatement
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
     visibility:
@@ -64,8 +88,22 @@
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
       value: match_any
     type:
-      __type__: FilenameType
+      __type__: ReferenceType
       range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
+      display_type: Filename!^
+      type:
+        __type__: FilenameType
+        range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
+        ensure_exists: true
+        match_any: true
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+        value: _ItemStatement-Ln3
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
@@ -77,5 +115,3 @@
           __type__: IntegerExpression
           range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
           value: 1
-      ensure_exists: true
-      match_any: true

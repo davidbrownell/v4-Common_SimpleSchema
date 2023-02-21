@@ -16,7 +16,6 @@
 """Contains the DirectoryType object"""
 
 from dataclasses import dataclass, field
-from functools import cached_property
 from pathlib import Path
 from typing import ClassVar, Tuple, Type as PythonType
 
@@ -41,9 +40,10 @@ class DirectoryType(FundamentalType):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
-    @cached_property
-    def _display_name(self) -> str:
-        result = super(DirectoryType, self)._display_name
+    @property
+    @overridemethod
+    def _display_type(self) -> str:
+        result = super(DirectoryType, self)._display_type  # pylint: disable=no-member
 
         if self.ensure_exists:
             result += "!"
@@ -52,7 +52,7 @@ class DirectoryType(FundamentalType):
 
     # ----------------------------------------------------------------------
     @overridemethod
-    def _ItemToPythonImpl(
+    def _ToPythonImpl(
         self,
         value: Path,
     ) -> Path:

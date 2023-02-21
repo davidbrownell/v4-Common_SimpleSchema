@@ -84,9 +84,9 @@ def _ValidateGeneration(
     simple_schema_filename: Path,
     temp_directory: Path,
 ) -> int:
-    command_line = '"{exe}" Generate "{input}" "{output_dir}" --plugin python_dataclass --single-task --debug'.format(
+    command_line = '"{exe}" Generate "{input}" "{output_dir}" --plugin Diagnostic --single-task --debug'.format(
         exe=simple_schema_filename,
-        input=simple_schema_filename.parent / "Samples" / "Cardinality.SimpleSchema",
+        input=Path(__file__).parent,
         output_dir=temp_directory / "destination",
     )
 

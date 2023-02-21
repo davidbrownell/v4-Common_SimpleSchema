@@ -1,0 +1,57 @@
+# ----------------------------------------------------------------------
+# |
+# |  Structures.SimpleSchema
+# |
+# |  David Brownell <db@DavidBrownell.com>
+# |      2023-02-16 13:24:11
+# |
+# ----------------------------------------------------------------------
+# |
+# |  Copyright David Brownell 2023
+# |  Distributed under the Boost Software License, Version 1.0. See
+# |  accompanying file LICENSE_1_0.txt or copy at
+# |  http://www.boost.org/LICENSE_1_0.txt.
+# |
+# ----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
+BasicStructure ->
+    value: String
+
+
+# ----------------------------------------------------------------------
+Nested0 ->
+    value0: String
+
+    Nested1 ->
+        value1: String
+
+        Nested2 ->
+            value2: String
+
+            Nested3 ->
+                value3: String
+
+            nested_value: Nested3
+
+        nested_value: Nested2
+
+    nested_value: Nested1
+
+nested_value: Nested0
+
+
+# ----------------------------------------------------------------------
+SingleBasicBase: String { max_length: 10 } ->
+    pass
+
+
+# ----------------------------------------------------------------------
+SingleStructureBase: Nested0.Nested1.Nested2 ->
+    pass
+
+
+# ----------------------------------------------------------------------
+MultipleStructureBase: (Nested0, Nested0.Nested1, Nested0.Nested1.Nested2) ->
+    pass

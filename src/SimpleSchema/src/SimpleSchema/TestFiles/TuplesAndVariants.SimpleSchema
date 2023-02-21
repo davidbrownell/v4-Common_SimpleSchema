@@ -14,6 +14,8 @@
 # |
 # ----------------------------------------------------------------------
 
+
+# ----------------------------------------------------------------------
 Tuples ->
     __Python__ {
         import_statements: [
@@ -40,7 +42,10 @@ Tuples ->
         (String, (Number { max: 1.23 }, ), ),
     )
 
+tuples: Tuples?
 
+
+# ----------------------------------------------------------------------
 Variants ->
     value: (String | Number)
 
@@ -52,5 +57,7 @@ Variants ->
 
     nested_tuple: (
         String
-        | (Integer, Number)
+        | (Integer { min: 10 }, Number)
     )
+
+variants: Variants?

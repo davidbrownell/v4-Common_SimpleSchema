@@ -16,8 +16,8 @@
 """Contains the ItemStatement object"""
 
 from dataclasses import dataclass
-from typing import cast
-from weakref import ref, ReferenceType
+from typing import cast, TYPE_CHECKING
+from weakref import ref, ReferenceType as WeakReferenceType
 
 from Common_Foundation.Types import overridemethod
 
@@ -27,7 +27,8 @@ from ..Common.Element import Element
 from ..Common.SimpleElement import SimpleElement
 from ..Common.Visibility import Visibility
 
-from ..Types.Type import Type
+if TYPE_CHECKING:
+    from ..Types.ReferenceType import ReferenceType  # pragma: no cover
 
 
 # ----------------------------------------------------------------------
@@ -38,7 +39,7 @@ class ItemStatement(Statement):
     # ----------------------------------------------------------------------
     visibility: SimpleElement[Visibility]
     name: SimpleElement[str]
-    type: Type
+    type: "ReferenceType"
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -47,4 +48,4 @@ class ItemStatement(Statement):
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield "visibility", self.visibility
         yield "name", self.name
-        yield "type", cast(ReferenceType[Element], ref(self.type))
+        yield "type", cast(WeakReferenceType[Element], ref(self.type))

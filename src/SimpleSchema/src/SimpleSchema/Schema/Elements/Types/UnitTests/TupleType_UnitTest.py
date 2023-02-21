@@ -35,9 +35,11 @@ from Common_Foundation.Types import overridemethod
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Common.Range import Range
+
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
     from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
+    from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
 
     from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
     from SimpleSchema.Schema.Elements.Expressions.ListExpression import ListExpression
@@ -45,54 +47,48 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Expressions.StringExpression import StringExpression
     from SimpleSchema.Schema.Elements.Expressions.TupleExpression import TupleExpression
 
-    from SimpleSchema.Schema.Elements.Types.TupleType import TupleType, Type
+    from SimpleSchema.Schema.Elements.Types.BasicType import BasicType
+    from SimpleSchema.Schema.Elements.Types.ReferenceType import ReferenceType
+    from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    cardinality_mock = Mock()
-    metadata_mock = Mock()
     types_mock = [Mock(), ]
 
-    tt = TupleType(range_mock, cardinality_mock, metadata_mock, types_mock)  # type: ignore
+    tt = TupleType(range_mock, types_mock)  # type: ignore
 
     assert tt.range is range_mock
-    assert tt.cardinality is cardinality_mock
-    assert tt.metadata is metadata_mock
     assert tt.types is types_mock
 
 
 # ----------------------------------------------------------------------
-def test_DisplayName():
+def test_DisplayType():
     one_type = Mock()
-    one_type.display_name = "One"
+    one_type.display_type = "One"
 
     assert TupleType(
         Mock(),
-        Cardinality.CreateFromCode(0, 1),
-        None,
         [
             one_type,
         ],
-    ).display_name == "(One, )?"
+    ).display_type == "(One, )"
 
     two_type = Mock()
-    two_type.display_name = "Two"
+    two_type.display_type = "Two[2]"
 
     three_type = Mock()
-    three_type.display_name = "Three"
+    three_type.display_type = "Three {constraint}"
 
     assert TupleType(
         Mock(),
-        Cardinality.CreateFromCode(0),
-        None,
         [
             one_type,
             two_type,
             three_type,
         ],
-    ).display_name == "(One, Two, Three, )*"
+    ).display_type == "(One, Two[2], <Three {constraint}>, )"
 
 
 # ----------------------------------------------------------------------
@@ -101,7 +97,7 @@ def test_ErrorNoTypes():
         SimpleSchemaException,
         match=re.escape("No types were provided. (bad file <Ln 1, Col 2 -> Ln 3, Col 4>)"),
     ):
-        TupleType(Range.Create(Path("bad file"), 1, 2, 3, 4), Mock(), None, [])
+        TupleType(Range.Create(Path("bad file"), 1, 2, 3, 4), [])
 
 
 # ----------------------------------------------------------------------
@@ -241,6 +237,7 @@ class TestToPython(object):
                     At least 2 items were expected (1 item was found).
 
                         - filename2 <Ln 1, Col 2 -> Ln 3, Col 4>
+                        - TupleElement1 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename1 <Ln 100, Col 200 -> Ln 300, Col 400>
                     """,
                 ),
@@ -266,7 +263,7 @@ class TestToPython(object):
     def test_ErrorInvalidExpressionType(self, _tuple_type):
         with pytest.raises(
             SimpleSchemaException,
-            match=re.escape("A tuple expression was expected. (filename <Ln 2, Col 4 -> Ln 6, Col 8>)"),
+            match=re.escape("A 'int' value cannot be converted to a '(SimpleString, SimpleInteger[2], SimpleString?, )' type. (filename <Ln 2, Col 4 -> Ln 6, Col 8>)"),
         ):
             _tuple_type.ToPython(
                 IntegerExpression(Range.Create(Path("filename"), 2, 4, 6, 8), 10),
@@ -282,6 +279,7 @@ class TestToPython(object):
                     Empty string
 
                         - filename2 <Ln 1, Col 2 -> Ln 3, Col 4>
+                        - TupleElement2 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename1 <Ln 100, Col 200 -> Ln 300, Col 400>
                     """,
                 ),
@@ -325,9 +323,11 @@ class TestToPython(object):
                     At least 2 items were expected (1 item was found).
 
                         - filename1 <Ln 1, Col 2 -> Ln 3, Col 4>
+                        - NestedTuple4 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename2 <Ln 10, Col 20 -> Ln 30, Col 40>
+                        - NestedTuple2 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename3 <Ln 100, Col 200 -> Ln 300, Col 400>
-                        - filename4 <Ln 1000, Col 2000 -> Ln 3000, Col 4000>
+                        - NestedTuple0 <Ln 1, Col 2 -> Ln 3, Col 4>
                     """,
                 ),
             ),
@@ -386,10 +386,13 @@ class TestToPython(object):
                     Empty string
 
                         - filename1 <Ln 1, Col 2 -> Ln 3, Col 4>
+                        - NestedTuple7 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename2 <Ln 10, Col 20 -> Ln 30, Col 40>
+                        - NestedTuple5 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename3 <Ln 100, Col 200 -> Ln 300, Col 400>
+                        - NestedTuple2 <Ln 1, Col 2 -> Ln 3, Col 4>
                         - filename4 <Ln 1000, Col 2000 -> Ln 3000, Col 4000>
-                        - filename5 <Ln 10000, Col 20000 -> Ln 30000, Col 40000>
+                        - NestedTuple0 <Ln 1, Col 2 -> Ln 3, Col 4>
                     """,
                 ),
             ),
@@ -445,7 +448,7 @@ class TestToPython(object):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @dataclass(frozen=True)
-    class _SimpleStringType(Type):
+    class _SimpleStringType(BasicType):
         NAME: ClassVar[str]                                                 = "SimpleString"
         SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]  = (str, )
 
@@ -453,7 +456,7 @@ class TestToPython(object):
         # ----------------------------------------------------------------------
         # ----------------------------------------------------------------------
         @overridemethod
-        def _ItemToPythonImpl(
+        def _ToPythonImpl(
             self,
             value: str,
         ) -> str:
@@ -464,13 +467,13 @@ class TestToPython(object):
 
     # ----------------------------------------------------------------------
     @dataclass(frozen=True)
-    class _SimpleIntegerType(Type):
+    class _SimpleIntegerType(BasicType):
         NAME: ClassVar[str]                                                 = "SimpleInteger"
         SUPPORTED_PYTHON_TYPES: ClassVar[Optional[Tuple[PythonType, ...]]]  = (int, )
 
         # ----------------------------------------------------------------------
         @overridemethod
-        def _ItemToPythonImpl(
+        def _ToPythonImpl(
             self,
             value: int,
         ) -> int:
@@ -485,12 +488,10 @@ class TestToPython(object):
     def _tuple_type(cls):
         return TupleType(
             Mock(),
-            Cardinality.CreateFromCode(),
-            None,
             [
-                cls._SimpleStringType(Mock(), Cardinality.CreateFromCode(), None),
-                cls._SimpleIntegerType(Mock(), Cardinality.CreateFromCode(2, 2), None),
-                cls._SimpleStringType(Mock(), Cardinality.CreateFromCode(0, 1), None),
+                ReferenceType.Create(Range.Create(Path("TupleElement0"), 1, 2, 3, 4), Mock(), SimpleElement[str](Mock(), "Tuple Element 0"), cls._SimpleStringType(Range.CreateFromCode()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Range.Create(Path("TupleElement1"), 1, 2, 3, 4), Mock(), SimpleElement[str](Mock(), "Tuple Element 1"), cls._SimpleIntegerType(Range.CreateFromCode()), Cardinality.CreateFromCode(2, 2), None),
+                ReferenceType.Create(Range.Create(Path("TupleElement2"), 1, 2, 3, 4), Mock(), SimpleElement[str](Mock(), "Tuple Element 2"), cls._SimpleStringType(Range.CreateFromCode()), Cardinality.CreateFromCode(0, 1), None),
             ],
         )
 
@@ -499,27 +500,63 @@ class TestToPython(object):
     @pytest.fixture
     def _nested_tuple_type(cls):
         # (String, (Integer[2], (String, )))+
-        return TupleType(
+        return ReferenceType.Create(
+            Range.Create(Path("NestedTuple0"), 1, 2, 3, 4),
             Mock(),
-            Cardinality.CreateFromCode(1),
-            None,
-            [
-                cls._SimpleStringType(Mock(), Cardinality.CreateFromCode(), None),
-                TupleType(
-                    Mock(),
-                    Cardinality.CreateFromCode(),
-                    None,
-                    [
-                        cls._SimpleIntegerType(Mock(), Cardinality.CreateFromCode(2, 2), None),
+            Mock(),
+            TupleType(
+                Mock(),
+                [
+                    ReferenceType.Create(
+                        Range.Create(Path("NestedTuple1"), 1, 2, 3, 4),
+                        Mock(),
+                        Mock(),
+                        cls._SimpleStringType(Range.CreateFromCode()),
+                        Cardinality.CreateFromCode(),
+                        None,
+                    ),
+                    ReferenceType.Create(
+                        Range.Create(Path("NestedTuple2"), 1, 2, 3, 4),
+                        Mock(),
+                        Mock(),
                         TupleType(
-                            Mock(),
-                            Cardinality.CreateFromCode(),
-                            None,
+                            Range.Create(Path("NestedTuple3"), 1, 2, 3, 4),
                             [
-                                cls._SimpleStringType(Mock(), Cardinality.CreateFromCode(), None),
+                                ReferenceType.Create(
+                                    Range.Create(Path("NestedTuple4"), 1, 2, 3, 4),
+                                    Mock(),
+                                    Mock(),
+                                    cls._SimpleIntegerType(Range.CreateFromCode()),
+                                    Cardinality.CreateFromCode(2, 2),
+                                    None,
+                                ),
+                                ReferenceType.Create(
+                                    Range.Create(Path("NestedTuple5"), 1, 2, 3, 4),
+                                    Mock(),
+                                    Mock(),
+                                    TupleType(
+                                        Range.Create(Path("NestedTuple6"), 1, 2, 3, 4),
+                                        [
+                                            ReferenceType.Create(
+                                                Range.Create(Path("NestedTuple7"), 1, 2, 3, 4),
+                                                Mock(),
+                                                Mock(),
+                                                cls._SimpleStringType(Range.CreateFromCode()),
+                                                Cardinality.CreateFromCode(),
+                                                None,
+                                            ),
+                                        ],
+                                    ),
+                                    Cardinality.CreateFromCode(),
+                                    None,
+                                ),
                             ],
                         ),
-                    ],
-                ),
-            ],
+                        Cardinality.CreateFromCode(),
+                        None,
+                    ),
+                ],
+            ),
+            Cardinality.CreateFromCode(1, None),
+            None,
         )

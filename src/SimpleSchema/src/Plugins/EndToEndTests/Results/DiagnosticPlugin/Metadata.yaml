@@ -1,0 +1,572 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 60, Col 1)
+  statements:
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+    dotted_name: Object
+    display_type: _Object-Ln18
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    resolved_metadata:
+      name:
+        range: Metadata.SimpleSchema (Ln 24, Col 11 -> Ln 24, Col 23)
+        value: The object
+      description:
+        range: Metadata.SimpleSchema (Ln 25, Col 18 -> Ln 25, Col 47)
+        value: A description of the object
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+        visibility: Visibility.Private
+        name: _Object-Ln18
+        children:
+        - __type__: ItemStatement
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 19, Col 5 -> Ln 22, Col 5)
+          visibility: Visibility.Public
+          name: value
+          type:
+            __type__: ReferenceType
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 19, Col 12 -> Ln 22, Col 6)
+            dotted_name: _Object-Ln18._ItemStatement-Ln19
+            display_type: String
+            flags:
+            - Alias
+            - BasicRef
+            - DynamicallyGenerated
+            - DefinedInline
+            resolved_metadata:
+              name:
+                range: Metadata.SimpleSchema (Ln 20, Col 15 -> Ln 20, Col 24)
+                value: A value
+              description:
+                range: Metadata.SimpleSchema (Ln 21, Col 22 -> Ln 21, Col 48)
+                value: A description of a value
+            type:
+              __type__: StringType
+              __disabled__: false
+              range: Metadata.SimpleSchema (Ln 19, Col 12 -> Ln 22, Col 6)
+              min_length: 1
+            visibility: Visibility.Private
+            name: _ItemStatement-Ln19
+            cardinality: <single>
+            metadata:
+              __type__: Metadata
+              __disabled__: false
+              range: Metadata.SimpleSchema (Ln 19, Col 19 -> Ln 22, Col 6)
+              items:
+              - __type__: MetadataItem
+                __disabled__: false
+                range: Metadata.SimpleSchema (Ln 20, Col 9 -> Ln 20, Col 24)
+                name: name
+                expression:
+                  __type__: StringExpression
+                  __disabled__: false
+                  range: Metadata.SimpleSchema (Ln 20, Col 15 -> Ln 20, Col 24)
+                  value: A value
+              - __type__: MetadataItem
+                __disabled__: false
+                range: Metadata.SimpleSchema (Ln 21, Col 9 -> Ln 21, Col 48)
+                name: description
+                expression:
+                  __type__: StringExpression
+                  __disabled__: false
+                  range: Metadata.SimpleSchema (Ln 21, Col 22 -> Ln 21, Col 48)
+                  value: A description of a value
+    visibility: Visibility.Public
+    name: Object
+    cardinality: <single>
+    metadata:
+      __type__: Metadata
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 23, Col 1 -> Ln 26, Col 2)
+      items:
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 24, Col 5 -> Ln 24, Col 23)
+        name: name
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 24, Col 11 -> Ln 24, Col 23)
+          value: The object
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 25, Col 5 -> Ln 25, Col 47)
+        name: description
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 25, Col 18 -> Ln 25, Col 47)
+          value: A description of the object
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
+    dotted_name: Typedef
+    display_type: _Object-Ln18[10]
+    flags:
+    - Type
+    - ReferenceRef
+    resolved_metadata:
+      name:
+        range: Metadata.SimpleSchema (Ln 29, Col 11 -> Ln 29, Col 31)
+        value: The objects (name)
+      description:
+        range: Metadata.SimpleSchema (Ln 31, Col 18 -> Ln 31, Col 48)
+        value: A description of the objects
+      plural_name:
+        range: Metadata.SimpleSchema (Ln 30, Col 18 -> Ln 30, Col 40)
+        value: The objects (plural)
+    visibility: Visibility.Public
+    name: Typedef
+    cardinality: '[10]'
+    metadata:
+      __type__: Metadata
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 28, Col 21 -> Ln 32, Col 2)
+      items:
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 29, Col 5 -> Ln 29, Col 31)
+        name: name
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 29, Col 11 -> Ln 29, Col 31)
+          value: The objects (name)
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 30, Col 5 -> Ln 30, Col 40)
+        name: plural_name
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 30, Col 18 -> Ln 30, Col 40)
+          value: The objects (plural)
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 31, Col 5 -> Ln 31, Col 48)
+        name: description
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 31, Col 18 -> Ln 31, Col 48)
+          value: A description of the objects
+    reference:
+      dotted_name: Object
+      range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 34, Col 1 -> Ln 35, Col 1)
+    visibility: Visibility.Public
+    name: no_metadata_object
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 34, Col 21 -> Ln 34, Col 27)
+      dotted_name: _ItemStatement-Ln34
+      display_type: _Object-Ln18
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln34
+      cardinality: <single>
+      reference:
+        dotted_name: Object
+        range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 35, Col 1 -> Ln 36, Col 1)
+    visibility: Visibility.Public
+    name: no_metadata_typedef
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 35, Col 22 -> Ln 35, Col 29)
+      dotted_name: _ItemStatement-Ln35
+      display_type: _Object-Ln18[10]
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln35
+      cardinality: <single>
+      reference:
+        dotted_name: Typedef
+        range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 36, Col 1 -> Ln 38, Col 1)
+    visibility: Visibility.Public
+    name: no_metadata_typedefs
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 36, Col 23 -> Ln 36, Col 33)
+      dotted_name: _ItemStatement-Ln36
+      display_type: _Object-Ln18[10][5]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln36
+      cardinality: '[5]'
+      reference:
+        dotted_name: Typedef
+        range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 38, Col 1 -> Ln 39, Col 1)
+    visibility: Visibility.Public
+    name: object
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 38, Col 9 -> Ln 38, Col 36)
+      dotted_name: _ItemStatement-Ln38
+      display_type: _Object-Ln18
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      resolved_metadata:
+        name:
+          range: Metadata.SimpleSchema (Ln 38, Col 24 -> Ln 38, Col 34)
+          value: A object
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln38
+      cardinality: <single>
+      metadata:
+        __type__: Metadata
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 38, Col 16 -> Ln 38, Col 36)
+        items:
+        - __type__: MetadataItem
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 38, Col 18 -> Ln 38, Col 34)
+          name: name
+          expression:
+            __type__: StringExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 38, Col 24 -> Ln 38, Col 34)
+            value: A object
+      reference:
+        dotted_name: Object
+        range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 39, Col 1 -> Ln 40, Col 1)
+    visibility: Visibility.Public
+    name: typedef
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 39, Col 10 -> Ln 39, Col 39)
+      dotted_name: _ItemStatement-Ln39
+      display_type: _Object-Ln18[10]
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      resolved_metadata:
+        name:
+          range: Metadata.SimpleSchema (Ln 39, Col 26 -> Ln 39, Col 37)
+          value: A typedef
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln39
+      cardinality: <single>
+      metadata:
+        __type__: Metadata
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 39, Col 18 -> Ln 39, Col 39)
+        items:
+        - __type__: MetadataItem
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 39, Col 20 -> Ln 39, Col 37)
+          name: name
+          expression:
+            __type__: StringExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 39, Col 26 -> Ln 39, Col 37)
+            value: A typedef
+      reference:
+        dotted_name: Typedef
+        range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 40, Col 1 -> Ln 42, Col 1)
+    visibility: Visibility.Public
+    name: typedefs
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 40, Col 11 -> Ln 40, Col 44)
+      dotted_name: _ItemStatement-Ln40
+      display_type: _Object-Ln18[10][5]
+      flags:
+      - Type
+      - ReferenceRef
+      - DynamicallyGenerated
+      resolved_metadata:
+        name:
+          range: Metadata.SimpleSchema (Ln 40, Col 30 -> Ln 40, Col 42)
+          value: 2d Objects
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln40
+      cardinality: '[5]'
+      metadata:
+        __type__: Metadata
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 40, Col 22 -> Ln 40, Col 44)
+        items:
+        - __type__: MetadataItem
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 40, Col 24 -> Ln 40, Col 42)
+          name: name
+          expression:
+            __type__: StringExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 40, Col 30 -> Ln 40, Col 42)
+            value: 2d Objects
+      reference:
+        dotted_name: Typedef
+        range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
+    dotted_name: DefaultObject
+    display_type: String?
+    flags:
+    - Type
+    - ReferenceRef
+    - BasicCollectionRef
+    - DefinedInline
+    resolved_metadata:
+      default:
+        range: Metadata.SimpleSchema (Ln 42, Col 35 -> Ln 42, Col 41)
+        value: 'null'
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
+      dotted_name: _DefaultObject_Item-Ln42
+      display_type: String
+      flags:
+      - Type
+      - BasicRef
+      - DynamicallyGenerated
+      - DefinedInline
+      type:
+        __type__: StringType
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 42, Col 16 -> Ln 42, Col 43)
+        min_length: 1
+      visibility: Visibility.Private
+      name: _DefaultObject_Item-Ln42
+      cardinality: <single>
+    visibility: Visibility.Public
+    name: DefaultObject
+    cardinality: '?'
+    metadata:
+      __type__: Metadata
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 42, Col 24 -> Ln 42, Col 43)
+      items:
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 42, Col 26 -> Ln 42, Col 41)
+        name: default
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 42, Col 35 -> Ln 42, Col 41)
+          value: 'null'
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 44, Col 1 -> Ln 45, Col 1)
+    visibility: Visibility.Public
+    name: default_object
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 44, Col 17 -> Ln 44, Col 30)
+      dotted_name: _ItemStatement-Ln44
+      display_type: String?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      resolved_metadata:
+        default:
+          range: Metadata.SimpleSchema (Ln 42, Col 35 -> Ln 42, Col 41)
+          value: 'null'
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln44
+      cardinality: <single>
+      reference:
+        dotted_name: DefaultObject
+        range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
+  - __type__: ItemStatement
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 45, Col 1 -> Ln 49, Col 1)
+    visibility: Visibility.Public
+    name: default_object_with_override
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 45, Col 31 -> Ln 45, Col 64)
+      dotted_name: _ItemStatement-Ln45
+      display_type: String?
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      resolved_metadata:
+        default:
+          range: Metadata.SimpleSchema (Ln 45, Col 56 -> Ln 45, Col 62)
+          value: NONE
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln45
+      cardinality: <single>
+      metadata:
+        __type__: Metadata
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 45, Col 45 -> Ln 45, Col 64)
+        items:
+        - __type__: MetadataItem
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 45, Col 47 -> Ln 45, Col 62)
+          name: default
+          expression:
+            __type__: StringExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 45, Col 56 -> Ln 45, Col 62)
+            value: NONE
+      reference:
+        dotted_name: DefaultObject
+        range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
+    dotted_name: MetadataTypes
+    display_type: _MetadataTypes-Ln49
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
+        visibility: Visibility.Private
+        name: _MetadataTypes-Ln49
+    visibility: Visibility.Public
+    name: MetadataTypes
+    cardinality: <single>
+    metadata:
+      __type__: Metadata
+      __disabled__: false
+      range: Metadata.SimpleSchema (Ln 51, Col 1 -> Ln 59, Col 2)
+      items:
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 52, Col 5 -> Ln 52, Col 18)
+        name: boolean
+        expression:
+          __type__: BooleanExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 52, Col 14 -> Ln 52, Col 18)
+          value: true
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 53, Col 5 -> Ln 53, Col 16)
+        name: integer
+        expression:
+          __type__: IntegerExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 53, Col 14 -> Ln 53, Col 16)
+          value: 10
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 54, Col 5 -> Ln 54, Col 19)
+        name: list
+        expression:
+          __type__: ListExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 54, Col 11 -> Ln 54, Col 19)
+          value:
+          - __type__: IntegerExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 54, Col 12 -> Ln 54, Col 14)
+            value: 10
+          - __type__: IntegerExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 54, Col 16 -> Ln 54, Col 18)
+            value: 20
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 55, Col 5 -> Ln 55, Col 15)
+        name: none
+        expression:
+          __type__: NoneExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 55, Col 11 -> Ln 55, Col 15)
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 56, Col 5 -> Ln 56, Col 18)
+        name: number
+        expression:
+          __type__: NumberExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 56, Col 13 -> Ln 56, Col 18)
+          value: 1.234
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 57, Col 5 -> Ln 57, Col 20)
+        name: string
+        expression:
+          __type__: StringExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 57, Col 13 -> Ln 57, Col 20)
+          value: Hello
+      - __type__: MetadataItem
+        __disabled__: false
+        range: Metadata.SimpleSchema (Ln 58, Col 5 -> Ln 58, Col 27)
+        name: tuple
+        expression:
+          __type__: TupleExpression
+          __disabled__: false
+          range: Metadata.SimpleSchema (Ln 58, Col 12 -> Ln 58, Col 27)
+          value:
+          - __type__: IntegerExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 58, Col 13 -> Ln 58, Col 14)
+            value: 1
+          - __type__: StringExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 58, Col 16 -> Ln 58, Col 21)
+            value: two
+          - __type__: NumberExpression
+            __disabled__: false
+            range: Metadata.SimpleSchema (Ln 58, Col 23 -> Ln 58, Col 26)
+            value: 3.0
