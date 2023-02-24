@@ -14,10 +14,12 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
+      reference_count: 1
       display_type: Directory!
       type:
         __type__: DirectoryType
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
+        reference_count: 1
         ensure_exists: true
       visibility:
         __type__: SimpleElement
@@ -51,10 +53,12 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
+      reference_count: 1
       display_type: Directory
       type:
         __type__: DirectoryType
         range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
+        reference_count: 1
         ensure_exists: false
       visibility:
         __type__: SimpleElement

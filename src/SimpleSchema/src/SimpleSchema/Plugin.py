@@ -19,7 +19,7 @@ import copy
 
 from abc import abstractmethod
 from contextlib import contextmanager
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import auto, Enum, IntFlag
 from pathlib import Path
 from typing import Any, Callable, Iterator, Optional, Protocol, Union
@@ -30,10 +30,13 @@ from Common_Foundation.Types import overridemethod
 from Common_FoundationEx.CompilerImpl.PluginBase import PluginBase
 
 from .Common import Errors
+from .Common.Range import Range
 
 from .Schema.Elements.Common.Element import Element
 from .Schema.Elements.Common.Metadata import MetadataItem
+from .Schema.Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from .Schema.Elements.Common.SimpleElement import SimpleElement
+from .Schema.Elements.Common.Visibility import Visibility
 
 from .Schema.Elements.Statements.ExtensionStatement import ExtensionStatement
 from .Schema.Elements.Statements.ItemStatement import ItemStatement
@@ -64,14 +67,17 @@ class Plugin(PluginBase):
     class Flag(IntFlag):
         AllowRootItems                      = auto()
         AllowRootStructures                 = auto()
+        AllowRootTypes                      = auto()
 
         AllowNestedItems                    = auto()
         AllowNestedStructures               = auto()
+        AllowNestedTypes                    = auto()
 
-        CreateDottedNames                   = auto()
+        AlwaysDisableUnsupportedItems       = auto()
 
-        SkipEmptyStructures                 = auto()
-        AlwaysFilterUnsupportedItems        = auto()
+        DisableEmptyStructures              = auto()
+
+        FlattenStructureHierarchies         = auto()
 
     # ----------------------------------------------------------------------
     # |
@@ -106,6 +112,22 @@ class Plugin(PluginBase):
             ],
         )
 
+        # For convenience, metadata attribute types are defined with BasicTypes and cardinality
+        # values. Convert those values to actual types.
+        for metadata_attribute in metadata_attributes:
+            object.__setattr__(
+                metadata_attribute,
+                "_type",
+                ReferenceType.Create(
+                    Range.CreateFromCode(),
+                    SimpleElement[Visibility](Range.CreateFromCode(), Visibility.Private),
+                    SimpleElement[str](Range.CreateFromCode(), "Type"),
+                    metadata_attribute.type,
+                    metadata_attribute.cardinality,
+                    None,
+                ),
+            )
+
         self.flags                          = flags
 
         self._custom_extension_names        = custom_extension_names or set()
@@ -123,9 +145,9 @@ class Plugin(PluginBase):
         filter_unsupported_root_elements: bool,
         filter_unsupported_nested_elements: bool,
     ) -> None:
-        always_filter_override = bool(self.flags & self.Flag.AlwaysFilterUnsupportedItems)
+        always_filter_override = bool(self.flags & self.Flag.AlwaysDisableUnsupportedItems)
 
-        _Validate(
+        _Postprocess(
             self,
             root,
             self._inheritable_attributes,
@@ -168,212 +190,18 @@ class Plugin(PluginBase):
         return extension_name in self._custom_extension_names
 
     # ----------------------------------------------------------------------
-    def InitDottedName(
+    def GetUniqueTypeName(
         self,
-        reference_type_category: "_ReferenceTypeCategory",  # pylint: disable=unused-argument
-        elements: list[Element],
-        *,
-        is_root: bool,  # pylint: disable=unused-argument
-    ) -> None:
-        if not self.flags & Plugin.Flag.CreateDottedNames:
-            return
-
-        assert elements
-        assert isinstance(elements[-1], (BasicType, ReferenceType))
-
-        # Do we have a cached value?
-        if getattr(
-            elements[-1],
-            self.__class__._DOTTED_NAME_ATTRIBUTE_NAME,  # pylint: disable=protected-access
+        the_type: ReferenceCountMixin,
+    ) -> str:
+        result = getattr(
+            the_type,
+            _UNIQUE_TYPE_NAME_ATTRIBUTE_NAME,
             None,
-        ) is not None:
-            return
-
-        # Calculate the result
-        dotted_name_parts: list[str] = [
-            element.name.value
-            for element in elements
-            if isinstance(element, StructureStatement)
-        ]
-
-        if isinstance(elements[-1], BasicType):
-            dotted_name_parts.append(elements[-1].NAME)
-        elif isinstance(elements[-1], ReferenceType):
-            dotted_name_parts.append(elements[-1].name.value)
-        else:
-            assert False, elements[-1]  # pragma: no cover
-
-        dotted_name = ".".join(dotted_name_parts)
-
-        # Cache the result
-        object.__setattr__(
-            elements[-1],
-            self.__class__._DOTTED_NAME_ATTRIBUTE_NAME,  # pylint: disable=protected-access
-            dotted_name,
         )
 
-    # ----------------------------------------------------------------------
-    def InitResolvedMetadata(
-        self,
-        reference_type_category: "_ReferenceTypeCategory",
-        reference_element: Element,
-        reference_type: ReferenceType,
-        metadata: dict[str, MetadataItem],
-        *,
-        is_root: bool,
-        filter_unsupported_metadata: bool,
-    ) -> None:
-        assert getattr(
-            reference_type,
-            self.__class__._RESOLVED_METADATA_ATTRIBUTE_NAME,  # pylint: disable=protected-access
-            None,
-        ) is None
-
-        # Validate
-        # ----------------------------------------------------------------------
-        def GetPotentialError(
-            attribute: MetadataAttribute,
-        ) -> Optional[str]:
-            Flag = MetadataAttribute.Flag
-
-            # Element type flags
-            element_type_flags = attribute.flags & Flag.ElementTypeMask
-            if element_type_flags != 0 and element_type_flags != Flag.Element:
-                if element_type_flags == Flag.RootElement and not is_root:
-                    return Errors.plugin_metadata_element_root
-
-                if element_type_flags == Flag.NestedElement and is_root:
-                    return Errors.plugin_metadata_element_nested
-
-                if element_type_flags & Flag.Item:
-                    if reference_type_category != _ReferenceTypeCategory.Item:
-                        return Errors.plugin_metadata_item
-
-                    if element_type_flags == Flag.RootItem and not is_root:
-                        return Errors.plugin_metadata_item_root
-
-                    if element_type_flags == Flag.NestedItem and is_root:
-                        return Errors.plugin_metadata_item_nested
-
-                if element_type_flags & Flag.Structure:
-                    if reference_type_category != _ReferenceTypeCategory.Structure:
-                        return Errors.plugin_metadata_structure
-
-                    if element_type_flags == Flag.RootStructure and not is_root:
-                        return Errors.plugin_metadata_structure_root
-
-                    if element_type_flags == Flag.NestedStructure and is_root:
-                        return Errors.plugin_metadata_structure_nested
-
-                if element_type_flags & Flag.Type:
-                    if reference_type_category != _ReferenceTypeCategory.Typedef:
-                        return Errors.plugin_metadata_type
-
-                    if element_type_flags == Flag.RootType and not is_root:
-                        return Errors.plugin_metadata_type_root
-
-                    if element_type_flags == Flag.NestedType and is_root:
-                        return Errors.plugin_metadata_type_nested
-
-                if element_type_flags & Flag.BaseType:
-                    if reference_type_category != _ReferenceTypeCategory.Base:
-                        return Errors.plugin_metadata_base
-
-            # Cardinality flags
-            cardinality_flags = attribute.flags & Flag.CardinalityMask
-            if cardinality_flags != 0:
-                with reference_type.Resolve() as resolved_type:
-                    cardinality = resolved_type.cardinality
-
-                if cardinality_flags & Flag.SingleCardinality and not cardinality.is_single:
-                    return Errors.plugin_metadata_cardinality_single
-
-                if cardinality_flags & Flag.OptionalCardinality and not cardinality.is_optional:
-                    return Errors.plugin_metadata_cardinality_optional
-
-                if cardinality_flags & Flag.ContainerCardinality and not cardinality.is_container:
-                    return Errors.plugin_metadata_cardinality_container
-
-                if (
-                    cardinality_flags & Flag.ZeroOrMoreCardinality
-                    and not (
-                        cardinality.is_container
-                        and cardinality.min.value == 0
-                        and cardinality.max is None
-                    )
-                ):
-                    return Errors.plugin_metadata_cardinality_zero_or_more
-
-                if (
-                    cardinality_flags & Flag.OneOrMoreCardinality
-                    and not (
-                        cardinality.is_container
-                        and cardinality.min.value == 1
-                        and cardinality.max is None
-                    )
-                ):
-                    return Errors.plugin_metadata_cardinality_one_or_more
-
-                if (
-                    cardinality_flags & Flag.FixedContainerCardinality
-                    and not (
-                        cardinality.is_container
-                        and cardinality.max is not None
-                        and cardinality.min.value == cardinality.max.value
-                    )
-                ):
-                    return Errors.plugin_metadata_cardinality_fixed
-
-            return None
-
-        # ----------------------------------------------------------------------
-
-        results: dict[str, SimpleElement] = {}
-
-        for attribute in self._custom_metadata_attributes:
-            metadata_item = metadata.get(attribute.name, None)
-
-            if metadata_item is None:
-                if attribute.type.cardinality.min.value != 0:
-                    raise Errors.PluginRequiredMetadata.Create(
-                        reference_type.metadata.range if reference_type.metadata is not None else reference_type.range,
-                        attribute.name,
-                    )
-
-                continue
-
-            potential_error = GetPotentialError(attribute)
-            if potential_error is not None:
-                raise Errors.PluginInvalidMetadata.Create(
-                    metadata_item.range,
-                    metadata_item.name.value,
-                    potential_error,
-                )
-
-            attribute.Validate(reference_element)
-
-            attribute_value = attribute.type.ToPython(metadata_item.expression)
-
-            results[attribute.name] = SimpleElement(
-                metadata_item.expression.range,
-                attribute_value,
-            )
-
-        if not filter_unsupported_metadata and len(metadata) != len(results):
-            for metadata_item in metadata.values():
-                if metadata_item.name.value not in results:
-                    raise Errors.PluginUnsupportedMetadata.Create(
-                        metadata_item.name.range,
-                        metadata_item.name.value,
-                        self.name,
-                    )
-
-        # Commit the results
-        object.__setattr__(
-            reference_type,
-            self.__class__._RESOLVED_METADATA_ATTRIBUTE_NAME,  # pylint: disable=protected-access
-            results,
-        )
+        assert result is not None
+        return result
 
     # ----------------------------------------------------------------------
     def GetResolvedMetadata(
@@ -382,25 +210,14 @@ class Plugin(PluginBase):
     ) -> dict[str, SimpleElement]:
         result = getattr(
             reference_type,
-            self.__class__._RESOLVED_METADATA_ATTRIBUTE_NAME,  # pylint: disable=protected-access
+            _RESOLVED_METADATA_ATTRIBUTE_NAME,
             None,
         )
 
-        assert result is not None
-        return result
+        if result is None:
+            assert reference_type.is_disabled
+            return {}
 
-    # ----------------------------------------------------------------------
-    def GetDottedName(
-        self,
-        the_type: Union[BasicType, ReferenceType],
-    ) -> str:
-        result = getattr(
-            the_type,
-            self.__class__._DOTTED_NAME_ATTRIBUTE_NAME,  # pylint: disable=protected-access
-            None,
-        )
-
-        assert result is not None
         return result
 
     # ----------------------------------------------------------------------
@@ -463,30 +280,22 @@ class Plugin(PluginBase):
 
         return filename_map
 
-    # ----------------------------------------------------------------------
-    # |
-    # |  Private Types
-    # |
-    # ----------------------------------------------------------------------
-    _RESOLVED_METADATA_ATTRIBUTE_NAME       = "_resolved_metadata__"
-    _DOTTED_NAME_ATTRIBUTE_NAME             = "_dotted_name__"
-
 
 # ----------------------------------------------------------------------
 # |
 # |  Private Types
 # |
 # ----------------------------------------------------------------------
-class _ReferenceTypeCategory(Enum):
-    Unknown                                 = 0
-    Item                                    = auto()
-    Structure                               = auto()
-    Typedef                                 = auto()
-    Base                                    = auto()
+_RESOLVED_METADATA_ATTRIBUTE_NAME           = "_resolved_metadata__"
+_UNIQUE_TYPE_NAME_ATTRIBUTE_NAME            = "_unique_type_name__"
 
 
 # ----------------------------------------------------------------------
-def _Validate(
+# |
+# |  Private Functions
+# |
+# ----------------------------------------------------------------------
+def _Postprocess(
     plugin: Plugin,
     root: RootStatement,
     inheritable_attribute_names: set[str],
@@ -496,23 +305,34 @@ def _Validate(
     filter_unsupported_root_elements: bool,
     filter_unsupported_nested_elements: bool,
 ) -> None:
+    # Pass 1:
+    #     - Create unique type names
+    #     - Validate:
+    #         * Extensions
+    #         * ItemStatements
+    #         * StructureStatements
+    #     - Resolve metadata for all elements that need it
+    #     - Flatten any structures that need flattening
+
+    # ----------------------------------------------------------------------
+    class ReferenceTypeCategory(Enum):
+        Item                                = auto()
+        Structure                           = auto()
+        Typedef                             = auto()
+        Base                                = auto()
+
     # ----------------------------------------------------------------------
     @dataclass(frozen=True)
-    class CacheInfo(object):
+    class ResolvedCacheInfo(object):
+        reference_type: ReferenceType
         metadata: dict[str, MetadataItem]
-        is_root: bool                       = field(kw_only=True)
 
     # ----------------------------------------------------------------------
 
-    metadata_cache: dict[int, CacheInfo] = {}
-    processed_metadata: set[int] = set()
+    all_elements: dict[int, Element] = {}
+    root_elements: set[int] = set()
 
-    # Note that this algorithm must be done in 2 passes (I think) because ReferenceType is greedy
-    # (given that it is visiting the elements using depth-first traversal) when attempting to
-    # assign metadata when it is called. Unfortunately, we don't always have the context necessary
-    # to assign metadata when this happens on the first pass (as is the case with StructureTypes
-    # and ReferenceTypes that are Typedefs). So, generate the metadata on pass 1 and assign the
-    # metadata on pass 2.
+    resolved_metadata_cache: dict[int, ResolvedCacheInfo] = {}
 
     # ----------------------------------------------------------------------
     class Pass1Visitor(Visitor):
@@ -522,33 +342,50 @@ def _Validate(
 
             self._element_stack: list[Element]          = []
 
-            if plugin.flags & Plugin.Flag.CreateDottedNames:
-                # ----------------------------------------------------------------------
-                def CreateDottedNames() -> None:
-                    assert self._element_stack
-
-                    if isinstance(self._element_stack[-1], (BasicType, ReferenceType)):
-                        plugin.InitDottedName(
-                            _ReferenceTypeCategory.Unknown,
-                            self._element_stack,
-                            is_root=len(self._element_stack) == 2,  # RootStatement then this Element
-                        )
-
-                # ----------------------------------------------------------------------
-
-                created_dotted_names_func = CreateDottedNames
-            else:
-                created_dotted_names_func = lambda: None
-
-            self._created_dotted_names_func             = created_dotted_names_func
-
         # ----------------------------------------------------------------------
         @contextmanager
         @overridemethod
         def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
+            element_id = id(element)
+
+            if element_id in all_elements:
+                yield VisitResult.SkipAll
+                return
+
+            all_elements[element_id] = element
+
             self._element_stack.append(element)
             with ExitStack(self._element_stack.pop):
-                self._created_dotted_names_func()
+                if (
+                    isinstance(element, ReferenceCountMixin)
+                    and getattr(element, _UNIQUE_TYPE_NAME_ATTRIBUTE_NAME, None) is None
+                ):
+                    type_name_parts: list[str] = [
+                        element.name.value
+                        for element in self._element_stack
+                        if isinstance(element, StructureStatement)
+                    ]
+
+                    if isinstance(element, StructureType):
+                        type_name_parts.append(element.display_type)
+                    elif isinstance(element, BasicType):
+                        type_name_parts.append(
+                            "{}-Ln{}".format(element.NAME, element.range.begin.line),
+                        )
+                    elif isinstance(element, ReferenceType):
+                        type_name_parts.append(element.name.value)
+                    elif isinstance(element, StructureStatement):
+                        # Nothing to do here, as the comprehension statement above will have
+                        # captured this name.
+                        pass
+                    else:
+                        assert False, element  # pragma: no cover
+
+                    object.__setattr__(
+                        element,
+                        _UNIQUE_TYPE_NAME_ATTRIBUTE_NAME,
+                        ".".join(type_name_parts),
+                    )
 
                 yield
 
@@ -577,23 +414,20 @@ def _Validate(
         def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
             is_root = len(self._element_stack) == 2  # RootStatement and this Element
 
-            if is_root and not plugin.flags & Plugin.Flag.AllowRootItems:
-                if filter_unsupported_root_elements:
-                    element.Disable()
+            if is_root:
+                root_elements.add(id(element))
 
-                    yield VisitResult.SkipAll
-                    return
-
-                raise Errors.PluginInvalidRootItem.Create(element.range, plugin.name)
+                if not plugin.flags & Plugin.Flag.AllowRootItems:
+                    if filter_unsupported_root_elements:
+                        element.Disable()
+                    else:
+                        raise Errors.PluginInvalidRootItem.Create(element.range, plugin.name)
 
             if not is_root and not plugin.flags & Plugin.Flag.AllowNestedItems:
                 if filter_unsupported_nested_elements:
                     element.Disable()
-
-                    yield VisitResult.SkipAll
-                    return
-
-                raise Errors.PluginInvalidNestedItem.Create(element.range, plugin.name)
+                else:
+                    raise Errors.PluginInvalidNestedItem.Create(element.range, plugin.name)
 
             yield
 
@@ -601,12 +435,7 @@ def _Validate(
         @contextmanager
         @overridemethod
         def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-            if not element.children and plugin.flags & Plugin.Flag.SkipEmptyStructures:
-                element.Disable()
-
-                yield VisitResult.SkipAll
-                return
-
+            # Determine if we are at the root by how many structure statements are on the stack
             stack_structure_statement_count = 0
 
             for stack_element in self._element_stack:
@@ -618,33 +447,100 @@ def _Validate(
 
             is_root = stack_structure_statement_count == 1
 
-            if is_root and not plugin.flags & Plugin.Flag.AllowRootStructures:
-                if filter_unsupported_root_elements:
-                    element.Disable()
+            # Validate
+            if is_root:
+                root_elements.add(id(element))
 
-                    yield VisitResult.SkipAll
-                    return
-
-                raise Errors.PluginInvalidRootStructure.Create(element.range, plugin.name)
+                if not plugin.flags & Plugin.Flag.AllowRootStructures:
+                    if filter_unsupported_root_elements:
+                        element.Disable()
+                    else:
+                        raise Errors.PluginInvalidRootStructure.Create(element.range, plugin.name)
 
             if not is_root and not plugin.flags & Plugin.Flag.AllowNestedStructures:
                 if filter_unsupported_nested_elements:
                     element.Disable()
-
-                    yield VisitResult.SkipAll
-                    return
-
-                raise Errors.PluginInvalidNestedStructure.Create(element.range, plugin.name)
+                else:
+                    raise Errors.PluginInvalidNestedStructure.Create(element.range, plugin.name)
 
             yield
+
+            # Flatten
+            if plugin.flags & Plugin.Flag.FlattenStructureHierarchies:
+                items_to_add: list[ItemStatement] = []
+
+                for base_type in element.base_types:
+                    disable_base_type = True
+
+                    with base_type.Resolve() as resolved_base_type:
+                        if resolved_base_type.flags & ReferenceType.Flag.StructureRef:
+                            assert isinstance(resolved_base_type.type, StructureType), resolved_base_type.type
+
+                            for child in resolved_base_type.type.structure.children:
+                                if not isinstance(child, ItemStatement) or child.is_disabled:
+                                    continue
+
+                                items_to_add.append(child)
+
+                        elif resolved_base_type.flags & ReferenceType.Flag.BasicRef:
+                            items_to_add.append(
+                                ItemStatement(
+                                    base_type.range,
+                                    SimpleElement[Visibility](base_type.range, Visibility.Public),
+                                    SimpleElement[str](base_type.range, "__value__"),
+                                    resolved_base_type,
+                                ),
+                            )
+
+                            disable_base_type = resolved_base_type is not base_type
+
+                        else:
+                            assert False, resolved_base_type.flags  # pragma: no cover
+
+                    if disable_base_type:
+                        base_type.Disable()
+
+                item_lookup: dict[str, ItemStatement] = {
+                    child.name.value: child
+                    for child in element.children
+                    if isinstance(child, ItemStatement) and not child.is_disabled
+                }
+
+                for item_to_add in items_to_add:
+                    prev_item = item_lookup.get(item_to_add.name.value, None)
+                    if prev_item is not None:
+                        raise Errors.PluginDuplicateFlattenedItem.Create(
+                            element.range,
+                            item_to_add.name.value,
+                            item_to_add.name.range,
+                            prev_item.range,
+                        )
+
+                    element.children.append(item_to_add)
+
+                    item_lookup[item_to_add.name.value] = item_to_add
+
+            # Disable empty structures
+            if plugin.flags & Plugin.Flag.DisableEmptyStructures:
+                if not any(
+                    (
+                        not child.is_disabled
+                        and (
+                            isinstance(child, ItemStatement)
+                            or (isinstance(child, ReferenceType) and child.reference_count != 0)
+                        )
+                    )
+                    for child in element.children
+                ):
+                    element.Disable()
 
         # ----------------------------------------------------------------------
         @contextmanager
         @overridemethod
         def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-            cache_key = id(element)
+            resolved_metadata_key = id(element)
 
-            if cache_key in metadata_cache:
+            if resolved_metadata_key in resolved_metadata_cache:
                 yield VisitResult.SkipAll
                 return
 
@@ -652,124 +548,33 @@ def _Validate(
                 {} if element.metadata is None else copy.deepcopy(element.metadata.items)
             )
 
-            while (
-                (element.flags & ReferenceType.Flag.Alias)
-                and not (element.flags & ReferenceType.Flag.BasicRef)
-            ):
-                assert isinstance(element.type, ReferenceType), element.type
-                element = element.type
+            ptr = element.type
 
-                if element.metadata is None:
-                    continue
+            while isinstance(ptr, ReferenceType):
+                if ptr.metadata is not None:
+                    for k, v in ptr.metadata.items.items():
+                        if k in metadata:
+                            continue
 
-                for k, v in element.metadata.items.items():
-                    if k in metadata:
-                        continue
+                        if k not in inheritable_attribute_names:
+                            continue
 
-                    if k not in inheritable_attribute_names:
-                        continue
+                        metadata[k] = v
 
-                    metadata[k] = v
+                if ptr.flags & ReferenceType.Flag.Type:
+                    break
 
-            metadata_cache[cache_key] = CacheInfo(
-                metadata,
-                is_root=len(self._element_stack) == 2,  # RootStatement and this Element
-            )
+                ptr = ptr.type
 
-            yield
+            is_root = len(self._element_stack) == 2  # RootStatement and this Element
 
-    # ----------------------------------------------------------------------
-    class Pass2Visitor(Visitor):
-        # ----------------------------------------------------------------------
-        @contextmanager
-        @overridemethod
-        def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-            cache_key = id(element.type)
+            if is_root:
+                root_elements.add(id(element))
 
-            cache_info = metadata_cache.pop(cache_key, None)
-            if cache_info is None:
-                assert cache_key in processed_metadata
+            resolved_metadata_cache[resolved_metadata_key] = ResolvedCacheInfo(element, metadata)
 
-                yield VisitResult.SkipAll
-                return
-
-            plugin.InitResolvedMetadata(
-                _ReferenceTypeCategory.Item,
-                element,
-                element.type,
-                cache_info.metadata,
-                is_root=cache_info.is_root,
-                filter_unsupported_metadata=filter_unsupported_metadata,
-            )
-
-            processed_metadata.add(cache_key)
-
-            yield
-
-        # ----------------------------------------------------------------------
-        @contextmanager
-        @overridemethod
-        def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-            for base_type in element.base_types:
-                cache_key = id(base_type)
-
-                cache_info = metadata_cache.pop(cache_key, None)
-                if cache_info is None:
-                    assert cache_key in processed_metadata
-                    continue
-
-                plugin.InitResolvedMetadata(
-                    _ReferenceTypeCategory.Base,
-                    base_type,
-                    base_type,
-                    cache_info.metadata,
-                    is_root=cache_info.is_root,
-                    filter_unsupported_metadata=filter_unsupported_metadata,
-                )
-
-                processed_metadata.add(cache_key)
-
-            yield
-
-        # ----------------------------------------------------------------------
-        @contextmanager
-        @overridemethod
-        def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-            cache_key = id(element)
-
-            cache_info = metadata_cache.pop(cache_key, None)
-
-            if cache_info is None:
-                assert cache_key in processed_metadata
-            else:
-                if element.flags & ReferenceType.Flag.StructureRef:
-                    category_type = _ReferenceTypeCategory.Structure
-
-                    assert isinstance(element.type, StructureType), element.type
-                    reference_element = element.type.structure
-
-                elif element.flags & ReferenceType.Flag.StructureCollectionRef:
-                    category_type = _ReferenceTypeCategory.Structure
-
-                    assert isinstance(element.type, ReferenceType), element.type
-                    assert isinstance(element.type.type, StructureType), element.type.type
-
-                    reference_element = element.type.type.structure
-
-                else:
-                    category_type = _ReferenceTypeCategory.Typedef
-                    reference_element = element
-
-                plugin.InitResolvedMetadata(
-                    category_type,
-                    reference_element,
-                    element,
-                    cache_info.metadata,
-                    is_root=cache_info.is_root,
-                    filter_unsupported_metadata=filter_unsupported_metadata,
-                )
-
-                processed_metadata.add(cache_key)
+            # Note that we don't yet have a way to determine the context of this type, so we will
+            # validate in a later pass.
 
             yield
 
@@ -777,5 +582,289 @@ def _Validate(
 
     root.Accept(Pass1Visitor())
 
-    if metadata_cache:
-        root.Accept(Pass2Visitor())
+    # Pass 2:
+    #     - Validate the metadata generated in pass 1
+    #     - Calculate the elements that can no longer be referenced
+    unvisited_elements = all_elements
+    del all_elements
+
+    processed_metadata: set[int] = set()
+
+    # ----------------------------------------------------------------------
+    class Pass2Visitor(Visitor):
+        # ----------------------------------------------------------------------
+        @contextmanager
+        @overridemethod
+        def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
+            if unvisited_elements.pop(id(element), None) is None:
+                yield VisitResult.SkipAll
+                return
+
+            yield
+
+        # ----------------------------------------------------------------------
+        @contextmanager
+        @overridemethod
+        def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
+            self._ApplyResolvedMetadata(element.type, ReferenceTypeCategory.Item, element)
+            yield
+
+        # ----------------------------------------------------------------------
+        @contextmanager
+        @overridemethod
+        def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
+            for base_type in element.base_types:
+                if base_type.is_disabled:
+                    continue
+
+                self._ApplyResolvedMetadata(base_type, ReferenceTypeCategory.Base, base_type)
+
+            yield
+
+        # ----------------------------------------------------------------------
+        @contextmanager
+        @overridemethod
+        def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
+            if resolved_metadata_cache.get(id(element), None) is not None:
+                disabled_query_types: list[Element] = [element]
+
+                if (
+                    (element.flags & ReferenceType.Flag.StructureRef)
+                    or (element.flags & ReferenceType.Flag.StructureCollectionRef)
+                ):
+                    referenced_category_type = ReferenceTypeCategory.Structure
+
+                    if element.flags & ReferenceType.Flag.StructureRef:
+                        assert isinstance(element.type, StructureType), element.type
+
+                        disabled_query_types += [element.type, element.type.structure, ]
+                        referenced_element = element.type.structure
+
+                    elif element.flags & ReferenceType.Flag.StructureCollectionRef:
+                        assert isinstance(element.type, ReferenceType), element.type
+                        assert isinstance(element.type.type, StructureType), element.type.type
+
+                        disabled_query_types += [
+                            element.type,
+                            element.type.type,
+                            element.type.type.structure,
+                        ]
+
+                        referenced_element = element.type.type.structure
+
+                    else:
+                        assert False, element.flags  # pragma: no cover
+
+                else:
+                    # We now have enough context to know that this is a typedef. Validate that
+                    # these are supported by the plugin.
+                    is_root = id(element) in root_elements
+
+                    if is_root and not plugin.flags & Plugin.Flag.AllowRootTypes:
+                        if filter_unsupported_root_elements:
+                            element.Disable()
+                        else:
+                            raise Errors.PluginInvalidRootType.Create(element.range, plugin.name)
+
+                    if not is_root and not plugin.flags & Plugin.Flag.AllowNestedTypes:
+                        if filter_unsupported_nested_elements:
+                            element.Disable()
+                        else:
+                            raise Errors.PluginInvalidNestedType.Create(element.range, plugin.name)
+
+                    referenced_category_type = ReferenceTypeCategory.Typedef
+                    referenced_element = element
+
+                self._ApplyResolvedMetadata(element, referenced_category_type, referenced_element)
+
+                if any(query_type.is_disabled for query_type in disabled_query_types):
+                    for query_type in disabled_query_types:
+                        if not query_type.is_disabled:
+                            query_type.Disable()
+
+                    yield VisitResult.SkipAll
+                    return
+
+            yield
+
+        # ----------------------------------------------------------------------
+        # ----------------------------------------------------------------------
+        # ----------------------------------------------------------------------
+        def _ApplyResolvedMetadata(
+            self,
+            reference_type: ReferenceType,
+            referenced_type_category: ReferenceTypeCategory,
+            referenced_element: Union[
+                                                # `referenced_type_category` value
+                ItemStatement,                  # Item
+                StructureStatement,             # Structure
+                ReferenceType,                  # Typedef, Base
+            ],
+        ) -> None:
+            cache_key = id(reference_type)
+
+            cache_info = resolved_metadata_cache.pop(cache_key, None)
+            if cache_info is None:
+                assert cache_key in processed_metadata
+                return
+
+            metadata = cache_info.metadata
+            is_root = id(reference_type) in root_elements
+
+            # Validate
+            # ----------------------------------------------------------------------
+            def GetPotentialError(
+                attribute: MetadataAttribute,
+            ) -> Optional[str]:
+                Flag = MetadataAttribute.Flag
+
+                # Element type flags
+                element_type_flags = attribute.flags & Flag.ElementTypeMask
+                if element_type_flags != 0 and element_type_flags != Flag.Element:
+                    if element_type_flags == Flag.RootElement and not is_root:
+                        return Errors.plugin_metadata_element_root
+
+                    if element_type_flags == Flag.NestedElement and is_root:
+                        return Errors.plugin_metadata_element_nested
+
+                    if element_type_flags & Flag.Item:
+                        if referenced_type_category != ReferenceTypeCategory.Item:
+                            return Errors.plugin_metadata_item
+
+                        if element_type_flags == Flag.RootItem and not is_root:
+                            return Errors.plugin_metadata_item_root
+
+                        if element_type_flags == Flag.NestedItem and is_root:
+                            return Errors.plugin_metadata_item_nested
+
+                    if element_type_flags & Flag.Structure:
+                        if referenced_type_category != ReferenceTypeCategory.Structure:
+                            return Errors.plugin_metadata_structure
+
+                        if element_type_flags == Flag.RootStructure and not is_root:
+                            return Errors.plugin_metadata_structure_root
+
+                        if element_type_flags == Flag.NestedStructure and is_root:
+                            return Errors.plugin_metadata_structure_nested
+
+                    if element_type_flags & Flag.Type:
+                        if referenced_type_category != ReferenceTypeCategory.Typedef:
+                            return Errors.plugin_metadata_type
+
+                        if element_type_flags == Flag.RootType and not is_root:
+                            return Errors.plugin_metadata_type_root
+
+                        if element_type_flags == Flag.NestedType and is_root:
+                            return Errors.plugin_metadata_type_nested
+
+                    if element_type_flags & Flag.BaseType:
+                        if referenced_type_category != ReferenceTypeCategory.Base:
+                            return Errors.plugin_metadata_base
+
+                # Cardinality flags
+                cardinality_flags = attribute.flags & Flag.CardinalityMask
+                if cardinality_flags != 0:
+                    with reference_type.Resolve() as resolved_type:
+                        cardinality = resolved_type.cardinality
+
+                    if cardinality_flags & Flag.SingleCardinality and not cardinality.is_single:
+                        return Errors.plugin_metadata_cardinality_single
+
+                    if cardinality_flags & Flag.OptionalCardinality and not cardinality.is_optional:
+                        return Errors.plugin_metadata_cardinality_optional
+
+                    if cardinality_flags & Flag.ContainerCardinality and not cardinality.is_container:
+                        return Errors.plugin_metadata_cardinality_container
+
+                    if (
+                        cardinality_flags & Flag.ZeroOrMoreCardinality
+                        and not (
+                            cardinality.is_container
+                            and cardinality.min.value == 0
+                            and cardinality.max is None
+                        )
+                    ):
+                        return Errors.plugin_metadata_cardinality_zero_or_more
+
+                    if (
+                        cardinality_flags & Flag.OneOrMoreCardinality
+                        and not (
+                            cardinality.is_container
+                            and cardinality.min.value == 1
+                            and cardinality.max is None
+                        )
+                    ):
+                        return Errors.plugin_metadata_cardinality_one_or_more
+
+                    if (
+                        cardinality_flags & Flag.FixedContainerCardinality
+                        and not (
+                            cardinality.is_container
+                            and cardinality.max is not None
+                            and cardinality.min.value == cardinality.max.value
+                        )
+                    ):
+                        return Errors.plugin_metadata_cardinality_fixed
+
+                return None
+
+            # ----------------------------------------------------------------------
+
+            results: dict[str, SimpleElement] = {}
+
+            for attribute in plugin._custom_metadata_attributes:
+                attribute_type: ReferenceType = attribute._type # type: ignore  # pylint: disable=protected-access
+
+                metadata_item = metadata.get(attribute.name, None)
+
+                if metadata_item is None:
+                    if attribute_type.cardinality.min.value != 0:
+                        raise Errors.PluginRequiredMetadata.Create(
+                            reference_type.metadata.range if reference_type.metadata is not None else reference_type.range,
+                            attribute.name,
+                        )
+
+                    continue
+
+                potential_error = GetPotentialError(attribute)
+                if potential_error is not None:
+                    raise Errors.PluginInvalidMetadata.Create(
+                        metadata_item.range,
+                        metadata_item.name.value,
+                        potential_error,
+                    )
+
+                attribute.Validate(referenced_element)
+
+                attribute_value = attribute_type.ToPython(metadata_item.expression)
+
+                results[attribute.name] = SimpleElement(
+                    metadata_item.expression.range,
+                    attribute_value,
+                )
+
+            if not filter_unsupported_metadata and len(metadata) != len(results):
+                for metadata_item in metadata.values():
+                    if metadata_item.name.value not in results:
+                        raise Errors.PluginUnsupportedMetadata.Create(
+                            metadata_item.name.range,
+                            metadata_item.name.value,
+                            plugin.name,
+                        )
+
+            assert getattr(reference_type, _RESOLVED_METADATA_ATTRIBUTE_NAME, None) is None
+            object.__setattr__(reference_type, _RESOLVED_METADATA_ATTRIBUTE_NAME, results)
+
+            processed_metadata.add(cache_key)
+
+    # ----------------------------------------------------------------------
+
+    root.Accept(Pass2Visitor())
+
+    # Disable all of the unvisited elements
+    for element_id, element in unvisited_elements.items():
+        if element_id in root_elements:
+            continue
+
+        if not element.is_disabled:
+            element.Disable()

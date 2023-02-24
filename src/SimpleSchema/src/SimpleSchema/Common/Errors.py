@@ -171,11 +171,16 @@ plugin_metadata_type                        = "The element is not a type stateme
 plugin_metadata_type_nested                 = "The type statement is not a nested statement"
 plugin_metadata_type_root                   = "The type statement is not a root statement"
 
+PluginDuplicateFlattenedItem                = DynamicSimpleSchemaException.CreateType("The name '{name}' (defined at {range}) has already been defined at {prev_range}.", name=str, range=Range, prev_range=Range)
+
 PluginInvalidExtension                      = DynamicSimpleSchemaException.CreateType("The extension '{extension_name}' is not recognized by the '{plugin_name}' plugin.", extension_name=str, plugin_name=str)
 PluginInvalidMetadata                       = DynamicSimpleSchemaException.CreateType("The metadata item '{name}' is not valid in this context: {desc}.", name=str, desc=str)
 PluginInvalidNestedItem                     = DynamicSimpleSchemaException.CreateType("Nested items are not supported by the '{plugin_name}' plugin.", plugin_name=str)
 PluginInvalidNestedStructure                = DynamicSimpleSchemaException.CreateType("Nested structures are not supported by the '{plugin_name}' plugin.", plugin_name=str)
+PluginInvalidNestedType                     = DynamicSimpleSchemaException.CreateType("Nested types are not supported by the '{plugin_name}' plugin.", plugin_name=str)
 PluginInvalidRootItem                       = DynamicSimpleSchemaException.CreateType("Root items and not supported by the '{plugin_name}' plugin.", plugin_name=str)
 PluginInvalidRootStructure                  = DynamicSimpleSchemaException.CreateType("Root structures are not supported by the '{plugin_name}' plugin.", plugin_name=str)
+PluginInvalidRootType                       = DynamicSimpleSchemaException.CreateType("Root types are not supported by the '{plugin_name}' plugin.", plugin_name=str)
+
 PluginRequiredMetadata                      = DynamicSimpleSchemaException.CreateType("The metadata item '{name}' is required.", name=str)
 PluginUnsupportedMetadata                   = DynamicSimpleSchemaException.CreateType("The metadata item '{metadata_name}' is not supported by the '{plugin_name}' plugin.", metadata_name=str, plugin_name=str)

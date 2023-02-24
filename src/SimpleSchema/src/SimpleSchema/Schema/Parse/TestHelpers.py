@@ -37,6 +37,7 @@ from Common_PythonDevelopment.TestHelpers import CompareResultsFromFile as Compa
 # pylint: disable=wrong-import-position
 
 from ..Elements.Common.Element import Element, VisitResult
+from ..Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from ..Elements.Common.SimpleElement import SimpleElement
 
 from ..Elements.Expressions.BooleanExpression import BooleanExpression
@@ -56,7 +57,6 @@ from ..Elements.Types.FundamentalTypes.IntegerType import IntegerType
 from ..Elements.Types.FundamentalTypes.NumberType import NumberType
 from ..Elements.Types.FundamentalTypes.StringType import StringType
 from ..Elements.Types.ReferenceType import ReferenceType
-from ..Elements.Types.StructureType import StructureType
 
 from ..Parse.ANTLR.Elements.Common.ParseIdentifier import ParseIdentifier
 
@@ -67,7 +67,8 @@ from ..Parse.ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 
 from ..Parse.Visitor import Visitor
 
-from ...Common.SafeYaml import ToYamlString
+# Convenience imports
+from ...Common.SafeYaml import ToYamlString  # pylint: disable=unused-import
 
 
 # ----------------------------------------------------------------------
@@ -312,6 +313,9 @@ class _ToPythonDictVisitor(Visitor):
         if self.include_disabled_status:
             self._stack[-1]["__disabled__"] = element.is_disabled
 
+        if isinstance(element, ReferenceCountMixin):
+            self._stack[-1]["reference_count"] = element.reference_count
+
         yield
 
     # ----------------------------------------------------------------------
@@ -541,6 +545,8 @@ class _ToPythonDictVisitor(Visitor):
         self._stack[-1]["display_type"] = element.display_type
 
         if not (element.flags & ReferenceType.Flag.DefinedInline):
+            self._stack[-1]["visibility"] = str(element.visibility.value)
+
             if element.flags & ReferenceType.Flag.BasicRef:
                 name = element.type.display_type
             else:

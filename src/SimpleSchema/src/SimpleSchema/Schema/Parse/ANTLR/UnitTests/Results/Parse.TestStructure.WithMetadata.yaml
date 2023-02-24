@@ -41,6 +41,7 @@
     bases:
     - __type__: ParseIdentifierType
       range: entry_point <Ln 7, Col 11 -> Ln 7, Col 15>
+      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 7, Col 11 -> Ln 7, Col 15>

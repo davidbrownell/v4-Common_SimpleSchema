@@ -134,7 +134,7 @@ class CodeGenerator(
 
             "force": (bool, typer.Option(default_metadata["force"], "--force", help="Force the generation of content, even when no changes are detected.")),
 
-            "filter_unsupported_extensions": (bool, typer.Option(default_metadata["filter_unsupported_extensions"], "--filter-unsupported_extensions", help="Do not issue an error (and instead ignore it) when an extension is found that is not supported by the current plugin.")),
+            "filter_unsupported_extensions": (bool, typer.Option(default_metadata["filter_unsupported_extensions"], "--filter-unsupported-extensions", help="Do not issue an error (and instead ignore it) when an extension is found that is not supported by the current plugin.")),
             "filter_unsupported_metadata": (bool, typer.Option(default_metadata["filter_unsupported_metadata"], "--filter-unsupported-metadata", help="Do not issue an error (and instead ignore it) when metadata is found that is not supported by the current plugin.")),
             "filter_unsupported_root_elements": (bool, typer.Option(default_metadata["filter_unsupported_root_elements"], "--filter-unsupported-root-elements", help="Do not issue an error (and instead ignore it) when a root element is encountered by a plugin that does not support root elements of that type.")),
             "filter_unsupported_nested_elements": (bool, typer.Option(default_metadata["filter_unsupported_nested_elements"], "--filter-unsupported-nested-elements", help="Do not issue an error (and instead ignore it) when a nested element is encountered by a plugin that does not support nested elements of that type.")),

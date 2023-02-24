@@ -90,7 +90,7 @@ class ReferenceType(BaseType):
     # |  Public Data
     # |
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                     = "Reference"
+    NAME: ClassVar[str]                                 = "Reference"
 
     type: Union[BasicType, "ReferenceType"]
 
@@ -135,7 +135,7 @@ class ReferenceType(BaseType):
                     SimpleElement[Visibility](the_type.range, Visibility.Private),
                     SimpleElement[str](
                         the_type.range,
-                        "_{}_Item-Ln{}".format(name.value, the_type.range.begin.line),
+                        "_{}-Item-Ln{}".format(name.value, the_type.range.begin.line),
                     ),
                     Cardinality(the_type.range, None, None),
                     None,
@@ -178,6 +178,9 @@ class ReferenceType(BaseType):
         else:
             flags |= ReferenceType.Flag.Alias
 
+            if isinstance(self.type, ReferenceType):
+                object.__setattr__(self, "cardinality", self.type.cardinality)
+
         # Reference Type
         if isinstance(self.type, BasicType):
             flags |= ReferenceType.Flag.BasicRef
@@ -214,6 +217,16 @@ class ReferenceType(BaseType):
             flags |= ReferenceType.Flag.DefinedInline
 
         object.__setattr__(self, "flags", flags)
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def Increment(
+        self,
+        *,
+        shallow: bool=False,
+    ) -> None:
+        super(ReferenceType, self).Increment(shallow=shallow)
+        self.type.Increment(shallow=shallow)
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -293,7 +306,10 @@ class ReferenceType(BaseType):
         if not self.cardinality.is_single and display.endswith("}"):
             display = "<{}>".format(display)
 
-        return "{}{}".format(display, self.cardinality)
+        if self.flags & ReferenceType.Flag.Type:
+            display = "{}{}".format(display, self.cardinality)
+
+        return display
 
     # ----------------------------------------------------------------------
     @overridemethod

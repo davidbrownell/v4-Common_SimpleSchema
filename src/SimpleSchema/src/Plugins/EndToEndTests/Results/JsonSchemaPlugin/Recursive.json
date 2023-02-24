@@ -1,0 +1,52 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema#",
+  "$defs" : {
+    "Directory" : {
+      "$ref" : "#/$defs/_Directory-Struct-Ln19"
+    },
+    "_Directory-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22" : {
+      "type" : "string",
+      "minLength" : 1
+    },
+    "_Directory-Struct-Ln19" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "minLength" : 1
+        },
+        "files" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/_Directory-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22"
+          }
+        },
+        "directories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/Directory"
+          }
+        }
+      },
+      "required" : [
+        "name",
+        "files",
+        "directories"
+      ]
+    }
+  },
+  "type" : "object",
+  "additionalProperties" : false,
+  "properties" : {
+    "file_system" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/Directory"
+      }
+    }
+  },
+  "required" : [
+    "file_system"
+  ]
+}

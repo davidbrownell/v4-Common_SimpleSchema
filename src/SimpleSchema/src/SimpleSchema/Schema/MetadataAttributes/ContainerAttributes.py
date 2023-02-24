@@ -20,10 +20,8 @@ from typing import ClassVar
 
 from .MetadataAttribute import MetadataAttribute
 
-from ..Elements.Common.Cardinality import Cardinality
-
+from ..Elements.Types.BasicType import BasicType
 from ..Elements.Types.FundamentalTypes.StringType import StringType
-from ..Elements.Types.ReferenceType import ReferenceType
 
 from ...Common.Range import Range
 
@@ -36,8 +34,4 @@ class PluralNameMetadataAttribute(MetadataAttribute):
     # ----------------------------------------------------------------------
     flags: ClassVar[MetadataAttribute.Flag]             = MetadataAttribute.Flag.ContainerCardinality
     name: ClassVar[str]                                 = "plural_name"
-
-    type: ClassVar[ReferenceType]                       = MetadataAttribute.CreateType(
-        StringType(Range.CreateFromCode()),
-        Cardinality.CreateFromCode(0, 1),
-    )
+    type: ClassVar[BasicType]                           = StringType(Range.CreateFromCode())

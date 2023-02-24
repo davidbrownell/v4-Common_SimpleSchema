@@ -14,17 +14,21 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 8 -> Ln 1, Col 24>
+      reference_count: 1
       display_type: (String, Number, )
       type:
         __type__: TupleType
         range: entry_point <Ln 1, Col 8 -> Ln 1, Col 24>
+        reference_count: 1
         types:
         - __type__: ReferenceType
           range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
+          reference_count: 1
           display_type: String
           type:
             __type__: StringType
             range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
+            reference_count: 1
             min_length: 1
           visibility:
             __type__: SimpleElement
@@ -47,10 +51,12 @@
               value: 1
         - __type__: ReferenceType
           range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
+          reference_count: 1
           display_type: Number
           type:
             __type__: NumberType
             range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
+            reference_count: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
@@ -102,17 +108,21 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 10 -> Ln 2, Col 27>
+      reference_count: 1
       display_type: (String | Number)
       type:
         __type__: VariantType
         range: entry_point <Ln 2, Col 10 -> Ln 2, Col 27>
+        reference_count: 1
         types:
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+          reference_count: 1
           display_type: String
           type:
             __type__: StringType
             range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+            reference_count: 1
             min_length: 1
           visibility:
             __type__: SimpleElement
@@ -135,10 +145,12 @@
               value: 1
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
+          reference_count: 1
           display_type: Number
           type:
             __type__: NumberType
             range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
+            reference_count: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>

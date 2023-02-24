@@ -3,14 +3,17 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+    reference_count: 0
     display_type: <String {>= 10 characters}>+
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      reference_count: 0
       display_type: String {>= 10 characters}
       type:
         __type__: StringType
         range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+        reference_count: 0
         min_length: 10
       visibility:
         __type__: SimpleElement
@@ -19,7 +22,7 @@
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        value: _Container_Item-Ln1
+        value: _Container-Item-Ln1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
@@ -62,19 +65,25 @@
           value: '10'
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
+    reference_count: 0
     display_type: <String {>= 10 characters}>+
+    visibility: Visibility.Public
     reference:
       name: Container
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+    reference_count: 0
     display_type: String {>= 10 characters}
+    visibility: Visibility.Public
     reference:
-      name: _Container_Item-Ln1
+      name: _Container-Item-Ln1
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
+    reference_count: 0
     display_type: <String {>= 10 characters}>[2]
+    visibility: Visibility.Public
     reference:
-      name: _Container_Item-Ln1
+      name: _Container-Item-Ln1
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>

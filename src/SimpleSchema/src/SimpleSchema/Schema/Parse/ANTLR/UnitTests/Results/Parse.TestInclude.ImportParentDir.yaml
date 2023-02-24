@@ -23,6 +23,7 @@ Foo.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
+      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>

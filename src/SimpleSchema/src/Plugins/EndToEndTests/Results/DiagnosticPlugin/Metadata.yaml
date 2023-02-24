@@ -5,8 +5,9 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
-    dotted_name: Object
-    display_type: _Object-Ln18
+    unique_type_name: Object
+    reference_count: 6
+    display_type: _Object-Struct-Ln18
     flags:
     - Alias
     - BasicRef
@@ -23,12 +24,16 @@
       __type__: StructureType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+      unique_type_name: _Object-Struct-Ln18
+      reference_count: 6
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
+        unique_type_name: _Object-Struct-Ln18
+        reference_count: 6
         visibility: Visibility.Private
-        name: _Object-Ln18
+        name: _Object-Struct-Ln18
         children:
         - __type__: ItemStatement
           __disabled__: false
@@ -39,7 +44,8 @@
             __type__: ReferenceType
             __disabled__: false
             range: Metadata.SimpleSchema (Ln 19, Col 12 -> Ln 22, Col 6)
-            dotted_name: _Object-Ln18._ItemStatement-Ln19
+            unique_type_name: _Object-Struct-Ln18._ItemStatement-Ln19
+            reference_count: 1
             display_type: String
             flags:
             - Alias
@@ -57,6 +63,8 @@
               __type__: StringType
               __disabled__: false
               range: Metadata.SimpleSchema (Ln 19, Col 12 -> Ln 22, Col 6)
+              unique_type_name: _Object-Struct-Ln18.String-Ln19
+              reference_count: 1
               min_length: 1
             visibility: Visibility.Private
             name: _ItemStatement-Ln19
@@ -113,8 +121,9 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
-    dotted_name: Typedef
-    display_type: _Object-Ln18[10]
+    unique_type_name: Typedef
+    reference_count: 4
+    display_type: _Object-Struct-Ln18[10]
     flags:
     - Type
     - ReferenceRef
@@ -164,7 +173,7 @@
           range: Metadata.SimpleSchema (Ln 31, Col 18 -> Ln 31, Col 48)
           value: A description of the objects
     reference:
-      dotted_name: Object
+      unique_type_name: Object
       range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -175,8 +184,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 34, Col 21 -> Ln 34, Col 27)
-      dotted_name: _ItemStatement-Ln34
-      display_type: _Object-Ln18
+      unique_type_name: _ItemStatement-Ln34
+      reference_count: 1
+      display_type: _Object-Struct-Ln18
       flags:
       - Alias
       - ReferenceRef
@@ -185,7 +195,7 @@
       name: _ItemStatement-Ln34
       cardinality: <single>
       reference:
-        dotted_name: Object
+        unique_type_name: Object
         range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -196,17 +206,18 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 35, Col 22 -> Ln 35, Col 29)
-      dotted_name: _ItemStatement-Ln35
-      display_type: _Object-Ln18[10]
+      unique_type_name: _ItemStatement-Ln35
+      reference_count: 1
+      display_type: _Object-Struct-Ln18[10]
       flags:
       - Alias
       - ReferenceRef
       - DynamicallyGenerated
       visibility: Visibility.Private
       name: _ItemStatement-Ln35
-      cardinality: <single>
+      cardinality: '[10]'
       reference:
-        dotted_name: Typedef
+        unique_type_name: Typedef
         range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -217,8 +228,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 36, Col 23 -> Ln 36, Col 33)
-      dotted_name: _ItemStatement-Ln36
-      display_type: _Object-Ln18[10][5]
+      unique_type_name: _ItemStatement-Ln36
+      reference_count: 1
+      display_type: _Object-Struct-Ln18[10][5]
       flags:
       - Type
       - ReferenceRef
@@ -227,7 +239,7 @@
       name: _ItemStatement-Ln36
       cardinality: '[5]'
       reference:
-        dotted_name: Typedef
+        unique_type_name: Typedef
         range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -238,8 +250,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 38, Col 9 -> Ln 38, Col 36)
-      dotted_name: _ItemStatement-Ln38
-      display_type: _Object-Ln18
+      unique_type_name: _ItemStatement-Ln38
+      reference_count: 1
+      display_type: _Object-Struct-Ln18
       flags:
       - Alias
       - ReferenceRef
@@ -266,7 +279,7 @@
             range: Metadata.SimpleSchema (Ln 38, Col 24 -> Ln 38, Col 34)
             value: A object
       reference:
-        dotted_name: Object
+        unique_type_name: Object
         range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -277,8 +290,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 39, Col 10 -> Ln 39, Col 39)
-      dotted_name: _ItemStatement-Ln39
-      display_type: _Object-Ln18[10]
+      unique_type_name: _ItemStatement-Ln39
+      reference_count: 1
+      display_type: _Object-Struct-Ln18[10]
       flags:
       - Alias
       - ReferenceRef
@@ -289,7 +303,7 @@
           value: A typedef
       visibility: Visibility.Private
       name: _ItemStatement-Ln39
-      cardinality: <single>
+      cardinality: '[10]'
       metadata:
         __type__: Metadata
         __disabled__: false
@@ -305,7 +319,7 @@
             range: Metadata.SimpleSchema (Ln 39, Col 26 -> Ln 39, Col 37)
             value: A typedef
       reference:
-        dotted_name: Typedef
+        unique_type_name: Typedef
         range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -316,8 +330,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 40, Col 11 -> Ln 40, Col 44)
-      dotted_name: _ItemStatement-Ln40
-      display_type: _Object-Ln18[10][5]
+      unique_type_name: _ItemStatement-Ln40
+      reference_count: 1
+      display_type: _Object-Struct-Ln18[10][5]
       flags:
       - Type
       - ReferenceRef
@@ -344,12 +359,13 @@
             range: Metadata.SimpleSchema (Ln 40, Col 30 -> Ln 40, Col 42)
             value: 2d Objects
       reference:
-        dotted_name: Typedef
+        unique_type_name: Typedef
         range: Metadata.SimpleSchema (Ln 28, Col 1 -> Ln 34, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
-    dotted_name: DefaultObject
+    unique_type_name: DefaultObject
+    reference_count: 2
     display_type: String?
     flags:
     - Type
@@ -364,7 +380,8 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
-      dotted_name: _DefaultObject_Item-Ln42
+      unique_type_name: _DefaultObject-Item-Ln42
+      reference_count: 2
       display_type: String
       flags:
       - Type
@@ -375,9 +392,11 @@
         __type__: StringType
         __disabled__: false
         range: Metadata.SimpleSchema (Ln 42, Col 16 -> Ln 42, Col 43)
+        unique_type_name: String-Ln42
+        reference_count: 2
         min_length: 1
       visibility: Visibility.Private
-      name: _DefaultObject_Item-Ln42
+      name: _DefaultObject-Item-Ln42
       cardinality: <single>
     visibility: Visibility.Public
     name: DefaultObject
@@ -405,7 +424,8 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 44, Col 17 -> Ln 44, Col 30)
-      dotted_name: _ItemStatement-Ln44
+      unique_type_name: _ItemStatement-Ln44
+      reference_count: 1
       display_type: String?
       flags:
       - Alias
@@ -417,9 +437,9 @@
           value: 'null'
       visibility: Visibility.Private
       name: _ItemStatement-Ln44
-      cardinality: <single>
+      cardinality: '?'
       reference:
-        dotted_name: DefaultObject
+        unique_type_name: DefaultObject
         range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -430,7 +450,8 @@
       __type__: ReferenceType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 45, Col 31 -> Ln 45, Col 64)
-      dotted_name: _ItemStatement-Ln45
+      unique_type_name: _ItemStatement-Ln45
+      reference_count: 1
       display_type: String?
       flags:
       - Alias
@@ -442,7 +463,7 @@
           value: NONE
       visibility: Visibility.Private
       name: _ItemStatement-Ln45
-      cardinality: <single>
+      cardinality: '?'
       metadata:
         __type__: Metadata
         __disabled__: false
@@ -458,13 +479,14 @@
             range: Metadata.SimpleSchema (Ln 45, Col 56 -> Ln 45, Col 62)
             value: NONE
       reference:
-        dotted_name: DefaultObject
+        unique_type_name: DefaultObject
         range: Metadata.SimpleSchema (Ln 42, Col 1 -> Ln 44, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
-    dotted_name: MetadataTypes
-    display_type: _MetadataTypes-Ln49
+    unique_type_name: MetadataTypes
+    reference_count: 0
+    display_type: _MetadataTypes-Struct-Ln49
     flags:
     - Alias
     - BasicRef
@@ -474,12 +496,16 @@
       __type__: StructureType
       __disabled__: false
       range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
+      unique_type_name: _MetadataTypes-Struct-Ln49
+      reference_count: 0
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
+        unique_type_name: _MetadataTypes-Struct-Ln49
+        reference_count: 0
         visibility: Visibility.Private
-        name: _MetadataTypes-Ln49
+        name: _MetadataTypes-Struct-Ln49
     visibility: Visibility.Public
     name: MetadataTypes
     cardinality: <single>

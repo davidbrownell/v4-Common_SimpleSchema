@@ -3,13 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-    display_type: _Metadata-Ln1
+    reference_count: 0
+    display_type: _Metadata-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+      reference_count: 0
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+        reference_count: 0
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -17,7 +20,7 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-          value: _Metadata-Ln1
+          value: _Metadata-Struct-Ln1
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>

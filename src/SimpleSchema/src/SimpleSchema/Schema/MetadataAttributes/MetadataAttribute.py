@@ -15,21 +15,15 @@
 # ----------------------------------------------------------------------
 """Contains the MetadataAttribute object"""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import auto, IntFlag
-from typing import Optional
 
 from Common_Foundation.Types import extensionmethod
 
 from ..Elements.Common.Cardinality import Cardinality
 from ..Elements.Common.Element import Element
-from ..Elements.Common.SimpleElement import SimpleElement
-from ..Elements.Common.Visibility import Visibility
 
 from ..Elements.Types.BasicType import BasicType
-from ..Elements.Types.ReferenceType import ReferenceType
-
-from ...Common.Range import Range
 
 
 # ----------------------------------------------------------------------
@@ -99,30 +93,14 @@ class MetadataAttribute(object):
     flags: Flag
 
     name: str
-    type: ReferenceType
+
+    type: BasicType
+    cardinality: Cardinality                = field(default_factory=lambda: Cardinality.CreateFromCode(0, 1))
 
     # ----------------------------------------------------------------------
     # |
     # |  Public Methods
     # |
-    # ----------------------------------------------------------------------
-    @classmethod
-    def CreateType(
-        cls,
-        basic_type: BasicType,
-        cardinality: Optional[Cardinality]=None,
-    ) -> ReferenceType:
-        range_value = Range.CreateFromCode(callstack_offset=1)
-
-        return ReferenceType.Create(
-            range_value,
-            SimpleElement[Visibility](range_value, Visibility.Private),
-            SimpleElement[str](range_value, basic_type.NAME),
-            basic_type,
-            cardinality or Cardinality.CreateFromCode(),
-            None,
-        )
-
     # ----------------------------------------------------------------------
     @extensionmethod
     def Validate(

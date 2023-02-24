@@ -456,13 +456,17 @@ class TestStructure(object):
             match=re.escape(
                 textwrap.dedent(
                     """\
-                    A cycle was detected in the definition of '_One-Ln1_Base0':
+                    A cycle was detected in the definition of 'One':
 
-                        * '_One-Ln1_Base0' {entry_point} <Ln 1, Col 6 -> Ln 1, Col 9>
-                        * '_Two-Ln4_Base0' {entry_point} <Ln 4, Col 7 -> Ln 4, Col 12>
-                        * '_Three-Ln7_Base0' {entry_point} <Ln 7, Col 8 -> Ln 7, Col 11>
+                        * 'One' {entry_point} <Ln 1, Col 1 -> Ln 1, Col 4>
+                        * 'Base type 'Two' (index 0)' {entry_point} <Ln 1, Col 6 -> Ln 1, Col 9>
+                        * 'Two' {entry_point} <Ln 4, Col 1 -> Ln 4, Col 4>
+                        * 'Base type 'Three' (index 0)' {entry_point} <Ln 4, Col 7 -> Ln 4, Col 12>
+                        * 'Three' {entry_point} <Ln 7, Col 1 -> Ln 7, Col 6>
+                        * 'Base type 'One' (index 0)' {entry_point} <Ln 7, Col 8 -> Ln 7, Col 11>
+                        * 'One' {entry_point} <Ln 1, Col 1 -> Ln 1, Col 4>
 
-                        - {entry_point} <Ln 1, Col 6 -> Ln 1, Col 9>
+                        - {entry_point} <Ln 1, Col 1 -> Ln 1, Col 4>
                     """,
                 ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
             ),
@@ -944,13 +948,17 @@ class TestIncludes(object):
 
         expected_error = textwrap.dedent(
             """\
-            A cycle was detected in the definition of '_One-Ln3_Base0':
+            A cycle was detected in the definition of 'One':
 
-                * '_One-Ln3_Base0' {entry_point_filename} <Ln 3, Col 6 -> Ln 3, Col 9>
-                * '_Two-Ln3_Base0' {included_filename} <Ln 3, Col 6 -> Ln 3, Col 11>
-                * '_Three-Ln6_Base0' {entry_point_filename} <Ln 6, Col 8 -> Ln 6, Col 11>
+                * 'One' {entry_point_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
+                * 'Base type 'Two' (index 0)' {entry_point_filename} <Ln 3, Col 6 -> Ln 3, Col 9>
+                * 'Two' {included_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
+                * 'Base type 'Three' (index 0)' {included_filename} <Ln 3, Col 6 -> Ln 3, Col 11>
+                * 'Three' {entry_point_filename} <Ln 6, Col 1 -> Ln 6, Col 6>
+                * 'Base type 'One' (index 0)' {entry_point_filename} <Ln 6, Col 8 -> Ln 6, Col 11>
+                * 'One' {entry_point_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
 
-                - {entry_point_filename} <Ln 3, Col 6 -> Ln 3, Col 9>
+                - {entry_point_filename} <Ln 3, Col 1 -> Ln 3, Col 4>
             """,
         ).format(
             entry_point_filename=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point",
@@ -1023,6 +1031,21 @@ class TestRootProtectedErrors(object):
                     """,
                 ),
             )
+
+
+# ----------------------------------------------------------------------
+def test_OutOfOrderStatements():
+    _Test(
+        textwrap.dedent(
+            """\
+            inner_type: DefinedLater.InnerType
+
+            DefinedLater ->
+                _PrivateType: String
+                InnerType: _PrivateType
+            """,
+        ),
+    )
 
 
 # ----------------------------------------------------------------------

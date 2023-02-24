@@ -67,6 +67,19 @@ class VariantType(BasicType):
         super(VariantType, self).__post_init__()
 
     # ----------------------------------------------------------------------
+    @overridemethod
+    def Increment(
+        self,
+        *,
+        shallow: bool=False,
+    ) -> None:
+        super(VariantType, self).Increment(shallow=shallow)
+
+        if shallow is False:
+            for child_type in self.types:
+                child_type.Increment()
+
+    # ----------------------------------------------------------------------
     def ToPythonReferenceOverride(
         self,
         reference: "ReferenceType",

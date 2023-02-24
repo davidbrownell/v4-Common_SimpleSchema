@@ -83,6 +83,18 @@ class _MonkeyPatchedDumper(object):
             """Dumper that forces the use of simple keys"""
 
             # ----------------------------------------------------------------------
+            def __init__(self, *args, **kwargs):
+                super(CustomDumper, self).__init__(
+                    *args,
+                    **{
+                        **kwargs,
+                        **{
+                            "width": 100000,
+                        },
+                    },
+                )
+
+            # ----------------------------------------------------------------------
             def check_simple_key(self):
                 # Always use simple keys
                 return True

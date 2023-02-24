@@ -10,9 +10,11 @@
     type:
       __type__: ParseVariantType
       range: entry_point <Ln 1, Col 9 -> Ln 1, Col 20>
+      reference_count: 0
       types:
       - __type__: ParseIdentifierType
         range: entry_point <Ln 1, Col 10 -> Ln 1, Col 13>
+        reference_count: 0
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 1, Col 10 -> Ln 1, Col 13>
@@ -30,6 +32,7 @@
           value: One
       - __type__: ParseIdentifierType
         range: entry_point <Ln 1, Col 16 -> Ln 1, Col 19>
+        reference_count: 0
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 1, Col 16 -> Ln 1, Col 19>
@@ -66,9 +69,11 @@
     type:
       __type__: ParseVariantType
       range: entry_point <Ln 2, Col 9 -> Ln 2, Col 35>
+      reference_count: 0
       types:
       - __type__: ParseIdentifierType
         range: entry_point <Ln 2, Col 10 -> Ln 2, Col 13>
+        reference_count: 0
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 2, Col 10 -> Ln 2, Col 13>
@@ -86,6 +91,7 @@
           value: One
       - __type__: ParseIdentifierType
         range: entry_point <Ln 2, Col 16 -> Ln 2, Col 19>
+        reference_count: 0
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 2, Col 16 -> Ln 2, Col 19>
@@ -103,6 +109,7 @@
           value: Two
       - __type__: ParseIdentifierType
         range: entry_point <Ln 2, Col 22 -> Ln 2, Col 27>
+        reference_count: 0
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 2, Col 22 -> Ln 2, Col 27>
@@ -120,6 +127,7 @@
           value: Three
       - __type__: ParseIdentifierType
         range: entry_point <Ln 2, Col 30 -> Ln 2, Col 34>
+        reference_count: 0
         cardinality:
           __type__: Cardinality
           range: entry_point <Ln 2, Col 30 -> Ln 2, Col 34>

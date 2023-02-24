@@ -25,6 +25,7 @@ from Common_Foundation.Types import overridemethod
 from .Statement import Statement
 
 from ..Common.Element import Element
+from ..Common.ReferenceCountMixin import ReferenceCountMixin
 from ..Common.SimpleElement import SimpleElement
 from ..Common.Visibility import Visibility
 
@@ -34,7 +35,7 @@ if TYPE_CHECKING:
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class StructureStatement(Statement):
+class StructureStatement(ReferenceCountMixin, Statement):
     """The definition of a structure"""
 
     # ----------------------------------------------------------------------
@@ -44,6 +45,19 @@ class StructureStatement(Statement):
     name: SimpleElement[str]
     base_types: list["ReferenceType"]       # Can be an empty list
     children: list[Statement]               # Can be an empty list
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def Increment(
+        self,
+        *,
+        shallow: bool=False,
+    ) -> None:
+        super(StructureStatement, self).Increment(shallow=shallow)
+
+        if shallow is False:
+            for base_type in self.base_types:
+                base_type.Increment()
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

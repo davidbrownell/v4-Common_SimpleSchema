@@ -18,14 +18,13 @@
 from contextlib import contextmanager
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable, Iterator, Optional, Union
+from typing import Any, Callable, Iterator, Optional
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Types import EnsureValid, overridemethod
 
 from Common_FoundationEx import TyperEx
 
-# TODO: Sometimes the yaml content is printing on multiple lines, which may cause problems with validation
 
 # ----------------------------------------------------------------------
 # pylint: disable=import-error
@@ -37,6 +36,7 @@ from SimpleSchema.Plugin import Plugin as PluginBase
 from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata, MetadataItem
+from SimpleSchema.Schema.Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
 
 from SimpleSchema.Schema.Elements.Expressions.BooleanExpression import BooleanExpression
@@ -66,11 +66,11 @@ from SimpleSchema.Schema.Elements.Types.FundamentalTypes.StringType import Strin
 from SimpleSchema.Schema.Elements.Types.FundamentalTypes.TimeType import TimeType
 from SimpleSchema.Schema.Elements.Types.FundamentalTypes.UriType import UriType
 
-from SimpleSchema.Schema.Elements.Types.BasicType import BasicType
 from SimpleSchema.Schema.Elements.Types.ReferenceType import ReferenceType
 from SimpleSchema.Schema.Elements.Types.StructureType import StructureType
 from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
 from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
+
 from SimpleSchema.Schema.Visitor import Visitor, VisitResult
 
 
@@ -104,8 +104,9 @@ class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
                 | PluginBase.Flag.AllowNestedStructures
                 | PluginBase.Flag.AllowRootItems
                 | PluginBase.Flag.AllowNestedItems
-                | PluginBase.Flag.CreateDottedNames
-                | PluginBase.Flag.AlwaysFilterUnsupportedItems
+                | PluginBase.Flag.AllowRootTypes
+                | PluginBase.Flag.AllowNestedTypes
+                | PluginBase.Flag.AlwaysDisableUnsupportedItems
             ),
             custom_extension_names=None,
             custom_metadata_attributes=None,
@@ -207,6 +208,12 @@ class _Visitor(Visitor):
                 "range": self.__class__._ToString(element.range),    # pylint: disable=protected-access
             },
         )
+
+        if isinstance(element, ReferenceCountMixin):
+            d = self._content_stack[-1][-1]
+
+            d["unique_type_name"] = self._plugin.GetUniqueTypeName(element)
+            d["reference_count"] = element.reference_count
 
         yield
 
@@ -479,7 +486,6 @@ class _Visitor(Visitor):
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
         d = self._content_stack[-1][-1]
 
-        d["dotted_name"] = self._plugin.GetDottedName(element)
         d["display_type"] = element.display_type
         d["flags"] = [
             e.name
@@ -505,7 +511,7 @@ class _Visitor(Visitor):
 
         if not (element.flags & ReferenceType.Flag.DefinedInline):
             d["reference"] = {
-                "dotted_name": self._plugin.GetDottedName(element.type),
+                "unique_type_name": self._plugin.GetUniqueTypeName(element.type),
                 "range": self.__class__._ToString(element.type.range),  # pylint: disable=protected-access
             }
 

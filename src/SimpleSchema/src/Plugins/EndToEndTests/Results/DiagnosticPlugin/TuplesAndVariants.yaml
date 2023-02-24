@@ -5,8 +5,9 @@
   - __type__: ReferenceType
     __disabled__: false
     range: TuplesAndVariants.SimpleSchema (Ln 19, Col 1 -> Ln 44, Col 1)
-    dotted_name: Tuples
-    display_type: _Tuples-Ln19
+    unique_type_name: Tuples
+    reference_count: 1
+    display_type: _Tuples-Struct-Ln19
     flags:
     - Alias
     - BasicRef
@@ -16,18 +17,23 @@
       __type__: StructureType
       __disabled__: false
       range: TuplesAndVariants.SimpleSchema (Ln 19, Col 1 -> Ln 44, Col 1)
+      unique_type_name: _Tuples-Struct-Ln19
+      reference_count: 1
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: TuplesAndVariants.SimpleSchema (Ln 19, Col 1 -> Ln 44, Col 1)
+        unique_type_name: _Tuples-Struct-Ln19
+        reference_count: 1
         visibility: Visibility.Private
-        name: _Tuples-Ln19
+        name: _Tuples-Struct-Ln19
         children:
         - __type__: ReferenceType
           __disabled__: false
           range: TuplesAndVariants.SimpleSchema (Ln 20, Col 5 -> Ln 27, Col 5)
-          dotted_name: _Tuples-Ln19.__Python__
-          display_type: ___Python__-Ln20
+          unique_type_name: _Tuples-Struct-Ln19.__Python__
+          reference_count: 0
+          display_type: ___Python__-Struct-Ln20
           flags:
           - Alias
           - BasicRef
@@ -37,12 +43,16 @@
             __type__: StructureType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 20, Col 5 -> Ln 27, Col 5)
+            unique_type_name: _Tuples-Struct-Ln19.___Python__-Struct-Ln20
+            reference_count: 0
             structure:
               __type__: StructureStatement
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 20, Col 5 -> Ln 27, Col 5)
+              unique_type_name: _Tuples-Struct-Ln19.___Python__-Struct-Ln20
+              reference_count: 0
               visibility: Visibility.Private
-              name: ___Python__-Ln20
+              name: ___Python__-Struct-Ln20
           visibility: Visibility.Private
           name: __Python__
           cardinality: <single>
@@ -58,18 +68,15 @@
               expression:
                 __type__: ListExpression
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 21, Col 28 -> Ln 24, Col
-                  10)
+                range: TuplesAndVariants.SimpleSchema (Ln 21, Col 28 -> Ln 24, Col 10)
                 value:
                 - __type__: StringExpression
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 22, Col 13 -> Ln 22, Col
-                    29)
+                  range: TuplesAndVariants.SimpleSchema (Ln 22, Col 13 -> Ln 22, Col 29)
                   value: import asyncio
                 - __type__: StringExpression
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 23, Col 13 -> Ln 23, Col
-                    31)
+                  range: TuplesAndVariants.SimpleSchema (Ln 23, Col 13 -> Ln 23, Col 31)
                   value: import traceback
         - __type__: ItemStatement
           __disabled__: false
@@ -80,7 +87,8 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 27, Col 13 -> Ln 27, Col 23)
-            dotted_name: _Tuples-Ln19._ItemStatement-Ln27
+            unique_type_name: _Tuples-Struct-Ln19._ItemStatement-Ln27
+            reference_count: 1
             display_type: (String, )
             flags:
             - Alias
@@ -91,12 +99,14 @@
               __type__: TupleType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 27, Col 13 -> Ln 27, Col 23)
+              unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln27
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 27, Col 14 -> Ln 27, Col
-                  20)
-                dotted_name: _Tuples-Ln19._Tuple-Ln27_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 27, Col 14 -> Ln 27, Col 20)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln27_Type0
+                reference_count: 1
                 display_type: String
                 flags:
                 - Alias
@@ -106,8 +116,9 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 27, Col 14 -> Ln 27, Col
-                    20)
+                  range: TuplesAndVariants.SimpleSchema (Ln 27, Col 14 -> Ln 27, Col 20)
+                  unique_type_name: _Tuples-Struct-Ln19.String-Ln27
+                  reference_count: 1
                   min_length: 1
                 visibility: Visibility.Private
                 name: _Tuple-Ln27_Type0
@@ -124,7 +135,8 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 28, Col 15 -> Ln 28, Col 40)
-            dotted_name: _Tuples-Ln19._ItemStatement-Ln28
+            unique_type_name: _Tuples-Struct-Ln19._ItemStatement-Ln28
+            reference_count: 1
             display_type: (String, Integer, Number, )
             flags:
             - Alias
@@ -135,12 +147,14 @@
               __type__: TupleType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 28, Col 15 -> Ln 28, Col 40)
+              unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln28
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 28, Col 16 -> Ln 28, Col
-                  22)
-                dotted_name: _Tuples-Ln19._Tuple-Ln28_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 28, Col 16 -> Ln 28, Col 22)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln28_Type0
+                reference_count: 1
                 display_type: String
                 flags:
                 - Alias
@@ -150,17 +164,18 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 28, Col 16 -> Ln 28, Col
-                    22)
+                  range: TuplesAndVariants.SimpleSchema (Ln 28, Col 16 -> Ln 28, Col 22)
+                  unique_type_name: _Tuples-Struct-Ln19.String-Ln28
+                  reference_count: 1
                   min_length: 1
                 visibility: Visibility.Private
                 name: _Tuple-Ln28_Type0
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 28, Col 24 -> Ln 28, Col
-                  31)
-                dotted_name: _Tuples-Ln19._Tuple-Ln28_Type1
+                range: TuplesAndVariants.SimpleSchema (Ln 28, Col 24 -> Ln 28, Col 31)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln28_Type1
+                reference_count: 1
                 display_type: Integer
                 flags:
                 - Alias
@@ -170,16 +185,17 @@
                 type:
                   __type__: IntegerType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 28, Col 24 -> Ln 28, Col
-                    31)
+                  range: TuplesAndVariants.SimpleSchema (Ln 28, Col 24 -> Ln 28, Col 31)
+                  unique_type_name: _Tuples-Struct-Ln19.Integer-Ln28
+                  reference_count: 1
                 visibility: Visibility.Private
                 name: _Tuple-Ln28_Type1
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 28, Col 33 -> Ln 28, Col
-                  39)
-                dotted_name: _Tuples-Ln19._Tuple-Ln28_Type2
+                range: TuplesAndVariants.SimpleSchema (Ln 28, Col 33 -> Ln 28, Col 39)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln28_Type2
+                reference_count: 1
                 display_type: Number
                 flags:
                 - Alias
@@ -189,8 +205,9 @@
                 type:
                   __type__: NumberType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 28, Col 33 -> Ln 28, Col
-                    39)
+                  range: TuplesAndVariants.SimpleSchema (Ln 28, Col 33 -> Ln 28, Col 39)
+                  unique_type_name: _Tuples-Struct-Ln19.Number-Ln28
+                  reference_count: 1
                 visibility: Visibility.Private
                 name: _Tuple-Ln28_Type2
                 cardinality: <single>
@@ -206,7 +223,8 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 30, Col 16 -> Ln 30, Col 42)
-            dotted_name: _Tuples-Ln19._ItemStatement-Ln30
+            unique_type_name: _Tuples-Struct-Ln19._ItemStatement-Ln30
+            reference_count: 1
             display_type: (String, Integer, Number, )*
             flags:
             - Type
@@ -218,7 +236,8 @@
               __type__: ReferenceType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 30, Col 16 -> Ln 30, Col 42)
-              dotted_name: _Tuples-Ln19.__ItemStatement-Ln30_Item-Ln30
+              unique_type_name: _Tuples-Struct-Ln19.__ItemStatement-Ln30-Item-Ln30
+              reference_count: 1
               display_type: (String, Integer, Number, )
               flags:
               - Type
@@ -228,14 +247,15 @@
               type:
                 __type__: TupleType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 30, Col 16 -> Ln 30, Col
-                  42)
+                range: TuplesAndVariants.SimpleSchema (Ln 30, Col 16 -> Ln 30, Col 42)
+                unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln30
+                reference_count: 1
                 types:
                 - __type__: ReferenceType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 30, Col 17 -> Ln 30, Col
-                    23)
-                  dotted_name: _Tuples-Ln19._Tuple-Ln30_Type0
+                  range: TuplesAndVariants.SimpleSchema (Ln 30, Col 17 -> Ln 30, Col 23)
+                  unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln30_Type0
+                  reference_count: 1
                   display_type: String
                   flags:
                   - Alias
@@ -245,17 +265,18 @@
                   type:
                     __type__: StringType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 30, Col 17 -> Ln 30,
-                      Col 23)
+                    range: TuplesAndVariants.SimpleSchema (Ln 30, Col 17 -> Ln 30, Col 23)
+                    unique_type_name: _Tuples-Struct-Ln19.String-Ln30
+                    reference_count: 1
                     min_length: 1
                   visibility: Visibility.Private
                   name: _Tuple-Ln30_Type0
                   cardinality: <single>
                 - __type__: ReferenceType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 30, Col 25 -> Ln 30, Col
-                    32)
-                  dotted_name: _Tuples-Ln19._Tuple-Ln30_Type1
+                  range: TuplesAndVariants.SimpleSchema (Ln 30, Col 25 -> Ln 30, Col 32)
+                  unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln30_Type1
+                  reference_count: 1
                   display_type: Integer
                   flags:
                   - Alias
@@ -265,16 +286,17 @@
                   type:
                     __type__: IntegerType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 30, Col 25 -> Ln 30,
-                      Col 32)
+                    range: TuplesAndVariants.SimpleSchema (Ln 30, Col 25 -> Ln 30, Col 32)
+                    unique_type_name: _Tuples-Struct-Ln19.Integer-Ln30
+                    reference_count: 1
                   visibility: Visibility.Private
                   name: _Tuple-Ln30_Type1
                   cardinality: <single>
                 - __type__: ReferenceType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 30, Col 34 -> Ln 30, Col
-                    40)
-                  dotted_name: _Tuples-Ln19._Tuple-Ln30_Type2
+                  range: TuplesAndVariants.SimpleSchema (Ln 30, Col 34 -> Ln 30, Col 40)
+                  unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln30_Type2
+                  reference_count: 1
                   display_type: Number
                   flags:
                   - Alias
@@ -284,13 +306,14 @@
                   type:
                     __type__: NumberType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 30, Col 34 -> Ln 30,
-                      Col 40)
+                    range: TuplesAndVariants.SimpleSchema (Ln 30, Col 34 -> Ln 30, Col 40)
+                    unique_type_name: _Tuples-Struct-Ln19.Number-Ln30
+                    reference_count: 1
                   visibility: Visibility.Private
                   name: _Tuple-Ln30_Type2
                   cardinality: <single>
               visibility: Visibility.Private
-              name: __ItemStatement-Ln30_Item-Ln30
+              name: __ItemStatement-Ln30-Item-Ln30
               cardinality: <single>
             visibility: Visibility.Private
             name: _ItemStatement-Ln30
@@ -304,9 +327,9 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 32, Col 20 -> Ln 36, Col 6)
-            dotted_name: _Tuples-Ln19._ItemStatement-Ln32
-            display_type: (<String {>= 5 characters}>, <Integer {>= 10}>, <Number
-              {>= 20.0}>, )
+            unique_type_name: _Tuples-Struct-Ln19._ItemStatement-Ln32
+            reference_count: 1
+            display_type: (<String {>= 5 characters}>, <Integer {>= 10}>, <Number {>= 20.0}>, )
             flags:
             - Alias
             - BasicRef
@@ -316,12 +339,14 @@
               __type__: TupleType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 32, Col 20 -> Ln 36, Col 6)
+              unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln32
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 33, Col 9 -> Ln 33, Col
-                  33)
-                dotted_name: _Tuples-Ln19._Tuple-Ln32_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 33, Col 9 -> Ln 33, Col 33)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln32_Type0
+                reference_count: 1
                 display_type: String {>= 5 characters}
                 flags:
                 - Alias
@@ -331,17 +356,18 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 33, Col 9 -> Ln 33, Col
-                    33)
+                  range: TuplesAndVariants.SimpleSchema (Ln 33, Col 9 -> Ln 33, Col 33)
+                  unique_type_name: _Tuples-Struct-Ln19.String-Ln33
+                  reference_count: 1
                   min_length: 5
                 visibility: Visibility.Private
                 name: _Tuple-Ln32_Type0
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 34, Col 9 -> Ln 34, Col
-                  28)
-                dotted_name: _Tuples-Ln19._Tuple-Ln32_Type1
+                range: TuplesAndVariants.SimpleSchema (Ln 34, Col 9 -> Ln 34, Col 28)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln32_Type1
+                reference_count: 1
                 display_type: Integer {>= 10}
                 flags:
                 - Alias
@@ -351,17 +377,18 @@
                 type:
                   __type__: IntegerType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 34, Col 9 -> Ln 34, Col
-                    28)
+                  range: TuplesAndVariants.SimpleSchema (Ln 34, Col 9 -> Ln 34, Col 28)
+                  unique_type_name: _Tuples-Struct-Ln19.Integer-Ln34
+                  reference_count: 1
                   min: 10
                 visibility: Visibility.Private
                 name: _Tuple-Ln32_Type1
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 35, Col 9 -> Ln 35, Col
-                  29)
-                dotted_name: _Tuples-Ln19._Tuple-Ln32_Type2
+                range: TuplesAndVariants.SimpleSchema (Ln 35, Col 9 -> Ln 35, Col 29)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln32_Type2
+                reference_count: 1
                 display_type: Number {>= 20.0}
                 flags:
                 - Alias
@@ -371,8 +398,9 @@
                 type:
                   __type__: NumberType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 35, Col 9 -> Ln 35, Col
-                    29)
+                  range: TuplesAndVariants.SimpleSchema (Ln 35, Col 9 -> Ln 35, Col 29)
+                  unique_type_name: _Tuples-Struct-Ln19.Number-Ln35
+                  reference_count: 1
                   min: 20.0
                 visibility: Visibility.Private
                 name: _Tuple-Ln32_Type2
@@ -389,9 +417,9 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 38, Col 13 -> Ln 43, Col 6)
-            dotted_name: _Tuples-Ln19._ItemStatement-Ln38
-            display_type: (String, (String, Integer, ), Number, <(String, <(<Number
-              {<= 1.23}>, )>, )>, )
+            unique_type_name: _Tuples-Struct-Ln19._ItemStatement-Ln38
+            reference_count: 1
+            display_type: (String, (String, Integer, ), Number, <(String, <(<Number {<= 1.23}>, )>, )>, )
             flags:
             - Alias
             - BasicRef
@@ -401,12 +429,14 @@
               __type__: TupleType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 38, Col 13 -> Ln 43, Col 6)
+              unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln38
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 39, Col 9 -> Ln 39, Col
-                  15)
-                dotted_name: _Tuples-Ln19._Tuple-Ln38_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 39, Col 9 -> Ln 39, Col 15)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln38_Type0
+                reference_count: 1
                 display_type: String
                 flags:
                 - Alias
@@ -416,17 +446,18 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 39, Col 9 -> Ln 39, Col
-                    15)
+                  range: TuplesAndVariants.SimpleSchema (Ln 39, Col 9 -> Ln 39, Col 15)
+                  unique_type_name: _Tuples-Struct-Ln19.String-Ln39
+                  reference_count: 1
                   min_length: 1
                 visibility: Visibility.Private
                 name: _Tuple-Ln38_Type0
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 40, Col 9 -> Ln 40, Col
-                  26)
-                dotted_name: _Tuples-Ln19._Tuple-Ln38_Type1
+                range: TuplesAndVariants.SimpleSchema (Ln 40, Col 9 -> Ln 40, Col 26)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln38_Type1
+                reference_count: 1
                 display_type: (String, Integer, )
                 flags:
                 - Alias
@@ -436,14 +467,15 @@
                 type:
                   __type__: TupleType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 40, Col 9 -> Ln 40, Col
-                    26)
+                  range: TuplesAndVariants.SimpleSchema (Ln 40, Col 9 -> Ln 40, Col 26)
+                  unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln40
+                  reference_count: 1
                   types:
                   - __type__: ReferenceType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 40, Col 10 -> Ln 40,
-                      Col 16)
-                    dotted_name: _Tuples-Ln19._Tuple-Ln40_Type0
+                    range: TuplesAndVariants.SimpleSchema (Ln 40, Col 10 -> Ln 40, Col 16)
+                    unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln40_Type0
+                    reference_count: 1
                     display_type: String
                     flags:
                     - Alias
@@ -453,17 +485,18 @@
                     type:
                       __type__: StringType
                       __disabled__: false
-                      range: TuplesAndVariants.SimpleSchema (Ln 40, Col 10 -> Ln 40,
-                        Col 16)
+                      range: TuplesAndVariants.SimpleSchema (Ln 40, Col 10 -> Ln 40, Col 16)
+                      unique_type_name: _Tuples-Struct-Ln19.String-Ln40
+                      reference_count: 1
                       min_length: 1
                     visibility: Visibility.Private
                     name: _Tuple-Ln40_Type0
                     cardinality: <single>
                   - __type__: ReferenceType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 40, Col 18 -> Ln 40,
-                      Col 25)
-                    dotted_name: _Tuples-Ln19._Tuple-Ln40_Type1
+                    range: TuplesAndVariants.SimpleSchema (Ln 40, Col 18 -> Ln 40, Col 25)
+                    unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln40_Type1
+                    reference_count: 1
                     display_type: Integer
                     flags:
                     - Alias
@@ -473,8 +506,9 @@
                     type:
                       __type__: IntegerType
                       __disabled__: false
-                      range: TuplesAndVariants.SimpleSchema (Ln 40, Col 18 -> Ln 40,
-                        Col 25)
+                      range: TuplesAndVariants.SimpleSchema (Ln 40, Col 18 -> Ln 40, Col 25)
+                      unique_type_name: _Tuples-Struct-Ln19.Integer-Ln40
+                      reference_count: 1
                     visibility: Visibility.Private
                     name: _Tuple-Ln40_Type1
                     cardinality: <single>
@@ -483,9 +517,9 @@
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 41, Col 9 -> Ln 41, Col
-                  15)
-                dotted_name: _Tuples-Ln19._Tuple-Ln38_Type2
+                range: TuplesAndVariants.SimpleSchema (Ln 41, Col 9 -> Ln 41, Col 15)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln38_Type2
+                reference_count: 1
                 display_type: Number
                 flags:
                 - Alias
@@ -495,16 +529,17 @@
                 type:
                   __type__: NumberType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 41, Col 9 -> Ln 41, Col
-                    15)
+                  range: TuplesAndVariants.SimpleSchema (Ln 41, Col 9 -> Ln 41, Col 15)
+                  unique_type_name: _Tuples-Struct-Ln19.Number-Ln41
+                  reference_count: 1
                 visibility: Visibility.Private
                 name: _Tuple-Ln38_Type2
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 42, Col 9 -> Ln 42, Col
-                  45)
-                dotted_name: _Tuples-Ln19._Tuple-Ln38_Type3
+                range: TuplesAndVariants.SimpleSchema (Ln 42, Col 9 -> Ln 42, Col 45)
+                unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln38_Type3
+                reference_count: 1
                 display_type: (String, <(<Number {<= 1.23}>, )>, )
                 flags:
                 - Alias
@@ -514,14 +549,15 @@
                 type:
                   __type__: TupleType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 42, Col 9 -> Ln 42, Col
-                    45)
+                  range: TuplesAndVariants.SimpleSchema (Ln 42, Col 9 -> Ln 42, Col 45)
+                  unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln42
+                  reference_count: 1
                   types:
                   - __type__: ReferenceType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 42, Col 10 -> Ln 42,
-                      Col 16)
-                    dotted_name: _Tuples-Ln19._Tuple-Ln42_Type0
+                    range: TuplesAndVariants.SimpleSchema (Ln 42, Col 10 -> Ln 42, Col 16)
+                    unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln42_Type0
+                    reference_count: 1
                     display_type: String
                     flags:
                     - Alias
@@ -531,17 +567,18 @@
                     type:
                       __type__: StringType
                       __disabled__: false
-                      range: TuplesAndVariants.SimpleSchema (Ln 42, Col 10 -> Ln 42,
-                        Col 16)
+                      range: TuplesAndVariants.SimpleSchema (Ln 42, Col 10 -> Ln 42, Col 16)
+                      unique_type_name: _Tuples-Struct-Ln19.String-Ln42
+                      reference_count: 1
                       min_length: 1
                     visibility: Visibility.Private
                     name: _Tuple-Ln42_Type0
                     cardinality: <single>
                   - __type__: ReferenceType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 42, Col 18 -> Ln 42,
-                      Col 42)
-                    dotted_name: _Tuples-Ln19._Tuple-Ln42_Type1
+                    range: TuplesAndVariants.SimpleSchema (Ln 42, Col 18 -> Ln 42, Col 42)
+                    unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln42_Type1
+                    reference_count: 1
                     display_type: (<Number {<= 1.23}>, )
                     flags:
                     - Alias
@@ -551,14 +588,15 @@
                     type:
                       __type__: TupleType
                       __disabled__: false
-                      range: TuplesAndVariants.SimpleSchema (Ln 42, Col 18 -> Ln 42,
-                        Col 42)
+                      range: TuplesAndVariants.SimpleSchema (Ln 42, Col 18 -> Ln 42, Col 42)
+                      unique_type_name: _Tuples-Struct-Ln19.Tuple-Ln42
+                      reference_count: 1
                       types:
                       - __type__: ReferenceType
                         __disabled__: false
-                        range: TuplesAndVariants.SimpleSchema (Ln 42, Col 19 -> Ln
-                          42, Col 39)
-                        dotted_name: _Tuples-Ln19._Tuple-Ln42_Type0
+                        range: TuplesAndVariants.SimpleSchema (Ln 42, Col 19 -> Ln 42, Col 39)
+                        unique_type_name: _Tuples-Struct-Ln19._Tuple-Ln42_Type0
+                        reference_count: 1
                         display_type: Number {<= 1.23}
                         flags:
                         - Alias
@@ -568,8 +606,9 @@
                         type:
                           __type__: NumberType
                           __disabled__: false
-                          range: TuplesAndVariants.SimpleSchema (Ln 42, Col 19 ->
-                            Ln 42, Col 39)
+                          range: TuplesAndVariants.SimpleSchema (Ln 42, Col 19 -> Ln 42, Col 39)
+                          unique_type_name: _Tuples-Struct-Ln19.Number-Ln42
+                          reference_count: 1
                           max: 1.23
                         visibility: Visibility.Private
                         name: _Tuple-Ln42_Type0
@@ -595,8 +634,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: TuplesAndVariants.SimpleSchema (Ln 45, Col 9 -> Ln 45, Col 16)
-      dotted_name: _ItemStatement-Ln45
-      display_type: _Tuples-Ln19?
+      unique_type_name: _ItemStatement-Ln45
+      reference_count: 1
+      display_type: _Tuples-Struct-Ln19?
       flags:
       - Type
       - ReferenceRef
@@ -605,13 +645,14 @@
       name: _ItemStatement-Ln45
       cardinality: '?'
       reference:
-        dotted_name: Tuples
+        unique_type_name: Tuples
         range: TuplesAndVariants.SimpleSchema (Ln 19, Col 1 -> Ln 44, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: TuplesAndVariants.SimpleSchema (Ln 49, Col 1 -> Ln 62, Col 1)
-    dotted_name: Variants
-    display_type: _Variants-Ln49
+    unique_type_name: Variants
+    reference_count: 1
+    display_type: _Variants-Struct-Ln49
     flags:
     - Alias
     - BasicRef
@@ -621,12 +662,16 @@
       __type__: StructureType
       __disabled__: false
       range: TuplesAndVariants.SimpleSchema (Ln 49, Col 1 -> Ln 62, Col 1)
+      unique_type_name: _Variants-Struct-Ln49
+      reference_count: 1
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: TuplesAndVariants.SimpleSchema (Ln 49, Col 1 -> Ln 62, Col 1)
+        unique_type_name: _Variants-Struct-Ln49
+        reference_count: 1
         visibility: Visibility.Private
-        name: _Variants-Ln49
+        name: _Variants-Struct-Ln49
         children:
         - __type__: ItemStatement
           __disabled__: false
@@ -637,7 +682,8 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 50, Col 12 -> Ln 50, Col 29)
-            dotted_name: _Variants-Ln49._ItemStatement-Ln50
+            unique_type_name: _Variants-Struct-Ln49._ItemStatement-Ln50
+            reference_count: 1
             display_type: (String | Number)
             flags:
             - Alias
@@ -648,12 +694,14 @@
               __type__: VariantType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 50, Col 12 -> Ln 50, Col 29)
+              unique_type_name: _Variants-Struct-Ln49.Variant-Ln50
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 50, Col 13 -> Ln 50, Col
-                  19)
-                dotted_name: _Variants-Ln49._Variant-Ln50_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 50, Col 13 -> Ln 50, Col 19)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln50_Type0
+                reference_count: 1
                 display_type: String
                 flags:
                 - Alias
@@ -663,17 +711,18 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 50, Col 13 -> Ln 50, Col
-                    19)
+                  range: TuplesAndVariants.SimpleSchema (Ln 50, Col 13 -> Ln 50, Col 19)
+                  unique_type_name: _Variants-Struct-Ln49.String-Ln50
+                  reference_count: 1
                   min_length: 1
                 visibility: Visibility.Private
                 name: _Variant-Ln50_Type0
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 50, Col 22 -> Ln 50, Col
-                  28)
-                dotted_name: _Variants-Ln49._Variant-Ln50_Type1
+                range: TuplesAndVariants.SimpleSchema (Ln 50, Col 22 -> Ln 50, Col 28)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln50_Type1
+                reference_count: 1
                 display_type: Number
                 flags:
                 - Alias
@@ -683,8 +732,9 @@
                 type:
                   __type__: NumberType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 50, Col 22 -> Ln 50, Col
-                    28)
+                  range: TuplesAndVariants.SimpleSchema (Ln 50, Col 22 -> Ln 50, Col 28)
+                  unique_type_name: _Variants-Struct-Ln49.Number-Ln50
+                  reference_count: 1
                 visibility: Visibility.Private
                 name: _Variant-Ln50_Type1
                 cardinality: <single>
@@ -700,9 +750,9 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 52, Col 20 -> Ln 56, Col 6)
-            dotted_name: _Variants-Ln49._ItemStatement-Ln52
-            display_type: (<String {>= 5 characters}> | <Integer {>= 10}> | <Number
-              {>= 20.0}>)
+            unique_type_name: _Variants-Struct-Ln49._ItemStatement-Ln52
+            reference_count: 1
+            display_type: (<String {>= 5 characters}> | <Integer {>= 10}> | <Number {>= 20.0}>)
             flags:
             - Alias
             - BasicRef
@@ -712,12 +762,14 @@
               __type__: VariantType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 52, Col 20 -> Ln 56, Col 6)
+              unique_type_name: _Variants-Struct-Ln49.Variant-Ln52
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 53, Col 9 -> Ln 53, Col
-                  33)
-                dotted_name: _Variants-Ln49._Variant-Ln52_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 53, Col 9 -> Ln 53, Col 33)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln52_Type0
+                reference_count: 1
                 display_type: String {>= 5 characters}
                 flags:
                 - Alias
@@ -727,17 +779,18 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 53, Col 9 -> Ln 53, Col
-                    33)
+                  range: TuplesAndVariants.SimpleSchema (Ln 53, Col 9 -> Ln 53, Col 33)
+                  unique_type_name: _Variants-Struct-Ln49.String-Ln53
+                  reference_count: 1
                   min_length: 5
                 visibility: Visibility.Private
                 name: _Variant-Ln52_Type0
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 54, Col 11 -> Ln 54, Col
-                  30)
-                dotted_name: _Variants-Ln49._Variant-Ln52_Type1
+                range: TuplesAndVariants.SimpleSchema (Ln 54, Col 11 -> Ln 54, Col 30)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln52_Type1
+                reference_count: 1
                 display_type: Integer {>= 10}
                 flags:
                 - Alias
@@ -747,17 +800,18 @@
                 type:
                   __type__: IntegerType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 54, Col 11 -> Ln 54, Col
-                    30)
+                  range: TuplesAndVariants.SimpleSchema (Ln 54, Col 11 -> Ln 54, Col 30)
+                  unique_type_name: _Variants-Struct-Ln49.Integer-Ln54
+                  reference_count: 1
                   min: 10
                 visibility: Visibility.Private
                 name: _Variant-Ln52_Type1
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 55, Col 11 -> Ln 55, Col
-                  31)
-                dotted_name: _Variants-Ln49._Variant-Ln52_Type2
+                range: TuplesAndVariants.SimpleSchema (Ln 55, Col 11 -> Ln 55, Col 31)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln52_Type2
+                reference_count: 1
                 display_type: Number {>= 20.0}
                 flags:
                 - Alias
@@ -767,8 +821,9 @@
                 type:
                   __type__: NumberType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 55, Col 11 -> Ln 55, Col
-                    31)
+                  range: TuplesAndVariants.SimpleSchema (Ln 55, Col 11 -> Ln 55, Col 31)
+                  unique_type_name: _Variants-Struct-Ln49.Number-Ln55
+                  reference_count: 1
                   min: 20.0
                 visibility: Visibility.Private
                 name: _Variant-Ln52_Type2
@@ -785,7 +840,8 @@
             __type__: ReferenceType
             __disabled__: false
             range: TuplesAndVariants.SimpleSchema (Ln 58, Col 19 -> Ln 61, Col 6)
-            dotted_name: _Variants-Ln49._ItemStatement-Ln58
+            unique_type_name: _Variants-Struct-Ln49._ItemStatement-Ln58
+            reference_count: 1
             display_type: (String | <(<Integer {>= 10}>, Number, )>)
             flags:
             - Alias
@@ -796,12 +852,14 @@
               __type__: VariantType
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 58, Col 19 -> Ln 61, Col 6)
+              unique_type_name: _Variants-Struct-Ln49.Variant-Ln58
+              reference_count: 1
               types:
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 59, Col 9 -> Ln 59, Col
-                  15)
-                dotted_name: _Variants-Ln49._Variant-Ln58_Type0
+                range: TuplesAndVariants.SimpleSchema (Ln 59, Col 9 -> Ln 59, Col 15)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln58_Type0
+                reference_count: 1
                 display_type: String
                 flags:
                 - Alias
@@ -811,17 +869,18 @@
                 type:
                   __type__: StringType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 59, Col 9 -> Ln 59, Col
-                    15)
+                  range: TuplesAndVariants.SimpleSchema (Ln 59, Col 9 -> Ln 59, Col 15)
+                  unique_type_name: _Variants-Struct-Ln49.String-Ln59
+                  reference_count: 1
                   min_length: 1
                 visibility: Visibility.Private
                 name: _Variant-Ln58_Type0
                 cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 60, Col 11 -> Ln 60, Col
-                  40)
-                dotted_name: _Variants-Ln49._Variant-Ln58_Type1
+                range: TuplesAndVariants.SimpleSchema (Ln 60, Col 11 -> Ln 60, Col 40)
+                unique_type_name: _Variants-Struct-Ln49._Variant-Ln58_Type1
+                reference_count: 1
                 display_type: (<Integer {>= 10}>, Number, )
                 flags:
                 - Alias
@@ -831,14 +890,15 @@
                 type:
                   __type__: TupleType
                   __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 60, Col 11 -> Ln 60, Col
-                    40)
+                  range: TuplesAndVariants.SimpleSchema (Ln 60, Col 11 -> Ln 60, Col 40)
+                  unique_type_name: _Variants-Struct-Ln49.Tuple-Ln60
+                  reference_count: 1
                   types:
                   - __type__: ReferenceType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 60, Col 12 -> Ln 60,
-                      Col 31)
-                    dotted_name: _Variants-Ln49._Tuple-Ln60_Type0
+                    range: TuplesAndVariants.SimpleSchema (Ln 60, Col 12 -> Ln 60, Col 31)
+                    unique_type_name: _Variants-Struct-Ln49._Tuple-Ln60_Type0
+                    reference_count: 1
                     display_type: Integer {>= 10}
                     flags:
                     - Alias
@@ -848,17 +908,18 @@
                     type:
                       __type__: IntegerType
                       __disabled__: false
-                      range: TuplesAndVariants.SimpleSchema (Ln 60, Col 12 -> Ln 60,
-                        Col 31)
+                      range: TuplesAndVariants.SimpleSchema (Ln 60, Col 12 -> Ln 60, Col 31)
+                      unique_type_name: _Variants-Struct-Ln49.Integer-Ln60
+                      reference_count: 1
                       min: 10
                     visibility: Visibility.Private
                     name: _Tuple-Ln60_Type0
                     cardinality: <single>
                   - __type__: ReferenceType
                     __disabled__: false
-                    range: TuplesAndVariants.SimpleSchema (Ln 60, Col 33 -> Ln 60,
-                      Col 39)
-                    dotted_name: _Variants-Ln49._Tuple-Ln60_Type1
+                    range: TuplesAndVariants.SimpleSchema (Ln 60, Col 33 -> Ln 60, Col 39)
+                    unique_type_name: _Variants-Struct-Ln49._Tuple-Ln60_Type1
+                    reference_count: 1
                     display_type: Number
                     flags:
                     - Alias
@@ -868,8 +929,9 @@
                     type:
                       __type__: NumberType
                       __disabled__: false
-                      range: TuplesAndVariants.SimpleSchema (Ln 60, Col 33 -> Ln 60,
-                        Col 39)
+                      range: TuplesAndVariants.SimpleSchema (Ln 60, Col 33 -> Ln 60, Col 39)
+                      unique_type_name: _Variants-Struct-Ln49.Number-Ln60
+                      reference_count: 1
                     visibility: Visibility.Private
                     name: _Tuple-Ln60_Type1
                     cardinality: <single>
@@ -891,8 +953,9 @@
       __type__: ReferenceType
       __disabled__: false
       range: TuplesAndVariants.SimpleSchema (Ln 63, Col 11 -> Ln 63, Col 20)
-      dotted_name: _ItemStatement-Ln63
-      display_type: _Variants-Ln49?
+      unique_type_name: _ItemStatement-Ln63
+      reference_count: 1
+      display_type: _Variants-Struct-Ln49?
       flags:
       - Type
       - ReferenceRef
@@ -901,5 +964,5 @@
       name: _ItemStatement-Ln63
       cardinality: '?'
       reference:
-        dotted_name: Variants
+        unique_type_name: Variants
         range: TuplesAndVariants.SimpleSchema (Ln 49, Col 1 -> Ln 62, Col 1)

@@ -15,7 +15,9 @@ entry_point:
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 6 -> Ln 3, Col 9>
-      display_type: _Bar-Ln1
+      reference_count: 1
+      display_type: _Bar-Struct-Ln1
+      visibility: Visibility.Private
       reference:
         name: Bar
         range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -32,7 +34,9 @@ entry_point:
     type:
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 6 -> Ln 4, Col 10>
-      display_type: _Baz-Ln4
+      reference_count: 1
+      display_type: _Baz-Struct-Ln4
+      visibility: Visibility.Private
       reference:
         name: Baz
         range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
@@ -42,13 +46,16 @@ Foo.SimpleSchema:
   statements:
   - __type__: ReferenceType
     range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
-    display_type: _Bar-Ln1
+    reference_count: 1
+    display_type: _Bar-Struct-Ln1
     type:
       __type__: StructureType
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+      reference_count: 1
       structure:
         __type__: StructureStatement
         range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
+        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -56,7 +63,7 @@ Foo.SimpleSchema:
         name:
           __type__: SimpleElement
           range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
-          value: _Bar-Ln1
+          value: _Bar-Struct-Ln1
         children:
         - __type__: ItemStatement
           range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
@@ -71,10 +78,12 @@ Foo.SimpleSchema:
           type:
             __type__: ReferenceType
             range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -116,13 +125,16 @@ Foo.SimpleSchema:
         value: 1
   - __type__: ReferenceType
     range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
-    display_type: _Baz-Ln4
+    reference_count: 1
+    display_type: _Baz-Struct-Ln4
     type:
       __type__: StructureType
       range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+      reference_count: 1
       structure:
         __type__: StructureStatement
         range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
+        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
@@ -130,7 +142,7 @@ Foo.SimpleSchema:
         name:
           __type__: SimpleElement
           range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
-          value: _Baz-Ln4
+          value: _Baz-Struct-Ln4
         children:
         - __type__: ItemStatement
           range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
@@ -145,10 +157,12 @@ Foo.SimpleSchema:
           type:
             __type__: ReferenceType
             range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+            reference_count: 1
             display_type: Number
             type:
               __type__: NumberType
               range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
+              reference_count: 1
             visibility:
               __type__: SimpleElement
               range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
