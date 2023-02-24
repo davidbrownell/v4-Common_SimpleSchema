@@ -109,16 +109,17 @@ class Namespace(object):
         visibility: SimpleElement[Visibility],
         type_name: SimpleElement[str],
         parse_type: ParseType,
+        identity: SimpleElement[str],
         ancestor_identities: list[SimpleElement[str]],
         fundamental_types: dict[str, PythonType[FundamentalType]],
         *,
         is_dynamically_generated: bool=True,
         range_value: Optional[Range]=None,
     ) -> ReferenceType:
-        if type_name in ancestor_identities:
+        if identity in ancestor_identities:
             raise Errors.NamespaceCycle.Create(
-                type_name.range,
-                name=type_name.value,
+                ancestor_identities[0].range,
+                name=ancestor_identities[0].value,
                 ancestors_str="\n".join(
                     "    * '{}' {}".format(ancestor.value, ancestor.range)
                     for ancestor in ancestor_identities
@@ -126,7 +127,7 @@ class Namespace(object):
                 ancestors=ancestor_identities,
             )
 
-        ancestor_identities.append(type_name)
+        ancestor_identities.append(identity)
         with ExitStack(ancestor_identities.pop):
             if isinstance(parse_type, ParseIdentifierType):
                 return self._ParseIdentifierTypeToType(
@@ -160,6 +161,7 @@ class Namespace(object):
                             ),
                         ),
                         child_type,
+                        SimpleElement[str](child_type.range, child_type.display_type),
                         ancestor_identities,
                         fundamental_types,
                     )
@@ -415,10 +417,16 @@ class Namespace(object):
                         "_ItemStatement-Ln{}".format(item_statement.range.begin.line),
                     ),
                     item_statement.type,
+                    SimpleElement[str](
+                        item_statement.type.range,
+                        "{}'s Type".format(item_statement.name.value),
+                    ),
                     [],
                     fundamental_types,
                 ),
             )
+
+            new_statement.type.Increment()
 
             ReplaceElement(item_statement, new_statement)
 
@@ -473,13 +481,14 @@ class Namespace(object):
                         is_last_identifier = identifier_index == len(parse_type.identifiers) - 1
 
                         if isinstance(potential_namespace_or_factory, Namespace):
-                            if is_last_identifier:
-                                assert potential_namespace_or_factory._structure_type_factory is not None  # pylint: disable=protected-access
+                            if potential_namespace_or_factory._structure_type_factory is not None:  # pylint: disable=protected-access
+                                if is_last_identifier:
+                                    return potential_namespace_or_factory._structure_type_factory.GetOrCreate(  # pylint: disable=protected-access
+                                        ancestor_identities,
+                                        fundamental_types,
+                                    )
 
-                                return potential_namespace_or_factory._structure_type_factory.GetOrCreate(  # pylint: disable=protected-access
-                                    ancestor_identities,
-                                    fundamental_types,
-                                )
+                                potential_namespace_or_factory._structure_type_factory.ShallowIncrement()  # pylint: disable=protected-access
 
                             current_namespace = potential_namespace_or_factory
 

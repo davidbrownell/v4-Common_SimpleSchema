@@ -10,6 +10,7 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 1, Col 8 -> Ln 7, Col 2>
+      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 8 -> Ln 7, Col 2>

@@ -39,6 +39,15 @@ class StructureType(BasicType):
     structure: StructureStatement
 
     # ----------------------------------------------------------------------
+    @overridemethod
+    def Increment(
+        self,
+        shallow: bool=False,
+    ) -> None:
+        super(StructureType, self).Increment(shallow=shallow)
+        self.structure.Increment(shallow=shallow)
+
+    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @property

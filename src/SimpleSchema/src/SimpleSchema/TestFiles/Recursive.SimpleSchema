@@ -19,7 +19,7 @@
 Directory ->
     name: String
 
-    files: String+
+    files: String*
     directories: Directory*
 
 file_system: Directory*

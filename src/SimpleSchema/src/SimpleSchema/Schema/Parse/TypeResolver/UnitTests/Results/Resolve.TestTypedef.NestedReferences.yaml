@@ -3,13 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 9, Col 1>
-    display_type: _One-Ln1
+    reference_count: 1
+    display_type: _One-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 9, Col 1>
+      reference_count: 1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 9, Col 1>
+        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 9, Col 1>
@@ -17,17 +20,20 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 9, Col 1>
-          value: _One-Ln1
+          value: _One-Struct-Ln1
         children:
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 5 -> Ln 5, Col 1>
-          display_type: _Two-Ln2
+          reference_count: 1
+          display_type: _Two-Struct-Ln2
           type:
             __type__: StructureType
             range: entry_point <Ln 2, Col 5 -> Ln 5, Col 1>
+            reference_count: 1
             structure:
               __type__: StructureStatement
               range: entry_point <Ln 2, Col 5 -> Ln 5, Col 1>
+              reference_count: 1
               visibility:
                 __type__: SimpleElement
                 range: entry_point <Ln 2, Col 5 -> Ln 5, Col 1>
@@ -35,17 +41,20 @@
               name:
                 __type__: SimpleElement
                 range: entry_point <Ln 2, Col 5 -> Ln 5, Col 1>
-                value: _Two-Ln2
+                value: _Two-Struct-Ln2
               children:
               - __type__: ReferenceType
                 range: entry_point <Ln 3, Col 9 -> Ln 5, Col 1>
-                display_type: _Three-Ln3
+                reference_count: 1
+                display_type: _Three-Struct-Ln3
                 type:
                   __type__: StructureType
                   range: entry_point <Ln 3, Col 9 -> Ln 5, Col 1>
+                  reference_count: 1
                   structure:
                     __type__: StructureStatement
                     range: entry_point <Ln 3, Col 9 -> Ln 5, Col 1>
+                    reference_count: 1
                     visibility:
                       __type__: SimpleElement
                       range: entry_point <Ln 3, Col 9 -> Ln 5, Col 1>
@@ -53,7 +62,7 @@
                     name:
                       __type__: SimpleElement
                       range: entry_point <Ln 3, Col 9 -> Ln 5, Col 1>
-                      value: _Three-Ln3
+                      value: _Three-Struct-Ln3
                     children:
                     - __type__: ItemStatement
                       range: entry_point <Ln 4, Col 13 -> Ln 5, Col 1>
@@ -68,7 +77,9 @@
                       type:
                         __type__: ReferenceType
                         range: entry_point <Ln 4, Col 20 -> Ln 4, Col 29>
-                        display_type: _Five-Ln7
+                        reference_count: 1
+                        display_type: _Five-Struct-Ln7
+                        visibility: Visibility.Private
                         reference:
                           name: Five
                           range: entry_point <Ln 7, Col 9 -> Ln 9, Col 1>
@@ -112,13 +123,16 @@
               value: 1
         - __type__: ReferenceType
           range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
-          display_type: _Four-Ln6
+          reference_count: 1
+          display_type: _Four-Struct-Ln6
           type:
             __type__: StructureType
             range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
+            reference_count: 1
             structure:
               __type__: StructureStatement
               range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
+              reference_count: 1
               visibility:
                 __type__: SimpleElement
                 range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
@@ -126,17 +140,20 @@
               name:
                 __type__: SimpleElement
                 range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
-                value: _Four-Ln6
+                value: _Four-Struct-Ln6
               children:
               - __type__: ReferenceType
                 range: entry_point <Ln 7, Col 9 -> Ln 9, Col 1>
-                display_type: _Five-Ln7
+                reference_count: 1
+                display_type: _Five-Struct-Ln7
                 type:
                   __type__: StructureType
                   range: entry_point <Ln 7, Col 9 -> Ln 9, Col 1>
+                  reference_count: 1
                   structure:
                     __type__: StructureStatement
                     range: entry_point <Ln 7, Col 9 -> Ln 9, Col 1>
+                    reference_count: 1
                     visibility:
                       __type__: SimpleElement
                       range: entry_point <Ln 7, Col 9 -> Ln 9, Col 1>
@@ -144,7 +161,7 @@
                     name:
                       __type__: SimpleElement
                       range: entry_point <Ln 7, Col 9 -> Ln 9, Col 1>
-                      value: _Five-Ln7
+                      value: _Five-Struct-Ln7
                 visibility:
                   __type__: SimpleElement
                   range: entry_point <Ln 7, Col 9 -> Ln 7, Col 13>
@@ -215,7 +232,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 10, Col 8 -> Ln 10, Col 21>
-      display_type: _Three-Ln3
+      reference_count: 1
+      display_type: _Three-Struct-Ln3
+      visibility: Visibility.Private
       reference:
         name: Three
         range: entry_point <Ln 3, Col 9 -> Ln 5, Col 1>

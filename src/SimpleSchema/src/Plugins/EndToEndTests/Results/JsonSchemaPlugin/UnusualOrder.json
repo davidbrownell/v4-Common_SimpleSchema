@@ -1,0 +1,31 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema#",
+  "$defs" : {
+    "InnerType" : {
+      "$ref" : "#/$defs/_PrivateType"
+    },
+    "_PrivateType" : {
+      "type" : "string",
+      "minLength" : 1
+    },
+    "DefinedLater" : {
+      "$ref" : "#/$defs/_DefinedLater-Struct-Ln20"
+    },
+    "_DefinedLater-Struct-Ln20" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {},
+      "required" : []
+    }
+  },
+  "type" : "object",
+  "additionalProperties" : false,
+  "properties" : {
+    "inner_type" : {
+      "$ref" : "#/$defs/InnerType"
+    }
+  },
+  "required" : [
+    "inner_type"
+  ]
+}

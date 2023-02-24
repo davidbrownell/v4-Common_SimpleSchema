@@ -3,13 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-    display_type: _EmptyStructure-Ln1
+    reference_count: 1
+    display_type: _EmptyStructure-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      reference_count: 1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -17,7 +20,7 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-          value: _EmptyStructure-Ln1
+          value: _EmptyStructure-Struct-Ln1
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 15>
@@ -50,19 +53,24 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 8 -> Ln 4, Col 22>
-      display_type: _EmptyStructure-Ln1
+      reference_count: 1
+      display_type: _EmptyStructure-Struct-Ln1
+      visibility: Visibility.Private
       reference:
         name: EmptyStructure
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
-    display_type: _SimpleStructure-Ln6
+    reference_count: 1
+    display_type: _SimpleStructure-Struct-Ln6
     type:
       __type__: StructureType
       range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
+      reference_count: 1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
+        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
@@ -70,7 +78,7 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
-          value: _SimpleStructure-Ln6
+          value: _SimpleStructure-Struct-Ln6
         children:
         - __type__: ItemStatement
           range: entry_point <Ln 7, Col 5 -> Ln 8, Col 5>
@@ -85,10 +93,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 7, Col 13 -> Ln 7, Col 19>
+            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 7, Col 13 -> Ln 7, Col 19>
+              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -122,10 +132,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 8, Col 13 -> Ln 8, Col 20>
+            reference_count: 1
             display_type: Integer
             type:
               __type__: IntegerType
               range: entry_point <Ln 8, Col 13 -> Ln 8, Col 20>
+              reference_count: 1
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 8, Col 5 -> Ln 9, Col 1>
@@ -177,7 +189,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 10, Col 9 -> Ln 10, Col 24>
-      display_type: _SimpleStructure-Ln6
+      reference_count: 1
+      display_type: _SimpleStructure-Struct-Ln6
+      visibility: Visibility.Private
       reference:
         name: SimpleStructure
         range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>

@@ -1,0 +1,90 @@
+- __type__: RootStatement
+  __disabled__: false
+  range: UnusualOrder.SimpleSchema (Ln 18, Col 1 -> Ln 23, Col 1)
+  statements:
+  - __type__: ItemStatement
+    __disabled__: false
+    range: UnusualOrder.SimpleSchema (Ln 18, Col 1 -> Ln 20, Col 1)
+    visibility: Visibility.Public
+    name: inner_type
+    type:
+      __type__: ReferenceType
+      __disabled__: false
+      range: UnusualOrder.SimpleSchema (Ln 18, Col 13 -> Ln 18, Col 35)
+      unique_type_name: _ItemStatement-Ln18
+      reference_count: 1
+      display_type: String
+      flags:
+      - Alias
+      - ReferenceRef
+      - DynamicallyGenerated
+      visibility: Visibility.Private
+      name: _ItemStatement-Ln18
+      cardinality: <single>
+      reference:
+        unique_type_name: InnerType
+        range: UnusualOrder.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 1)
+  - __type__: ReferenceType
+    __disabled__: false
+    range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
+    unique_type_name: DefinedLater
+    reference_count: 1
+    display_type: _DefinedLater-Struct-Ln20
+    flags:
+    - Alias
+    - BasicRef
+    - StructureRef
+    - DefinedInline
+    type:
+      __type__: StructureType
+      __disabled__: false
+      range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
+      unique_type_name: _DefinedLater-Struct-Ln20
+      reference_count: 1
+      structure:
+        __type__: StructureStatement
+        __disabled__: false
+        range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
+        unique_type_name: _DefinedLater-Struct-Ln20
+        reference_count: 1
+        visibility: Visibility.Private
+        name: _DefinedLater-Struct-Ln20
+        children:
+        - __type__: ReferenceType
+          __disabled__: false
+          range: UnusualOrder.SimpleSchema (Ln 21, Col 5 -> Ln 22, Col 5)
+          unique_type_name: _PrivateType
+          reference_count: 1
+          display_type: String
+          flags:
+          - Alias
+          - BasicRef
+          - DefinedInline
+          type:
+            __type__: StringType
+            __disabled__: false
+            range: UnusualOrder.SimpleSchema (Ln 21, Col 19 -> Ln 21, Col 25)
+            unique_type_name: String-Ln21
+            reference_count: 1
+            min_length: 1
+          visibility: Visibility.Private
+          name: _PrivateType
+          cardinality: <single>
+        - __type__: ReferenceType
+          __disabled__: false
+          range: UnusualOrder.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 1)
+          unique_type_name: InnerType
+          reference_count: 1
+          display_type: String
+          flags:
+          - Alias
+          - ReferenceRef
+          visibility: Visibility.Public
+          name: InnerType
+          cardinality: <single>
+          reference:
+            unique_type_name: _PrivateType
+            range: UnusualOrder.SimpleSchema (Ln 21, Col 5 -> Ln 22, Col 5)
+    visibility: Visibility.Public
+    name: DefinedLater
+    cardinality: <single>

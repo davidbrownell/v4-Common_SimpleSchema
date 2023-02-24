@@ -292,13 +292,13 @@ class Visitor(ABC):
     # ----------------------------------------------------------------------
     @contextmanager
     @extensionmethod
-    def OnStringType(self, element: StringType) -> Iterator[Optional[VisitResult]]:
+    def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @extensionmethod
-    def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
+    def OnStringType(self, element: StringType) -> Iterator[Optional[VisitResult]]:
         yield
 
     # ----------------------------------------------------------------------

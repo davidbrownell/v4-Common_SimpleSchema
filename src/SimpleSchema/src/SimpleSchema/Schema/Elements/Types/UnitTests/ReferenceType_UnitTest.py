@@ -154,9 +154,11 @@ class TestCreate(object):
         range_mock = Mock()
         visibility_mock = Mock()
         name_mock = Mock()
+        metadata_mock = Mock()
+
         type_mock = Mock(spec=ReferenceType)
         type_mock.flags = 0
-        metadata_mock = Mock()
+        type_mock.cardinality = Mock()
 
         rt = ReferenceType.Create(
             range_mock,
@@ -245,6 +247,7 @@ class TestFlags(object):
     def test_Reference(self):
         reference_mock = Mock(spec=ReferenceType)
         reference_mock.flags = 0
+        reference_mock.cardinality = Mock()
 
         assert _Create(
             reference_mock,
@@ -255,6 +258,7 @@ class TestFlags(object):
     def test_DynamicallyGeneratedReference (self):
         reference_mock = Mock(spec=ReferenceType)
         reference_mock.flags = ReferenceType.Flag.DynamicallyGenerated
+        reference_mock.cardinality = Mock()
 
         assert _Create(
             reference_mock,
@@ -265,6 +269,7 @@ class TestFlags(object):
     def test_DynamicallyGeneratedReferenceToStructure(self):
         reference_mock = Mock(spec=ReferenceType)
         reference_mock.flags = ReferenceType.Flag.DynamicallyGenerated | ReferenceType.Flag.StructureRef
+        reference_mock.cardinality = Mock()
 
         assert _Create(
             reference_mock,
@@ -584,6 +589,29 @@ class TestDisplayType(object):
         )
 
         assert rt.display_type == "<Integer {>= 5}>[2]"
+
+
+# ----------------------------------------------------------------------
+def test_ReferenceCount():
+    referenced_type = Mock(spec=BasicType)
+
+    rt = _Create(referenced_type, Cardinality.CreateFromCode())
+
+    assert rt.reference_count == 0
+    assert referenced_type.Increment.call_count == 0
+
+    rt.Increment()
+    assert rt.reference_count == 1
+    assert referenced_type.Increment.call_count == 1
+
+    rt.Increment()
+    assert rt.reference_count == 2
+    assert referenced_type.Increment.call_count == 2
+
+    rt.Increment(shallow=True)
+    assert rt.reference_count == 3
+    assert referenced_type.Increment.call_count == 3
+
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------

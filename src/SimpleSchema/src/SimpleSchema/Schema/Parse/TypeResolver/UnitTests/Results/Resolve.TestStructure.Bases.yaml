@@ -3,13 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-    display_type: _Simple-Ln1
+    reference_count: 11
+    display_type: _Simple-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      reference_count: 11
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        reference_count: 11
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -17,14 +20,16 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-          value: _Simple-Ln1
+          value: _Simple-Struct-Ln1
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 1, Col 9 -> Ln 1, Col 33>
+          reference_count: 11
           display_type: String {>= 2 characters}
           type:
             __type__: StringType
             range: entry_point <Ln 1, Col 9 -> Ln 1, Col 33>
+            reference_count: 11
             min_length: 2
           visibility:
             __type__: SimpleElement
@@ -33,7 +38,7 @@
           name:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 9 -> Ln 1, Col 33>
-            value: _Simple-Ln1_Base0
+            value: _Base0
           cardinality:
             __type__: Cardinality
             range: entry_point <Ln 1, Col 9 -> Ln 1, Col 33>
@@ -59,10 +64,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
+            reference_count: 1
             display_type: Number
             type:
               __type__: NumberType
               range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
+              reference_count: 1
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 2, Col 5 -> Ln 3, Col 1>
@@ -103,13 +110,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
-    display_type: _Derived1-Ln4
+    reference_count: 5
+    display_type: _Derived1-Struct-Ln4
     type:
       __type__: StructureType
       range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+      reference_count: 5
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+        reference_count: 5
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
@@ -117,11 +127,13 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
-          value: _Derived1-Ln4
+          value: _Derived1-Struct-Ln4
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 4, Col 11 -> Ln 4, Col 17>
-          display_type: _Simple-Ln1
+          reference_count: 5
+          display_type: _Simple-Struct-Ln1
+          visibility: Visibility.Private
           reference:
             name: Simple
             range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -146,13 +158,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
-    display_type: _Derived2-Ln7
+    reference_count: 5
+    display_type: _Derived2-Struct-Ln7
     type:
       __type__: StructureType
       range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+      reference_count: 5
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+        reference_count: 5
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
@@ -160,11 +175,13 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
-          value: _Derived2-Ln7
+          value: _Derived2-Struct-Ln7
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 7, Col 11 -> Ln 7, Col 17>
-          display_type: _Simple-Ln1
+          reference_count: 5
+          display_type: _Simple-Struct-Ln1
+          visibility: Visibility.Private
           reference:
             name: Simple
             range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -182,10 +199,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 8, Col 13 -> Ln 8, Col 19>
+            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 8, Col 13 -> Ln 8, Col 19>
+              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -227,13 +246,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
-    display_type: _MultiBase-Ln10
+    reference_count: 4
+    display_type: _MultiBase-Struct-Ln10
     type:
       __type__: StructureType
       range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
+      reference_count: 4
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
+        reference_count: 4
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
@@ -241,17 +263,21 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
-          value: _MultiBase-Ln10
+          value: _MultiBase-Struct-Ln10
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 10, Col 13 -> Ln 10, Col 21>
-          display_type: _Derived1-Ln4
+          reference_count: 4
+          display_type: _Derived1-Struct-Ln4
+          visibility: Visibility.Private
           reference:
             name: Derived1
             range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
         - __type__: ReferenceType
           range: entry_point <Ln 10, Col 23 -> Ln 10, Col 31>
-          display_type: _Derived2-Ln7
+          reference_count: 4
+          display_type: _Derived2-Struct-Ln7
+          visibility: Visibility.Private
           reference:
             name: Derived2
             range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
@@ -269,10 +295,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 11, Col 13 -> Ln 11, Col 20>
+            reference_count: 1
             display_type: Boolean
             type:
               __type__: BooleanType
               range: entry_point <Ln 11, Col 13 -> Ln 11, Col 20>
+              reference_count: 1
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 11, Col 5 -> Ln 12, Col 1>
@@ -324,7 +352,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 13, Col 9 -> Ln 13, Col 15>
-      display_type: _Simple-Ln1
+      reference_count: 1
+      display_type: _Simple-Struct-Ln1
+      visibility: Visibility.Private
       reference:
         name: Simple
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -341,7 +371,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 14, Col 11 -> Ln 14, Col 19>
-      display_type: _Derived1-Ln4
+      reference_count: 1
+      display_type: _Derived1-Struct-Ln4
+      visibility: Visibility.Private
       reference:
         name: Derived1
         range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
@@ -358,7 +390,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 15, Col 11 -> Ln 15, Col 19>
-      display_type: _Derived2-Ln7
+      reference_count: 1
+      display_type: _Derived2-Struct-Ln7
+      visibility: Visibility.Private
       reference:
         name: Derived2
         range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
@@ -375,7 +409,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 16, Col 13 -> Ln 16, Col 22>
-      display_type: _MultiBase-Ln10
+      reference_count: 1
+      display_type: _MultiBase-Struct-Ln10
+      visibility: Visibility.Private
       reference:
         name: MultiBase
         range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
@@ -392,7 +428,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 18, Col 22 -> Ln 18, Col 32>
-      display_type: _MultiBase-Ln10*
+      reference_count: 1
+      display_type: _MultiBase-Struct-Ln10*
+      visibility: Visibility.Private
       reference:
         name: MultiBase
         range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
@@ -409,7 +447,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 19, Col 19 -> Ln 19, Col 46>
-      display_type: _MultiBase-Ln10
+      reference_count: 1
+      display_type: _MultiBase-Struct-Ln10
+      visibility: Visibility.Private
       reference:
         name: MultiBase
         range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>
@@ -426,7 +466,9 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 20, Col 35 -> Ln 20, Col 63>
-      display_type: _MultiBase-Ln10*
+      reference_count: 1
+      display_type: _MultiBase-Struct-Ln10*
+      visibility: Visibility.Private
       reference:
         name: MultiBase
         range: entry_point <Ln 10, Col 1 -> Ln 12, Col 1>

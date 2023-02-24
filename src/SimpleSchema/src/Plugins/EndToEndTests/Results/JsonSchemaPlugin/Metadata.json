@@ -1,0 +1,94 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema#",
+  "$defs" : {
+    "Object" : {
+      "$ref" : "#/$defs/_Object-Struct-Ln18",
+      "title" : "The object",
+      "description" : "A description of the object"
+    },
+    "_Object-Struct-Ln18" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "value" : {
+          "type" : "string",
+          "minLength" : 1,
+          "title" : "A value",
+          "description" : "A description of a value"
+        }
+      },
+      "required" : [
+        "value"
+      ]
+    },
+    "Typedef" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/Object"
+      },
+      "minItems" : 10,
+      "maxItems" : 10,
+      "title" : "The objects (plural)",
+      "description" : "A description of the objects"
+    },
+    "DefaultObject" : {
+      "$ref" : "#/$defs/_DefaultObject-Item-Ln42",
+      "default" : "null"
+    },
+    "_DefaultObject-Item-Ln42" : {
+      "type" : "string",
+      "minLength" : 1
+    }
+  },
+  "type" : "object",
+  "additionalProperties" : false,
+  "properties" : {
+    "no_metadata_object" : {
+      "$ref" : "#/$defs/Object"
+    },
+    "no_metadata_typedef" : {
+      "$ref" : "#/$defs/Typedef"
+    },
+    "no_metadata_typedefs" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/Typedef"
+      },
+      "minItems" : 5,
+      "maxItems" : 5
+    },
+    "object" : {
+      "$ref" : "#/$defs/Object",
+      "title" : "A object"
+    },
+    "typedef" : {
+      "$ref" : "#/$defs/Typedef",
+      "title" : "A typedef"
+    },
+    "typedefs" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/Typedef"
+      },
+      "minItems" : 5,
+      "maxItems" : 5,
+      "title" : "2d Objects"
+    },
+    "default_object" : {
+      "$ref" : "#/$defs/DefaultObject",
+      "default" : "null"
+    },
+    "default_object_with_override" : {
+      "$ref" : "#/$defs/DefaultObject",
+      "default" : "NONE"
+    }
+  },
+  "required" : [
+    "no_metadata_object",
+    "no_metadata_typedef",
+    "no_metadata_typedefs",
+    "object",
+    "typedef",
+    "typedefs"
+  ]
+}

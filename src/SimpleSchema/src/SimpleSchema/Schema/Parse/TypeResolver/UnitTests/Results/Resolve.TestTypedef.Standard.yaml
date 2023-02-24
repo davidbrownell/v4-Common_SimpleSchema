@@ -3,10 +3,12 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
+      reference_count: 0
       min_length: 4
     visibility:
       __type__: SimpleElement
@@ -29,22 +31,28 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters}
+    visibility: Visibility.Public
     reference:
       name: Typedef1
       range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters}
+    visibility: Visibility.Public
     reference:
       name: Typedef2
       range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 10 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
+      reference_count: 0
       min_length: 4
       max_length: 10
     visibility:
@@ -68,10 +76,12 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 11 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
+      reference_count: 0
       min_length: 4
       max_length: 11
     visibility:
@@ -95,10 +105,12 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 12 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
+      reference_count: 0
       min_length: 4
       max_length: 12
     visibility:
@@ -122,10 +134,12 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 10 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
+      reference_count: 0
       min_length: 4
       max_length: 10
     visibility:
@@ -163,10 +177,12 @@
           value: 20
   - __type__: ReferenceType
     range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 11 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
+      reference_count: 0
       min_length: 4
       max_length: 11
     visibility:
@@ -204,10 +220,12 @@
           value: 21
   - __type__: ReferenceType
     range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 12 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
+      reference_count: 0
       min_length: 4
       max_length: 12
     visibility:
@@ -245,10 +263,12 @@
           value: 22
   - __type__: ReferenceType
     range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 10 characters, 'foo'}
     type:
       __type__: StringType
       range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
+      reference_count: 0
       min_length: 4
       max_length: 10
       validation_expression: foo
@@ -273,10 +293,12 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
+    reference_count: 0
     display_type: String {>= 4 characters, <= 10 characters, 'bar'}
     type:
       __type__: StringType
       range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
+      reference_count: 0
       min_length: 4
       max_length: 10
       validation_expression: bar

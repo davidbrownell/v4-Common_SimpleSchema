@@ -1,0 +1,392 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema#",
+  "$defs" : {
+    "FundamentalTypes" : {
+      "$ref" : "#/$defs/_FundamentalTypes-Struct-Ln19"
+    },
+    "_FundamentalTypes-Struct-Ln19" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "boolean" : {
+          "type" : "boolean"
+        },
+        "date_time" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "directory" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : true
+          }
+        },
+        "duration" : {
+          "type" : "string",
+          "format" : "duration"
+        },
+        "enum" : {
+          "type" : "string",
+          "enum" : [
+            "Value1",
+            "Value2",
+            "Value3"
+          ],
+          "__custom__" : {
+            "values" : [
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        "filename" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : true,
+            "match_any" : false
+          }
+        },
+        "guid" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "integer" : {
+          "type" : "integer"
+        },
+        "number" : {
+          "type" : "number"
+        },
+        "string" : {
+          "type" : "string",
+          "minLength" : 1
+        },
+        "time" : {
+          "type" : "string",
+          "format" : "time"
+        },
+        "uri" : {
+          "type" : "string",
+          "format" : "uri"
+        }
+      },
+      "required" : [
+        "boolean",
+        "date_time",
+        "date",
+        "directory",
+        "duration",
+        "enum",
+        "filename",
+        "guid",
+        "integer",
+        "number",
+        "string",
+        "time",
+        "uri"
+      ]
+    },
+    "DirectoryCustomizations" : {
+      "$ref" : "#/$defs/_DirectoryCustomizations-Struct-Ln38"
+    },
+    "_DirectoryCustomizations-Struct-Ln38" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "default" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : true
+          }
+        },
+        "no_ensure_exists" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : false
+          }
+        }
+      },
+      "required" : [
+        "default",
+        "no_ensure_exists"
+      ]
+    },
+    "EnumCustomizations" : {
+      "$ref" : "#/$defs/_EnumCustomizations-Struct-Ln46"
+    },
+    "_EnumCustomizations-Struct-Ln46" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "enum1" : {
+          "type" : "string",
+          "enum" : [
+            "Value1",
+            "Value2",
+            "Value3"
+          ],
+          "__custom__" : {
+            "values" : [
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        "enum2" : {
+          "type" : "string",
+          "enum" : [
+            "One",
+            "Two",
+            "Three"
+          ],
+          "__custom__" : {
+            "values" : [
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        "enum3" : {
+          "type" : "string",
+          "enum" : [
+            "Value1",
+            "Value2",
+            "Value3"
+          ],
+          "__custom__" : {
+            "values" : [
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        },
+        "enum4" : {
+          "type" : "string",
+          "enum" : [
+            "One",
+            "Two",
+            "Three"
+          ],
+          "__custom__" : {
+            "values" : [
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        },
+        "enum5" : {
+          "type" : "string",
+          "enum" : [
+            "Value1",
+            "Value2",
+            "Value3"
+          ],
+          "__custom__" : {
+            "values" : [
+              100,
+              101,
+              102
+            ]
+          }
+        }
+      },
+      "required" : [
+        "enum1",
+        "enum2",
+        "enum3",
+        "enum4",
+        "enum5"
+      ]
+    },
+    "FilenameCustomizations" : {
+      "$ref" : "#/$defs/_FilenameCustomizations-Struct-Ln57"
+    },
+    "_FilenameCustomizations-Struct-Ln57" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "default" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : true,
+            "match_any" : false
+          }
+        },
+        "no_ensure_exists" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : false
+          }
+        },
+        "match_any" : {
+          "type" : "string",
+          "minLength" : 1,
+          "__custom__" : {
+            "ensure_exists" : true,
+            "match_any" : true
+          }
+        }
+      },
+      "required" : [
+        "default",
+        "no_ensure_exists",
+        "match_any"
+      ]
+    },
+    "IntegerCustomizations" : {
+      "$ref" : "#/$defs/_IntegerCustomizations-Struct-Ln66"
+    },
+    "_IntegerCustomizations-Struct-Ln66" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "default" : {
+          "type" : "integer"
+        },
+        "min" : {
+          "type" : "integer",
+          "minimum" : 0
+        },
+        "max" : {
+          "type" : "integer",
+          "maximum" : 10
+        },
+        "min_and_max" : {
+          "type" : "integer",
+          "minimum" : 0,
+          "maximum" : 10
+        },
+        "with_bits" : {
+          "type" : "integer",
+          "__custom__" : {
+            "bits" : "BitsEnum.Value16"
+          }
+        }
+      },
+      "required" : [
+        "default",
+        "min",
+        "max",
+        "min_and_max",
+        "with_bits"
+      ]
+    },
+    "NumberCustomizations" : {
+      "$ref" : "#/$defs/_NumberCustomizations-Struct-Ln77"
+    },
+    "_NumberCustomizations-Struct-Ln77" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "default" : {
+          "type" : "number"
+        },
+        "min" : {
+          "type" : "number",
+          "minimum" : 0.0
+        },
+        "max" : {
+          "type" : "number",
+          "maximum" : 10.0
+        },
+        "min_and_max" : {
+          "type" : "number",
+          "minimum" : 0.0,
+          "maximum" : 10.0
+        },
+        "with_bits" : {
+          "type" : "number",
+          "__custom__" : {
+            "bits" : "BitsEnum.Value16"
+          }
+        }
+      },
+      "required" : [
+        "default",
+        "min",
+        "max",
+        "min_and_max",
+        "with_bits"
+      ]
+    },
+    "StringCustomizations" : {
+      "$ref" : "#/$defs/_StringCustomizations-Struct-Ln88"
+    },
+    "_StringCustomizations-Struct-Ln88" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "default" : {
+          "type" : "string",
+          "minLength" : 1
+        },
+        "min_length" : {
+          "type" : "string",
+          "minLength" : 10
+        },
+        "max_length" : {
+          "type" : "string",
+          "minLength" : 1,
+          "maxLength" : 20
+        },
+        "min_and_max_length" : {
+          "type" : "string",
+          "minLength" : 10,
+          "maxLength" : 20
+        },
+        "validation_expression" : {
+          "type" : "string",
+          "minLength" : 1,
+          "pattern" : "__.+__"
+        }
+      },
+      "required" : [
+        "default",
+        "min_length",
+        "max_length",
+        "min_and_max_length",
+        "validation_expression"
+      ]
+    }
+  },
+  "type" : "object",
+  "additionalProperties" : false,
+  "properties" : {
+    "fundamental_types" : {
+      "$ref" : "#/$defs/FundamentalTypes"
+    },
+    "directory_customizations" : {
+      "$ref" : "#/$defs/DirectoryCustomizations"
+    },
+    "enum_customizations" : {
+      "$ref" : "#/$defs/EnumCustomizations"
+    },
+    "filename_customizations" : {
+      "$ref" : "#/$defs/FilenameCustomizations"
+    },
+    "integer_customizations" : {
+      "$ref" : "#/$defs/IntegerCustomizations"
+    },
+    "number_customizations" : {
+      "$ref" : "#/$defs/NumberCustomizations"
+    },
+    "string_customizations" : {
+      "$ref" : "#/$defs/StringCustomizations"
+    }
+  },
+  "required" : []
+}

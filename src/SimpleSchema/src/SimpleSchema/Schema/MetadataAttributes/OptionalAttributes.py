@@ -15,13 +15,16 @@
 # ----------------------------------------------------------------------
 """Contains MetadataAttributes that can be applied to optional Elements"""
 
-from dataclasses import dataclass
-from typing import ClassVar
+from dataclasses import dataclass, field
+from typing import ClassVar, Optional
 
 from .MetadataAttribute import MetadataAttribute
 
 from ..Elements.Common.Cardinality import Cardinality
+from ..Elements.Common.SimpleElement import SimpleElement
+from ..Elements.Common.Visibility import Visibility
 
+from ..Elements.Types.BasicType import BasicType
 from ..Elements.Types.FundamentalTypes.BooleanType import BooleanType
 from ..Elements.Types.FundamentalTypes.IntegerType import IntegerType
 from ..Elements.Types.FundamentalTypes.NumberType import NumberType
@@ -30,6 +33,21 @@ from ..Elements.Types.ReferenceType import ReferenceType
 from ..Elements.Types.VariantType import VariantType
 
 from ...Common.Range import Range
+
+
+# ----------------------------------------------------------------------
+def _CreateType(
+    basic_type: BasicType,
+    cardinality: Optional[Cardinality]=None,
+) -> ReferenceType:
+    return ReferenceType.Create(
+        Range.CreateFromCode(),
+        SimpleElement[Visibility](Range.CreateFromCode(), Visibility.Private),
+        SimpleElement[str](Range.CreateFromCode(), basic_type.NAME),
+        basic_type,
+        cardinality or Cardinality.CreateFromCode(),
+        None,
+    )
 
 
 # ----------------------------------------------------------------------
@@ -45,17 +63,26 @@ class DefaultMetadataAttribute(MetadataAttribute):
 
     name: ClassVar[str]                                 = "default"
 
-    type: ClassVar[ReferenceType]                       = MetadataAttribute.CreateType(
-        VariantType(
+    type: BasicType                                     = field(init=False)
+
+    # ----------------------------------------------------------------------
+    def __post_init__(self):
+        variant = VariantType(
             Range.CreateFromCode(),
             [
-                MetadataAttribute.CreateType(BooleanType(Range.CreateFromCode())),
-                MetadataAttribute.CreateType(IntegerType(Range.CreateFromCode())),
-                MetadataAttribute.CreateType(NumberType(Range.CreateFromCode())),
-                MetadataAttribute.CreateType(StringType(Range.CreateFromCode())),
-                # ListType
-                # TupleType
+                _CreateType(BooleanType(Range.CreateFromCode())),
+                _CreateType(IntegerType(Range.CreateFromCode())),
+                _CreateType(NumberType(Range.CreateFromCode())),
+                _CreateType(StringType(Range.CreateFromCode())),
             ],
-        ),
-        Cardinality.CreateFromCode(0, 1),
-    )
+        )
+
+        variant = VariantType(
+            Range.CreateFromCode(),
+            [
+                _CreateType(variant),
+                _CreateType(variant, Cardinality.CreateFromCode(1, None)),
+            ],
+        )
+
+        object.__setattr__(self, "type", variant)

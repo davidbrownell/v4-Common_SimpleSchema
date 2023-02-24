@@ -21,6 +21,7 @@ from abc import abstractmethod, ABC
 from typing import cast, Type as PythonType, Union, TYPE_CHECKING
 from weakref import ref, ReferenceType as WeakReferenceType
 
+from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Types import extensionmethod, overridemethod
 
 from ...ANTLR.Elements.Statements.ParseItemStatement import ParseItemStatement
@@ -117,10 +118,24 @@ class _TypeFactory(ABC):
 # ----------------------------------------------------------------------
 class StructureTypeFactory(_TypeFactory):
     # ----------------------------------------------------------------------
+    def __init__(self, *args, **kwargs):
+        super(StructureTypeFactory, self).__init__(*args, **kwargs)
+
+        self._shallow_increment_ctr         = 0
+
+    # ----------------------------------------------------------------------
     @property
     @overridemethod
     def statement(self) -> ParseStructureStatement:
         return cast(ParseStructureStatement, super(StructureTypeFactory, self).statement)
+
+    # ----------------------------------------------------------------------
+    def ShallowIncrement(self) -> None:
+        with self._created_type_lock:
+            if self._created_type is None:
+                self._shallow_increment_ctr += 1
+            elif isinstance(self._created_type, ReferenceType):
+                self._created_type.Increment(shallow=True)
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -150,41 +165,45 @@ class StructureTypeFactory(_TypeFactory):
         statement = self.statement
         active_namespace = self.active_namespace
 
-        name = "_{}-Ln{}".format(statement.name.value, statement.range.begin.line)
-
         base_types: list[ReferenceType] = []
 
         if statement.bases:
-            for base_index, base in enumerate(statement.bases):
-                base_type = active_namespace.ParseTypeToType(
-                    SimpleElement[Visibility](base.range, Visibility.Private),
-                    SimpleElement[str](
-                        base.range,
-                        "{}_Base{}".format(name, base_index),
-                    ),
-                    base,
-                    ancestor_identities,
-                    fundamental_types,
-                )
-
-                with base_type.Resolve() as resolved_base_type:
-                    if not resolved_base_type.cardinality.is_single:
-                        raise Errors.TypeFactoryInvalidBaseCardinality.Create(
+            ancestor_identities.append(statement.name.ToSimpleElement())
+            with ExitStack(ancestor_identities.pop):
+                for base_index, base in enumerate(statement.bases):
+                    base_type = active_namespace.ParseTypeToType(
+                        SimpleElement[Visibility](base.range, Visibility.Private),
+                        SimpleElement[str](
                             base.range,
-                        )
+                            "_Base{}".format(base_index),
+                        ),
+                        base,
+                        SimpleElement[str](
+                            base.range,
+                            "Base type '{}' (index {})".format(base.display_type, base_index),
+                        ),
+                        ancestor_identities,
+                        fundamental_types,
+                    )
 
-                    if (
-                        not isinstance(resolved_base_type.type, FundamentalType)
-                        and not isinstance(resolved_base_type.type, StructureType)
-                    ):
-                        raise Errors.TypeFactoryInvalidBaseType.Create(base.range)
+                    with base_type.Resolve() as resolved_base_type:
+                        if not resolved_base_type.cardinality.is_single:
+                            raise Errors.TypeFactoryInvalidBaseCardinality.Create(
+                                base.range,
+                            )
 
-                    if len(statement.bases) > 1 and not isinstance(resolved_base_type.type, StructureType):
-                        raise Errors.TypeFactoryInvalidBaseTypeMultiInheritance.Create(base.range)
+                        if (
+                            not isinstance(resolved_base_type.type, FundamentalType)
+                            and not isinstance(resolved_base_type.type, StructureType)
+                        ):
+                            raise Errors.TypeFactoryInvalidBaseType.Create(base.range)
 
-                base_types.append(base_type)
+                        if len(statement.bases) > 1 and not isinstance(resolved_base_type.type, StructureType):
+                            raise Errors.TypeFactoryInvalidBaseTypeMultiInheritance.Create(base.range)
 
-        return ReferenceType.Create(
+                    base_types.append(base_type)
+
+        result = ReferenceType.Create(
             statement.range,
             statement.name.visibility,
             statement.name.ToSimpleElement(),
@@ -193,7 +212,10 @@ class StructureTypeFactory(_TypeFactory):
                 StructureStatement(
                     statement.range,
                     SimpleElement[Visibility](statement.range, Visibility.Private),
-                    SimpleElement[str](statement.range, name),
+                    SimpleElement[str](
+                        statement.range,
+                        "_{}-Struct-Ln{}".format(statement.name.value, statement.range.begin.line),
+                    ),
                     base_types,
                     [], # The children will be populated during Finalize
                 ),
@@ -202,6 +224,11 @@ class StructureTypeFactory(_TypeFactory):
             statement.metadata,
             was_dynamically_generated=False,
         )
+
+        for _ in range(self._shallow_increment_ctr):
+            result.Increment(shallow=True)
+
+        return result
 
 
 # ----------------------------------------------------------------------
@@ -229,10 +256,13 @@ class ReferenceTypeFactory(_TypeFactory):
     ) -> ReferenceType:
         statement = self.statement
 
+        name_element = statement.name.ToSimpleElement()
+
         return self.active_namespace.ParseTypeToType(
             statement.name.visibility,
-            statement.name.ToSimpleElement(),
+            name_element,
             statement.type,
+            name_element,
             ancestor_identities,
             fundamental_types,
             is_dynamically_generated=False,

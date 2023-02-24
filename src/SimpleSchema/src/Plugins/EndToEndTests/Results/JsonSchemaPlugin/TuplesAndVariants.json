@@ -1,0 +1,215 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema#",
+  "$defs" : {
+    "Tuples" : {
+      "$ref" : "#/$defs/_Tuples-Struct-Ln19"
+    },
+    "_Tuples-Struct-Ln19.__ItemStatement-Ln30-Item-Ln30" : {
+      "type" : "array",
+      "items" : [
+        {
+          "type" : "string",
+          "minLength" : 1
+        },
+        {
+          "type" : "integer"
+        },
+        {
+          "type" : "number"
+        }
+      ],
+      "minItems" : 3,
+      "maxItems" : 3
+    },
+    "_Tuples-Struct-Ln19" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "single" : {
+          "type" : "array",
+          "items" : [
+            {
+              "type" : "string",
+              "minLength" : 1
+            }
+          ],
+          "minItems" : 1,
+          "maxItems" : 1
+        },
+        "multiple" : {
+          "type" : "array",
+          "items" : [
+            {
+              "type" : "string",
+              "minLength" : 1
+            },
+            {
+              "type" : "integer"
+            },
+            {
+              "type" : "number"
+            }
+          ],
+          "minItems" : 3,
+          "maxItems" : 3
+        },
+        "container" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/_Tuples-Struct-Ln19.__ItemStatement-Ln30-Item-Ln30"
+          }
+        },
+        "with_metadata" : {
+          "type" : "array",
+          "items" : [
+            {
+              "type" : "string",
+              "minLength" : 5
+            },
+            {
+              "type" : "integer",
+              "minimum" : 10
+            },
+            {
+              "type" : "number",
+              "minimum" : 20.0
+            }
+          ],
+          "minItems" : 3,
+          "maxItems" : 3
+        },
+        "nested" : {
+          "type" : "array",
+          "items" : [
+            {
+              "type" : "string",
+              "minLength" : 1
+            },
+            {
+              "type" : "array",
+              "items" : [
+                {
+                  "type" : "string",
+                  "minLength" : 1
+                },
+                {
+                  "type" : "integer"
+                }
+              ],
+              "minItems" : 2,
+              "maxItems" : 2
+            },
+            {
+              "type" : "number"
+            },
+            {
+              "type" : "array",
+              "items" : [
+                {
+                  "type" : "string",
+                  "minLength" : 1
+                },
+                {
+                  "type" : "array",
+                  "items" : [
+                    {
+                      "type" : "number",
+                      "maximum" : 1.23
+                    }
+                  ],
+                  "minItems" : 1,
+                  "maxItems" : 1
+                }
+              ],
+              "minItems" : 2,
+              "maxItems" : 2
+            }
+          ],
+          "minItems" : 4,
+          "maxItems" : 4
+        }
+      },
+      "required" : [
+        "single",
+        "multiple",
+        "container",
+        "with_metadata",
+        "nested"
+      ]
+    },
+    "Variants" : {
+      "$ref" : "#/$defs/_Variants-Struct-Ln49"
+    },
+    "_Variants-Struct-Ln49" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "value" : {
+          "oneOf" : [
+            {
+              "type" : "string",
+              "minLength" : 1
+            },
+            {
+              "type" : "number"
+            }
+          ]
+        },
+        "with_metadata" : {
+          "oneOf" : [
+            {
+              "type" : "string",
+              "minLength" : 5
+            },
+            {
+              "type" : "integer",
+              "minimum" : 10
+            },
+            {
+              "type" : "number",
+              "minimum" : 20.0
+            }
+          ]
+        },
+        "nested_tuple" : {
+          "oneOf" : [
+            {
+              "type" : "string",
+              "minLength" : 1
+            },
+            {
+              "type" : "array",
+              "items" : [
+                {
+                  "type" : "integer",
+                  "minimum" : 10
+                },
+                {
+                  "type" : "number"
+                }
+              ],
+              "minItems" : 2,
+              "maxItems" : 2
+            }
+          ]
+        }
+      },
+      "required" : [
+        "value",
+        "with_metadata",
+        "nested_tuple"
+      ]
+    }
+  },
+  "type" : "object",
+  "additionalProperties" : false,
+  "properties" : {
+    "tuples" : {
+      "$ref" : "#/$defs/Tuples"
+    },
+    "variants" : {
+      "$ref" : "#/$defs/Variants"
+    }
+  },
+  "required" : []
+}

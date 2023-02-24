@@ -15,7 +15,9 @@ entry_point:
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
+      reference_count: 1
       display_type: String {>= 2 characters}
+      visibility: Visibility.Private
       reference:
         name: Type
         range: included <Ln 1, Col 1 -> Ln 1, Col 31>
@@ -25,10 +27,12 @@ included:
   statements:
   - __type__: ReferenceType
     range: included <Ln 1, Col 1 -> Ln 1, Col 31>
+    reference_count: 1
     display_type: String {>= 2 characters}
     type:
       __type__: StringType
       range: included <Ln 1, Col 7 -> Ln 1, Col 31>
+      reference_count: 1
       min_length: 2
     visibility:
       __type__: SimpleElement

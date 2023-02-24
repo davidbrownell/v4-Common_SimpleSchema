@@ -21,6 +21,19 @@ BasicStructure ->
 
 
 # ----------------------------------------------------------------------
+EmptyStructure ->
+    pass
+
+
+# ----------------------------------------------------------------------
+TypeOnly ->
+    StringRef: String { max_length: 10 }
+
+
+type_only_string: TypeOnly.StringRef
+
+
+# ----------------------------------------------------------------------
 Nested0 ->
     value0: String
 
@@ -33,13 +46,13 @@ Nested0 ->
             Nested3 ->
                 value3: String
 
-            nested_value: Nested3
+            nested_value3: Nested3
 
-        nested_value: Nested2
+        nested_value2: Nested2
 
-    nested_value: Nested1
+    nested_value1: Nested1
 
-nested_value: Nested0
+nested_value0: Nested0
 
 
 # ----------------------------------------------------------------------
