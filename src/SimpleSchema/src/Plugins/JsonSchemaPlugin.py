@@ -72,9 +72,8 @@ from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
 from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
 
 from SimpleSchema.Schema.MetadataAttributes.ContainerAttributes import PluralNameMetadataAttribute
-from SimpleSchema.Schema.MetadataAttributes.ElementAttributes import DescriptionMetadataAttribute, NameMetadataAttribute
+from SimpleSchema.Schema.MetadataAttributes.ElementAttributes import DefaultMetadataAttribute, DescriptionMetadataAttribute, NameMetadataAttribute
 from SimpleSchema.Schema.MetadataAttributes.MetadataAttribute import MetadataAttribute
-from SimpleSchema.Schema.MetadataAttributes.OptionalAttributes import DefaultMetadataAttribute
 
 from SimpleSchema.Schema.Visitor import Visitor, VisitResult
 

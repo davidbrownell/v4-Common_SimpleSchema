@@ -17,13 +17,19 @@
 
 from dataclasses import dataclass, field
 from enum import auto, IntFlag
+from typing import Any, Union, TYPE_CHECKING
 
 from Common_Foundation.Types import extensionmethod
 
 from ..Elements.Common.Cardinality import Cardinality
-from ..Elements.Common.Element import Element
 
 from ..Elements.Types.BasicType import BasicType
+
+if TYPE_CHECKING:
+    from ..Elements.Statements.ItemStatement import ItemStatement               # pragma: no cover
+    from ..Elements.Statements.StructureStatement import StructureStatement     # pragma: no cover
+
+    from ..Elements.Types.ReferenceType import ReferenceType                    # pragma: no cover
 
 
 # ----------------------------------------------------------------------
@@ -103,11 +109,23 @@ class MetadataAttribute(object):
     # |
     # ----------------------------------------------------------------------
     @extensionmethod
-    def Validate(
+    def ValidateElement(
         self,
-        element: Element,
+        element: Union["ItemStatement", "StructureStatement", "ReferenceType"],  # pylint: disable=unused-argument
     ) -> None:
         """Validate that an attribute applies and is valid for the provided element"""
 
         # No validation is performed by default
         pass
+
+    # ----------------------------------------------------------------------
+    @extensionmethod
+    def PostprocessValue(
+        self,
+        reference_type: "ReferenceType",  # pylint: disable=unused-argument
+        value: Any,
+    ) -> Any:
+        """Decorate any python values associated with attributes based on this instance"""
+
+        # No postprocessing by default
+        return value

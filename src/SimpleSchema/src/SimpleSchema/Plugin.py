@@ -31,6 +31,7 @@ from Common_FoundationEx.CompilerImpl.PluginBase import PluginBase
 
 from .Common import Errors
 from .Common.Range import Range
+from .Common.SimpleSchemaException import SimpleSchemaException
 
 from .Schema.Elements.Common.Element import Element
 from .Schema.Elements.Common.Metadata import MetadataItem
@@ -48,9 +49,8 @@ from .Schema.Elements.Types.ReferenceType import ReferenceType
 from .Schema.Elements.Types.StructureType import StructureType
 
 from .Schema.MetadataAttributes.ContainerAttributes import PluralNameMetadataAttribute
-from .Schema.MetadataAttributes.ElementAttributes import DescriptionMetadataAttribute, NameMetadataAttribute
+from .Schema.MetadataAttributes.ElementAttributes import DefaultMetadataAttribute, DescriptionMetadataAttribute, NameMetadataAttribute
 from .Schema.MetadataAttributes.MetadataAttribute import MetadataAttribute
-from .Schema.MetadataAttributes.OptionalAttributes import DefaultMetadataAttribute
 
 from .Schema.Visitor import Visitor, VisitResult
 
@@ -834,14 +834,27 @@ def _Postprocess(
                         potential_error,
                     )
 
-                attribute.Validate(referenced_element)
+                try:
+                    attribute.ValidateElement(referenced_element)
 
-                attribute_value = attribute_type.ToPython(metadata_item.expression)
+                    attribute_value = attribute_type.ToPython(metadata_item.expression)
 
-                results[attribute.name] = SimpleElement(
-                    metadata_item.expression.range,
-                    attribute_value,
-                )
+                    attribute_value = attribute.PostprocessValue(
+                        reference_type,
+                        attribute_value,
+                    )
+
+                    results[attribute.name] = SimpleElement(
+                        metadata_item.expression.range,
+                        attribute_value,
+                    )
+
+                except SimpleSchemaException as ex:
+                    ex.ranges.append(metadata_item.range)
+                    raise
+
+                except Exception as ex:
+                    raise SimpleSchemaException(metadata_item.range, str(ex)) from ex
 
             if not filter_unsupported_metadata and len(metadata) != len(results):
                 for metadata_item in metadata.values():

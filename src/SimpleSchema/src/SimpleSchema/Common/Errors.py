@@ -15,6 +15,8 @@
 # ----------------------------------------------------------------------
 """Contains errors generated during the SimpleSchema process"""
 
+import textwrap
+
 from pathlib import Path
 from typing import Tuple
 
@@ -142,7 +144,14 @@ tuple_type_item_mismatch                    = "{value} {value_verb} expected ({f
 
 uri_type_invalid_value                      = "'{value}' is not a valid URI."
 
-variant_type_invalid_value                  = "A '{python_type}' value does not correspond to any types within '{type}'."
+variant_type_invalid_value                  = textwrap.dedent(
+    """\
+    A '{python_type}' value does not correspond to any types within '{type}'.
+
+        Additional Information:
+            {additional_info}
+    """,
+)
 
 
 # ----------------------------------------------------------------------

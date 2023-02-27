@@ -124,6 +124,12 @@ class Cardinality(Element):
         def Impl(
             value: Any,
         ) -> None:
+            if value is None:
+                if self.is_optional:
+                    return
+
+                raise Exception(Errors.cardinality_validate_none_not_expected)
+
             if self.is_container:
                 if not isinstance(value, list):
                     raise Exception(Errors.cardinality_validate_list_required)
@@ -152,11 +158,13 @@ class Cardinality(Element):
 
                 return
 
+            elif self.is_optional:
+                # We don't have enough context to validate the cardinality, but it will be validated
+                # at a later time.
+                return
+
             if isinstance(value, list):
                 raise Exception(Errors.cardinality_validate_list_not_expected)
-
-            if value is None and not self.is_optional:
-                raise Exception(Errors.cardinality_validate_none_not_expected)
 
             return
 

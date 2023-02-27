@@ -15,10 +15,13 @@
 # ----------------------------------------------------------------------
 """Contains the VariantType object"""
 
+import textwrap
+
 from dataclasses import dataclass, field
 from functools import cached_property
-from typing import Any, cast, ClassVar, Tuple, Type as PythonType, Union, TYPE_CHECKING
+from typing import Any, cast, ClassVar, Optional, Tuple, Type as PythonType, Union, TYPE_CHECKING
 
+from Common_Foundation import TextwrapEx
 from Common_Foundation.Types import overridemethod
 
 from .BasicType import BasicType
@@ -90,16 +93,26 @@ class VariantType(BasicType):
         #   1) There are one ore more expression items and they correspond to a single subtype
         #   2) There are multiple expression items and they correspond to multiple subtypes
 
+        exception: Optional[Exception] = None
+
         if self.has_child_cardinality:
-            # 1
             try:
                 return self.ToPython(expression_or_value)
-            except Exception:
-                # No match
-                pass
+            except Exception as ex:
+                exception = ex
 
         # 2
-        return reference.ToPythonImpl(expression_or_value)
+        try:
+            return reference.ToPythonImpl(expression_or_value)
+        except Exception as ex:
+            if exception is None:
+                raise
+
+            # If here, we are in an ambiguous situation. The user error causing the exception
+            # could either be because they were specifying a child type with in valid cardinality
+            # or the cardinality of the variant itself is invalid. Assume that the problem is
+            # with the child cardinality.
+            raise exception from ex
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -111,18 +124,40 @@ class VariantType(BasicType):
         def Impl(
             value: Any,
         ) -> Any:
+            exceptions: list[Exception] = []
+
             for sub_type in self.types:
                 try:
                     return sub_type.ToPython(value)
-                except:  # pylint: disable=bare-except
-                    # The type did not match
-                    pass
+                except Exception as ex:
+                    exceptions.append(ex)
 
             # If here, we didn't find a matching type
             raise Exception(
                 Errors.variant_type_invalid_value.format(
                     python_type=type(value).__name__,
                     type=self.display_type,
+                    additional_info=TextwrapEx.Indent(
+                        "".join(
+                            textwrap.dedent(
+                                """\
+                                {}
+                                    {}
+
+                                """,
+                            ).format(
+                                sub_type.display_type,
+                                TextwrapEx.Indent(
+                                    str(exception),
+                                    4,
+                                    skip_first_line=True,
+                                ).rstrip(),
+                            )
+                            for sub_type, exception in zip(self.types, exceptions)
+                        ).rstrip(),
+                        8,
+                        skip_first_line=True,
+                    ),
                 ),
             )
 

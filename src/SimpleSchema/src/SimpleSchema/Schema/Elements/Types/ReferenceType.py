@@ -259,6 +259,13 @@ class ReferenceType(BaseType):
         expression_or_value: Union[Expression, Any],
     ) -> Any:
         with self.Resolve() as resolved_type:
+            if isinstance(expression_or_value, (NoneExpression, NoneType)):
+                self.cardinality.Validate(expression_or_value)
+                return None
+
+            if self.cardinality.is_optional:
+                return self.type.ToPython(expression_or_value)
+
             if (
                 (resolved_type.flags & ReferenceType.Flag.BasicRef)
                 and isinstance(resolved_type.type, VariantType)
@@ -277,10 +284,9 @@ class ReferenceType(BaseType):
         self,
         expression_or_value: Union[Expression, Any],
     ) -> Any:
-        self.cardinality.Validate(expression_or_value)
+        assert not isinstance(expression_or_value, (NoneExpression, NoneType))
 
-        if isinstance(expression_or_value, (NoneExpression, NoneType)):
-            return None
+        self.cardinality.Validate(expression_or_value)
 
         if isinstance(expression_or_value, (ListExpression, list)):
             if isinstance(expression_or_value, ListExpression):
