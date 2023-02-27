@@ -86,6 +86,8 @@ ParseTupleTypeMissingTypes                  = DynamicSimpleSchemaException.Creat
 ParseVariantTypeMissingTypes                = DynamicSimpleSchemaException.CreateType("Not enough types were provided.")
 ParseVariantTypeNestedType                  = DynamicSimpleSchemaException.CreateType("Nested variant types are not supported.")
 
+ReferenceTypeOptionalToOptional             = DynamicSimpleSchemaException.CreateType("Optional reference types may not reference optional reference types.")
+
 RootStatementInvalidNested                  = DynamicSimpleSchemaException.CreateType("Root statements may not be nested.")
 
 TupleExpressionNoExpressions                = DynamicSimpleSchemaException.CreateType("No expressions were provided.")

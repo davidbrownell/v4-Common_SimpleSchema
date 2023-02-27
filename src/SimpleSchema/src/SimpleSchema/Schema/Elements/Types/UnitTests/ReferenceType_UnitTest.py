@@ -178,7 +178,7 @@ class TestCreate(object):
         assert rt.flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
-    def test_MultipleReference(self):
+    def test_ContainerReference(self):
         range_mock = Mock()
         visibility_mock = Mock()
         name_mock = Mock()
@@ -194,7 +194,7 @@ class TestCreate(object):
             visibility_mock,
             name_mock,
             type_mock,
-            Cardinality.CreateFromCode(0, 1),
+            Cardinality.CreateFromCode(0, 10),
             metadata_mock,
         )
 
@@ -202,7 +202,7 @@ class TestCreate(object):
         assert rt.visibility is visibility_mock
         assert rt.name is name_mock
         assert rt.type is type_mock
-        assert rt.cardinality.is_optional
+        assert rt.cardinality.is_container
         assert rt.metadata is metadata_mock
         assert rt.flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
 
@@ -611,6 +611,26 @@ def test_ReferenceCount():
     rt.Increment(shallow=True)
     assert rt.reference_count == 3
     assert referenced_type.Increment.call_count == 3
+
+
+# ----------------------------------------------------------------------
+def test_ErrorOptionalToOptional():
+    referenced_type = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(0, 1), range_value=Range.Create(Path("filename"), 1, 2, 3, 4))
+
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape(
+            textwrap.dedent(
+                """\
+                Optional reference types may not reference optional reference types.
+
+                    - filename <Ln 10, Col 20 -> Ln 30, Col 40>
+                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
+                """,
+            ),
+        )
+    ):
+        _Create(referenced_type, Cardinality.CreateFromCode(0, 1), range_value=Range.Create(Path("filename"), 10, 20, 30, 40))
 
 
 # ----------------------------------------------------------------------

@@ -112,6 +112,8 @@ class DefaultMetadataAttribute(MetadataAttribute):
             ],
         )
 
+        # TODO: Add support for N dimensional arrays
+
         object.__setattr__(self, "type", variant)
 
     # ----------------------------------------------------------------------
