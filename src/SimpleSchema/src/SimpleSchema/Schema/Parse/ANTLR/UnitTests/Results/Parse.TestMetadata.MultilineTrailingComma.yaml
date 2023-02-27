@@ -1,0 +1,153 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 15, Col 1>
+  statements:
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 5, Col 1>
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: multiple1
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 1, Col 12 -> Ln 3, Col 2>
+      reference_count: 0
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 12 -> Ln 3, Col 2>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 12 -> Ln 3, Col 2>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 12 -> Ln 3, Col 2>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 1, Col 19 -> Ln 3, Col 2>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 2, Col 5 -> Ln 2, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 11>
+            value: value1
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 2, Col 13 -> Ln 2, Col 15>
+            value: 10
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 18>
+        value: String
+    visibility: Visibility.Public
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 5, Col 1 -> Ln 10, Col 1>
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 10>
+      value: multiple2
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 5, Col 12 -> Ln 8, Col 2>
+      reference_count: 0
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 5, Col 12 -> Ln 8, Col 2>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 5, Col 12 -> Ln 8, Col 2>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 5, Col 12 -> Ln 8, Col 2>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 5, Col 19 -> Ln 8, Col 2>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 6, Col 5 -> Ln 6, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 6, Col 5 -> Ln 6, Col 11>
+            value: value1
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 6, Col 13 -> Ln 6, Col 15>
+            value: 10
+        - __type__: MetadataItem
+          range: entry_point <Ln 7, Col 5 -> Ln 7, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 7, Col 5 -> Ln 7, Col 11>
+            value: value2
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 7, Col 13 -> Ln 7, Col 15>
+            value: 20
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
+        value: String
+    visibility: Visibility.Public
+  - __type__: ParseItemStatement
+    range: entry_point <Ln 10, Col 1 -> Ln 15, Col 1>
+    name:
+      __type__: ParseIdentifier
+      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 10>
+      value: multiple3
+    type:
+      __type__: ParseIdentifierType
+      range: entry_point <Ln 10, Col 12 -> Ln 14, Col 2>
+      reference_count: 0
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 10, Col 12 -> Ln 14, Col 2>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 10, Col 12 -> Ln 14, Col 2>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 10, Col 12 -> Ln 14, Col 2>
+          value: 1
+      metadata:
+        __type__: Metadata
+        range: entry_point <Ln 10, Col 19 -> Ln 14, Col 2>
+        items:
+        - __type__: MetadataItem
+          range: entry_point <Ln 11, Col 5 -> Ln 11, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 11, Col 5 -> Ln 11, Col 11>
+            value: value1
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 11, Col 13 -> Ln 11, Col 15>
+            value: 10
+        - __type__: MetadataItem
+          range: entry_point <Ln 12, Col 5 -> Ln 12, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 12, Col 5 -> Ln 12, Col 11>
+            value: value2
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 12, Col 13 -> Ln 12, Col 15>
+            value: 20
+        - __type__: MetadataItem
+          range: entry_point <Ln 13, Col 5 -> Ln 13, Col 15>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 13, Col 5 -> Ln 13, Col 11>
+            value: value3
+          expression:
+            __type__: IntegerExpression
+            range: entry_point <Ln 13, Col 13 -> Ln 13, Col 15>
+            value: 30
+      identifiers:
+      - __type__: ParseIdentifier
+        range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
+        value: String
+    visibility: Visibility.Public
