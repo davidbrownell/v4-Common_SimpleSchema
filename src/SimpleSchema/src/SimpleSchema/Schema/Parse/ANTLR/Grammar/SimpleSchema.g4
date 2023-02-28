@@ -120,7 +120,7 @@ metadata_clause:                            '{' (metadata_clause_single_line__ |
 metadata_clause_single_line__:              'pass' | (metadata_clause_item (',' metadata_clause_item)* ','?);
 metadata_clause_multi_line__:               INDENT (
                                                 ('pass' NEWLINE+)
-                                                | (metadata_clause_item NEWLINE+)+
+                                                | (metadata_clause_item ','? NEWLINE+)+
                                             ) DEDENT;
 metadata_clause_item:                       identifier ':' expression__;
 

@@ -91,6 +91,29 @@ class TestMetadata(object):
             ),
         )
 
+    # ----------------------------------------------------------------------
+    def test_MultilineTrailingComma(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                multiple1: String {
+                    value1: 10,
+                }
+
+                multiple2: String {
+                    value1: 10,
+                    value2: 20
+                }
+
+                multiple3: String {
+                    value1: 10,
+                    value2: 20,
+                    value3: 30,
+                }
+                """,
+            ),
+        )
+
 
 # ----------------------------------------------------------------------
 def test_Cardinality():

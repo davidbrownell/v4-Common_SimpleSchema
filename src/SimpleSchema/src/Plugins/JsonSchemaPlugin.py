@@ -72,9 +72,8 @@ from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
 from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
 
 from SimpleSchema.Schema.MetadataAttributes.ContainerAttributes import PluralNameMetadataAttribute
-from SimpleSchema.Schema.MetadataAttributes.ElementAttributes import DescriptionMetadataAttribute, NameMetadataAttribute
+from SimpleSchema.Schema.MetadataAttributes.ElementAttributes import DefaultMetadataAttribute, DescriptionMetadataAttribute, NameMetadataAttribute
 from SimpleSchema.Schema.MetadataAttributes.MetadataAttribute import MetadataAttribute
-from SimpleSchema.Schema.MetadataAttributes.OptionalAttributes import DefaultMetadataAttribute
 
 from SimpleSchema.Schema.Visitor import Visitor, VisitResult
 
@@ -673,10 +672,9 @@ class _Visitor(Visitor):
         if description is not None:
             new_schema["description"] = description.value
 
-        if element.cardinality.is_optional:
-            default_value = resolved_metadata.get(DefaultMetadataAttribute.name, None)
-            if default_value is not None:
-                new_schema["default"] = default_value.value
+        default_value = resolved_metadata.get(DefaultMetadataAttribute.name, None)
+        if default_value is not None:
+            new_schema["default"] = default_value.value
 
         assert not self._schema_info_lookup[schema_info_lookup_key].schema
         self._schema_info_lookup[schema_info_lookup_key].schema.update(new_schema)

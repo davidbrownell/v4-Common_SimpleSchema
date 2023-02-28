@@ -15,6 +15,8 @@
 # ----------------------------------------------------------------------
 """Contains errors generated during the SimpleSchema process"""
 
+import textwrap
+
 from pathlib import Path
 from typing import Tuple
 
@@ -84,6 +86,8 @@ ParseTupleTypeMissingTypes                  = DynamicSimpleSchemaException.Creat
 ParseVariantTypeMissingTypes                = DynamicSimpleSchemaException.CreateType("Not enough types were provided.")
 ParseVariantTypeNestedType                  = DynamicSimpleSchemaException.CreateType("Nested variant types are not supported.")
 
+ReferenceTypeOptionalToOptional             = DynamicSimpleSchemaException.CreateType("Optional reference types may not reference optional reference types.")
+
 RootStatementInvalidNested                  = DynamicSimpleSchemaException.CreateType("Root statements may not be nested.")
 
 TupleExpressionNoExpressions                = DynamicSimpleSchemaException.CreateType("No expressions were provided.")
@@ -142,7 +146,14 @@ tuple_type_item_mismatch                    = "{value} {value_verb} expected ({f
 
 uri_type_invalid_value                      = "'{value}' is not a valid URI."
 
-variant_type_invalid_value                  = "A '{python_type}' value does not correspond to any types within '{type}'."
+variant_type_invalid_value                  = textwrap.dedent(
+    """\
+    A '{python_type}' value does not correspond to any types within '{type}'.
+
+        Additional Information:
+            {additional_info}
+    """,
+)
 
 
 # ----------------------------------------------------------------------

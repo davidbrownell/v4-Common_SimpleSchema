@@ -17,6 +17,7 @@
 
 import re
 import sys
+import textwrap
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -330,13 +331,28 @@ def test_ErrorNoMatchesPython():
 def test_ErrorNoMatchesExpression():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("A 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)'. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
+        match=re.escape(
+            textwrap.dedent(
+                """\
+                A 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)'.
+
+                    Additional Information:
+                        SimpleString
+                            A 'float' value cannot be converted to a 'SimpleString' type. (filename <Ln 1, Col 2 -> Ln 3, Col 4>)
+
+                        SimpleInteger
+                            A 'float' value cannot be converted to a 'SimpleInteger' type. (filename <Ln 11, Col 22 -> Ln 33, Col 44>)
+
+                    - filename <Ln 100, Col 200 -> Ln 300, Col 400>
+                """,
+            ),
+        ),
     ):
         VariantType(
             Mock(),
             [
-                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
-                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Range.Create(Path("filename"), 1, 2, 3, 4), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Range.Create(Path("filename"), 11, 22, 33, 44), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(
             NumberExpression(
@@ -350,13 +366,28 @@ def test_ErrorNoMatchesExpression():
 def test_ErrorNoMatchesExpressionChildCardinality():
     with pytest.raises(
         SimpleSchemaException,
-        match=re.escape("A 'list' value does not correspond to any types within '(SimpleString[2] | SimpleInteger)'. (filename <Ln 100, Col 200 -> Ln 300, Col 400>)"),
+        match=re.escape(
+            textwrap.dedent(
+                """\
+                A 'list' value does not correspond to any types within '(SimpleString[2] | SimpleInteger)'.
+
+                    Additional Information:
+                        SimpleString[2]
+                            At least 2 items were expected (1 item was found). (filename <Ln 1, Col 2 -> Ln 3, Col 4>)
+
+                        SimpleInteger
+                            A list of items was not expected. (filename <Ln 10, Col 20 -> Ln 30, Col 40>)
+
+                    - filename <Ln 100, Col 200 -> Ln 300, Col 400>
+                """,
+            ),
+        ),
     ):
         VariantType(
             Mock(),
             [
-                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(2, 2), None),
-                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Range.Create(Path("filename"), 1, 2, 3, 4), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(2, 2), None),
+                ReferenceType.Create(Range.Create(Path("filename"), 10, 20, 30, 40), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(
             ListExpression(
@@ -367,6 +398,88 @@ def test_ErrorNoMatchesExpressionChildCardinality():
             ),
         )
 
+
+# ----------------------------------------------------------------------
+def test_ErrorNoMatchesExpressionChildCardinalityViaReferenceType():
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape(
+            textwrap.dedent(
+                """\
+                A 'list' value does not correspond to any types within '(SimpleString[2] | SimpleInteger)'.
+
+                    Additional Information:
+                        SimpleString[2]
+                            At least 2 items were expected (1 item was found). (filename <Ln 1, Col 2 -> Ln 3, Col 4>)
+
+                        SimpleInteger
+                            A list of items was not expected. (filename <Ln 10, Col 20 -> Ln 30, Col 40>)
+
+                    - filename <Ln 100, Col 200 -> Ln 300, Col 400>
+                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
+                """,
+            ),
+        ),
+    ):
+        ReferenceType.Create(
+            Range.Create(Path("filename"), 1, 2, 3, 4),
+            Mock(),
+            Mock(),
+            VariantType(
+                Mock(),
+                [
+                    ReferenceType.Create(Range.Create(Path("filename"), 1, 2, 3, 4), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(2, 2), None),
+                    ReferenceType.Create(Range.Create(Path("filename"), 10, 20, 30, 40), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                ],
+            ),
+            Cardinality.CreateFromCode(),
+            None,
+        ).ToPython(
+            ListExpression(
+                Range.Create(Path("filename"), 100, 200, 300, 400),
+                [
+                    NumberExpression(Mock(), 3.14),
+                ],
+            ),
+        )
+
+
+# ----------------------------------------------------------------------
+def test_ErrorNoMatchesExpressionViaReferenceType():
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape(
+            textwrap.dedent(
+                """\
+                A 'float' value does not correspond to any types within '(SimpleString | SimpleInteger)'.
+
+                    Additional Information:
+                        SimpleString
+                            A 'float' value cannot be converted to a 'SimpleString' type. (filename <Ln 11, Col 22 -> Ln 33, Col 44>)
+
+                        SimpleInteger
+                            A 'float' value cannot be converted to a 'SimpleInteger' type. (filename <Ln 111, Col 222 -> Ln 333, Col 444>)
+
+                    - filename <Ln 100, Col 200 -> Ln 300, Col 400>
+                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
+                """,
+            ),
+        ),
+    ):
+        ReferenceType.Create(
+            Range.Create(Path("filename"), 1, 2, 3, 4),
+            Mock(),
+            Mock(),
+            VariantType(
+                Mock(),
+                [
+                    ReferenceType.Create(Range.Create(Path("filename"), 11, 22, 33, 44), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
+                    ReferenceType.Create(Range.Create(Path("filename"), 111, 222, 333, 444), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                ],
+            ),
+            Cardinality.CreateFromCode(),
+            None,
+        ).ToPython(NumberExpression(Range.Create(Path("filename"), 100, 200, 300, 400), 3.14))
 
 # ----------------------------------------------------------------------
 def test_ReferenceCount():

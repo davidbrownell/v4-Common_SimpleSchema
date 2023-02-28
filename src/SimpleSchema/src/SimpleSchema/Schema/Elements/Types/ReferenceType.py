@@ -41,6 +41,7 @@ from ..Expressions.NoneExpression import NoneExpression
 from ..Types.StructureType import StructureType
 from ..Types.VariantType import VariantType
 
+from ....Common import Errors
 from ....Common.Range import Range
 from ....Common.SimpleSchemaException import SimpleSchemaException
 
@@ -175,6 +176,12 @@ class ReferenceType(BaseType):
             or not self.cardinality.is_single
         ):
             flags |= ReferenceType.Flag.Type
+
+            if self.cardinality.is_optional and isinstance(self.type, ReferenceType):
+                with self.type.Resolve() as resolved_type:
+                    if resolved_type.cardinality.is_optional:
+                        raise Errors.ReferenceTypeOptionalToOptional.Create(self.range)
+
         else:
             flags |= ReferenceType.Flag.Alias
 
@@ -259,6 +266,13 @@ class ReferenceType(BaseType):
         expression_or_value: Union[Expression, Any],
     ) -> Any:
         with self.Resolve() as resolved_type:
+            if isinstance(expression_or_value, (NoneExpression, NoneType)):
+                self.cardinality.Validate(expression_or_value)
+                return None
+
+            if self.cardinality.is_optional:
+                return self.type.ToPython(expression_or_value)
+
             if (
                 (resolved_type.flags & ReferenceType.Flag.BasicRef)
                 and isinstance(resolved_type.type, VariantType)
@@ -277,10 +291,9 @@ class ReferenceType(BaseType):
         self,
         expression_or_value: Union[Expression, Any],
     ) -> Any:
-        self.cardinality.Validate(expression_or_value)
+        assert not isinstance(expression_or_value, (NoneExpression, NoneType))
 
-        if isinstance(expression_or_value, (NoneExpression, NoneType)):
-            return None
+        self.cardinality.Validate(expression_or_value)
 
         if isinstance(expression_or_value, (ListExpression, list)):
             if isinstance(expression_or_value, ListExpression):
