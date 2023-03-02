@@ -34,7 +34,7 @@ from Common_Foundation import SubprocessEx
 _this_dir                                   = Path(__file__).parent
 _name                                       = _this_dir.name
 
-_initial_year                               = 2023
+_initial_year                               = 2023  # pylint: disable=invalid-name
 
 
 # ----------------------------------------------------------------------
@@ -47,7 +47,8 @@ with ExitStack(lambda: sys.path.pop(0)):
 # ----------------------------------------------------------------------
 def _GetVersion() -> str:
     result = SubprocessEx.Run(
-        'AutoSemVer{ext} Generate --no-metadata --style AllMetadata --quiet'.format(
+        # TODO: 'AutoSemVer{ext} Generate --no-metadata --style AllMetadata --quiet'.format(
+            'AutoSemVer{ext} Generate --no-branch-name --no-metadata --style AllMetadata --quiet'.format( # TODO
             ext=CurrentShell.script_extensions[0],
         ),
         cwd=_this_dir,
@@ -56,7 +57,7 @@ def _GetVersion() -> str:
     assert result.returncode == 0, result.output
     return result.output.strip()
 
-_version = _GetVersion()
+_version = _GetVersion()  # pylint: disable=invalid-name
 del _GetVersion
 
 
