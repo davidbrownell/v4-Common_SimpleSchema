@@ -27,3 +27,13 @@ jobs:
     uses: davidbrownell/v4-Common_SimpleSchema/.github/workflows/validate.yaml@CI-latest
     with:
       repo_branch: ${{ github.head_ref }}
+
+  _fc68e2fb-f282-4f22-aa12-b6ac8e628bc9:
+    name: "Validate Pull Request (target: ${{ github.base_ref }})"
+    uses: davidbrownell/v4-Common_Foundation/.github/workflows/callable_validate_pull_request.yaml@CI-latest
+    with:
+      job_name_prefix: Common_SimpleSchema
+      repo_name: davidbrownell/v4-Common_SimpleSchema
+      repo_branch: ${{ github.head_ref }}
+      os: ubuntu-latest
+      configuration: dev
