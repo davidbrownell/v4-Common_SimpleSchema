@@ -170,10 +170,10 @@ _RESOLVED_METADATA_ATTRIBUTE_NAME           = "_resolved_metadata__"
 
 # ----------------------------------------------------------------------
 class _ReferenceTypeCategory(Enum):
-        Item                                = auto()
-        Structure                           = auto()
-        Typedef                             = auto()
-        Base                                = auto()
+    Item                                    = auto()
+    Structure                               = auto()
+    Typedef                                 = auto()
+    Base                                    = auto()
 
 
 # ----------------------------------------------------------------------
@@ -621,7 +621,100 @@ class _Pass2Visitor(Visitor):
         def GetPotentialError(
             attribute: MetadataAttribute,
         ) -> Optional[str]:
-            pass # TODO
+            MetadataFlag = MetadataAttribute.Flag
+
+            # Element type flags
+            element_type_flags = attribute.flags & MetadataFlag.ElementTypeMask
+
+            if element_type_flags != 0 and element_type_flags != MetadataFlag.Element:
+                if element_type_flags == MetadataFlag.RootElement and not is_root:
+                    return Errors.normalize_metadata_element_root
+
+                if element_type_flags == MetadataFlag.NestedElement and is_root:
+                    return Errors.normalize_metadata_element_nested
+
+                if element_type_flags & MetadataFlag.Item:
+                    if reference_type_category != _ReferenceTypeCategory.Item:
+                        return Errors.normalize_metadata_item
+
+                    if element_type_flags == MetadataFlag.RootItem and not is_root:
+                        return Errors.normalize_metadata_item_root
+
+                    if element_type_flags == MetadataFlag.NestedItem and is_root:
+                        return Errors.normalize_metadata_item_nested
+
+                if element_type_flags & MetadataFlag.Structure:
+                    if reference_type_category != _ReferenceTypeCategory.Structure:
+                        return Errors.normalize_metadata_structure
+
+                    if element_type_flags == MetadataFlag.RootStructure and not is_root:
+                        return Errors.normalize_metadata_structure_root
+
+                    if element_type_flags == MetadataFlag.NestedStructure and is_root:
+                        return Errors.normalize_metadata_structure_nested
+
+                if element_type_flags & MetadataFlag.Type:
+                    if reference_type_category != _ReferenceTypeCategory.Typedef:
+                        return Errors.normalize_metadata_type
+
+                    if element_type_flags == MetadataFlag.RootType and not is_root:
+                        return Errors.normalize_metadata_type_root
+
+                    if element_type_flags == MetadataFlag.NestedType and is_root:
+                        return Errors.normalize_metadata_type_nested
+
+                if element_type_flags & MetadataFlag.BaseType:
+                    if reference_type_category != _ReferenceTypeCategory.Base:
+                        return Errors.normalize_metadata_base
+
+            # Cardinality flags
+            cardinality_flags = attribute.flags & MetadataFlag.CardinalityMask
+
+            if cardinality_flags != 0:
+                with reference_type.Resolve() as resolved_type:
+                    cardinality = resolved_type.cardinality
+
+                if cardinality_flags & MetadataFlag.SingleCardinality and not cardinality.is_single:
+                    return Errors.normalize_metadata_cardinality_single
+
+                if cardinality_flags & MetadataFlag.OptionalCardinality and not cardinality.is_optional:
+                    return Errors.normalize_metadata_cardinality_optional
+
+                if cardinality_flags & MetadataFlag.ContainerCardinality and not cardinality.is_container:
+                    return Errors.normalize_metadata_cardinality_container
+
+                if (
+                    cardinality_flags & MetadataFlag.ZeroOrMoreCardinality
+                    and not (
+                        cardinality.is_container
+                        and cardinality.min.value == 0
+                        and cardinality.max is None
+                    )
+                ):
+                    return Errors.normalize_metadata_cardinality_zero_or_more
+
+                if (
+                    cardinality_flags & MetadataFlag.OneOrMoreCardinality
+                    and not (
+                        cardinality.is_container
+                        and cardinality.min.value == 1
+                        and cardinality.max is None
+                    )
+                ):
+                    return Errors.normalize_metadata_cardinality_one_or_more
+
+                if (
+                    cardinality_flags & MetadataFlag.FixedContainerCardinality
+                    and not (
+                        cardinality.is_container
+                        and cardinality.max is not None
+                        and cardinality.max.value == cardinality.min.value
+                    )
+                ):
+                    return Errors.normalize_metadata_cardinality_fixed
+
+            # If here, the metadata is valid in this location
+            return None
 
         # ----------------------------------------------------------------------
 
