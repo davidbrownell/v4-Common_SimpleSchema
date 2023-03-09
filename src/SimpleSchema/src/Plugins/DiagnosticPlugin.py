@@ -106,7 +106,7 @@ class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
                 | PluginBase.Flag.AllowNestedItems
                 | PluginBase.Flag.AllowRootTypes
                 | PluginBase.Flag.AllowNestedTypes
-                | PluginBase.Flag.AlwaysDisableUnsupportedItems
+                | PluginBase.Flag.AlwaysDisableUnsupported
             ),
             custom_extension_names=None,
             custom_metadata_attributes=None,

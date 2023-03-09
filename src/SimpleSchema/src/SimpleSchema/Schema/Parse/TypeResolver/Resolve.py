@@ -15,13 +15,11 @@
 # ----------------------------------------------------------------------
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Callable, cast, Iterator, Optional, Tuple, Type as TypeOf, TypeVar, Union
+from typing import Callable, cast, Iterator, Optional, Type as TypeOf, TypeVar, Union
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Streams.DoneManager import DoneManager
 from Common_Foundation.Types import overridemethod
-
-from Common_FoundationEx import ExecuteTasks
 
 from .Impl.Namespace import Namespace
 from .Impl.TypeFactories import ReferenceTypeFactory, StructureTypeFactory
@@ -43,6 +41,7 @@ from ...Elements.Types.FundamentalType import FundamentalType
 from ...Elements.Types.FundamentalTypes import AllFundamentalTypes
 
 from ....Common import Errors
+from ....Common.ExecuteInParallel import ExecuteInParallel as ExecuteInParallelImpl
 
 
 # ----------------------------------------------------------------------
@@ -288,53 +287,15 @@ def _ExecuteInParallel(
     dict[Path, Exception],
     dict[Path, _ExecuteInParallelOutputT],
 ]:
-    # ----------------------------------------------------------------------
-    def Execute(
-        context: _ExecuteInParallelInputT,
-        on_simple_status_func: Callable[[str], None],  # pylint: disable=unused-argument
-    ) -> Tuple[
-        Optional[int],
-        ExecuteTasks.TransformStep2FuncType[Union[Exception, _ExecuteInParallelOutputT]],
-    ]:
-        # ----------------------------------------------------------------------
-        def Impl(
-            status: ExecuteTasks.Status,  # pylint: disable=unused-argument
-        ) -> Tuple[Union[Exception, _ExecuteInParallelOutputT], Optional[str]]:
-            return func(context), None
-
-        # ----------------------------------------------------------------------
-
-        return None, Impl
-
-    # ----------------------------------------------------------------------
-
-    exceptions: dict[Path, Exception] = {}
-    results: dict[Path, _ExecuteInParallelOutputT] = {}
-
-    for filename, result in zip(
-        items.keys(),
-        ExecuteTasks.Transform(
-            dm,
-            "Processing",
-            [
-                ExecuteTasks.TaskData(str(filename), context)
-                for filename, context in items.items()
-            ],
-            Execute,
-            quiet=quiet,
-            max_num_threads=max_num_threads,
-            return_exceptions=True,
-        ),
-    ):
-        if isinstance(result, Exception):
-            exceptions[filename] = result
-        else:
-            results[filename] = cast(_ExecuteInParallelOutputT, result)
-
-    if raise_if_single_exception and exceptions and len(exceptions) == 1:
-        raise next(iter(exceptions.values()))
-
-    return exceptions or results
+    return ExecuteInParallelImpl(
+        dm,
+        "Processing",
+        items,
+        lambda context, status: func(context),
+        quiet=quiet,
+        max_num_threads=max_num_threads,
+        raise_if_single_exception=raise_if_single_exception,
+    )
 
 
 # ----------------------------------------------------------------------

@@ -60,12 +60,15 @@ with ExitStack(lambda: sys.path.pop(0)):
     #       - This file as 'EntryPoint/__main__.py' rather than '../EntryPoint.py'
     #       - Build.py/setup.py located outside of 'src'
 
-    from SimpleSchema.Plugin import Plugin                                                      # pylint: disable=import-error
+    from SimpleSchema.Common.ExecuteInParallel import ExecuteInParallel as ExecuteInParallelImpl    # pylint: disable=import-error
 
-    from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement             # pylint: disable=import-error
+    from SimpleSchema.Plugin import Plugin                                                          # pylint: disable=import-error
 
-    from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse                                     # pylint: disable=import-error
-    from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve                          # pylint: disable=import-error
+    from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement                 # pylint: disable=import-error
+
+    from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse                                         # pylint: disable=import-error
+    from SimpleSchema.Schema.Parse.Normalize.Normalize import Normalize, Flag as NormalizeFlag      # pylint: disable=import-error
+    from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve                              # pylint: disable=import-error
 
 
 # ----------------------------------------------------------------------
@@ -311,6 +314,8 @@ class CodeGenerator(
             bool,                           # True to continue, False to terminate
         ],
     ) -> Optional[str]:                     # Optional short description that provides input about the result
+        plugin = self.GetPlugin(context)
+
         # Parse
         on_progress_func(CodeGenerator._Steps.Parsing.value, "Parsing...")
 
@@ -382,15 +387,39 @@ class CodeGenerator(
 
             return None
 
+        # Normalize
+        flags = plugin.flags
+
+        for context_name, flag in [
+            ("filter_unsupported_extensions", NormalizeFlag.DisableUnsupportedExtensions),
+            ("filter_unsupported_metadata", NormalizeFlag.DisableUnsupportedMetadata),
+            ("filter_unsupported_root_elements", NormalizeFlag.DisableUnsupportedRootElements),
+            ("filter_unsupported_nested_elements", NormalizeFlag.DisableUnsupportedNestedElements),
+        ]:
+            if context.get(context_name, False):
+                flags |= flag
+
+        results = Normalize(
+            dm,
+            roots,
+            plugin.metadata_attributes,
+            plugin.extension_names,
+            flags,
+            single_threaded=False,
+            quiet=False,
+            raise_if_single_exception=False,
+        )
+
+        if dm.result != 0:
+            assert results is not None
+            assert all(isinstance(result, Exception) for result in results.values())
+
+            _PrintExceptions(dm, cast(dict[Path, Exception], results))
+
+            return None
+
         # Validate
         on_progress_func(CodeGenerator._Steps.Validating.value, "Validating...")
-
-        plugin = self.GetPlugin(context)
-
-        filter_unsupported_extensions = context.pop("filter_unsupported_extensions", False)
-        filter_unsupported_metadata = context.pop("filter_unsupported_metadata", False)
-        filter_unsupported_root_elements = context.pop("filter_unsupported_root_elements", False)
-        filter_unsupported_nested_elements = context.pop("filter_unsupported_nested_elements", False)
 
         # ----------------------------------------------------------------------
         def Validate(
@@ -398,13 +427,7 @@ class CodeGenerator(
             root: RootStatement,
             on_status_func: Callable[[str], None],      # pylint: disable=unused-argument
         ) -> None:
-            plugin.Validate(
-                root,
-                filter_unsupported_extensions=filter_unsupported_extensions,
-                filter_unsupported_metadata=filter_unsupported_metadata,
-                filter_unsupported_root_elements=filter_unsupported_root_elements,
-                filter_unsupported_nested_elements=filter_unsupported_nested_elements,
-            )
+            plugin.Validate(root)
 
         # ----------------------------------------------------------------------
 
@@ -562,51 +585,35 @@ def _ExecuteInParallel(
 ) -> None:
     # ----------------------------------------------------------------------
     def Execute(
-        context: Tuple[Path, RootStatement],
-        on_simple_status_func: Callable[[str], None],  # pylint: disable=unused-argument
-    ) -> Tuple[Optional[int], ExecuteTasks.TransformStep2FuncType[None]]:
+        context: tuple[Path, RootStatement],
+        status: ExecuteTasks.Status,
+    ) -> None:
         filename, root = context
         del context
 
-        # ----------------------------------------------------------------------
-        def Impl(
-            status: ExecuteTasks.Status,
-        ) -> Tuple[None, Optional[str]]:
-            func(
-                filename,
-                root,
-                lambda value: cast(None, status.OnProgress(None, value)),
-            )
-
-            return None, None
-
-        # ----------------------------------------------------------------------
-
-        return None, Impl
+        func(
+            filename,
+            root,
+            lambda value: cast(None, status.OnProgress(None, value)),
+        )
 
     # ----------------------------------------------------------------------
 
-    results: list[Optional[Exception]] = ExecuteTasks.Transform(
+    results = ExecuteInParallelImpl(
         dm,
         heading,
-        [
-            ExecuteTasks.TaskData(str(filename), (filename, root))
+        {
+            filename: (filename, root)
             for filename, root in roots.items()
-        ],
-        Execute,  # The return type confuses linters  # type: ignore
-        return_exceptions=True,
+        },
+        Execute,
+        quiet=False,
+        max_num_threads=None,
+        raise_if_single_exception=False,
     )
 
-    exceptions: dict[Path, Exception] = {}
-
-    for filename, result in zip(roots.keys(), results):
-        if result is None:
-            continue
-
-        exceptions[filename] = result
-
-    if exceptions:
-        _PrintExceptions(dm, exceptions)
+    if isinstance(results, dict) and isinstance(next(iter(results.values())), Exception):
+        _PrintExceptions(dm, cast(dict[Path, Exception], results))
 
 
 # ----------------------------------------------------------------------
