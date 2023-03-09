@@ -217,7 +217,7 @@ class _CreateNamespacesVisitor(Visitor):
                 ParseIdentifier(element.range, unique_type_name),
                 element.bases,
                 element.cardinality,
-                element.metadata,
+                element.unresolved_metadata,
                 element.children,
             )
 

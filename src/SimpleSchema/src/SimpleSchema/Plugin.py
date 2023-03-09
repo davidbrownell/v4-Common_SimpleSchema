@@ -134,37 +134,6 @@ class Plugin(PluginBase):
         raise Exception("Abstract method")  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    def GetUniqueTypeName(
-        self,
-        the_type: ReferenceCountMixin,
-    ) -> str:
-        result = getattr(
-            the_type,
-            _UNIQUE_TYPE_NAME_ATTRIBUTE_NAME,
-            None,
-        )
-
-        assert result is not None
-        return result
-
-    # ----------------------------------------------------------------------
-    def GetResolvedMetadata(
-        self,
-        reference_type: ReferenceType,
-    ) -> dict[str, SimpleElement]:
-        result = getattr(
-            reference_type,
-            _RESOLVED_METADATA_ATTRIBUTE_NAME,
-            None,
-        )
-
-        if result is None:
-            assert reference_type.is_disabled
-            return {}
-
-        return result
-
-    # ----------------------------------------------------------------------
     # |
     # |  Protected Methods
     # |
@@ -223,12 +192,3 @@ class Plugin(PluginBase):
                 filename_map[input_filename] = output_filenames
 
         return filename_map
-
-
-# ----------------------------------------------------------------------
-# |
-# |  Private Types
-# |
-# ----------------------------------------------------------------------
-_RESOLVED_METADATA_ATTRIBUTE_NAME           = "_resolved_metadata__"
-_UNIQUE_TYPE_NAME_ATTRIBUTE_NAME            = "_unique_type_name__"

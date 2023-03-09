@@ -42,7 +42,7 @@ class ParseStructureStatement(Statement):
     name: ParseIdentifier
     bases: Optional[list[ParseIdentifierType]]
     cardinality: Cardinality
-    metadata: Optional[Metadata]
+    unresolved_metadata: Optional[Metadata]
     children: list[Statement]  # Can be Empty
 
     # ----------------------------------------------------------------------
@@ -57,8 +57,8 @@ class ParseStructureStatement(Statement):
 
         yield "cardinality", self.cardinality
 
-        if self.metadata:
-            yield "metadata", self.metadata
+        if self.unresolved_metadata:
+            yield "metadata", self.unresolved_metadata
 
     # ----------------------------------------------------------------------
     @overridemethod

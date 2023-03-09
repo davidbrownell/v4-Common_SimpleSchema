@@ -288,10 +288,8 @@
             - BasicCollectionRef
             - DynamicallyGenerated
             - DefinedInline
-            resolved_metadata:
-              default:
-                range: Cardinality.SimpleSchema (Ln 28, Col 47 -> Ln 28, Col 52)
-                value: foo
+            metadata:
+              default: foo
             type:
               __type__: ReferenceType
               __disabled__: false
@@ -317,20 +315,6 @@
             visibility: Visibility.Private
             name: _ItemStatement-Ln28
             cardinality: '?'
-            metadata:
-              __type__: Metadata
-              __disabled__: false
-              range: Cardinality.SimpleSchema (Ln 28, Col 36 -> Ln 28, Col 54)
-              items:
-              - __type__: MetadataItem
-                __disabled__: false
-                range: Cardinality.SimpleSchema (Ln 28, Col 38 -> Ln 28, Col 52)
-                name: default
-                expression:
-                  __type__: StringExpression
-                  __disabled__: false
-                  range: Cardinality.SimpleSchema (Ln 28, Col 47 -> Ln 28, Col 52)
-                  value: foo
     visibility: Visibility.Public
     name: Cardinality
     cardinality: <single>

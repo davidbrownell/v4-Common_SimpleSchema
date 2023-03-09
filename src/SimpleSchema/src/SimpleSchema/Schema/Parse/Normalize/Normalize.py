@@ -37,6 +37,8 @@ from ...Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from ...Elements.Common.SimpleElement import SimpleElement
 from ...Elements.Common.Visibility import Visibility
 
+from ...Elements.Expressions.Expression import Expression
+
 from ...Elements.Statements.ExtensionStatement import ExtensionStatement
 from ...Elements.Statements.ItemStatement import ItemStatement
 from ...Elements.Statements.RootStatement import RootStatement
@@ -164,11 +166,6 @@ def Normalize(
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
-_UNIQUE_TYPE_NAME_ATTRIBUTE_NAME            = "_unique_type_name__"
-_RESOLVED_METADATA_ATTRIBUTE_NAME           = "_resolved_metadata__"
-
-
-# ----------------------------------------------------------------------
 class _ReferenceTypeCategory(Enum):
     Item                                    = auto()
     Structure                               = auto()
@@ -180,7 +177,7 @@ class _ReferenceTypeCategory(Enum):
 @dataclass(frozen=True)
 class _ResolvedMetadataCacheItem(object):
     reference_type: ReferenceType
-    metadata: dict[str, MetadataItem]
+    unresolved_metadata: dict[str, MetadataItem]
 
 
 # ----------------------------------------------------------------------
@@ -266,11 +263,7 @@ class _Pass1Visitor(Visitor):
                 else:
                     assert False, element  # pragma: no cover
 
-                object.__setattr__(
-                    element,
-                    _UNIQUE_TYPE_NAME_ATTRIBUTE_NAME,
-                    ".".join(type_name_parts),
-                )
+                element.FinalizeUniqueTypeName(".".join(type_name_parts))
 
             yield
 
@@ -435,14 +428,14 @@ class _Pass1Visitor(Visitor):
 
         # Resolve the metadata
         metadata: dict[str, MetadataItem] = (
-            {} if element.metadata is None else copy.deepcopy(element.metadata.items)
+            {} if element.unresolved_metadata is None else copy.deepcopy(element.unresolved_metadata.items)
         )
 
         ptr = element.type
 
         while isinstance(ptr, ReferenceType):
-            if ptr.metadata is not None:
-                for k, v in ptr.metadata.items.items():
+            if ptr.unresolved_metadata is not None:
+                for k, v in ptr.unresolved_metadata.items.items():
                     if k in metadata:
                         continue
 
@@ -492,7 +485,7 @@ class _Pass2Visitor(Visitor):
 
         self._unvisited_elements            = all_elements
         self._root_elements                 = root_elements
-        self._resolved_metadata_cache       = resolved_metadata_cache
+        self._pending_metadata_cache        = resolved_metadata_cache
 
         self._processed_metadata: set[int]  = set()
 
@@ -529,7 +522,7 @@ class _Pass2Visitor(Visitor):
     @contextmanager
     @overridemethod
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-        if self._resolved_metadata_cache.get(id(element), None) is not None:
+        if self._pending_metadata_cache.get(id(element), None) is not None:
             # Create a list of elements that should be disabled atomically if any of the
             # elements in its collection are disabled.
             disabled_elements_set: list[Element] = [element, ]
@@ -609,12 +602,12 @@ class _Pass2Visitor(Visitor):
     ) -> None:
         cache_key = id(reference_type)
 
-        cache_info = self._resolved_metadata_cache.pop(cache_key, None)
+        cache_info = self._pending_metadata_cache.pop(cache_key, None)
         if cache_info is None:
             assert cache_key in self._processed_metadata
             return
 
-        metadata = cache_info.metadata
+        metadata = cache_info.unresolved_metadata
         is_root = id(reference_type) in self._root_elements
 
         # ----------------------------------------------------------------------
@@ -718,7 +711,7 @@ class _Pass2Visitor(Visitor):
 
         # ----------------------------------------------------------------------
 
-        results: dict[str, SimpleElement] = {}
+        results: dict[str, Union[SimpleElement, Expression]] = {}
 
         for attribute in self._metadata_attributes:
             attribute_type: ReferenceType = attribute._type  # type: ignore  # pylint: disable=protected-access
@@ -728,7 +721,7 @@ class _Pass2Visitor(Visitor):
             if metadata_item is None:
                 if attribute_type.cardinality.min.value != 0:
                     raise Errors.NormalizeRequiredMetadata.Create(
-                        reference_type.metadata.range if reference_type.metadata is not None else reference_type.range,
+                        reference_type.unresolved_metadata.range if reference_type.unresolved_metadata is not None else reference_type.range,
                         attribute.name,
                     )
 
@@ -765,15 +758,17 @@ class _Pass2Visitor(Visitor):
             except Exception as ex:
                 raise SimpleSchemaException(metadata_item.range, str(ex)) from ex
 
-        if not self._flags & Flag.DisableUnsupportedMetadata and len(metadata) != len(results):
+        if len(results) != len(metadata):
             for metadata_item in metadata.values():
-                if metadata_item.name.value not in results:
+                if not self._flags & Flag.DisableUnsupportedMetadata:
                     raise Errors.NormalizeUnsupportedMetadata.Create(
                         metadata_item.name.range,
                         metadata_item.name.value,
                     )
 
-        assert getattr(reference_type, _RESOLVED_METADATA_ATTRIBUTE_NAME, None) is None
-        object.__setattr__(reference_type, _RESOLVED_METADATA_ATTRIBUTE_NAME, results)
+                results[metadata_item.name.value] = metadata_item.expression
+                metadata_item.expression.Disable()
+
+        reference_type.FinalizeMetadata(results)
 
         self._processed_metadata.add(cache_key)

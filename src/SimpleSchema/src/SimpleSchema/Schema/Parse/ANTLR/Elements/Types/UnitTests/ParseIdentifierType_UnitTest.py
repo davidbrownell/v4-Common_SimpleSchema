@@ -58,7 +58,7 @@ def test_Standard():
 
     assert pit.range is range_mock
     assert pit.cardinality is cardinality_mock
-    assert pit.metadata is metadata_mock
+    assert pit.unresolved_metadata is metadata_mock
     assert pit.identifiers is identifiers_mock
     assert pit.is_global_reference is is_global_reference_mock
     assert pit.is_item_reference is is_item_reference_mock

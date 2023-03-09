@@ -39,6 +39,20 @@
           - BasicRef
           - StructureRef
           - DefinedInline
+          metadata:
+            import_statements:
+              __type__: ListExpression
+              __disabled__: true
+              range: TuplesAndVariants.SimpleSchema (Ln 21, Col 28 -> Ln 24, Col 10)
+              value:
+              - __type__: StringExpression
+                __disabled__: false
+                range: TuplesAndVariants.SimpleSchema (Ln 22, Col 13 -> Ln 22, Col 29)
+                value: import asyncio
+              - __type__: StringExpression
+                __disabled__: false
+                range: TuplesAndVariants.SimpleSchema (Ln 23, Col 13 -> Ln 23, Col 31)
+                value: import traceback
           type:
             __type__: StructureType
             __disabled__: false
@@ -56,28 +70,6 @@
           visibility: Visibility.Private
           name: __Python__
           cardinality: <single>
-          metadata:
-            __type__: Metadata
-            __disabled__: false
-            range: TuplesAndVariants.SimpleSchema (Ln 20, Col 16 -> Ln 25, Col 6)
-            items:
-            - __type__: MetadataItem
-              __disabled__: false
-              range: TuplesAndVariants.SimpleSchema (Ln 21, Col 9 -> Ln 24, Col 10)
-              name: import_statements
-              expression:
-                __type__: ListExpression
-                __disabled__: false
-                range: TuplesAndVariants.SimpleSchema (Ln 21, Col 28 -> Ln 24, Col 10)
-                value:
-                - __type__: StringExpression
-                  __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 22, Col 13 -> Ln 22, Col 29)
-                  value: import asyncio
-                - __type__: StringExpression
-                  __disabled__: false
-                  range: TuplesAndVariants.SimpleSchema (Ln 23, Col 13 -> Ln 23, Col 31)
-                  value: import traceback
         - __type__: ItemStatement
           __disabled__: false
           range: TuplesAndVariants.SimpleSchema (Ln 27, Col 5 -> Ln 28, Col 5)

@@ -99,7 +99,17 @@ class ReferenceType(BaseType):
     name: SimpleElement[str]
 
     cardinality: Cardinality
-    metadata: Optional[Metadata]
+
+    _metadata: Union[
+        Optional[Metadata],                 # Before FinalizeMetadata is called
+        dict[
+            str,
+            Union[
+                SimpleElement,              # Metadata item that was recognized and resolved
+                Expression,                 # Metadata item that was not recognized and therefore not resolved
+            ]
+        ],                                  # After FinalizeMetadata is called
+    ]
 
     flags: Flag                                         = field(init=False)
 
@@ -226,6 +236,31 @@ class ReferenceType(BaseType):
         object.__setattr__(self, "flags", flags)
 
     # ----------------------------------------------------------------------
+    @property
+    def is_metadata_finalized(self) -> bool:
+        return isinstance(self._metadata, dict)
+
+    @property
+    def unresolved_metadata(self) -> Optional[Metadata]:
+        # Valid before FinalizeMetadata is called
+        assert not isinstance(self._metadata, dict)
+        return self._metadata
+
+    @property
+    def resolved_metadata(self) -> dict[str, Union[SimpleElement, Expression]]:
+        # Valid after FinalizeMetadata is called
+        assert isinstance(self._metadata, dict)
+        return self._metadata
+
+    # ----------------------------------------------------------------------
+    def FinalizeMetadata(
+        self,
+        metadata: dict[str, Union[SimpleElement, Expression]],
+    ) -> None:
+        assert not isinstance(self._metadata, dict)
+        object.__setattr__(self, "_metadata", metadata)
+
+    # ----------------------------------------------------------------------
     @overridemethod
     def Increment(
         self,
@@ -334,5 +369,5 @@ class ReferenceType(BaseType):
 
         yield "cardinality", self.cardinality
 
-        if self.metadata is not None:
-            yield "metadata", self.metadata
+        if isinstance(self._metadata, Metadata):
+            yield "metadata", self._metadata

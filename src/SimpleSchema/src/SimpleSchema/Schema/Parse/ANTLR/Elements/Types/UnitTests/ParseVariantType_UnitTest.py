@@ -49,7 +49,7 @@ def test_Standard():
 
     assert t.range is range_mock
     assert t.cardinality is cardinality_mock
-    assert t.metadata is None
+    assert t.unresolved_metadata is None
     assert t.types is types
 
 

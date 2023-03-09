@@ -45,3 +45,19 @@ def test_Standard():
 
     r.Increment()
     assert r.reference_count == 2
+
+
+# ----------------------------------------------------------------------
+def test_Finalize():
+    r = ReferenceCountMixin()
+
+    assert r.is_unique_type_name_finalized is False
+
+    with pytest.raises(AssertionError):
+        r.unique_type_name
+
+    r.FinalizeUniqueTypeName("unique_name")
+    assert r.unique_type_name == "unique_name"
+
+    with pytest.raises(AssertionError):
+        r.FinalizeUniqueTypeName("different_name")

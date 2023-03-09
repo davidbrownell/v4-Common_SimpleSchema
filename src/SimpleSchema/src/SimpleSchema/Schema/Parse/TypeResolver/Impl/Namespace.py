@@ -175,7 +175,7 @@ class Namespace(object):
                 type_name,
                 basic_type,
                 parse_type.cardinality,
-                parse_type.metadata,
+                parse_type.unresolved_metadata,
                 was_dynamically_generated=is_dynamically_generated,
             )
 
@@ -536,7 +536,7 @@ class Namespace(object):
 
                     # Determine if there is type-altering metadata present
                     if (
-                        parse_type.metadata is not None
+                        parse_type.unresolved_metadata is not None
                         and resolved_type.flags & ReferenceType.Flag.BasicRef
                         and not resolved_type.flags & ReferenceType.Flag.StructureRef
                     ):
@@ -545,10 +545,10 @@ class Namespace(object):
 
                         type_metadata_items: list[MetadataItem] = []
 
-                        for metadata_item in list(parse_type.metadata.items.values()):
+                        for metadata_item in list(parse_type.unresolved_metadata.items.values()):
                             if metadata_item.name.value in basic_type.FIELDS:
                                 type_metadata_items.append(
-                                    parse_type.metadata.items.pop(metadata_item.name.value),
+                                    parse_type.unresolved_metadata.items.pop(metadata_item.name.value),
                                 )
 
                         if type_metadata_items:
@@ -563,7 +563,7 @@ class Namespace(object):
                     name,
                     namespace_type,
                     parse_type.cardinality,
-                    parse_type.metadata,
+                    parse_type.unresolved_metadata,
                     was_dynamically_generated=is_dynamically_generated,
                 )
 
@@ -580,9 +580,9 @@ class Namespace(object):
                     range_value or parse_type.range,
                     visibility,
                     name,
-                    fundamental_class.CreateFromMetadata(parse_type.range, parse_type.metadata),
+                    fundamental_class.CreateFromMetadata(parse_type.range, parse_type.unresolved_metadata),
                     parse_type.cardinality,
-                    parse_type.metadata,
+                    parse_type.unresolved_metadata,
                     was_dynamically_generated=is_dynamically_generated,
                 )
 
