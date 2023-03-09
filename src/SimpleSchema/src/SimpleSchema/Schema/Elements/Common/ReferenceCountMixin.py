@@ -18,6 +18,7 @@
 import threading
 
 from dataclasses import dataclass, field
+from typing import Union
 
 from Common_Foundation.Types import extensionmethod
 
@@ -28,10 +29,25 @@ class ReferenceCountMixin(object):
     """Mixin that supports referencing counting an Element"""
 
     # ----------------------------------------------------------------------
+    _unique_type_name: Union[
+        None,                               # Before FinalizeUniqueTypeName is called
+        str,                                # After FinalizeUniqueTypeName is called
+    ]                                       = field(init=False, default=None)
+
     _reference_count: int                   = field(init=False, default=0)
     _reference_count_lock: threading.Lock   = field(init=False, default_factory=threading.Lock)
 
     # ----------------------------------------------------------------------
+    @property
+    def is_unique_type_name_finalized(self) -> bool:
+        return self._unique_type_name is not None
+
+    @property
+    def unique_type_name(self) -> str:
+        # Valid after FinalizeUniqueTypeName is called
+        assert self._unique_type_name
+        return self._unique_type_name
+
     @property
     def reference_count(self) -> int:
         # Not acquiring the lock here, as we are assuming that this will only be invoked
@@ -53,3 +69,11 @@ class ReferenceCountMixin(object):
                 "_reference_count",
                 self._reference_count + 1,
             )
+
+    # ----------------------------------------------------------------------
+    def FinalizeUniqueTypeName(
+        self,
+        unique_type_name: str,
+    ) -> None:
+        assert self._unique_type_name is None
+        object.__setattr__(self, "_unique_type_name", unique_type_name)

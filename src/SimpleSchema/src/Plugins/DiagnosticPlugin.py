@@ -212,7 +212,7 @@ class _Visitor(Visitor):
         if isinstance(element, ReferenceCountMixin):
             d = self._content_stack[-1][-1]
 
-            d["unique_type_name"] = self._plugin.GetUniqueTypeName(element)
+            d["unique_type_name"] = element.unique_type_name
             d["reference_count"] = element.reference_count
 
         yield
@@ -493,17 +493,18 @@ class _Visitor(Visitor):
             if (element.flags & e.value) and not EnsureValid(e.name).endswith("Mask")
         ]
 
-        resolved_metadata = self._plugin.GetResolvedMetadata(element)
-        if resolved_metadata:
-            converted_resolved_metadata: dict[str, dict[str, Any]] = {}
+        if element.resolved_metadata:
+            metadata: dict[str, dict[str, Any]] = {}
 
-            for k, v in resolved_metadata.items():
-                converted_resolved_metadata[k] = {
-                    "range": self.__class__._ToString(v.range),  # pylint: disable=protected-access
-                    "value": v.value,
-                }
+            for k, v in element.resolved_metadata.items():
+                v.Accept(
+                    self,
+                    include_disabled=True,
+                )
 
-            d["resolved_metadata"] = converted_resolved_metadata
+                metadata[k] = self._content_stack[-1].pop()
+
+            d["metadata"] = metadata
 
         self._reference_type_stack.append(element)
         with ExitStack(self._reference_type_stack.pop):
@@ -511,7 +512,7 @@ class _Visitor(Visitor):
 
         if not (element.flags & ReferenceType.Flag.DefinedInline):
             d["reference"] = {
-                "unique_type_name": self._plugin.GetUniqueTypeName(element.type),
+                "unique_type_name": element.type.unique_type_name,
                 "range": self.__class__._ToString(element.type.range),  # pylint: disable=protected-access
             }
 

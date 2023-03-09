@@ -67,5 +67,5 @@ def test_Standard(has_base, has_metadata, has_children):
     assert s.name is name_mock
     assert s.bases is base_mock
     assert s.cardinality is cardinality_mock
-    assert s.metadata is metadata_mock
+    assert s.unresolved_metadata is metadata_mock
     assert s.children is children

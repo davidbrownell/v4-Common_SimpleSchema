@@ -56,7 +56,7 @@ def test_Standard():
 
     assert mpt.range is range_mock
     assert mpt.cardinality is cardinality_mock
-    assert mpt.metadata is metadata_mock
+    assert mpt.unresolved_metadata is metadata_mock
 
 
 # ----------------------------------------------------------------------

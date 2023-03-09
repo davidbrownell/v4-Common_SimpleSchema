@@ -34,7 +34,7 @@ class ParseType(BaseType):
 
     # ----------------------------------------------------------------------
     cardinality: Cardinality
-    metadata: Optional[Metadata]
+    unresolved_metadata: Optional[Metadata]
 
     # ----------------------------------------------------------------------
     @overridemethod
@@ -50,5 +50,5 @@ class ParseType(BaseType):
 
         yield "cardinality", self.cardinality
 
-        if self.metadata is not None:
-            yield "metadata", self.metadata
+        if self.unresolved_metadata is not None:
+            yield "metadata", self.unresolved_metadata

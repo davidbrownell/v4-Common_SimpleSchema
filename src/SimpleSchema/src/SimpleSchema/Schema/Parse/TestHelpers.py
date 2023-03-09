@@ -314,6 +314,9 @@ class _ToPythonDictVisitor(Visitor):
             self._stack[-1]["__disabled__"] = element.is_disabled
 
         if isinstance(element, ReferenceCountMixin):
+            if element.is_unique_type_name_finalized:
+                self._stack[-1]["unique_type_name"] = element.unique_type_name
+
             self._stack[-1]["reference_count"] = element.reference_count
 
         yield

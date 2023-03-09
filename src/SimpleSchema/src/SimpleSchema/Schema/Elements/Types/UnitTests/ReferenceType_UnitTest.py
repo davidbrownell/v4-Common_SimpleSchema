@@ -26,6 +26,7 @@ import pytest
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation import PathEx
+from Common_Foundation.Types import DoesNotExist
 
 
 # ----------------------------------------------------------------------
@@ -77,7 +78,7 @@ def test_Standard():
     assert rt.visibility is visibility_mock
     assert rt.name is name_mock
     assert rt.cardinality is cardinality_mock
-    assert rt.metadata is metadata_mock
+    assert rt.unresolved_metadata is metadata_mock
     assert rt.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
 
@@ -105,7 +106,7 @@ class TestCreate(object):
         assert rt.visibility is visibility_mock
         assert rt.name is name_mock
         assert rt.cardinality.is_single
-        assert rt.metadata is metadata_mock
+        assert rt.unresolved_metadata is metadata_mock
         assert rt.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
@@ -136,7 +137,7 @@ class TestCreate(object):
         assert rt.visibility is visibility_mock
         assert rt.name is name_mock
         assert rt.cardinality is cardinality
-        assert rt.metadata is metadata_mock
+        assert rt.unresolved_metadata is metadata_mock
         assert rt.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicCollectionRef | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
 
         assert isinstance(rt.type, ReferenceType), rt.type
@@ -146,7 +147,7 @@ class TestCreate(object):
         assert rt.type.visibility == SimpleElement[Visibility](type_mock.range, Visibility.Private)
         assert rt.type.name.value != name_mock.value
         assert rt.type.cardinality.is_single
-        assert rt.type.metadata is None
+        assert rt.type.unresolved_metadata is None
         assert rt.type.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.DynamicallyGenerated | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
 
     # ----------------------------------------------------------------------
@@ -174,7 +175,7 @@ class TestCreate(object):
         assert rt.name is name_mock
         assert rt.type is type_mock
         assert rt.cardinality.is_single
-        assert rt.metadata is metadata_mock
+        assert rt.unresolved_metadata is metadata_mock
         assert rt.flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
@@ -203,7 +204,7 @@ class TestCreate(object):
         assert rt.name is name_mock
         assert rt.type is type_mock
         assert rt.cardinality.is_container
-        assert rt.metadata is metadata_mock
+        assert rt.unresolved_metadata is metadata_mock
         assert rt.flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
 
     # ----------------------------------------------------------------------
@@ -217,7 +218,7 @@ class TestCreate(object):
             Metadata(Mock(), []),
         )
 
-        assert rt.metadata is None
+        assert rt.unresolved_metadata is None
 
 
 # ----------------------------------------------------------------------
@@ -634,6 +635,28 @@ def test_ErrorOptionalToOptional():
 
 
 # ----------------------------------------------------------------------
+def test_Finalized():
+    rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(), metadata=None)
+
+    assert rt.is_metadata_finalized is False
+    assert rt.unresolved_metadata is None
+
+    with pytest.raises(AssertionError):
+        rt.resolved_metadata
+
+    rt.FinalizeMetadata({})
+
+    assert rt.is_metadata_finalized is True
+    assert rt.resolved_metadata == {}
+
+    with pytest.raises(AssertionError):
+        rt.unresolved_metadata
+
+    with pytest.raises(AssertionError):
+        rt.FinalizeMetadata({})
+
+
+# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _Create(
@@ -643,6 +666,7 @@ def _Create(
     force_single_cardinality: bool=False,
     was_dynamically_generated: bool=False,
     range_value: Optional[Range]=None,
+    metadata: Union[DoesNotExist, None, Metadata]=DoesNotExist.instance,
 ) -> ReferenceType:
     return ReferenceType(
         range_value or Mock(),
@@ -650,7 +674,7 @@ def _Create(
         Mock(),
         Mock(),
         cardinality,
-        Mock(),
+        Mock() if metadata is DoesNotExist.instance else metadata,
         force_single_cardinality=force_single_cardinality,
         was_dynamically_generated=was_dynamically_generated,
     )

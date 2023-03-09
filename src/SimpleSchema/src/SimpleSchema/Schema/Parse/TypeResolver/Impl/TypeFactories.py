@@ -221,7 +221,7 @@ class StructureTypeFactory(_TypeFactory):
                 ),
             ),
             statement.cardinality,
-            statement.metadata,
+            statement.unresolved_metadata,
             was_dynamically_generated=False,
         )
 
