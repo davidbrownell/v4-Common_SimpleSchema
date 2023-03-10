@@ -48,16 +48,16 @@ def test_Standard():
 
 
 # ----------------------------------------------------------------------
-def test_Finalize():
+def test_Normalize():
     r = ReferenceCountMixin()
 
-    assert r.is_unique_type_name_finalized is False
+    assert r.is_unique_type_name_normalized is False
 
     with pytest.raises(AssertionError):
         r.unique_type_name
 
-    r.FinalizeUniqueTypeName("unique_name")
+    r.NormalizeUniqueTypeName("unique_name")
     assert r.unique_type_name == "unique_name"
 
     with pytest.raises(AssertionError):
-        r.FinalizeUniqueTypeName("different_name")
+        r.NormalizeUniqueTypeName("different_name")

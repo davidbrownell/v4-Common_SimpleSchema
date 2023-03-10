@@ -1,0 +1,116 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 5, Col 1>
+  statements:
+  - __type__: ReferenceType
+    range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+    unique_type_name: Type
+    reference_count: 0
+    display_type: String
+    metadata:
+      attr:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 22 -> Ln 1, Col 23>
+        value: 1
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 7 -> Ln 1, Col 25>
+      unique_type_name: String-Ln1
+      reference_count: 0
+      min_length: 1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Type
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 7 -> Ln 1, Col 25>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 25>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 25>
+        value: 1
+  - __type__: ReferenceType
+    range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+    unique_type_name: Structure
+    reference_count: 0
+    display_type: _Structure-Struct-Ln3
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+      unique_type_name: _Structure-Struct-Ln3
+      reference_count: 0
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+        unique_type_name: _Structure-Struct-Ln3
+        reference_count: 0
+        visibility:
+          __type__: SimpleElement
+          range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+          value: Visibility.Private
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+          value: _Structure-Struct-Ln3
+        base_types:
+        - __type__: ReferenceType
+          range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+          unique_type_name: _Structure-Struct-Ln3._Base0
+          reference_count: 0
+          display_type: String
+          metadata:
+            attr:
+              __type__: SimpleElement
+              range: entry_point <Ln 3, Col 27 -> Ln 3, Col 28>
+              value: 2
+          type:
+            __type__: StringType
+            range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+            unique_type_name: _Structure-Struct-Ln3.String-Ln3
+            reference_count: 0
+            min_length: 1
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+            value: Visibility.Private
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+            value: _Base0
+          cardinality:
+            __type__: Cardinality
+            range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+            min:
+              __type__: IntegerExpression
+              range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+              value: 1
+            max:
+              __type__: IntegerExpression
+              range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+              value: 1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
+      value: Structure
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+        value: 1

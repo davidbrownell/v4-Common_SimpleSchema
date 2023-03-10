@@ -30,8 +30,8 @@ class ReferenceCountMixin(object):
 
     # ----------------------------------------------------------------------
     _unique_type_name: Union[
-        None,                               # Before FinalizeUniqueTypeName is called
-        str,                                # After FinalizeUniqueTypeName is called
+        None,                               # Before NormalizeUniqueTypeName is called
+        str,                                # After NormalizeUniqueTypeName is called
     ]                                       = field(init=False, default=None)
 
     _reference_count: int                   = field(init=False, default=0)
@@ -39,12 +39,12 @@ class ReferenceCountMixin(object):
 
     # ----------------------------------------------------------------------
     @property
-    def is_unique_type_name_finalized(self) -> bool:
+    def is_unique_type_name_normalized(self) -> bool:
         return self._unique_type_name is not None
 
     @property
     def unique_type_name(self) -> str:
-        # Valid after FinalizeUniqueTypeName is called
+        # Valid after NormalizeUniqueTypeName is called
         assert self._unique_type_name
         return self._unique_type_name
 
@@ -71,7 +71,7 @@ class ReferenceCountMixin(object):
             )
 
     # ----------------------------------------------------------------------
-    def FinalizeUniqueTypeName(
+    def NormalizeUniqueTypeName(
         self,
         unique_type_name: str,
     ) -> None:

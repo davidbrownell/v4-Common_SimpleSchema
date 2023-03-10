@@ -635,25 +635,25 @@ def test_ErrorOptionalToOptional():
 
 
 # ----------------------------------------------------------------------
-def test_Finalized():
+def test_Resolve():
     rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(), metadata=None)
 
-    assert rt.is_metadata_finalized is False
+    assert rt.is_metadata_resolved is False
     assert rt.unresolved_metadata is None
 
     with pytest.raises(AssertionError):
         rt.resolved_metadata
 
-    rt.FinalizeMetadata({})
+    rt.ResolveMetadata({})
 
-    assert rt.is_metadata_finalized is True
+    assert rt.is_metadata_resolved is True
     assert rt.resolved_metadata == {}
 
     with pytest.raises(AssertionError):
         rt.unresolved_metadata
 
     with pytest.raises(AssertionError):
-        rt.FinalizeMetadata({})
+        rt.ResolveMetadata({})
 
 
 # ----------------------------------------------------------------------

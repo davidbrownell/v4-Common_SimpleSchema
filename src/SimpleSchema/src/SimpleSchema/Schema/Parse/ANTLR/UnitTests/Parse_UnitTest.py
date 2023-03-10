@@ -16,9 +16,9 @@
 """\
 Unit tests for Parse.py
 
-Note that these tests are actually Integration tests (as they are using more than once
-class or function), but named UnitTests to ensure that they participate in code coverage
-collection and enforcement.
+Note that these tests are actually Integration tests (as they are using more than one
+class or function), but are named "UnitTests" to ensure that they participate in code
+coverage collection and enforcement.
 """
 
 import re

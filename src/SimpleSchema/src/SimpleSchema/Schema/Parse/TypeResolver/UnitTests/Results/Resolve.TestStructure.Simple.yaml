@@ -55,7 +55,25 @@
       range: entry_point <Ln 4, Col 8 -> Ln 4, Col 22>
       reference_count: 1
       display_type: _EmptyStructure-Struct-Ln1
-      visibility: Visibility.Private
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+        value: _ItemStatement-Ln4
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+          value: 1
       reference:
         name: EmptyStructure
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -191,7 +209,25 @@
       range: entry_point <Ln 10, Col 9 -> Ln 10, Col 24>
       reference_count: 1
       display_type: _SimpleStructure-Struct-Ln6
-      visibility: Visibility.Private
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
+        value: _ItemStatement-Ln10
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>
+          value: 1
       reference:
         name: SimpleStructure
         range: entry_point <Ln 6, Col 1 -> Ln 9, Col 1>

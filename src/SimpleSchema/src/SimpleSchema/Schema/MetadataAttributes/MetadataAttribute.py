@@ -43,21 +43,23 @@ class MetadataAttribute(object):
     # |
     # ----------------------------------------------------------------------
     class Flag(IntFlag):
+        NoRestrictions                      = 0
+
         # Element Types
-        RootItem                            = auto()
-        NestedItem                          = auto()
-
-        RootStructure                       = auto()
-        NestedStructure                     = auto()
-
-        RootType                            = auto()
-        NestedType                          = auto()
-
+        Item                                = auto()
+        Structure                           = auto()
+        Type                                = auto()
         BaseType                            = auto()
 
         _ElementTypeDelimiter               = auto()
 
-        # Cardinality
+        # Location Types
+        Root                                = auto()
+        Nested                              = auto()
+
+        _LocationTypeDelimiter              = auto()
+
+        # Cardinality Types
         SingleCardinality                   = auto()
         OptionalCardinality                 = auto()
         ContainerCardinality                = auto()
@@ -75,21 +77,10 @@ class MetadataAttribute(object):
         # ----------------------------------------------------------------------
         # |  Amalgamations
         # ----------------------------------------------------------------------
-
-        # Element Types
-        Item                                = RootItem | NestedItem
-        Structure                           = RootStructure | NestedStructure
-        Type                                = RootType | NestedType
-
-        RootElement                         = RootItem | RootStructure | RootType
-        NestedElement                       = NestedItem | NestedStructure | NestedType
-
-        Element                             = Item | Structure | Type
-
-        # Masks
-        ElementTypeMask                     = Element
-        CardinalityMask                     = (_CardinalityDelimiter - 1) & (~ElementTypeMask | 0)
-        TraitsMask                          = (_TraitsDelimiter -1) & (~ElementTypeMask | ~CardinalityMask)
+        ElementTypeMask                     = _ElementTypeDelimiter - 1
+        LocationTypeMask                    = (_LocationTypeDelimiter - 1) & ~(ElementTypeMask)
+        CardinalityMask                     = (_CardinalityDelimiter - 1) & ~(ElementTypeMask | LocationTypeMask)
+        TraitsMask                          = (_TraitsDelimiter - 1) & ~(ElementTypeMask | LocationTypeMask | CardinalityMask)
 
     # ----------------------------------------------------------------------
     # |
