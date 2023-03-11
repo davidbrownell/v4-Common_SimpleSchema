@@ -50,7 +50,6 @@ def test_DisplayType():
     statement_mock.name.value = "Mocked Statement"
 
     assert StructureType(Mock(), statement_mock).display_type == "Mocked Statement"
-    assert StructureType(Mock(), statement_mock).display_type == "Mocked Statement"
 
 
 # ----------------------------------------------------------------------

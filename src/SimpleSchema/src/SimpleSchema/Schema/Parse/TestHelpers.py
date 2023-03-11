@@ -26,11 +26,12 @@ from unittest.mock import MagicMock as Mock, patch
 
 import pytest
 
+from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Types import overridemethod
 
 pytest.register_assert_rewrite("Common_PythonDevelopment.TestHelpers")
 
-from Common_PythonDevelopment.TestHelpers import CompareResultsFromFile as CompareResultsFromFileImpl
+from Common_PythonDevelopment.TestHelpers import CompareResultsFromFile as CompareResultsFromFileImpl, ResultsFilenameFormat
 
 
 # ----------------------------------------------------------------------
@@ -98,6 +99,7 @@ def CompareResultsFromFile(
         call_stack_offset=call_stack_offset + 1,
         decorate_test_name_func=lambda value: value[len("test_"):],
         decorate_stem_func=DecorateStem,
+        results_filename_format=ResultsFilenameFormat.Version2,
     )
 
 
@@ -292,6 +294,7 @@ class _ToPythonDictVisitor(Visitor):
         self.include_disabled_status        = include_disabled_status
 
         self._stack: list[dict[str, Any]]               = []
+        self._reference_type_stack: list[ReferenceType] = []
 
     # ----------------------------------------------------------------------
     @property
@@ -314,7 +317,7 @@ class _ToPythonDictVisitor(Visitor):
             self._stack[-1]["__disabled__"] = element.is_disabled
 
         if isinstance(element, ReferenceCountMixin):
-            if element.is_unique_type_name_finalized:
+            if element.is_unique_type_name_normalized:
                 self._stack[-1]["unique_type_name"] = element.unique_type_name
 
             self._stack[-1]["reference_count"] = element.reference_count
@@ -547,9 +550,25 @@ class _ToPythonDictVisitor(Visitor):
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
         self._stack[-1]["display_type"] = element.display_type
 
-        if not (element.flags & ReferenceType.Flag.DefinedInline):
-            self._stack[-1]["visibility"] = str(element.visibility.value)
+        if element.is_metadata_resolved:
+            metadata: dict[str, dict[str, Any]] = {}
 
+            for k, v in element.resolved_metadata.items():
+                if v.is_disabled:
+                    continue
+
+                v.Accept(self)
+
+                metadata[k] = self._stack.pop()
+
+            if metadata:
+                self._stack[-1]["metadata"] = metadata
+
+        self._reference_type_stack.append(element)
+        with ExitStack(self._reference_type_stack.pop):
+            yield
+
+        if not (element.flags & ReferenceType.Flag.DefinedInline):
             if element.flags & ReferenceType.Flag.BasicRef:
                 name = element.type.display_type
             else:
@@ -561,10 +580,24 @@ class _ToPythonDictVisitor(Visitor):
                 "range": str(element.type.range),
             }
 
-            yield VisitResult.SkipAll
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def OnReferenceType__type(
+        self,
+        element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType,
+        *,
+        include_disabled: bool,
+    ) -> Optional[VisitResult]:
+        assert self._reference_type_stack
+        reference_type = self._reference_type_stack[-1]
+
+        if not (reference_type.flags & ReferenceType.Flag.DefinedInline):
+            # Don't follow this type if it isn't defined inline. We check here rather than
+            # preventing visitation in OnReferenceType because we want do display the other
+            # details of the reference type (which wouldn't happen if we skipped everything).
             return
 
-        yield
+        return self._DefaultDetailMethod("type", element_or_elements, include_disabled=include_disabled)
 
     # ----------------------------------------------------------------------
     @contextmanager

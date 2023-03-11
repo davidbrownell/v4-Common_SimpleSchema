@@ -1,0 +1,11 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+  statements:
+  - __type__: ExtensionStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 4>
+      value: Foo
+    positional_args: []
+    keyword_args: []

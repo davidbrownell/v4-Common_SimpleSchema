@@ -43,7 +43,7 @@ class NameMetadataAttribute(MetadataAttribute):
     """Define a name on an Element"""
 
     # ----------------------------------------------------------------------
-    flags: ClassVar[MetadataAttribute.Flag]             = MetadataAttribute.Flag.Element
+    flags: ClassVar[MetadataAttribute.Flag]             = MetadataAttribute.Flag.NoRestrictions
     name: ClassVar[str]                                 = "name"
     type: ClassVar[BasicType]                           = StringType(Range.CreateFromCode())
 
@@ -54,7 +54,7 @@ class DescriptionMetadataAttribute(MetadataAttribute):
     """Apply a description to an Element"""
 
     # ----------------------------------------------------------------------
-    flags: ClassVar[MetadataAttribute.Flag]             = MetadataAttribute.Flag.Element
+    flags: ClassVar[MetadataAttribute.Flag]             = MetadataAttribute.Flag.NoRestrictions
     name: ClassVar[str]                                 = "description"
     type: ClassVar[BasicType]                           = StringType(Range.CreateFromCode())
 
@@ -65,15 +65,8 @@ class DefaultMetadataAttribute(MetadataAttribute):
     """Defines a default value if the Element is not present"""
 
     # ----------------------------------------------------------------------
-    flags: ClassVar[MetadataAttribute.Flag]             = (
-        MetadataAttribute.Flag.Item
-        | MetadataAttribute.Flag.Structure
-        | MetadataAttribute.Flag.Type
-        | MetadataAttribute.Flag.Inheritable
-    )
-
+    flags: ClassVar[MetadataAttribute.Flag]             = MetadataAttribute.Flag.Inheritable
     name: ClassVar[str]                                 = "default"
-
     type: BasicType                                     = field(init=False)
 
     # ----------------------------------------------------------------------

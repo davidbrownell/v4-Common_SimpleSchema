@@ -637,7 +637,7 @@ class _Visitor(Visitor):
             yield VisitResult.SkipAll
             return
 
-        # Prevent infinite recursion
+        # Prevent infinite recursion by adding an element to the lookup now and populating it later
         self._schema_info_lookup[schema_info_lookup_key] = _Visitor._SchemaInfo(element, {})
 
         self._schema_stack.append({})

@@ -168,14 +168,16 @@ NormalizeInvalidMetadata                    = DynamicSimpleSchemaException.Creat
 NormalizeInvalidNestedItem                  = DynamicSimpleSchemaException.CreateType("Nested items are not supported.")
 NormalizeInvalidNestedStructure             = DynamicSimpleSchemaException.CreateType("Nested structures are not supported.")
 NormalizeInvalidNestedType                  = DynamicSimpleSchemaException.CreateType("Nested types are not supported.")
-NormalizeInvalidRootItem                    = DynamicSimpleSchemaException.CreateType("Root items and not supported.")
+NormalizeInvalidRootItem                    = DynamicSimpleSchemaException.CreateType("Root items are not supported.")
 NormalizeInvalidRootStructure               = DynamicSimpleSchemaException.CreateType("Root structures are not supported.")
 NormalizeInvalidRootType                    = DynamicSimpleSchemaException.CreateType("Root types are not supported.")
 NormalizeRequiredMetadata                   = DynamicSimpleSchemaException.CreateType("The metadata item '{name}' is required.", name=str)
 NormalizeUnsupportedMetadata                = DynamicSimpleSchemaException.CreateType("The metadata item '{metadata_name}' is not supported.", metadata_name=str)
 
 
-normalize_metadata_base                     = "The element is not a base type"
+normalize_metadata_base_type                = "The element is not a base type"
+normalize_metadata_base_type_nested         = "The type is not a nested type"
+normalize_metadata_base_type_root           = "The type is not a base type"
 normalize_metadata_cardinality_container    = "The type is not a container type"
 normalize_metadata_cardinality_fixed        = "The type is not a fixed-size container type"
 normalize_metadata_cardinality_one_or_more  = "The type is not a one-or-more container type"

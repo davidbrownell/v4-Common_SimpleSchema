@@ -111,6 +111,28 @@ def Normalize(
         if metadata_attribute.flags & MetadataAttribute.Flag.Inheritable
     )
 
+    # For convenience, metadata attribute types are defined with BasicTypes and cardinality
+    # values. Convert those values to actual types.
+    inherited_attribute_names: set[str] = set()
+
+    for metadata_attribute in metadata_attributes:
+        if metadata_attribute.flags & MetadataAttribute.Flag.Inheritable:
+            inherited_attribute_names.add(metadata_attribute.name)
+
+        object.__setattr__(
+            metadata_attribute,
+            _METADATA_ATTRIBUTE_REALIZED_TYPE_ATTRIBUTE_NAME,
+            ReferenceType.Create(
+                metadata_attribute.type.range,
+                SimpleElement[Visibility](metadata_attribute.type.range, Visibility.Private),
+                SimpleElement[str](metadata_attribute.type.range, "Type"),
+                metadata_attribute.type,
+                metadata_attribute.cardinality,
+                None,
+            ),
+        )
+
+
     # ----------------------------------------------------------------------
     class Steps(Enum):
         Pass1                               = auto()
@@ -166,11 +188,7 @@ def Normalize(
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
-class _ReferenceTypeCategory(Enum):
-    Item                                    = auto()
-    Structure                               = auto()
-    Typedef                                 = auto()
-    Base                                    = auto()
+_METADATA_ATTRIBUTE_REALIZED_TYPE_ATTRIBUTE_NAME        = "_realized_type"
 
 
 # ----------------------------------------------------------------------
@@ -263,7 +281,7 @@ class _Pass1Visitor(Visitor):
                 else:
                     assert False, element  # pragma: no cover
 
-                element.FinalizeUniqueTypeName(".".join(type_name_parts))
+                element.NormalizeUniqueTypeName(".".join(type_name_parts))
 
             yield
 
@@ -351,9 +369,10 @@ class _Pass1Visitor(Visitor):
         if self._flags & Flag.FlattenStructureHierarchies:
             items_to_add: list[ItemStatement] = []
 
-            for base_type in element.base_types:
-                disable_base_type = True
+            base_types = element.base_types
+            object.__setattr__(element, "base_types", [])
 
+            for base_type in base_types:
                 with base_type.Resolve() as resolved_base_type:
                     if resolved_base_type.flags & ReferenceType.Flag.StructureRef:
                         assert isinstance(resolved_base_type.type, StructureType), resolved_base_type.type
@@ -365,22 +384,19 @@ class _Pass1Visitor(Visitor):
                             items_to_add.append(child)
 
                     elif resolved_base_type.flags & ReferenceType.Flag.BasicRef:
-                        items_to_add.append(
-                            ItemStatement(
-                                base_type.range,
-                                SimpleElement[Visibility](base_type.range, Visibility.Public),
-                                SimpleElement[str](base_type.range, "__value__"),
-                                resolved_base_type,
-                            ),
+                        item_statement = ItemStatement(
+                            base_type.range,
+                            SimpleElement[Visibility](base_type.range, Visibility.Public),
+                            SimpleElement[str](base_type.range, "__value__"),
+                            resolved_base_type,
                         )
 
-                        disable_base_type = resolved_base_type is not base_type
+                        self._all_elements[id(item_statement)] = item_statement
+
+                        items_to_add.append(item_statement)
 
                     else:
                         assert False, resolved_base_type.flags  # pragma: no cover
-
-                if disable_base_type:
-                    base_type.Disable()
 
             item_lookup: dict[str, ItemStatement] = {
                 child.name.value: child
@@ -422,9 +438,7 @@ class _Pass1Visitor(Visitor):
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
         resolved_metadata_key = id(element)
 
-        if resolved_metadata_key in self._resolved_metadata_cache:
-            yield VisitResult.SkipAll
-            return
+        assert resolved_metadata_key not in self._resolved_metadata_cache
 
         # Resolve the metadata
         metadata: dict[str, MetadataItem] = (
@@ -487,8 +501,6 @@ class _Pass2Visitor(Visitor):
         self._root_elements                 = root_elements
         self._pending_metadata_cache        = resolved_metadata_cache
 
-        self._processed_metadata: set[int]  = set()
-
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
@@ -503,18 +515,23 @@ class _Pass2Visitor(Visitor):
     @contextmanager
     @overridemethod
     def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        self._ApplyResolvedMetadata(element.type, _ReferenceTypeCategory.Item, element)
+        self._ApplyResolvedMetadata(element.type, MetadataAttribute.Flag.Item, element)
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-        for base_type in element.base_types:
-            if base_type.is_disabled:
-                continue
+        if element.base_types:
+            is_root = id(element) in self._root_elements
 
-            self._ApplyResolvedMetadata(base_type, _ReferenceTypeCategory.Base, base_type)
+            for base_type in element.base_types:
+                self._ApplyResolvedMetadata(
+                    base_type,
+                    MetadataAttribute.Flag.BaseType,
+                    base_type,
+                    is_root=is_root,
+                )
 
         yield
 
@@ -531,7 +548,7 @@ class _Pass2Visitor(Visitor):
                 (element.flags & ReferenceType.Flag.StructureRef)
                 or (element.flags & ReferenceType.Flag.StructureCollectionRef)
             ):
-                reference_type_category = _ReferenceTypeCategory.Structure
+                reference_type_category = MetadataAttribute.Flag.Structure
 
                 if element.flags & ReferenceType.Flag.StructureRef:
                     assert isinstance(element.type, StructureType), element.type
@@ -571,7 +588,7 @@ class _Pass2Visitor(Visitor):
                     else:
                         raise Errors.NormalizeInvalidNestedType.Create(element.range)
 
-                reference_type_category = _ReferenceTypeCategory.Typedef
+                reference_type_category = MetadataAttribute.Flag.Type
                 referenced_element = element
 
             self._ApplyResolvedMetadata(element, reference_type_category, referenced_element)
@@ -592,119 +609,146 @@ class _Pass2Visitor(Visitor):
     def _ApplyResolvedMetadata(
         self,
         reference_type: ReferenceType,
-        reference_type_category: _ReferenceTypeCategory,
+        reference_type_flags: MetadataAttribute.Flag,
         referenced_element: Union[
                                             # `reference_type_category` value
             ItemStatement,                  # Item
             StructureStatement,             # Structure
             ReferenceType,                  # Typedef, Base
         ],
+        *,
+        is_root: Optional[bool]=None,
     ) -> None:
         cache_key = id(reference_type)
 
         cache_info = self._pending_metadata_cache.pop(cache_key, None)
-        if cache_info is None:
-            assert cache_key in self._processed_metadata
-            return
+        assert cache_info is not None
 
         metadata = cache_info.unresolved_metadata
-        is_root = id(reference_type) in self._root_elements
+
+        if is_root is None:
+            is_root = id(referenced_element) in self._root_elements
+
+        if is_root:
+            reference_type_flags |= MetadataAttribute.Flag.Root
+        else:
+            reference_type_flags |= MetadataAttribute.Flag.Nested
 
         # ----------------------------------------------------------------------
         def GetPotentialError(
             attribute: MetadataAttribute,
         ) -> Optional[str]:
-            MetadataFlag = MetadataAttribute.Flag
 
             # Element type flags
-            element_type_flags = attribute.flags & MetadataFlag.ElementTypeMask
+            attribute_flags = attribute.flags & MetadataAttribute.Flag.ElementTypeMask
 
-            if element_type_flags != 0 and element_type_flags != MetadataFlag.Element:
-                if element_type_flags == MetadataFlag.RootElement and not is_root:
-                    return Errors.normalize_metadata_element_root
+            if attribute_flags != 0:
+                ref_type_flags = reference_type_flags & MetadataAttribute.Flag.ElementTypeMask
+                assert ref_type_flags != 0
 
-                if element_type_flags == MetadataFlag.NestedElement and is_root:
-                    return Errors.normalize_metadata_element_nested
-
-                if element_type_flags & MetadataFlag.Item:
-                    if reference_type_category != _ReferenceTypeCategory.Item:
+                if not attribute_flags & ref_type_flags:
+                    if attribute_flags & MetadataAttribute.Flag.Item:
                         return Errors.normalize_metadata_item
-
-                    if element_type_flags == MetadataFlag.RootItem and not is_root:
-                        return Errors.normalize_metadata_item_root
-
-                    if element_type_flags == MetadataFlag.NestedItem and is_root:
-                        return Errors.normalize_metadata_item_nested
-
-                if element_type_flags & MetadataFlag.Structure:
-                    if reference_type_category != _ReferenceTypeCategory.Structure:
+                    elif attribute_flags & MetadataAttribute.Flag.Structure:
                         return Errors.normalize_metadata_structure
-
-                    if element_type_flags == MetadataFlag.RootStructure and not is_root:
-                        return Errors.normalize_metadata_structure_root
-
-                    if element_type_flags == MetadataFlag.NestedStructure and is_root:
-                        return Errors.normalize_metadata_structure_nested
-
-                if element_type_flags & MetadataFlag.Type:
-                    if reference_type_category != _ReferenceTypeCategory.Typedef:
+                    elif attribute_flags & MetadataAttribute.Flag.Type:
                         return Errors.normalize_metadata_type
+                    elif attribute_flags & MetadataAttribute.Flag.BaseType:
+                        return Errors.normalize_metadata_base_type
+                    else:
+                        assert False, attribute_flags  # pragma: no cover
 
-                    if element_type_flags == MetadataFlag.RootType and not is_root:
-                        return Errors.normalize_metadata_type_root
+            # Location type flags
+            location_flags = attribute.flags & MetadataAttribute.Flag.LocationTypeMask
 
-                    if element_type_flags == MetadataFlag.NestedType and is_root:
-                        return Errors.normalize_metadata_type_nested
+            if location_flags != 0:
+                ref_type_flags = reference_type_flags & MetadataAttribute.Flag.LocationTypeMask
+                assert ref_type_flags != 0
 
-                if element_type_flags & MetadataFlag.BaseType:
-                    if reference_type_category != _ReferenceTypeCategory.Base:
-                        return Errors.normalize_metadata_base
+                if not location_flags & reference_type_flags:
+                    if attribute_flags & MetadataAttribute.Flag.Item:
+                        root_error = Errors.normalize_metadata_item_root
+                        nested_error = Errors.normalize_metadata_item_nested
+                    elif attribute_flags & MetadataAttribute.Flag.Structure:
+                        root_error = Errors.normalize_metadata_structure_root
+                        nested_error = Errors.normalize_metadata_structure_nested
+                    elif attribute_flags & MetadataAttribute.Flag.Type:
+                        root_error = Errors.normalize_metadata_type_root
+                        nested_error = Errors.normalize_metadata_type_nested
+                    elif attribute_flags & MetadataAttribute.Flag.BaseType:
+                        root_error = Errors.normalize_metadata_base_type_root
+                        nested_error = Errors.normalize_metadata_base_type_nested
+                    else:
+                        root_error = Errors.normalize_metadata_element_root
+                        nested_error = Errors.normalize_metadata_element_nested
+
+                    if location_flags & MetadataAttribute.Flag.Root:
+                        return root_error
+                    elif location_flags & MetadataAttribute.Flag.Nested:
+                        return nested_error
+                    else:
+                        assert False, location_flags  # pragma: no cover
 
             # Cardinality flags
-            cardinality_flags = attribute.flags & MetadataFlag.CardinalityMask
+            cardinality_flags = attribute.flags & MetadataAttribute.Flag.CardinalityMask
 
             if cardinality_flags != 0:
-                with reference_type.Resolve() as resolved_type:
-                    cardinality = resolved_type.cardinality
+                cardinality = reference_type.cardinality
 
-                if cardinality_flags & MetadataFlag.SingleCardinality and not cardinality.is_single:
-                    return Errors.normalize_metadata_cardinality_single
+                errors: list[str] = []
+                found_match = False
 
-                if cardinality_flags & MetadataFlag.OptionalCardinality and not cardinality.is_optional:
-                    return Errors.normalize_metadata_cardinality_optional
+                if cardinality_flags & MetadataAttribute.Flag.SingleCardinality:
+                    if cardinality.is_single:
+                        found_match = True
+                    else:
+                        errors.append(Errors.normalize_metadata_cardinality_single)
 
-                if cardinality_flags & MetadataFlag.ContainerCardinality and not cardinality.is_container:
-                    return Errors.normalize_metadata_cardinality_container
+                if cardinality_flags & MetadataAttribute.Flag.OptionalCardinality:
+                    if cardinality.is_optional:
+                        found_match = True
+                    else:
+                        errors.append(Errors.normalize_metadata_cardinality_optional)
 
-                if (
-                    cardinality_flags & MetadataFlag.ZeroOrMoreCardinality
-                    and not (
+                if cardinality_flags & MetadataAttribute.Flag.ContainerCardinality:
+                    if cardinality.is_container:
+                        found_match = True
+                    else:
+                        errors.append(Errors.normalize_metadata_cardinality_container)
+
+                if cardinality_flags & MetadataAttribute.Flag.ZeroOrMoreCardinality:
+                    if (
                         cardinality.is_container
                         and cardinality.min.value == 0
                         and cardinality.max is None
-                    )
-                ):
-                    return Errors.normalize_metadata_cardinality_zero_or_more
+                    ):
+                        found_match = True
+                    else:
+                        errors.append(Errors.normalize_metadata_cardinality_zero_or_more)
 
-                if (
-                    cardinality_flags & MetadataFlag.OneOrMoreCardinality
-                    and not (
+                if cardinality_flags & MetadataAttribute.Flag.OneOrMoreCardinality:
+                    if (
                         cardinality.is_container
                         and cardinality.min.value == 1
                         and cardinality.max is None
-                    )
-                ):
-                    return Errors.normalize_metadata_cardinality_one_or_more
+                    ):
+                        found_match = True
+                    else:
+                        errors.append(Errors.normalize_metadata_cardinality_one_or_more)
 
-                if (
-                    cardinality_flags & MetadataFlag.FixedContainerCardinality
-                    and not (
+                if cardinality_flags & MetadataAttribute.Flag.FixedContainerCardinality:
+                    if (
                         cardinality.is_container
                         and cardinality.max is not None
                         and cardinality.max.value == cardinality.min.value
-                    )
-                ):
-                    return Errors.normalize_metadata_cardinality_fixed
+                    ):
+                        found_match = True
+                    else:
+                        errors.append(Errors.normalize_metadata_cardinality_fixed)
+
+                if not found_match:
+                    assert errors, cardinality_flags
+                    return errors[0]
 
             # If here, the metadata is valid in this location
             return None
@@ -714,12 +758,13 @@ class _Pass2Visitor(Visitor):
         results: dict[str, Union[SimpleElement, Expression]] = {}
 
         for attribute in self._metadata_attributes:
-            attribute_type: ReferenceType = attribute._type  # type: ignore  # pylint: disable=protected-access
+            realized_type: ReferenceType = cast(ReferenceType, getattr(attribute, _METADATA_ATTRIBUTE_REALIZED_TYPE_ATTRIBUTE_NAME, None))
+            assert realized_type is not None
 
             metadata_item = metadata.get(attribute.name, None)
 
             if metadata_item is None:
-                if attribute_type.cardinality.min.value != 0:
+                if realized_type.cardinality.min.value != 0:
                     raise Errors.NormalizeRequiredMetadata.Create(
                         reference_type.unresolved_metadata.range if reference_type.unresolved_metadata is not None else reference_type.range,
                         attribute.name,
@@ -735,11 +780,10 @@ class _Pass2Visitor(Visitor):
                     potential_error,
                 )
 
-
             try:
                 attribute.ValidateElement(referenced_element)
 
-                attribute_value = attribute_type.ToPython(metadata_item.expression)
+                attribute_value = realized_type.ToPython(metadata_item.expression)
 
                 attribute_value = attribute.PostprocessValue(
                     reference_type,
@@ -760,6 +804,9 @@ class _Pass2Visitor(Visitor):
 
         if len(results) != len(metadata):
             for metadata_item in metadata.values():
+                if metadata_item.name.value in results:
+                    continue
+
                 if not self._flags & Flag.DisableUnsupportedMetadata:
                     raise Errors.NormalizeUnsupportedMetadata.Create(
                         metadata_item.name.range,
@@ -769,6 +816,4 @@ class _Pass2Visitor(Visitor):
                 results[metadata_item.name.value] = metadata_item.expression
                 metadata_item.expression.Disable()
 
-        reference_type.FinalizeMetadata(results)
-
-        self._processed_metadata.add(cache_key)
+        reference_type.ResolveMetadata(results)

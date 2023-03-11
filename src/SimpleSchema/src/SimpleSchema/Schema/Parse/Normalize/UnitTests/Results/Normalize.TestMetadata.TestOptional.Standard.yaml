@@ -1,0 +1,74 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: item
+    type:
+      __type__: ReferenceType
+      range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+      unique_type_name: _ItemStatement-Ln1
+      reference_count: 1
+      display_type: String?
+      metadata:
+        integer:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 26 -> Ln 1, Col 27>
+          value: 1
+      type:
+        __type__: ReferenceType
+        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+        unique_type_name: __ItemStatement-Ln1-Item-Ln1
+        reference_count: 1
+        display_type: String
+        type:
+          __type__: StringType
+          range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+          unique_type_name: String-Ln1
+          reference_count: 1
+          min_length: 1
+        visibility:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+          value: Visibility.Private
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+          value: __ItemStatement-Ln1-Item-Ln1
+        cardinality:
+          __type__: Cardinality
+          range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+          min:
+            __type__: IntegerExpression
+            range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+            value: 1
+          max:
+            __type__: IntegerExpression
+            range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+            value: 1
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: _ItemStatement-Ln1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 13 -> Ln 1, Col 14>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 13 -> Ln 1, Col 14>
+          value: 0
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 13 -> Ln 1, Col 14>
+          value: 1

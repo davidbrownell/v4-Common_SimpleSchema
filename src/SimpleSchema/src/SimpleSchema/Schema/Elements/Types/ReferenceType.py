@@ -76,7 +76,7 @@ class ReferenceType(BaseType):
         # Miscellaneous
         DynamicallyGenerated                = auto()
 
-        DefinedInline                        = auto()
+        DefinedInline                       = auto()
 
         # ----------------------------------------------------------------------
         # |  Amalgamations
@@ -101,14 +101,14 @@ class ReferenceType(BaseType):
     cardinality: Cardinality
 
     _metadata: Union[
-        Optional[Metadata],                 # Before FinalizeMetadata is called
+        Optional[Metadata],                 # Before ResolveMetadata is called
         dict[
             str,
             Union[
                 SimpleElement,              # Metadata item that was recognized and resolved
                 Expression,                 # Metadata item that was not recognized and therefore not resolved
             ]
-        ],                                  # After FinalizeMetadata is called
+        ],                                  # After ResolveMetadata is called
     ]
 
     flags: Flag                                         = field(init=False)
@@ -237,23 +237,23 @@ class ReferenceType(BaseType):
 
     # ----------------------------------------------------------------------
     @property
-    def is_metadata_finalized(self) -> bool:
+    def is_metadata_resolved(self) -> bool:
         return isinstance(self._metadata, dict)
 
     @property
     def unresolved_metadata(self) -> Optional[Metadata]:
-        # Valid before FinalizeMetadata is called
+        # Valid before ResolveMetadata is called
         assert not isinstance(self._metadata, dict)
         return self._metadata
 
     @property
     def resolved_metadata(self) -> dict[str, Union[SimpleElement, Expression]]:
-        # Valid after FinalizeMetadata is called
+        # Valid after ResolveMetadata is called
         assert isinstance(self._metadata, dict)
         return self._metadata
 
     # ----------------------------------------------------------------------
-    def FinalizeMetadata(
+    def ResolveMetadata(
         self,
         metadata: dict[str, Union[SimpleElement, Expression]],
     ) -> None:
