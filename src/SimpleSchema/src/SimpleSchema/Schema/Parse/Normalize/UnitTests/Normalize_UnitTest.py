@@ -417,10 +417,10 @@ class TestFlatten(object):
             Base3: Base2 ->
                 base3_a: Guid
 
-            NoItems: (Base1, Base2) ->
+            NoItems: Base1, Base2 ->
                 pass
 
-            WithItems: (Base3, Base1) ->
+            WithItems: Base3, Base1 ->
                 item: Number
             """,
         )
@@ -470,7 +470,7 @@ class TestFlatten(object):
                     Base2 ->
                         item: Number
 
-                    Conflict: (Base1, Base2) ->
+                    Conflict: Base1, Base2 ->
                         pass
                     """,
                 ),

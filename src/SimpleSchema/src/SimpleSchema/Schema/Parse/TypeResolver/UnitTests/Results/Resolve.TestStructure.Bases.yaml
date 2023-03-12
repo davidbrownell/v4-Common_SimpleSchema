@@ -302,16 +302,16 @@
           value: _MultiBase-Struct-Ln10
         base_types:
         - __type__: ReferenceType
-          range: entry_point <Ln 10, Col 13 -> Ln 10, Col 21>
+          range: entry_point <Ln 10, Col 12 -> Ln 10, Col 20>
           reference_count: 4
           display_type: _Derived1-Struct-Ln4
           visibility:
             __type__: SimpleElement
-            range: entry_point <Ln 10, Col 13 -> Ln 10, Col 21>
+            range: entry_point <Ln 10, Col 12 -> Ln 10, Col 20>
             value: Visibility.Private
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 10, Col 13 -> Ln 10, Col 21>
+            range: entry_point <Ln 10, Col 12 -> Ln 10, Col 20>
             value: _Base0
           cardinality:
             __type__: Cardinality
@@ -328,16 +328,16 @@
             name: Derived1
             range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
         - __type__: ReferenceType
-          range: entry_point <Ln 10, Col 23 -> Ln 10, Col 31>
+          range: entry_point <Ln 10, Col 22 -> Ln 10, Col 30>
           reference_count: 4
           display_type: _Derived2-Struct-Ln7
           visibility:
             __type__: SimpleElement
-            range: entry_point <Ln 10, Col 23 -> Ln 10, Col 31>
+            range: entry_point <Ln 10, Col 22 -> Ln 10, Col 30>
             value: Visibility.Private
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 10, Col 23 -> Ln 10, Col 31>
+            range: entry_point <Ln 10, Col 22 -> Ln 10, Col 30>
             value: _Base1
           cardinality:
             __type__: Cardinality

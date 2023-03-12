@@ -44,7 +44,7 @@ ParseCreateIncludeStatementInvalidWorkspace = DynamicSimpleSchemaException.Creat
 ParseCreateIncludeStatementTooManyItems     = DynamicSimpleSchemaException.CreateType("A single filename must be imported when including content from a directory.")
 
 ParseStructureStatementInvalidBase          = DynamicSimpleSchemaException.CreateType("Base types must be an identifier or a tuple that contains identifiers.")
-ParseStructureStatementInvalidTupleBaseItem = DynamicSimpleSchemaException.CreateType("Tuple base types may only contain identifiers.")
+
 
 # ----------------------------------------------------------------------
 # |

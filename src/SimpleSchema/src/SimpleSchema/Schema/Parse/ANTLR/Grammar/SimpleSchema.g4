@@ -204,7 +204,9 @@ extension_statement_keyword_arg:            identifier '=' expression__;
 parse_item_statement:                       identifier ':' parse_type NEWLINE+;
 
 parse_structure_statement:                  (
-                                                identifier (':' (parse_structure_statement_base_single__ | parse_structure_statement_base_multi__))? '->'
+                                                identifier
+                                                    (':' (parse_structure_statement_base_grouped_items__ | parse_structure_statement_base_items__))?
+                                                '->'
                                                 INDENT (
                                                     ('pass' NEWLINE+)
                                                     | body_statement__+
@@ -219,8 +221,8 @@ parse_structure_statement:                  (
                                                 )?
                                             );
 
-parse_structure_statement_base_single__:    parse_type;
-parse_structure_statement_base_multi__:     INDENT parse_type NEWLINE+ DEDENT;
+parse_structure_statement_base_items__:           parse_type (',' parse_type)* ','?;
+parse_structure_statement_base_grouped_items__:   LPAREN parse_structure_statement_base_items__ RPAREN;
 
 parse_structure_simplified_statement:       identifier metadata_clause NEWLINE+;
 

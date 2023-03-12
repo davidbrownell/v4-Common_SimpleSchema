@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,64,469,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,64,473,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -43,142 +43,144 @@ def serializedATN():
         358,1,36,4,36,362,8,36,11,36,12,36,363,3,36,366,8,36,1,36,1,36,1,
         36,5,36,371,8,36,10,36,12,36,374,9,36,1,36,1,36,1,36,1,36,3,36,380,
         8,36,1,36,4,36,383,8,36,11,36,12,36,384,3,36,387,8,36,1,37,1,37,
-        1,38,1,38,1,38,4,38,394,8,38,11,38,12,38,395,1,38,1,38,1,39,1,39,
-        1,39,4,39,403,8,39,11,39,12,39,404,1,40,1,40,1,40,3,40,410,8,40,
-        1,40,3,40,413,8,40,1,40,3,40,416,8,40,1,41,3,41,419,8,41,1,41,1,
-        41,1,41,5,41,424,8,41,10,41,12,41,427,9,41,1,41,3,41,430,8,41,1,
-        42,1,42,1,43,1,43,1,44,1,44,1,44,3,44,439,8,44,1,44,1,44,1,45,1,
-        45,1,45,1,46,1,46,1,46,4,46,449,8,46,11,46,12,46,450,1,46,3,46,454,
-        8,46,1,47,1,47,1,47,1,47,5,47,460,8,47,10,47,12,47,463,9,47,1,47,
-        1,47,1,47,1,47,1,47,0,0,48,0,2,4,6,8,10,12,14,16,18,20,22,24,26,
-        28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,
-        72,74,76,78,80,82,84,86,88,90,92,94,0,3,1,0,9,19,1,0,20,30,2,0,55,
-        59,61,61,490,0,99,1,0,0,0,2,116,1,0,0,0,4,118,1,0,0,0,6,137,1,0,
-        0,0,8,139,1,0,0,0,10,163,1,0,0,0,12,172,1,0,0,0,14,174,1,0,0,0,16,
-        176,1,0,0,0,18,178,1,0,0,0,20,180,1,0,0,0,22,184,1,0,0,0,24,198,
-        1,0,0,0,26,200,1,0,0,0,28,202,1,0,0,0,30,204,1,0,0,0,32,206,1,0,
-        0,0,34,208,1,0,0,0,36,210,1,0,0,0,38,212,1,0,0,0,40,228,1,0,0,0,
-        42,235,1,0,0,0,44,238,1,0,0,0,46,248,1,0,0,0,48,252,1,0,0,0,50,265,
-        1,0,0,0,52,267,1,0,0,0,54,269,1,0,0,0,56,280,1,0,0,0,58,284,1,0,
-        0,0,60,293,1,0,0,0,62,295,1,0,0,0,64,316,1,0,0,0,66,324,1,0,0,0,
-        68,332,1,0,0,0,70,336,1,0,0,0,72,344,1,0,0,0,74,388,1,0,0,0,76,390,
-        1,0,0,0,78,399,1,0,0,0,80,409,1,0,0,0,82,418,1,0,0,0,84,431,1,0,
-        0,0,86,433,1,0,0,0,88,435,1,0,0,0,90,442,1,0,0,0,92,445,1,0,0,0,
-        94,455,1,0,0,0,96,98,5,39,0,0,97,96,1,0,0,0,98,101,1,0,0,0,99,97,
-        1,0,0,0,99,100,1,0,0,0,100,105,1,0,0,0,101,99,1,0,0,0,102,104,3,
-        46,23,0,103,102,1,0,0,0,104,107,1,0,0,0,105,103,1,0,0,0,105,106,
-        1,0,0,0,106,111,1,0,0,0,107,105,1,0,0,0,108,110,3,60,30,0,109,108,
-        1,0,0,0,110,113,1,0,0,0,111,109,1,0,0,0,111,112,1,0,0,0,112,114,
-        1,0,0,0,113,111,1,0,0,0,114,115,5,0,0,1,115,1,1,0,0,0,116,117,5,
-        54,0,0,117,3,1,0,0,0,118,121,5,1,0,0,119,122,3,6,3,0,120,122,3,8,
-        4,0,121,119,1,0,0,0,121,120,1,0,0,0,122,123,1,0,0,0,123,124,5,2,
-        0,0,124,5,1,0,0,0,125,138,5,3,0,0,126,131,3,10,5,0,127,128,5,4,0,
-        0,128,130,3,10,5,0,129,127,1,0,0,0,130,133,1,0,0,0,131,129,1,0,0,
-        0,131,132,1,0,0,0,132,135,1,0,0,0,133,131,1,0,0,0,134,136,5,4,0,
-        0,135,134,1,0,0,0,135,136,1,0,0,0,136,138,1,0,0,0,137,125,1,0,0,
-        0,137,126,1,0,0,0,138,7,1,0,0,0,139,159,5,63,0,0,140,142,5,3,0,0,
-        141,143,5,39,0,0,142,141,1,0,0,0,143,144,1,0,0,0,144,142,1,0,0,0,
-        144,145,1,0,0,0,145,160,1,0,0,0,146,148,3,10,5,0,147,149,5,4,0,0,
-        148,147,1,0,0,0,148,149,1,0,0,0,149,151,1,0,0,0,150,152,5,39,0,0,
-        151,150,1,0,0,0,152,153,1,0,0,0,153,151,1,0,0,0,153,154,1,0,0,0,
-        154,156,1,0,0,0,155,146,1,0,0,0,156,157,1,0,0,0,157,155,1,0,0,0,
-        157,158,1,0,0,0,158,160,1,0,0,0,159,140,1,0,0,0,159,155,1,0,0,0,
-        160,161,1,0,0,0,161,162,5,64,0,0,162,9,1,0,0,0,163,164,3,2,1,0,164,
-        165,5,5,0,0,165,166,3,24,12,0,166,11,1,0,0,0,167,173,3,14,7,0,168,
-        173,3,16,8,0,169,173,3,18,9,0,170,173,3,20,10,0,171,173,3,22,11,
-        0,172,167,1,0,0,0,172,168,1,0,0,0,172,169,1,0,0,0,172,170,1,0,0,
-        0,172,171,1,0,0,0,173,13,1,0,0,0,174,175,5,6,0,0,175,15,1,0,0,0,
-        176,177,5,7,0,0,177,17,1,0,0,0,178,179,5,8,0,0,179,19,1,0,0,0,180,
-        181,5,44,0,0,181,182,3,28,14,0,182,183,5,45,0,0,183,21,1,0,0,0,184,
-        185,5,44,0,0,185,186,3,28,14,0,186,187,5,4,0,0,187,188,3,28,14,0,
-        188,189,5,45,0,0,189,23,1,0,0,0,190,199,3,26,13,0,191,199,3,28,14,
-        0,192,199,3,30,15,0,193,199,3,32,16,0,194,199,3,34,17,0,195,199,
-        3,36,18,0,196,199,3,38,19,0,197,199,3,40,20,0,198,190,1,0,0,0,198,
-        191,1,0,0,0,198,192,1,0,0,0,198,193,1,0,0,0,198,194,1,0,0,0,198,
-        195,1,0,0,0,198,196,1,0,0,0,198,197,1,0,0,0,199,25,1,0,0,0,200,201,
-        5,52,0,0,201,27,1,0,0,0,202,203,5,53,0,0,203,29,1,0,0,0,204,205,
-        7,0,0,0,205,31,1,0,0,0,206,207,7,1,0,0,207,33,1,0,0,0,208,209,5,
-        31,0,0,209,35,1,0,0,0,210,211,7,2,0,0,211,37,1,0,0,0,212,224,5,44,
-        0,0,213,218,3,24,12,0,214,215,5,4,0,0,215,217,3,24,12,0,216,214,
-        1,0,0,0,217,220,1,0,0,0,218,216,1,0,0,0,218,219,1,0,0,0,219,222,
-        1,0,0,0,220,218,1,0,0,0,221,223,5,4,0,0,222,221,1,0,0,0,222,223,
-        1,0,0,0,223,225,1,0,0,0,224,213,1,0,0,0,224,225,1,0,0,0,225,226,
-        1,0,0,0,226,227,5,45,0,0,227,39,1,0,0,0,228,231,5,42,0,0,229,232,
-        3,42,21,0,230,232,3,44,22,0,231,229,1,0,0,0,231,230,1,0,0,0,232,
-        233,1,0,0,0,233,234,5,43,0,0,234,41,1,0,0,0,235,236,3,24,12,0,236,
-        237,5,4,0,0,237,43,1,0,0,0,238,241,3,24,12,0,239,240,5,4,0,0,240,
-        242,3,24,12,0,241,239,1,0,0,0,242,243,1,0,0,0,243,241,1,0,0,0,243,
-        244,1,0,0,0,244,246,1,0,0,0,245,247,5,4,0,0,246,245,1,0,0,0,246,
-        247,1,0,0,0,247,45,1,0,0,0,248,249,3,48,24,0,249,47,1,0,0,0,250,
-        251,5,46,0,0,251,253,3,50,25,0,252,250,1,0,0,0,252,253,1,0,0,0,253,
-        254,1,0,0,0,254,258,5,47,0,0,255,259,3,52,26,0,256,259,3,56,28,0,
-        257,259,3,54,27,0,258,255,1,0,0,0,258,256,1,0,0,0,258,257,1,0,0,
-        0,259,261,1,0,0,0,260,262,5,39,0,0,261,260,1,0,0,0,262,263,1,0,0,
-        0,263,261,1,0,0,0,263,264,1,0,0,0,264,49,1,0,0,0,265,266,5,48,0,
-        0,266,51,1,0,0,0,267,268,5,7,0,0,268,53,1,0,0,0,269,274,3,58,29,
-        0,270,271,5,4,0,0,271,273,3,58,29,0,272,270,1,0,0,0,273,276,1,0,
-        0,0,274,272,1,0,0,0,274,275,1,0,0,0,275,278,1,0,0,0,276,274,1,0,
-        0,0,277,279,5,4,0,0,278,277,1,0,0,0,278,279,1,0,0,0,279,55,1,0,0,
-        0,280,281,5,42,0,0,281,282,3,54,27,0,282,283,5,43,0,0,283,57,1,0,
-        0,0,284,287,3,2,1,0,285,286,5,32,0,0,286,288,3,2,1,0,287,285,1,0,
-        0,0,287,288,1,0,0,0,288,59,1,0,0,0,289,294,3,72,36,0,290,294,3,78,
-        39,0,291,294,3,70,35,0,292,294,3,62,31,0,293,289,1,0,0,0,293,290,
-        1,0,0,0,293,291,1,0,0,0,293,292,1,0,0,0,294,61,1,0,0,0,295,296,3,
-        2,1,0,296,308,5,42,0,0,297,298,3,64,32,0,298,299,5,4,0,0,299,300,
-        3,66,33,0,300,304,1,0,0,0,301,304,3,64,32,0,302,304,3,66,33,0,303,
-        297,1,0,0,0,303,301,1,0,0,0,303,302,1,0,0,0,304,306,1,0,0,0,305,
-        307,5,4,0,0,306,305,1,0,0,0,306,307,1,0,0,0,307,309,1,0,0,0,308,
-        303,1,0,0,0,308,309,1,0,0,0,309,310,1,0,0,0,310,312,5,43,0,0,311,
-        313,5,39,0,0,312,311,1,0,0,0,313,314,1,0,0,0,314,312,1,0,0,0,314,
-        315,1,0,0,0,315,63,1,0,0,0,316,321,3,24,12,0,317,318,5,4,0,0,318,
-        320,3,24,12,0,319,317,1,0,0,0,320,323,1,0,0,0,321,319,1,0,0,0,321,
-        322,1,0,0,0,322,65,1,0,0,0,323,321,1,0,0,0,324,329,3,68,34,0,325,
-        326,5,4,0,0,326,328,3,68,34,0,327,325,1,0,0,0,328,331,1,0,0,0,329,
-        327,1,0,0,0,329,330,1,0,0,0,330,67,1,0,0,0,331,329,1,0,0,0,332,333,
-        3,2,1,0,333,334,5,33,0,0,334,335,3,24,12,0,335,69,1,0,0,0,336,337,
-        3,2,1,0,337,338,5,5,0,0,338,340,3,80,40,0,339,341,5,39,0,0,340,339,
-        1,0,0,0,341,342,1,0,0,0,342,340,1,0,0,0,342,343,1,0,0,0,343,71,1,
-        0,0,0,344,350,3,2,1,0,345,348,5,5,0,0,346,349,3,74,37,0,347,349,
-        3,76,38,0,348,346,1,0,0,0,348,347,1,0,0,0,349,351,1,0,0,0,350,345,
-        1,0,0,0,350,351,1,0,0,0,351,352,1,0,0,0,352,353,5,34,0,0,353,365,
-        5,63,0,0,354,356,5,3,0,0,355,357,5,39,0,0,356,355,1,0,0,0,357,358,
-        1,0,0,0,358,356,1,0,0,0,358,359,1,0,0,0,359,366,1,0,0,0,360,362,
-        3,60,30,0,361,360,1,0,0,0,362,363,1,0,0,0,363,361,1,0,0,0,363,364,
-        1,0,0,0,364,366,1,0,0,0,365,354,1,0,0,0,365,361,1,0,0,0,366,367,
-        1,0,0,0,367,386,5,64,0,0,368,372,3,12,6,0,369,371,5,39,0,0,370,369,
-        1,0,0,0,371,374,1,0,0,0,372,370,1,0,0,0,372,373,1,0,0,0,373,375,
-        1,0,0,0,374,372,1,0,0,0,375,376,3,4,2,0,376,380,1,0,0,0,377,380,
-        3,4,2,0,378,380,3,12,6,0,379,368,1,0,0,0,379,377,1,0,0,0,379,378,
-        1,0,0,0,380,382,1,0,0,0,381,383,5,39,0,0,382,381,1,0,0,0,383,384,
-        1,0,0,0,384,382,1,0,0,0,384,385,1,0,0,0,385,387,1,0,0,0,386,379,
-        1,0,0,0,386,387,1,0,0,0,387,73,1,0,0,0,388,389,3,80,40,0,389,75,
-        1,0,0,0,390,391,5,63,0,0,391,393,3,80,40,0,392,394,5,39,0,0,393,
-        392,1,0,0,0,394,395,1,0,0,0,395,393,1,0,0,0,395,396,1,0,0,0,396,
-        397,1,0,0,0,397,398,5,64,0,0,398,77,1,0,0,0,399,400,3,2,1,0,400,
-        402,3,4,2,0,401,403,5,39,0,0,402,401,1,0,0,0,403,404,1,0,0,0,404,
-        402,1,0,0,0,404,405,1,0,0,0,405,79,1,0,0,0,406,410,3,88,44,0,407,
-        410,3,94,47,0,408,410,3,82,41,0,409,406,1,0,0,0,409,407,1,0,0,0,
-        409,408,1,0,0,0,410,412,1,0,0,0,411,413,3,12,6,0,412,411,1,0,0,0,
-        412,413,1,0,0,0,413,415,1,0,0,0,414,416,3,4,2,0,415,414,1,0,0,0,
-        415,416,1,0,0,0,416,81,1,0,0,0,417,419,3,84,42,0,418,417,1,0,0,0,
-        418,419,1,0,0,0,419,420,1,0,0,0,420,425,3,2,1,0,421,422,5,35,0,0,
-        422,424,3,2,1,0,423,421,1,0,0,0,424,427,1,0,0,0,425,423,1,0,0,0,
-        425,426,1,0,0,0,426,429,1,0,0,0,427,425,1,0,0,0,428,430,3,86,43,
-        0,429,428,1,0,0,0,429,430,1,0,0,0,430,83,1,0,0,0,431,432,5,36,0,
-        0,432,85,1,0,0,0,433,434,5,37,0,0,434,87,1,0,0,0,435,438,5,42,0,
-        0,436,439,3,90,45,0,437,439,3,92,46,0,438,436,1,0,0,0,438,437,1,
-        0,0,0,439,440,1,0,0,0,440,441,5,43,0,0,441,89,1,0,0,0,442,443,3,
-        80,40,0,443,444,5,4,0,0,444,91,1,0,0,0,445,448,3,80,40,0,446,447,
-        5,4,0,0,447,449,3,80,40,0,448,446,1,0,0,0,449,450,1,0,0,0,450,448,
-        1,0,0,0,450,451,1,0,0,0,451,453,1,0,0,0,452,454,5,4,0,0,453,452,
-        1,0,0,0,453,454,1,0,0,0,454,93,1,0,0,0,455,456,5,42,0,0,456,461,
-        3,80,40,0,457,458,5,38,0,0,458,460,3,80,40,0,459,457,1,0,0,0,460,
-        463,1,0,0,0,461,459,1,0,0,0,461,462,1,0,0,0,462,464,1,0,0,0,463,
-        461,1,0,0,0,464,465,5,38,0,0,465,466,3,80,40,0,466,467,5,43,0,0,
-        467,95,1,0,0,0,55,99,105,111,121,131,135,137,144,148,153,157,159,
-        172,198,218,222,224,231,243,246,252,258,263,274,278,287,293,303,
-        306,308,314,321,329,342,348,350,358,363,365,372,379,384,386,395,
-        404,409,412,415,418,425,429,438,450,453,461
+        1,37,5,37,392,8,37,10,37,12,37,395,9,37,1,37,3,37,398,8,37,1,38,
+        1,38,1,38,1,38,1,39,1,39,1,39,4,39,407,8,39,11,39,12,39,408,1,40,
+        1,40,1,40,3,40,414,8,40,1,40,3,40,417,8,40,1,40,3,40,420,8,40,1,
+        41,3,41,423,8,41,1,41,1,41,1,41,5,41,428,8,41,10,41,12,41,431,9,
+        41,1,41,3,41,434,8,41,1,42,1,42,1,43,1,43,1,44,1,44,1,44,3,44,443,
+        8,44,1,44,1,44,1,45,1,45,1,45,1,46,1,46,1,46,4,46,453,8,46,11,46,
+        12,46,454,1,46,3,46,458,8,46,1,47,1,47,1,47,1,47,5,47,464,8,47,10,
+        47,12,47,467,9,47,1,47,1,47,1,47,1,47,1,47,0,0,48,0,2,4,6,8,10,12,
+        14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,
+        58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,0,3,1,0,
+        9,19,1,0,20,30,2,0,55,59,61,61,495,0,99,1,0,0,0,2,116,1,0,0,0,4,
+        118,1,0,0,0,6,137,1,0,0,0,8,139,1,0,0,0,10,163,1,0,0,0,12,172,1,
+        0,0,0,14,174,1,0,0,0,16,176,1,0,0,0,18,178,1,0,0,0,20,180,1,0,0,
+        0,22,184,1,0,0,0,24,198,1,0,0,0,26,200,1,0,0,0,28,202,1,0,0,0,30,
+        204,1,0,0,0,32,206,1,0,0,0,34,208,1,0,0,0,36,210,1,0,0,0,38,212,
+        1,0,0,0,40,228,1,0,0,0,42,235,1,0,0,0,44,238,1,0,0,0,46,248,1,0,
+        0,0,48,252,1,0,0,0,50,265,1,0,0,0,52,267,1,0,0,0,54,269,1,0,0,0,
+        56,280,1,0,0,0,58,284,1,0,0,0,60,293,1,0,0,0,62,295,1,0,0,0,64,316,
+        1,0,0,0,66,324,1,0,0,0,68,332,1,0,0,0,70,336,1,0,0,0,72,344,1,0,
+        0,0,74,388,1,0,0,0,76,399,1,0,0,0,78,403,1,0,0,0,80,413,1,0,0,0,
+        82,422,1,0,0,0,84,435,1,0,0,0,86,437,1,0,0,0,88,439,1,0,0,0,90,446,
+        1,0,0,0,92,449,1,0,0,0,94,459,1,0,0,0,96,98,5,39,0,0,97,96,1,0,0,
+        0,98,101,1,0,0,0,99,97,1,0,0,0,99,100,1,0,0,0,100,105,1,0,0,0,101,
+        99,1,0,0,0,102,104,3,46,23,0,103,102,1,0,0,0,104,107,1,0,0,0,105,
+        103,1,0,0,0,105,106,1,0,0,0,106,111,1,0,0,0,107,105,1,0,0,0,108,
+        110,3,60,30,0,109,108,1,0,0,0,110,113,1,0,0,0,111,109,1,0,0,0,111,
+        112,1,0,0,0,112,114,1,0,0,0,113,111,1,0,0,0,114,115,5,0,0,1,115,
+        1,1,0,0,0,116,117,5,54,0,0,117,3,1,0,0,0,118,121,5,1,0,0,119,122,
+        3,6,3,0,120,122,3,8,4,0,121,119,1,0,0,0,121,120,1,0,0,0,122,123,
+        1,0,0,0,123,124,5,2,0,0,124,5,1,0,0,0,125,138,5,3,0,0,126,131,3,
+        10,5,0,127,128,5,4,0,0,128,130,3,10,5,0,129,127,1,0,0,0,130,133,
+        1,0,0,0,131,129,1,0,0,0,131,132,1,0,0,0,132,135,1,0,0,0,133,131,
+        1,0,0,0,134,136,5,4,0,0,135,134,1,0,0,0,135,136,1,0,0,0,136,138,
+        1,0,0,0,137,125,1,0,0,0,137,126,1,0,0,0,138,7,1,0,0,0,139,159,5,
+        63,0,0,140,142,5,3,0,0,141,143,5,39,0,0,142,141,1,0,0,0,143,144,
+        1,0,0,0,144,142,1,0,0,0,144,145,1,0,0,0,145,160,1,0,0,0,146,148,
+        3,10,5,0,147,149,5,4,0,0,148,147,1,0,0,0,148,149,1,0,0,0,149,151,
+        1,0,0,0,150,152,5,39,0,0,151,150,1,0,0,0,152,153,1,0,0,0,153,151,
+        1,0,0,0,153,154,1,0,0,0,154,156,1,0,0,0,155,146,1,0,0,0,156,157,
+        1,0,0,0,157,155,1,0,0,0,157,158,1,0,0,0,158,160,1,0,0,0,159,140,
+        1,0,0,0,159,155,1,0,0,0,160,161,1,0,0,0,161,162,5,64,0,0,162,9,1,
+        0,0,0,163,164,3,2,1,0,164,165,5,5,0,0,165,166,3,24,12,0,166,11,1,
+        0,0,0,167,173,3,14,7,0,168,173,3,16,8,0,169,173,3,18,9,0,170,173,
+        3,20,10,0,171,173,3,22,11,0,172,167,1,0,0,0,172,168,1,0,0,0,172,
+        169,1,0,0,0,172,170,1,0,0,0,172,171,1,0,0,0,173,13,1,0,0,0,174,175,
+        5,6,0,0,175,15,1,0,0,0,176,177,5,7,0,0,177,17,1,0,0,0,178,179,5,
+        8,0,0,179,19,1,0,0,0,180,181,5,44,0,0,181,182,3,28,14,0,182,183,
+        5,45,0,0,183,21,1,0,0,0,184,185,5,44,0,0,185,186,3,28,14,0,186,187,
+        5,4,0,0,187,188,3,28,14,0,188,189,5,45,0,0,189,23,1,0,0,0,190,199,
+        3,26,13,0,191,199,3,28,14,0,192,199,3,30,15,0,193,199,3,32,16,0,
+        194,199,3,34,17,0,195,199,3,36,18,0,196,199,3,38,19,0,197,199,3,
+        40,20,0,198,190,1,0,0,0,198,191,1,0,0,0,198,192,1,0,0,0,198,193,
+        1,0,0,0,198,194,1,0,0,0,198,195,1,0,0,0,198,196,1,0,0,0,198,197,
+        1,0,0,0,199,25,1,0,0,0,200,201,5,52,0,0,201,27,1,0,0,0,202,203,5,
+        53,0,0,203,29,1,0,0,0,204,205,7,0,0,0,205,31,1,0,0,0,206,207,7,1,
+        0,0,207,33,1,0,0,0,208,209,5,31,0,0,209,35,1,0,0,0,210,211,7,2,0,
+        0,211,37,1,0,0,0,212,224,5,44,0,0,213,218,3,24,12,0,214,215,5,4,
+        0,0,215,217,3,24,12,0,216,214,1,0,0,0,217,220,1,0,0,0,218,216,1,
+        0,0,0,218,219,1,0,0,0,219,222,1,0,0,0,220,218,1,0,0,0,221,223,5,
+        4,0,0,222,221,1,0,0,0,222,223,1,0,0,0,223,225,1,0,0,0,224,213,1,
+        0,0,0,224,225,1,0,0,0,225,226,1,0,0,0,226,227,5,45,0,0,227,39,1,
+        0,0,0,228,231,5,42,0,0,229,232,3,42,21,0,230,232,3,44,22,0,231,229,
+        1,0,0,0,231,230,1,0,0,0,232,233,1,0,0,0,233,234,5,43,0,0,234,41,
+        1,0,0,0,235,236,3,24,12,0,236,237,5,4,0,0,237,43,1,0,0,0,238,241,
+        3,24,12,0,239,240,5,4,0,0,240,242,3,24,12,0,241,239,1,0,0,0,242,
+        243,1,0,0,0,243,241,1,0,0,0,243,244,1,0,0,0,244,246,1,0,0,0,245,
+        247,5,4,0,0,246,245,1,0,0,0,246,247,1,0,0,0,247,45,1,0,0,0,248,249,
+        3,48,24,0,249,47,1,0,0,0,250,251,5,46,0,0,251,253,3,50,25,0,252,
+        250,1,0,0,0,252,253,1,0,0,0,253,254,1,0,0,0,254,258,5,47,0,0,255,
+        259,3,52,26,0,256,259,3,56,28,0,257,259,3,54,27,0,258,255,1,0,0,
+        0,258,256,1,0,0,0,258,257,1,0,0,0,259,261,1,0,0,0,260,262,5,39,0,
+        0,261,260,1,0,0,0,262,263,1,0,0,0,263,261,1,0,0,0,263,264,1,0,0,
+        0,264,49,1,0,0,0,265,266,5,48,0,0,266,51,1,0,0,0,267,268,5,7,0,0,
+        268,53,1,0,0,0,269,274,3,58,29,0,270,271,5,4,0,0,271,273,3,58,29,
+        0,272,270,1,0,0,0,273,276,1,0,0,0,274,272,1,0,0,0,274,275,1,0,0,
+        0,275,278,1,0,0,0,276,274,1,0,0,0,277,279,5,4,0,0,278,277,1,0,0,
+        0,278,279,1,0,0,0,279,55,1,0,0,0,280,281,5,42,0,0,281,282,3,54,27,
+        0,282,283,5,43,0,0,283,57,1,0,0,0,284,287,3,2,1,0,285,286,5,32,0,
+        0,286,288,3,2,1,0,287,285,1,0,0,0,287,288,1,0,0,0,288,59,1,0,0,0,
+        289,294,3,72,36,0,290,294,3,78,39,0,291,294,3,70,35,0,292,294,3,
+        62,31,0,293,289,1,0,0,0,293,290,1,0,0,0,293,291,1,0,0,0,293,292,
+        1,0,0,0,294,61,1,0,0,0,295,296,3,2,1,0,296,308,5,42,0,0,297,298,
+        3,64,32,0,298,299,5,4,0,0,299,300,3,66,33,0,300,304,1,0,0,0,301,
+        304,3,64,32,0,302,304,3,66,33,0,303,297,1,0,0,0,303,301,1,0,0,0,
+        303,302,1,0,0,0,304,306,1,0,0,0,305,307,5,4,0,0,306,305,1,0,0,0,
+        306,307,1,0,0,0,307,309,1,0,0,0,308,303,1,0,0,0,308,309,1,0,0,0,
+        309,310,1,0,0,0,310,312,5,43,0,0,311,313,5,39,0,0,312,311,1,0,0,
+        0,313,314,1,0,0,0,314,312,1,0,0,0,314,315,1,0,0,0,315,63,1,0,0,0,
+        316,321,3,24,12,0,317,318,5,4,0,0,318,320,3,24,12,0,319,317,1,0,
+        0,0,320,323,1,0,0,0,321,319,1,0,0,0,321,322,1,0,0,0,322,65,1,0,0,
+        0,323,321,1,0,0,0,324,329,3,68,34,0,325,326,5,4,0,0,326,328,3,68,
+        34,0,327,325,1,0,0,0,328,331,1,0,0,0,329,327,1,0,0,0,329,330,1,0,
+        0,0,330,67,1,0,0,0,331,329,1,0,0,0,332,333,3,2,1,0,333,334,5,33,
+        0,0,334,335,3,24,12,0,335,69,1,0,0,0,336,337,3,2,1,0,337,338,5,5,
+        0,0,338,340,3,80,40,0,339,341,5,39,0,0,340,339,1,0,0,0,341,342,1,
+        0,0,0,342,340,1,0,0,0,342,343,1,0,0,0,343,71,1,0,0,0,344,350,3,2,
+        1,0,345,348,5,5,0,0,346,349,3,76,38,0,347,349,3,74,37,0,348,346,
+        1,0,0,0,348,347,1,0,0,0,349,351,1,0,0,0,350,345,1,0,0,0,350,351,
+        1,0,0,0,351,352,1,0,0,0,352,353,5,34,0,0,353,365,5,63,0,0,354,356,
+        5,3,0,0,355,357,5,39,0,0,356,355,1,0,0,0,357,358,1,0,0,0,358,356,
+        1,0,0,0,358,359,1,0,0,0,359,366,1,0,0,0,360,362,3,60,30,0,361,360,
+        1,0,0,0,362,363,1,0,0,0,363,361,1,0,0,0,363,364,1,0,0,0,364,366,
+        1,0,0,0,365,354,1,0,0,0,365,361,1,0,0,0,366,367,1,0,0,0,367,386,
+        5,64,0,0,368,372,3,12,6,0,369,371,5,39,0,0,370,369,1,0,0,0,371,374,
+        1,0,0,0,372,370,1,0,0,0,372,373,1,0,0,0,373,375,1,0,0,0,374,372,
+        1,0,0,0,375,376,3,4,2,0,376,380,1,0,0,0,377,380,3,4,2,0,378,380,
+        3,12,6,0,379,368,1,0,0,0,379,377,1,0,0,0,379,378,1,0,0,0,380,382,
+        1,0,0,0,381,383,5,39,0,0,382,381,1,0,0,0,383,384,1,0,0,0,384,382,
+        1,0,0,0,384,385,1,0,0,0,385,387,1,0,0,0,386,379,1,0,0,0,386,387,
+        1,0,0,0,387,73,1,0,0,0,388,393,3,80,40,0,389,390,5,4,0,0,390,392,
+        3,80,40,0,391,389,1,0,0,0,392,395,1,0,0,0,393,391,1,0,0,0,393,394,
+        1,0,0,0,394,397,1,0,0,0,395,393,1,0,0,0,396,398,5,4,0,0,397,396,
+        1,0,0,0,397,398,1,0,0,0,398,75,1,0,0,0,399,400,5,42,0,0,400,401,
+        3,74,37,0,401,402,5,43,0,0,402,77,1,0,0,0,403,404,3,2,1,0,404,406,
+        3,4,2,0,405,407,5,39,0,0,406,405,1,0,0,0,407,408,1,0,0,0,408,406,
+        1,0,0,0,408,409,1,0,0,0,409,79,1,0,0,0,410,414,3,88,44,0,411,414,
+        3,94,47,0,412,414,3,82,41,0,413,410,1,0,0,0,413,411,1,0,0,0,413,
+        412,1,0,0,0,414,416,1,0,0,0,415,417,3,12,6,0,416,415,1,0,0,0,416,
+        417,1,0,0,0,417,419,1,0,0,0,418,420,3,4,2,0,419,418,1,0,0,0,419,
+        420,1,0,0,0,420,81,1,0,0,0,421,423,3,84,42,0,422,421,1,0,0,0,422,
+        423,1,0,0,0,423,424,1,0,0,0,424,429,3,2,1,0,425,426,5,35,0,0,426,
+        428,3,2,1,0,427,425,1,0,0,0,428,431,1,0,0,0,429,427,1,0,0,0,429,
+        430,1,0,0,0,430,433,1,0,0,0,431,429,1,0,0,0,432,434,3,86,43,0,433,
+        432,1,0,0,0,433,434,1,0,0,0,434,83,1,0,0,0,435,436,5,36,0,0,436,
+        85,1,0,0,0,437,438,5,37,0,0,438,87,1,0,0,0,439,442,5,42,0,0,440,
+        443,3,90,45,0,441,443,3,92,46,0,442,440,1,0,0,0,442,441,1,0,0,0,
+        443,444,1,0,0,0,444,445,5,43,0,0,445,89,1,0,0,0,446,447,3,80,40,
+        0,447,448,5,4,0,0,448,91,1,0,0,0,449,452,3,80,40,0,450,451,5,4,0,
+        0,451,453,3,80,40,0,452,450,1,0,0,0,453,454,1,0,0,0,454,452,1,0,
+        0,0,454,455,1,0,0,0,455,457,1,0,0,0,456,458,5,4,0,0,457,456,1,0,
+        0,0,457,458,1,0,0,0,458,93,1,0,0,0,459,460,5,42,0,0,460,465,3,80,
+        40,0,461,462,5,38,0,0,462,464,3,80,40,0,463,461,1,0,0,0,464,467,
+        1,0,0,0,465,463,1,0,0,0,465,466,1,0,0,0,466,468,1,0,0,0,467,465,
+        1,0,0,0,468,469,5,38,0,0,469,470,3,80,40,0,470,471,5,43,0,0,471,
+        95,1,0,0,0,56,99,105,111,121,131,135,137,144,148,153,157,159,172,
+        198,218,222,224,231,243,246,252,258,263,274,278,287,293,303,306,
+        308,314,321,329,342,348,350,358,363,365,372,379,384,386,393,397,
+        408,413,416,419,422,429,433,442,454,457,465
     ]
 
 class SimpleSchemaParser ( Parser ):
@@ -257,8 +259,8 @@ class SimpleSchemaParser ( Parser ):
     RULE_extension_statement_keyword_arg = 34
     RULE_parse_item_statement = 35
     RULE_parse_structure_statement = 36
-    RULE_parse_structure_statement_base_single__ = 37
-    RULE_parse_structure_statement_base_multi__ = 38
+    RULE_parse_structure_statement_base_items__ = 37
+    RULE_parse_structure_statement_base_grouped_items__ = 38
     RULE_parse_structure_simplified_statement = 39
     RULE_parse_type = 40
     RULE_parse_identifier_type = 41
@@ -284,7 +286,7 @@ class SimpleSchemaParser ( Parser ):
                    "body_statement__", "extension_statement", "extension_statement_positional_args", 
                    "extension_statement_keyword_args", "extension_statement_keyword_arg", 
                    "parse_item_statement", "parse_structure_statement", 
-                   "parse_structure_statement_base_single__", "parse_structure_statement_base_multi__", 
+                   "parse_structure_statement_base_items__", "parse_structure_statement_base_grouped_items__", 
                    "parse_structure_simplified_statement", "parse_type", 
                    "parse_identifier_type", "parse_identifier_type_global", 
                    "parse_identifier_type_item", "parse_tuple_type", "parse_tuple_type_single_item__", 
@@ -2540,12 +2542,12 @@ class SimpleSchemaParser ( Parser ):
         def DEDENT(self):
             return self.getToken(SimpleSchemaParser.DEDENT, 0)
 
-        def parse_structure_statement_base_single__(self):
-            return self.getTypedRuleContext(SimpleSchemaParser.Parse_structure_statement_base_single__Context,0)
+        def parse_structure_statement_base_grouped_items__(self):
+            return self.getTypedRuleContext(SimpleSchemaParser.Parse_structure_statement_base_grouped_items__Context,0)
 
 
-        def parse_structure_statement_base_multi__(self):
-            return self.getTypedRuleContext(SimpleSchemaParser.Parse_structure_statement_base_multi__Context,0)
+        def parse_structure_statement_base_items__(self):
+            return self.getTypedRuleContext(SimpleSchemaParser.Parse_structure_statement_base_items__Context,0)
 
 
         def body_statement__(self, i:int=None):
@@ -2598,17 +2600,17 @@ class SimpleSchemaParser ( Parser ):
                 self.match(SimpleSchemaParser.T__4)
                 self.state = 348
                 self._errHandler.sync(self)
-                token = self._input.LA(1)
-                if token in [36, 42, 54]:
+                la_ = self._interp.adaptivePredict(self._input,34,self._ctx)
+                if la_ == 1:
                     self.state = 346
-                    self.parse_structure_statement_base_single__()
+                    self.parse_structure_statement_base_grouped_items__()
                     pass
-                elif token in [63]:
+
+                elif la_ == 2:
                     self.state = 347
-                    self.parse_structure_statement_base_multi__()
+                    self.parse_structure_statement_base_items__()
                     pass
-                else:
-                    raise NoViableAltException(self)
+
 
 
 
@@ -2712,37 +2714,62 @@ class SimpleSchemaParser ( Parser ):
         return localctx
 
 
-    class Parse_structure_statement_base_single__Context(ParserRuleContext):
+    class Parse_structure_statement_base_items__Context(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def parse_type(self):
-            return self.getTypedRuleContext(SimpleSchemaParser.Parse_typeContext,0)
+        def parse_type(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(SimpleSchemaParser.Parse_typeContext)
+            else:
+                return self.getTypedRuleContext(SimpleSchemaParser.Parse_typeContext,i)
 
 
         def getRuleIndex(self):
-            return SimpleSchemaParser.RULE_parse_structure_statement_base_single__
+            return SimpleSchemaParser.RULE_parse_structure_statement_base_items__
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParse_structure_statement_base_single__" ):
-                return visitor.visitParse_structure_statement_base_single__(self)
+            if hasattr( visitor, "visitParse_structure_statement_base_items__" ):
+                return visitor.visitParse_structure_statement_base_items__(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def parse_structure_statement_base_single__(self):
+    def parse_structure_statement_base_items__(self):
 
-        localctx = SimpleSchemaParser.Parse_structure_statement_base_single__Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 74, self.RULE_parse_structure_statement_base_single__)
+        localctx = SimpleSchemaParser.Parse_structure_statement_base_items__Context(self, self._ctx, self.state)
+        self.enterRule(localctx, 74, self.RULE_parse_structure_statement_base_items__)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 388
             self.parse_type()
+            self.state = 393
+            self._errHandler.sync(self)
+            _alt = self._interp.adaptivePredict(self._input,43,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
+                    self.state = 389
+                    self.match(SimpleSchemaParser.T__3)
+                    self.state = 390
+                    self.parse_type() 
+                self.state = 395
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,43,self._ctx)
+
+            self.state = 397
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==4:
+                self.state = 396
+                self.match(SimpleSchemaParser.T__3)
+
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2752,66 +2779,47 @@ class SimpleSchemaParser ( Parser ):
         return localctx
 
 
-    class Parse_structure_statement_base_multi__Context(ParserRuleContext):
+    class Parse_structure_statement_base_grouped_items__Context(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def INDENT(self):
-            return self.getToken(SimpleSchemaParser.INDENT, 0)
+        def LPAREN(self):
+            return self.getToken(SimpleSchemaParser.LPAREN, 0)
 
-        def parse_type(self):
-            return self.getTypedRuleContext(SimpleSchemaParser.Parse_typeContext,0)
+        def parse_structure_statement_base_items__(self):
+            return self.getTypedRuleContext(SimpleSchemaParser.Parse_structure_statement_base_items__Context,0)
 
 
-        def DEDENT(self):
-            return self.getToken(SimpleSchemaParser.DEDENT, 0)
-
-        def NEWLINE(self, i:int=None):
-            if i is None:
-                return self.getTokens(SimpleSchemaParser.NEWLINE)
-            else:
-                return self.getToken(SimpleSchemaParser.NEWLINE, i)
+        def RPAREN(self):
+            return self.getToken(SimpleSchemaParser.RPAREN, 0)
 
         def getRuleIndex(self):
-            return SimpleSchemaParser.RULE_parse_structure_statement_base_multi__
+            return SimpleSchemaParser.RULE_parse_structure_statement_base_grouped_items__
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParse_structure_statement_base_multi__" ):
-                return visitor.visitParse_structure_statement_base_multi__(self)
+            if hasattr( visitor, "visitParse_structure_statement_base_grouped_items__" ):
+                return visitor.visitParse_structure_statement_base_grouped_items__(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def parse_structure_statement_base_multi__(self):
+    def parse_structure_statement_base_grouped_items__(self):
 
-        localctx = SimpleSchemaParser.Parse_structure_statement_base_multi__Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 76, self.RULE_parse_structure_statement_base_multi__)
-        self._la = 0 # Token type
+        localctx = SimpleSchemaParser.Parse_structure_statement_base_grouped_items__Context(self, self._ctx, self.state)
+        self.enterRule(localctx, 76, self.RULE_parse_structure_statement_base_grouped_items__)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 390
-            self.match(SimpleSchemaParser.INDENT)
-            self.state = 391
-            self.parse_type()
-            self.state = 393 
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while True:
-                self.state = 392
-                self.match(SimpleSchemaParser.NEWLINE)
-                self.state = 395 
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if not (_la==39):
-                    break
-
-            self.state = 397
-            self.match(SimpleSchemaParser.DEDENT)
+            self.state = 399
+            self.match(SimpleSchemaParser.LPAREN)
+            self.state = 400
+            self.parse_structure_statement_base_items__()
+            self.state = 401
+            self.match(SimpleSchemaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2861,17 +2869,17 @@ class SimpleSchemaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 399
+            self.state = 403
             self.identifier()
-            self.state = 400
+            self.state = 404
             self.metadata_clause()
-            self.state = 402 
+            self.state = 406 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 401
+                self.state = 405
                 self.match(SimpleSchemaParser.NEWLINE)
-                self.state = 404 
+                self.state = 408 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==39):
@@ -2932,38 +2940,38 @@ class SimpleSchemaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 409
+            self.state = 413
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,45,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,46,self._ctx)
             if la_ == 1:
-                self.state = 406
+                self.state = 410
                 self.parse_tuple_type()
                 pass
 
             elif la_ == 2:
-                self.state = 407
+                self.state = 411
                 self.parse_variant_type()
                 pass
 
             elif la_ == 3:
-                self.state = 408
+                self.state = 412
                 self.parse_identifier_type()
                 pass
 
 
-            self.state = 412
+            self.state = 416
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if ((_la) & ~0x3f) == 0 and ((1 << _la) & 17592186044864) != 0:
-                self.state = 411
+                self.state = 415
                 self.cardinality_clause()
 
 
-            self.state = 415
+            self.state = 419
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==1:
-                self.state = 414
+                self.state = 418
                 self.metadata_clause()
 
 
@@ -3017,33 +3025,33 @@ class SimpleSchemaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 418
+            self.state = 422
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==36:
-                self.state = 417
+                self.state = 421
                 self.parse_identifier_type_global()
 
 
-            self.state = 420
+            self.state = 424
             self.identifier()
-            self.state = 425
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==35:
-                self.state = 421
-                self.match(SimpleSchemaParser.T__34)
-                self.state = 422
-                self.identifier()
-                self.state = 427
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
             self.state = 429
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+            while _la==35:
+                self.state = 425
+                self.match(SimpleSchemaParser.T__34)
+                self.state = 426
+                self.identifier()
+                self.state = 431
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
+            self.state = 433
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
             if _la==37:
-                self.state = 428
+                self.state = 432
                 self.parse_identifier_type_item()
 
 
@@ -3082,7 +3090,7 @@ class SimpleSchemaParser ( Parser ):
         self.enterRule(localctx, 84, self.RULE_parse_identifier_type_global)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 431
+            self.state = 435
             self.match(SimpleSchemaParser.T__35)
         except RecognitionException as re:
             localctx.exception = re
@@ -3119,7 +3127,7 @@ class SimpleSchemaParser ( Parser ):
         self.enterRule(localctx, 86, self.RULE_parse_identifier_type_item)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 433
+            self.state = 437
             self.match(SimpleSchemaParser.T__36)
         except RecognitionException as re:
             localctx.exception = re
@@ -3169,23 +3177,23 @@ class SimpleSchemaParser ( Parser ):
         self.enterRule(localctx, 88, self.RULE_parse_tuple_type)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 435
+            self.state = 439
             self.match(SimpleSchemaParser.LPAREN)
-            self.state = 438
+            self.state = 442
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,51,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,52,self._ctx)
             if la_ == 1:
-                self.state = 436
+                self.state = 440
                 self.parse_tuple_type_single_item__()
                 pass
 
             elif la_ == 2:
-                self.state = 437
+                self.state = 441
                 self.parse_tuple_type_multi_item__()
                 pass
 
 
-            self.state = 440
+            self.state = 444
             self.match(SimpleSchemaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -3225,9 +3233,9 @@ class SimpleSchemaParser ( Parser ):
         self.enterRule(localctx, 90, self.RULE_parse_tuple_type_single_item__)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 442
+            self.state = 446
             self.parse_type()
-            self.state = 443
+            self.state = 447
             self.match(SimpleSchemaParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
@@ -3271,29 +3279,29 @@ class SimpleSchemaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 445
+            self.state = 449
             self.parse_type()
-            self.state = 448 
+            self.state = 452 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 446
+                    self.state = 450
                     self.match(SimpleSchemaParser.T__3)
-                    self.state = 447
+                    self.state = 451
                     self.parse_type()
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 450 
+                self.state = 454 
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,52,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,53,self._ctx)
 
-            self.state = 453
+            self.state = 457
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==4:
-                self.state = 452
+                self.state = 456
                 self.match(SimpleSchemaParser.T__3)
 
 
@@ -3344,28 +3352,28 @@ class SimpleSchemaParser ( Parser ):
         self.enterRule(localctx, 94, self.RULE_parse_variant_type)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 455
+            self.state = 459
             self.match(SimpleSchemaParser.LPAREN)
-            self.state = 456
+            self.state = 460
             self.parse_type()
-            self.state = 461
+            self.state = 465
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,54,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,55,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 457
+                    self.state = 461
                     self.match(SimpleSchemaParser.T__37)
-                    self.state = 458
+                    self.state = 462
                     self.parse_type() 
-                self.state = 463
+                self.state = 467
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,54,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,55,self._ctx)
 
-            self.state = 464
+            self.state = 468
             self.match(SimpleSchemaParser.T__37)
-            self.state = 465
+            self.state = 469
             self.parse_type()
-            self.state = 466
+            self.state = 470
             self.match(SimpleSchemaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
