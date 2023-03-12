@@ -475,7 +475,7 @@ class TestStructure(object):
                 WithBase: Base ->
                     pass
 
-                WithTupleBase: (One, Two, ) ->
+                WithTupleBase: One, Two, ->
                     pass
                 """,
             ),
@@ -559,21 +559,6 @@ class TestStructure(object):
                     """,
                 ),
                 quiet=True,
-            )
-
-    # ----------------------------------------------------------------------
-    def test_ErrorNestedTupleBase(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("Tuple base types may only contain identifiers. ({} <Ln 1, Col 25 -> Ln 1, Col 32>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    InvalidStructure: (One, (Two, )) ->
-                        pass
-                    """,
-                ),
             )
 
 

@@ -422,7 +422,7 @@ class TestStructure(object):
                 Derived2: Simple ->
                     value2: String
 
-                MultiBase: (Derived1, Derived2) ->
+                MultiBase: Derived1, Derived2 ->
                     value3: Boolean
 
                 simple: Simple
@@ -461,7 +461,7 @@ class TestStructure(object):
                         * 'One' {entry_point} <Ln 1, Col 1 -> Ln 1, Col 4>
                         * 'Base type 'Two' (index 0)' {entry_point} <Ln 1, Col 6 -> Ln 1, Col 9>
                         * 'Two' {entry_point} <Ln 4, Col 1 -> Ln 4, Col 4>
-                        * 'Base type 'Three' (index 0)' {entry_point} <Ln 4, Col 7 -> Ln 4, Col 12>
+                        * 'Base type 'Three' (index 0)' {entry_point} <Ln 4, Col 6 -> Ln 4, Col 11>
                         * 'Three' {entry_point} <Ln 7, Col 1 -> Ln 7, Col 6>
                         * 'Base type 'One' (index 0)' {entry_point} <Ln 7, Col 8 -> Ln 7, Col 11>
                         * 'One' {entry_point} <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -477,7 +477,7 @@ class TestStructure(object):
                     One: Two ->
                         pass
 
-                    Two: (Three, String) ->
+                    Two: Three, String ->
                         pass
 
                     Three: One ->
@@ -720,7 +720,7 @@ class TestStructure(object):
                     """\
                     Base types must be structure types when multiple base types are specified.
 
-                        - {entry_point} <Ln 8, Col 18 -> Ln 8, Col 23>
+                        - {entry_point} <Ln 8, Col 17 -> Ln 8, Col 22>
                         - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
                         - {entry_point} <Ln 6, Col 1 -> Ln 8, Col 1>
                     """,
@@ -737,7 +737,7 @@ class TestStructure(object):
 
                     Base2: StringType
 
-                    Derived: (Base1, Base2) ->
+                    Derived: Base1, Base2 ->
                         pass
                     """,
                 ),

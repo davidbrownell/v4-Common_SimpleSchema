@@ -594,7 +594,7 @@
         base_types:
         - __type__: ReferenceType
           __disabled__: false
-          range: Structures.SimpleSchema (Ln 69, Col 25 -> Ln 69, Col 32)
+          range: Structures.SimpleSchema (Ln 69, Col 24 -> Ln 69, Col 31)
           unique_type_name: _MultipleStructureBase-Struct-Ln69._Base0
           reference_count: 0
           display_type: _Nested0-Struct-Ln37
@@ -610,7 +610,7 @@
             range: Structures.SimpleSchema (Ln 37, Col 1 -> Ln 54, Col 1)
         - __type__: ReferenceType
           __disabled__: false
-          range: Structures.SimpleSchema (Ln 69, Col 34 -> Ln 69, Col 49)
+          range: Structures.SimpleSchema (Ln 69, Col 33 -> Ln 69, Col 48)
           unique_type_name: _MultipleStructureBase-Struct-Ln69._Base1
           reference_count: 0
           display_type: _Nested1-Struct-Ln40
@@ -626,7 +626,7 @@
             range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
         - __type__: ReferenceType
           __disabled__: false
-          range: Structures.SimpleSchema (Ln 69, Col 51 -> Ln 69, Col 74)
+          range: Structures.SimpleSchema (Ln 69, Col 50 -> Ln 69, Col 73)
           unique_type_name: _MultipleStructureBase-Struct-Ln69._Base2
           reference_count: 0
           display_type: _Nested2-Struct-Ln43

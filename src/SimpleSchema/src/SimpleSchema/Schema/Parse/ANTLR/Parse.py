@@ -937,7 +937,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
         assert isinstance(children[0], ParseIdentifier), children
         name = children[0]
 
-        bases: Optional[list[ParseIdentifierType]] = None
+        bases: list[ParseIdentifierType] = []
         cardinality: Optional[Cardinality] = None
         metadata: Optional[Metadata] = None
         statements: list[Statement] = []
@@ -947,17 +947,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
             if isinstance(child, ParseType):
                 if isinstance(child, ParseIdentifierType):
-                    bases = [child, ]
-
-                elif isinstance(child, ParseTupleType):
-                    bases = []
-
-                    for the_type in child.types:
-                        if not isinstance(the_type, ParseIdentifierType):
-                            raise Errors.ParseStructureStatementInvalidTupleBaseItem.Create(the_type.range)
-
-                        bases.append(the_type)
-
+                    bases.append(child)
                 else:
                     raise Errors.ParseStructureStatementInvalidBase.Create(child.range)
 
@@ -984,7 +974,7 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
             ParseStructureStatement(
                 range_value,
                 name,
-                bases,
+                bases or None,
                 cardinality,
                 metadata,
                 statements,

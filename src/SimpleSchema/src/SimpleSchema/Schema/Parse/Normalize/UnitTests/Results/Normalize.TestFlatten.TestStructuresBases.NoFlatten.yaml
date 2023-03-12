@@ -344,17 +344,17 @@
           value: _NoItems-Struct-Ln11
         base_types:
         - __type__: ReferenceType
-          range: entry_point <Ln 11, Col 11 -> Ln 11, Col 16>
+          range: entry_point <Ln 11, Col 10 -> Ln 11, Col 15>
           unique_type_name: _NoItems-Struct-Ln11._Base0
           reference_count: 0
           display_type: _Base1-Struct-Ln1
           visibility:
             __type__: SimpleElement
-            range: entry_point <Ln 11, Col 11 -> Ln 11, Col 16>
+            range: entry_point <Ln 11, Col 10 -> Ln 11, Col 15>
             value: Visibility.Private
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 11, Col 11 -> Ln 11, Col 16>
+            range: entry_point <Ln 11, Col 10 -> Ln 11, Col 15>
             value: _Base0
           cardinality:
             __type__: Cardinality
@@ -371,17 +371,17 @@
             name: Base1
             range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
         - __type__: ReferenceType
-          range: entry_point <Ln 11, Col 18 -> Ln 11, Col 23>
+          range: entry_point <Ln 11, Col 17 -> Ln 11, Col 22>
           unique_type_name: _NoItems-Struct-Ln11._Base1
           reference_count: 0
           display_type: _Base2-Struct-Ln5
           visibility:
             __type__: SimpleElement
-            range: entry_point <Ln 11, Col 18 -> Ln 11, Col 23>
+            range: entry_point <Ln 11, Col 17 -> Ln 11, Col 22>
             value: Visibility.Private
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 11, Col 18 -> Ln 11, Col 23>
+            range: entry_point <Ln 11, Col 17 -> Ln 11, Col 22>
             value: _Base1
           cardinality:
             __type__: Cardinality
@@ -441,17 +441,17 @@
           value: _WithItems-Struct-Ln14
         base_types:
         - __type__: ReferenceType
-          range: entry_point <Ln 14, Col 13 -> Ln 14, Col 18>
+          range: entry_point <Ln 14, Col 12 -> Ln 14, Col 17>
           unique_type_name: _WithItems-Struct-Ln14._Base0
           reference_count: 0
           display_type: _Base3-Struct-Ln8
           visibility:
             __type__: SimpleElement
-            range: entry_point <Ln 14, Col 13 -> Ln 14, Col 18>
+            range: entry_point <Ln 14, Col 12 -> Ln 14, Col 17>
             value: Visibility.Private
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 14, Col 13 -> Ln 14, Col 18>
+            range: entry_point <Ln 14, Col 12 -> Ln 14, Col 17>
             value: _Base0
           cardinality:
             __type__: Cardinality
@@ -468,17 +468,17 @@
             name: Base3
             range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
         - __type__: ReferenceType
-          range: entry_point <Ln 14, Col 20 -> Ln 14, Col 25>
+          range: entry_point <Ln 14, Col 19 -> Ln 14, Col 24>
           unique_type_name: _WithItems-Struct-Ln14._Base1
           reference_count: 0
           display_type: _Base1-Struct-Ln1
           visibility:
             __type__: SimpleElement
-            range: entry_point <Ln 14, Col 20 -> Ln 14, Col 25>
+            range: entry_point <Ln 14, Col 19 -> Ln 14, Col 24>
             value: Visibility.Private
           name:
             __type__: SimpleElement
-            range: entry_point <Ln 14, Col 20 -> Ln 14, Col 25>
+            range: entry_point <Ln 14, Col 19 -> Ln 14, Col 24>
             value: _Base1
           cardinality:
             __type__: Cardinality

@@ -66,5 +66,5 @@ SingleStructureBase: Nested0.Nested1.Nested2 ->
 
 
 # ----------------------------------------------------------------------
-MultipleStructureBase: (Nested0, Nested0.Nested1, Nested0.Nested1.Nested2) ->
+MultipleStructureBase: Nested0, Nested0.Nested1, Nested0.Nested1.Nested2 ->
     pass
