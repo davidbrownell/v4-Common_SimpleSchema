@@ -14,8 +14,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
-      unique_type_name: _ItemStatement-Ln1
-      reference_count: 1
+      unique_name: _ItemStatement-Ln1
       display_type: String
       metadata:
         integer:
@@ -25,8 +24,7 @@
       type:
         __type__: StringType
         range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
-        unique_type_name: String-Ln1
-        reference_count: 1
+        unique_name: String-Ln1
         min_length: 1
       visibility:
         __type__: SimpleElement
@@ -60,8 +58,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-      unique_type_name: _ItemStatement-Ln2
-      reference_count: 1
+      unique_name: _ItemStatement-Ln2
       display_type: String[3]
       metadata:
         integer:
@@ -71,14 +68,12 @@
       type:
         __type__: ReferenceType
         range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-        unique_type_name: __ItemStatement-Ln2-Item-Ln2
-        reference_count: 1
+        unique_name: __ItemStatement-Ln2-Item-Ln2
         display_type: String
         type:
           __type__: StringType
           range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-          unique_type_name: String-Ln2
-          reference_count: 1
+          unique_name: String-Ln2
           min_length: 1
         visibility:
           __type__: SimpleElement

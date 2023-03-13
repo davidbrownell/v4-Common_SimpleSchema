@@ -64,6 +64,7 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Parse import TestHelpers
     from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse
     from SimpleSchema.Schema.Parse.Normalize.Normalize import Normalize, Flag as NormalizeFlag
+    from SimpleSchema.Schema.Parse.ParseState.ParseState import ParseState
     from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve
 
 
@@ -1464,7 +1465,7 @@ class TestMetadata(object):
                     """,
                 ).format(
                     entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point",
-                    name_metadata_attribute_file=inspect.getmodule(NameMetadataAttribute).__file__,
+                    name_metadata_attribute_file=inspect.getmodule(NameMetadataAttribute).__file__,  # type: ignore
                 )),
         ):
             _Test(
@@ -1571,17 +1572,19 @@ def _TestEx(
         assert len(results) == 1, results
         workspace_root, results = next(iter(results.items()))
 
+        assert all(isinstance(value, RootStatement) for value in results.values())
+        results = cast(dict[Path, RootStatement], results)
+
         results = {
             workspace_root / key: value for key, value in results.items()
         }
 
-        assert all(isinstance(value, RootStatement) for value in results.values())
-        results = cast(dict[Path, RootStatement], results)
-
     dm_and_sink = iter(GenerateDoneManagerAndSink())
+    parse_state = ParseState()
 
     resolve_results = Resolve(
         cast(DoneManager, next(dm_and_sink)),
+        parse_state,
         results,
         single_threaded=single_threaded,
         quiet=quiet,
@@ -1594,6 +1597,7 @@ def _TestEx(
 
     normalize_results = Normalize(
         cast(DoneManager, next(dm_and_sink)),
+        parse_state,
         results,
         metadata_attributes or [],
         supported_extension_names or set(),
@@ -1605,7 +1609,11 @@ def _TestEx(
 
     output = cast(str, next(dm_and_sink))
 
-    return normalize_results or results, output
+    if normalize_results is not None:
+        assert all(isinstance(value, Exception) for value in normalize_results.values())
+        return cast(dict[Path, Exception], normalize_results), output
+
+    return cast(dict[Path, RootStatement], results), output
 
 
 # ----------------------------------------------------------------------

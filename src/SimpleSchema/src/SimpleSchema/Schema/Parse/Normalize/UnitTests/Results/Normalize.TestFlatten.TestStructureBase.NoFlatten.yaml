@@ -3,19 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-    unique_type_name: Base
-    reference_count: 0
+    unique_name: Base
     display_type: _Base-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      unique_type_name: _Base-Struct-Ln1
-      reference_count: 0
+      unique_name: _Base-Struct-Ln1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-        unique_type_name: _Base-Struct-Ln1
-        reference_count: 0
+        unique_name: _Base-Struct-Ln1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -38,14 +35,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 2, Col 12 -> Ln 2, Col 18>
-            unique_type_name: _Base-Struct-Ln1._ItemStatement-Ln2
-            reference_count: 1
+            unique_name: _Base-Struct-Ln1._ItemStatement-Ln2
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 2, Col 12 -> Ln 2, Col 18>
-              unique_type_name: _Base-Struct-Ln1.String-Ln2
-              reference_count: 1
+              unique_name: _Base-Struct-Ln1.String-Ln2
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -79,14 +74,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 3, Col 12 -> Ln 3, Col 19>
-            unique_type_name: _Base-Struct-Ln1._ItemStatement-Ln3
-            reference_count: 1
+            unique_name: _Base-Struct-Ln1._ItemStatement-Ln3
             display_type: Integer
             type:
               __type__: IntegerType
               range: entry_point <Ln 3, Col 12 -> Ln 3, Col 19>
-              unique_type_name: _Base-Struct-Ln1.Integer-Ln3
-              reference_count: 1
+              unique_name: _Base-Struct-Ln1.Integer-Ln3
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 3, Col 5 -> Ln 4, Col 1>
@@ -127,19 +120,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-    unique_type_name: NoItems
-    reference_count: 0
+    unique_name: NoItems
     display_type: _NoItems-Struct-Ln5
     type:
       __type__: StructureType
       range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-      unique_type_name: _NoItems-Struct-Ln5
-      reference_count: 0
+      unique_name: _NoItems-Struct-Ln5
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-        unique_type_name: _NoItems-Struct-Ln5
-        reference_count: 0
+        unique_name: _NoItems-Struct-Ln5
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -151,8 +141,7 @@
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 5, Col 10 -> Ln 5, Col 14>
-          unique_type_name: _NoItems-Struct-Ln5._Base0
-          reference_count: 0
+          unique_name: _NoItems-Struct-Ln5._Base0
           display_type: _Base-Struct-Ln1
           visibility:
             __type__: SimpleElement
@@ -197,19 +186,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
-    unique_type_name: WithItems
-    reference_count: 0
+    unique_name: WithItems
     display_type: _WithItems-Struct-Ln8
     type:
       __type__: StructureType
       range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
-      unique_type_name: _WithItems-Struct-Ln8
-      reference_count: 0
+      unique_name: _WithItems-Struct-Ln8
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
-        unique_type_name: _WithItems-Struct-Ln8
-        reference_count: 0
+        unique_name: _WithItems-Struct-Ln8
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
@@ -221,8 +207,7 @@
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 8, Col 12 -> Ln 8, Col 16>
-          unique_type_name: _WithItems-Struct-Ln8._Base0
-          reference_count: 0
+          unique_name: _WithItems-Struct-Ln8._Base0
           display_type: _Base-Struct-Ln1
           visibility:
             __type__: SimpleElement
@@ -260,14 +245,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 9, Col 11 -> Ln 9, Col 17>
-            unique_type_name: _WithItems-Struct-Ln8._ItemStatement-Ln9
-            reference_count: 1
+            unique_name: _WithItems-Struct-Ln8._ItemStatement-Ln9
             display_type: Number
             type:
               __type__: NumberType
               range: entry_point <Ln 9, Col 11 -> Ln 9, Col 17>
-              unique_type_name: _WithItems-Struct-Ln8.Number-Ln9
-              reference_count: 1
+              unique_name: _WithItems-Struct-Ln8.Number-Ln9
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 9, Col 5 -> Ln 10, Col 1>

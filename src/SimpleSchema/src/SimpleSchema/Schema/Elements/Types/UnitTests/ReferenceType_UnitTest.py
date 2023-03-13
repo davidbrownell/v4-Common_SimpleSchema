@@ -593,28 +593,6 @@ class TestDisplayType(object):
 
 
 # ----------------------------------------------------------------------
-def test_ReferenceCount():
-    referenced_type = Mock(spec=BasicType)
-
-    rt = _Create(referenced_type, Cardinality.CreateFromCode())
-
-    assert rt.reference_count == 0
-    assert referenced_type.Increment.call_count == 0
-
-    rt.Increment()
-    assert rt.reference_count == 1
-    assert referenced_type.Increment.call_count == 1
-
-    rt.Increment()
-    assert rt.reference_count == 2
-    assert referenced_type.Increment.call_count == 2
-
-    rt.Increment(shallow=True)
-    assert rt.reference_count == 3
-    assert referenced_type.Increment.call_count == 3
-
-
-# ----------------------------------------------------------------------
 def test_ErrorOptionalToOptional():
     referenced_type = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(0, 1), range_value=Range.Create(Path("filename"), 1, 2, 3, 4))
 

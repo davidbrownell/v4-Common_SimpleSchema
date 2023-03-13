@@ -14,12 +14,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 18>
-      reference_count: 1
       display_type: Integer
       type:
         __type__: IntegerType
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 18>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
@@ -52,12 +50,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 11 -> Ln 2, Col 30>
-      reference_count: 1
       display_type: Integer {>= 10}
       type:
         __type__: IntegerType
         range: entry_point <Ln 2, Col 11 -> Ln 2, Col 30>
-        reference_count: 1
         min: 10
       visibility:
         __type__: SimpleElement
@@ -91,12 +87,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 11 -> Ln 3, Col 30>
-      reference_count: 1
       display_type: Integer {<= 20}
       type:
         __type__: IntegerType
         range: entry_point <Ln 3, Col 11 -> Ln 3, Col 30>
-        reference_count: 1
         max: 20
       visibility:
         __type__: SimpleElement
@@ -130,12 +124,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 19 -> Ln 4, Col 47>
-      reference_count: 1
       display_type: Integer {>= 10, <= 20}
       type:
         __type__: IntegerType
         range: entry_point <Ln 4, Col 19 -> Ln 4, Col 47>
-        reference_count: 1
         min: 10
         max: 20
       visibility:
@@ -170,12 +162,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 7 -> Ln 5, Col 34>
-      reference_count: 1
       display_type: Integer
       type:
         __type__: IntegerType
         range: entry_point <Ln 5, Col 7 -> Ln 5, Col 34>
-        reference_count: 1
         bits: BitsEnum.Value64
       visibility:
         __type__: SimpleElement

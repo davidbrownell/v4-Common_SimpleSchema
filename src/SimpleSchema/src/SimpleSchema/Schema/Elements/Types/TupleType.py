@@ -49,19 +49,6 @@ class TupleType(BasicType):
             raise Errors.TupleTypeNoTypes.Create(self.range)
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    def Increment(
-        self,
-        *,
-        shallow: bool=False,
-    ) -> None:
-        super(TupleType, self).Increment()
-
-        if shallow is False:
-            for child_type in self.types:
-                child_type.Increment()
-
-    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @property

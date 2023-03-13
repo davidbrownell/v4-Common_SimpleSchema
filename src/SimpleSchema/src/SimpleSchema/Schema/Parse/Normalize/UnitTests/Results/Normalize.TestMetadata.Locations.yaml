@@ -3,8 +3,7 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 4, Col 1 -> Ln 9, Col 1>
-    unique_type_name: Structure
-    reference_count: 0
+    unique_name: Structure
     display_type: _Structure-Struct-Ln4
     metadata:
       integer:
@@ -14,13 +13,11 @@
     type:
       __type__: StructureType
       range: entry_point <Ln 4, Col 1 -> Ln 9, Col 1>
-      unique_type_name: _Structure-Struct-Ln4
-      reference_count: 0
+      unique_name: _Structure-Struct-Ln4
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 4, Col 1 -> Ln 9, Col 1>
-        unique_type_name: _Structure-Struct-Ln4
-        reference_count: 0
+        unique_name: _Structure-Struct-Ln4
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 4, Col 1 -> Ln 9, Col 1>
@@ -32,8 +29,7 @@
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 4, Col 12 -> Ln 4, Col 33>
-          unique_type_name: _Structure-Struct-Ln4._Base0
-          reference_count: 0
+          unique_name: _Structure-Struct-Ln4._Base0
           display_type: String
           metadata:
             integer:
@@ -43,8 +39,7 @@
           type:
             __type__: StringType
             range: entry_point <Ln 4, Col 12 -> Ln 4, Col 33>
-            unique_type_name: _Structure-Struct-Ln4.String-Ln4
-            reference_count: 0
+            unique_name: _Structure-Struct-Ln4.String-Ln4
             min_length: 1
           visibility:
             __type__: SimpleElement
@@ -79,8 +74,7 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 5, Col 11 -> Ln 5, Col 32>
-            unique_type_name: _Structure-Struct-Ln4._ItemStatement-Ln5
-            reference_count: 1
+            unique_name: _Structure-Struct-Ln4._ItemStatement-Ln5
             display_type: Number
             metadata:
               integer:
@@ -90,8 +84,7 @@
             type:
               __type__: NumberType
               range: entry_point <Ln 5, Col 11 -> Ln 5, Col 32>
-              unique_type_name: _Structure-Struct-Ln4.Number-Ln5
-              reference_count: 1
+              unique_name: _Structure-Struct-Ln4.Number-Ln5
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 5, Col 5 -> Ln 7, Col 5>
@@ -113,8 +106,7 @@
                 value: 1
         - __type__: ReferenceType
           range: entry_point <Ln 7, Col 5 -> Ln 7, Col 32>
-          unique_type_name: _Structure-Struct-Ln4.Type
-          reference_count: 0
+          unique_name: _Structure-Struct-Ln4.Type
           display_type: String
           metadata:
             integer:
@@ -124,8 +116,7 @@
           type:
             __type__: StringType
             range: entry_point <Ln 7, Col 11 -> Ln 7, Col 32>
-            unique_type_name: _Structure-Struct-Ln4.String-Ln7
-            reference_count: 0
+            unique_name: _Structure-Struct-Ln4.String-Ln7
             min_length: 1
           visibility:
             __type__: SimpleElement

@@ -3,8 +3,7 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-    unique_type_name: Structure
-    reference_count: 0
+    unique_name: Structure
     display_type: _Structure-Struct-Ln1
     metadata:
       root:
@@ -14,13 +13,11 @@
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-      unique_type_name: _Structure-Struct-Ln1
-      reference_count: 0
+      unique_name: _Structure-Struct-Ln1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-        unique_type_name: _Structure-Struct-Ln1
-        reference_count: 0
+        unique_name: _Structure-Struct-Ln1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
@@ -32,8 +29,7 @@
         children:
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>
-          unique_type_name: _Structure-Struct-Ln1.Nested
-          reference_count: 0
+          unique_name: _Structure-Struct-Ln1.Nested
           display_type: _Nested-Struct-Ln2
           metadata:
             nested:
@@ -43,13 +39,11 @@
           type:
             __type__: StructureType
             range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>
-            unique_type_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
-            reference_count: 0
+            unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
             structure:
               __type__: StructureStatement
               range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>
-              unique_type_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
-              reference_count: 0
+              unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
               visibility:
                 __type__: SimpleElement
                 range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>

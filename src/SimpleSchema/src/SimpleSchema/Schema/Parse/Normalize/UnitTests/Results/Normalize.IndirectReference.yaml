@@ -3,14 +3,12 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-    unique_type_name: Type
-    reference_count: 3
+    unique_name: Type
     display_type: String
     type:
       __type__: StringType
       range: entry_point <Ln 1, Col 7 -> Ln 1, Col 13>
-      unique_type_name: String-Ln1
-      reference_count: 3
+      unique_name: String-Ln1
       min_length: 1
     visibility:
       __type__: SimpleElement
@@ -33,8 +31,7 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-    unique_type_name: Types
-    reference_count: 2
+    unique_name: Types
     display_type: String+
     visibility:
       __type__: SimpleElement
@@ -56,8 +53,7 @@
       range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-    unique_type_name: TypesCollection
-    reference_count: 1
+    unique_name: TypesCollection
     display_type: String+*
     visibility:
       __type__: SimpleElement
@@ -90,8 +86,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 7 -> Ln 5, Col 11>
-      unique_type_name: _ItemStatement-Ln5
-      reference_count: 1
+      unique_name: _ItemStatement-Ln5
       display_type: String
       visibility:
         __type__: SimpleElement
@@ -128,8 +123,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 6, Col 8 -> Ln 6, Col 13>
-      unique_type_name: _ItemStatement-Ln6
-      reference_count: 1
+      unique_name: _ItemStatement-Ln6
       display_type: String+
       visibility:
         __type__: SimpleElement
@@ -162,8 +156,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 7, Col 19 -> Ln 7, Col 34>
-      unique_type_name: _ItemStatement-Ln7
-      reference_count: 1
+      unique_name: _ItemStatement-Ln7
       display_type: String+*
       visibility:
         __type__: SimpleElement

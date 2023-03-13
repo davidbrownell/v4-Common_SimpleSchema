@@ -14,12 +14,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 17>
-      reference_count: 1
       display_type: String
       type:
         __type__: StringType
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 17>
-        reference_count: 1
         min_length: 1
       visibility:
         __type__: SimpleElement
@@ -53,12 +51,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 11 -> Ln 2, Col 35>
-      reference_count: 1
       display_type: String {>= no characters}
       type:
         __type__: StringType
         range: entry_point <Ln 2, Col 11 -> Ln 2, Col 35>
-        reference_count: 1
         min_length: 0
       visibility:
         __type__: SimpleElement
@@ -92,12 +88,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 11 -> Ln 3, Col 37>
-      reference_count: 1
       display_type: String {<= 100 characters}
       type:
         __type__: StringType
         range: entry_point <Ln 3, Col 11 -> Ln 3, Col 37>
-        reference_count: 1
         min_length: 1
         max_length: 100
       visibility:
@@ -132,12 +126,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 19 -> Ln 4, Col 60>
-      reference_count: 1
       display_type: String {>= 10 characters, <= 20 characters}
       type:
         __type__: StringType
         range: entry_point <Ln 4, Col 19 -> Ln 4, Col 60>
-        reference_count: 1
         min_length: 10
         max_length: 20
       visibility:
@@ -172,12 +164,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 18 -> Ln 5, Col 57>
-      reference_count: 1
       display_type: String {'foo'}
       type:
         __type__: StringType
         range: entry_point <Ln 5, Col 18 -> Ln 5, Col 57>
-        reference_count: 1
         min_length: 1
         validation_expression: foo
       visibility:

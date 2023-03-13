@@ -3,14 +3,12 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-    unique_type_name: Type
-    reference_count: 0
+    unique_name: Type
     display_type: String
     type:
       __type__: StringType
       range: entry_point <Ln 1, Col 7 -> Ln 1, Col 13>
-      unique_type_name: String-Ln1
-      reference_count: 0
+      unique_name: String-Ln1
       min_length: 1
     visibility:
       __type__: SimpleElement

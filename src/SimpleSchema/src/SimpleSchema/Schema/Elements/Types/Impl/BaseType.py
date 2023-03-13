@@ -23,14 +23,14 @@ from typing import Any, ClassVar, Union
 from Common_Foundation.Types import DoesNotExist, extensionmethod
 
 from ...Common.Element import Element
-from ...Common.ReferenceCountMixin import ReferenceCountMixin
+from ...Common.UniqueNameTrait import UniqueNameTrait
 
 from ...Expressions.Expression import Expression
 
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class BaseType(ReferenceCountMixin, Element):
+class BaseType(UniqueNameTrait, Element):
     """Abstract base class for BasicType and ComplexType"""
 
     # ----------------------------------------------------------------------

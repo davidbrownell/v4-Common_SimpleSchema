@@ -14,12 +14,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 10 -> Ln 1, Col 17>
-      reference_count: 1
       display_type: Boolean
       type:
         __type__: BooleanType
         range: entry_point <Ln 1, Col 10 -> Ln 1, Col 17>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
@@ -52,12 +50,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 11 -> Ln 2, Col 19>
-      reference_count: 1
       display_type: DateTime
       type:
         __type__: DateTimeType
         range: entry_point <Ln 2, Col 11 -> Ln 2, Col 19>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
@@ -90,12 +86,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
-      reference_count: 1
       display_type: Date
       type:
         __type__: DateType
         range: entry_point <Ln 3, Col 7 -> Ln 3, Col 11>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
@@ -128,12 +122,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 12 -> Ln 4, Col 21>
-      reference_count: 1
       display_type: Directory!
       type:
         __type__: DirectoryType
         range: entry_point <Ln 4, Col 12 -> Ln 4, Col 21>
-        reference_count: 1
         ensure_exists: true
       visibility:
         __type__: SimpleElement
@@ -167,12 +159,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 11 -> Ln 5, Col 19>
-      reference_count: 1
       display_type: Duration
       type:
         __type__: DurationType
         range: entry_point <Ln 5, Col 11 -> Ln 5, Col 19>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
@@ -205,12 +195,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 6, Col 7 -> Ln 6, Col 39>
-      reference_count: 1
       display_type: Enum
       type:
         __type__: EnumType
         range: entry_point <Ln 6, Col 7 -> Ln 6, Col 39>
-        reference_count: 1
         values:
         - name: a
           value: 1
@@ -250,12 +238,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
-      reference_count: 1
       display_type: Filename!
       type:
         __type__: FilenameType
         range: entry_point <Ln 7, Col 11 -> Ln 7, Col 19>
-        reference_count: 1
         ensure_exists: true
         match_any: false
       visibility:
@@ -290,12 +276,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 8, Col 7 -> Ln 8, Col 11>
-      reference_count: 1
       display_type: Guid
       type:
         __type__: GuidType
         range: entry_point <Ln 8, Col 7 -> Ln 8, Col 11>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 8, Col 1 -> Ln 9, Col 1>
@@ -328,12 +312,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 9, Col 10 -> Ln 9, Col 17>
-      reference_count: 1
       display_type: Integer
       type:
         __type__: IntegerType
         range: entry_point <Ln 9, Col 10 -> Ln 9, Col 17>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
@@ -366,12 +348,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 10, Col 9 -> Ln 10, Col 15>
-      reference_count: 1
       display_type: Number
       type:
         __type__: NumberType
         range: entry_point <Ln 10, Col 9 -> Ln 10, Col 15>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
@@ -404,12 +384,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 11, Col 9 -> Ln 11, Col 15>
-      reference_count: 1
       display_type: String
       type:
         __type__: StringType
         range: entry_point <Ln 11, Col 9 -> Ln 11, Col 15>
-        reference_count: 1
         min_length: 1
       visibility:
         __type__: SimpleElement
@@ -443,12 +421,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 12, Col 6 -> Ln 12, Col 9>
-      reference_count: 1
       display_type: Uri
       type:
         __type__: UriType
         range: entry_point <Ln 12, Col 6 -> Ln 12, Col 9>
-        reference_count: 1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 12, Col 1 -> Ln 13, Col 1>

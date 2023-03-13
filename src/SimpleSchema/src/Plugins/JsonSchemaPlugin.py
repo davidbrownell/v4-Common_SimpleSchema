@@ -451,7 +451,7 @@ class _Visitor(Visitor):
         assert not self._schema_stack
 
         self._schema["$defs"] = {
-            schema_info.element.unique_type_name: schema_info.schema
+            schema_info.element.unique_name: schema_info.schema
             for schema_info in self._schema_info_lookup.values()
         }
 
@@ -646,7 +646,7 @@ class _Visitor(Visitor):
             not (element.flags & ReferenceType.Flag.BasicRef)
             or (element.flags & ReferenceType.Flag.StructureRef)
         ):
-            self._schema_stack[-1]["$ref"] = "#/$defs/{}".format(element.type.unique_type_name)
+            self._schema_stack[-1]["$ref"] = "#/$defs/{}".format(element.type.unique_name)
 
         if element.flags & ReferenceType.Flag.Alias:
             self._suppress_cardinality = True

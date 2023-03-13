@@ -44,6 +44,7 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
     from SimpleSchema.Schema.Parse import TestHelpers
     from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse
+    from SimpleSchema.Schema.Parse.ParseState.ParseState import ParseState
     from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve
 
 
@@ -1083,17 +1084,18 @@ def _TestEx(
         assert len(results) == 1, results
         workspace_root, results = next(iter(results.items()))
 
+        assert all(isinstance(value, RootStatement) for value in results.values())
+
         results = {
             workspace_root / key: value for key, value in results.items()
         }
 
-        assert all(isinstance(value, RootStatement) for value in results.values())
-        results = cast(dict[Path, RootStatement], results)
-
     dm_and_sink = iter(GenerateDoneManagerAndSink())
+    parse_state = ParseState()
 
     resolve_results = Resolve(
         cast(DoneManager, next(dm_and_sink)),
+        parse_state,
         results,
         single_threaded=single_threaded,
         quiet=quiet,
@@ -1102,7 +1104,11 @@ def _TestEx(
 
     output = cast(str, next(dm_and_sink))
 
-    return resolve_results or results, output
+    if resolve_results:
+        assert all(isinstance(value, Exception) for value in resolve_results.values())
+        return cast(dict[Path, Exception], resolve_results), output
+
+    return results, output
 
 
 # ----------------------------------------------------------------------

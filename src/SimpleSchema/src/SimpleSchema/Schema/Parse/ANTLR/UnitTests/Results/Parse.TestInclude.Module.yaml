@@ -39,7 +39,6 @@ Subdir/Foo.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
@@ -69,7 +68,6 @@ Subdir/Subdir2/Bar.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: Subdir/Subdir2/Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
@@ -99,7 +97,6 @@ Baz.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: Baz.SimpleSchema <Ln 1, Col 7 -> Ln 1, Col 10>

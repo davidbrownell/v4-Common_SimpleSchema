@@ -14,12 +14,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 43>
-      reference_count: 1
       display_type: Enum
       type:
         __type__: EnumType
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 43>
-        reference_count: 1
         values:
         - name: a
           value: 1
@@ -59,12 +57,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 17 -> Ln 2, Col 69>
-      reference_count: 1
       display_type: Enum
       type:
         __type__: EnumType
         range: entry_point <Ln 2, Col 17 -> Ln 2, Col 69>
-        reference_count: 1
         values:
         - name: a
           value: 10
@@ -104,12 +100,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 13 -> Ln 3, Col 39>
-      reference_count: 1
       display_type: Enum
       type:
         __type__: EnumType
         range: entry_point <Ln 3, Col 13 -> Ln 3, Col 39>
-        reference_count: 1
         values:
         - name: Value1
           value: 1
@@ -149,12 +143,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 15 -> Ln 4, Col 68>
-      reference_count: 1
       display_type: Enum
       type:
         __type__: EnumType
         range: entry_point <Ln 4, Col 15 -> Ln 4, Col 68>
-        reference_count: 1
         values:
         - name: a
           value: A

@@ -3,19 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-    unique_type_name: Structure
-    reference_count: 0
+    unique_name: Structure
     display_type: _Structure-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-      unique_type_name: _Structure-Struct-Ln1
-      reference_count: 0
+      unique_name: _Structure-Struct-Ln1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-        unique_type_name: _Structure-Struct-Ln1
-        reference_count: 0
+        unique_name: _Structure-Struct-Ln1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -38,14 +35,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 2, Col 16 -> Ln 2, Col 22>
-            unique_type_name: _Structure-Struct-Ln1._ItemStatement-Ln2
-            reference_count: 1
+            unique_name: _Structure-Struct-Ln1._ItemStatement-Ln2
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 2, Col 16 -> Ln 2, Col 22>
-              unique_type_name: _Structure-Struct-Ln1.String-Ln2
-              reference_count: 1
+              unique_name: _Structure-Struct-Ln1.String-Ln2
               min_length: 1
             visibility:
               __type__: SimpleElement
