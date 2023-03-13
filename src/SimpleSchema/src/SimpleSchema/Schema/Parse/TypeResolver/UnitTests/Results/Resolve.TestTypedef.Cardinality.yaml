@@ -3,12 +3,10 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-    reference_count: 0
     display_type: String {>= 2 characters}
     type:
       __type__: StringType
       range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
-      reference_count: 0
       min_length: 2
     visibility:
       __type__: SimpleElement
@@ -31,7 +29,6 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>+
     visibility:
       __type__: SimpleElement
@@ -53,7 +50,6 @@
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>+*
     visibility:
       __type__: SimpleElement
@@ -75,7 +71,6 @@
       range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>+*[10]
     visibility:
       __type__: SimpleElement
@@ -101,7 +96,6 @@
       range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>?
     visibility:
       __type__: SimpleElement
@@ -127,7 +121,6 @@
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 8, Col 1 -> Ln 13, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>?
     visibility:
       __type__: SimpleElement
@@ -153,7 +146,6 @@
       range: entry_point <Ln 7, Col 1 -> Ln 8, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>+
     visibility:
       __type__: SimpleElement
@@ -189,7 +181,6 @@
       range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
-    reference_count: 0
     display_type: <String {>= 2 characters}>+*
     visibility:
       __type__: SimpleElement

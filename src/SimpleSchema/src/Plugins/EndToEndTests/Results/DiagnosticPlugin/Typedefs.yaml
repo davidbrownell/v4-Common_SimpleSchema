@@ -5,8 +5,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
-    unique_type_name: Str
-    reference_count: 10
+    unique_name: Str
     display_type: String
     flags:
     - Alias
@@ -16,8 +15,7 @@
       __type__: StringType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 21, Col 6 -> Ln 21, Col 12)
-      unique_type_name: String-Ln21
-      reference_count: 10
+      unique_name: String-Ln21
       min_length: 1
     visibility: Visibility.Public
     name: Str
@@ -25,8 +23,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
-    unique_type_name: StrAlias
-    reference_count: 5
+    unique_name: StrAlias
     display_type: String
     flags:
     - Alias
@@ -35,13 +32,12 @@
     name: StrAlias
     cardinality: <single>
     reference:
-      unique_type_name: Str
+      unique_name: Str
       range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 24, Col 1 -> Ln 25, Col 1)
-    unique_type_name: Strs
-    reference_count: 2
+    unique_name: Strs
     display_type: String+
     flags:
     - Type
@@ -50,13 +46,12 @@
     name: Strs
     cardinality: +
     reference:
-      unique_type_name: Str
+      unique_name: Str
       range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 25, Col 1 -> Ln 27, Col 1)
-    unique_type_name: StrAliases
-    reference_count: 2
+    unique_name: StrAliases
     display_type: String+
     flags:
     - Type
@@ -65,13 +60,12 @@
     name: StrAliases
     cardinality: +
     reference:
-      unique_type_name: StrAlias
+      unique_name: StrAlias
       range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 27, Col 1 -> Ln 28, Col 1)
-    unique_type_name: StrsItem
-    reference_count: 2
+    unique_name: StrsItem
     display_type: String
     flags:
     - Alias
@@ -80,13 +74,12 @@
     name: StrsItem
     cardinality: <single>
     reference:
-      unique_type_name: Str
+      unique_name: Str
       range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 28, Col 1 -> Ln 31, Col 1)
-    unique_type_name: StrAliasesItem
-    reference_count: 2
+    unique_name: StrAliasesItem
     display_type: String
     flags:
     - Alias
@@ -95,7 +88,7 @@
     name: StrAliasesItem
     cardinality: <single>
     reference:
-      unique_type_name: StrAlias
+      unique_name: StrAlias
       range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -106,8 +99,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 31, Col 6 -> Ln 31, Col 9)
-      unique_type_name: _ItemStatement-Ln31
-      reference_count: 1
+      unique_name: _ItemStatement-Ln31
       display_type: String
       flags:
       - Alias
@@ -117,7 +109,7 @@
       name: _ItemStatement-Ln31
       cardinality: <single>
       reference:
-        unique_type_name: Str
+        unique_name: Str
         range: Typedefs.SimpleSchema (Ln 21, Col 1 -> Ln 22, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -128,8 +120,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 32, Col 12 -> Ln 32, Col 20)
-      unique_type_name: _ItemStatement-Ln32
-      reference_count: 1
+      unique_name: _ItemStatement-Ln32
       display_type: String
       flags:
       - Alias
@@ -139,7 +130,7 @@
       name: _ItemStatement-Ln32
       cardinality: <single>
       reference:
-        unique_type_name: StrAlias
+        unique_name: StrAlias
         range: Typedefs.SimpleSchema (Ln 22, Col 1 -> Ln 24, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -150,8 +141,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 34, Col 7 -> Ln 34, Col 11)
-      unique_type_name: _ItemStatement-Ln34
-      reference_count: 1
+      unique_name: _ItemStatement-Ln34
       display_type: String+
       flags:
       - Alias
@@ -161,7 +151,7 @@
       name: _ItemStatement-Ln34
       cardinality: +
       reference:
-        unique_type_name: Strs
+        unique_name: Strs
         range: Typedefs.SimpleSchema (Ln 24, Col 1 -> Ln 25, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -172,8 +162,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 35, Col 14 -> Ln 35, Col 24)
-      unique_type_name: _ItemStatement-Ln35
-      reference_count: 1
+      unique_name: _ItemStatement-Ln35
       display_type: String+
       flags:
       - Alias
@@ -183,7 +172,7 @@
       name: _ItemStatement-Ln35
       cardinality: +
       reference:
-        unique_type_name: StrAliases
+        unique_name: StrAliases
         range: Typedefs.SimpleSchema (Ln 25, Col 1 -> Ln 27, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -194,8 +183,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 37, Col 12 -> Ln 37, Col 20)
-      unique_type_name: _ItemStatement-Ln37
-      reference_count: 1
+      unique_name: _ItemStatement-Ln37
       display_type: String
       flags:
       - Alias
@@ -205,7 +193,7 @@
       name: _ItemStatement-Ln37
       cardinality: <single>
       reference:
-        unique_type_name: StrsItem
+        unique_name: StrsItem
         range: Typedefs.SimpleSchema (Ln 27, Col 1 -> Ln 28, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -216,8 +204,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 38, Col 19 -> Ln 38, Col 33)
-      unique_type_name: _ItemStatement-Ln38
-      reference_count: 1
+      unique_name: _ItemStatement-Ln38
       display_type: String
       flags:
       - Alias
@@ -227,7 +214,7 @@
       name: _ItemStatement-Ln38
       cardinality: <single>
       reference:
-        unique_type_name: StrAliasesItem
+        unique_name: StrAliasesItem
         range: Typedefs.SimpleSchema (Ln 28, Col 1 -> Ln 31, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -238,8 +225,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 40, Col 17 -> Ln 40, Col 22)
-      unique_type_name: _ItemStatement-Ln40
-      reference_count: 1
+      unique_name: _ItemStatement-Ln40
       display_type: String+*
       flags:
       - Type
@@ -249,7 +235,7 @@
       name: _ItemStatement-Ln40
       cardinality: '*'
       reference:
-        unique_type_name: Strs
+        unique_name: Strs
         range: Typedefs.SimpleSchema (Ln 24, Col 1 -> Ln 25, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -260,8 +246,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 41, Col 24 -> Ln 41, Col 35)
-      unique_type_name: _ItemStatement-Ln41
-      reference_count: 1
+      unique_name: _ItemStatement-Ln41
       display_type: String+*
       flags:
       - Type
@@ -271,7 +256,7 @@
       name: _ItemStatement-Ln41
       cardinality: '*'
       reference:
-        unique_type_name: StrAliases
+        unique_name: StrAliases
         range: Typedefs.SimpleSchema (Ln 25, Col 1 -> Ln 27, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -282,8 +267,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 43, Col 22 -> Ln 43, Col 33)
-      unique_type_name: _ItemStatement-Ln43
-      reference_count: 1
+      unique_name: _ItemStatement-Ln43
       display_type: String[3]
       flags:
       - Type
@@ -293,7 +277,7 @@
       name: _ItemStatement-Ln43
       cardinality: '[3]'
       reference:
-        unique_type_name: StrsItem
+        unique_name: StrsItem
         range: Typedefs.SimpleSchema (Ln 27, Col 1 -> Ln 28, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -304,8 +288,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 44, Col 29 -> Ln 44, Col 46)
-      unique_type_name: _ItemStatement-Ln44
-      reference_count: 1
+      unique_name: _ItemStatement-Ln44
       display_type: String[3]
       flags:
       - Type
@@ -315,13 +298,12 @@
       name: _ItemStatement-Ln44
       cardinality: '[3]'
       reference:
-        unique_type_name: StrAliasesItem
+        unique_name: StrAliasesItem
         range: Typedefs.SimpleSchema (Ln 28, Col 1 -> Ln 31, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
-    unique_type_name: Object
-    reference_count: 10
+    unique_name: Object
     display_type: _Object-Struct-Ln50
     flags:
     - Alias
@@ -332,14 +314,12 @@
       __type__: StructureType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
-      unique_type_name: _Object-Struct-Ln50
-      reference_count: 10
+      unique_name: _Object-Struct-Ln50
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
-        unique_type_name: _Object-Struct-Ln50
-        reference_count: 10
+        unique_name: _Object-Struct-Ln50
         visibility: Visibility.Private
         name: _Object-Struct-Ln50
         children:
@@ -352,8 +332,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Typedefs.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 18)
-            unique_type_name: _Object-Struct-Ln50._ItemStatement-Ln51
-            reference_count: 1
+            unique_name: _Object-Struct-Ln50._ItemStatement-Ln51
             display_type: String
             flags:
             - Alias
@@ -364,8 +343,7 @@
               __type__: StringType
               __disabled__: false
               range: Typedefs.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 18)
-              unique_type_name: _Object-Struct-Ln50.String-Ln51
-              reference_count: 1
+              unique_name: _Object-Struct-Ln50.String-Ln51
               min_length: 1
             visibility: Visibility.Private
             name: _ItemStatement-Ln51
@@ -376,8 +354,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
-    unique_type_name: ObjectAlias
-    reference_count: 5
+    unique_name: ObjectAlias
     display_type: _Object-Struct-Ln50
     flags:
     - Alias
@@ -386,13 +363,12 @@
     name: ObjectAlias
     cardinality: <single>
     reference:
-      unique_type_name: Object
+      unique_name: Object
       range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 55, Col 1 -> Ln 56, Col 1)
-    unique_type_name: Objects
-    reference_count: 2
+    unique_name: Objects
     display_type: _Object-Struct-Ln50+
     flags:
     - Type
@@ -401,13 +377,12 @@
     name: Objects
     cardinality: +
     reference:
-      unique_type_name: Object
+      unique_name: Object
       range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
-    unique_type_name: ObjectAliases
-    reference_count: 2
+    unique_name: ObjectAliases
     display_type: _Object-Struct-Ln50+
     flags:
     - Type
@@ -416,13 +391,12 @@
     name: ObjectAliases
     cardinality: +
     reference:
-      unique_type_name: ObjectAlias
+      unique_name: ObjectAlias
       range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 58, Col 1 -> Ln 59, Col 1)
-    unique_type_name: ObjectsItem
-    reference_count: 2
+    unique_name: ObjectsItem
     display_type: _Object-Struct-Ln50
     flags:
     - Alias
@@ -431,13 +405,12 @@
     name: ObjectsItem
     cardinality: <single>
     reference:
-      unique_type_name: Object
+      unique_name: Object
       range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 59, Col 1 -> Ln 62, Col 1)
-    unique_type_name: ObjectAliasesItem
-    reference_count: 2
+    unique_name: ObjectAliasesItem
     display_type: _Object-Struct-Ln50
     flags:
     - Alias
@@ -446,7 +419,7 @@
     name: ObjectAliasesItem
     cardinality: <single>
     reference:
-      unique_type_name: ObjectAlias
+      unique_name: ObjectAlias
       range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -457,8 +430,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 62, Col 9 -> Ln 62, Col 15)
-      unique_type_name: _ItemStatement-Ln62
-      reference_count: 1
+      unique_name: _ItemStatement-Ln62
       display_type: _Object-Struct-Ln50
       flags:
       - Alias
@@ -468,7 +440,7 @@
       name: _ItemStatement-Ln62
       cardinality: <single>
       reference:
-        unique_type_name: Object
+        unique_name: Object
         range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -479,8 +451,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 63, Col 15 -> Ln 63, Col 26)
-      unique_type_name: _ItemStatement-Ln63
-      reference_count: 1
+      unique_name: _ItemStatement-Ln63
       display_type: _Object-Struct-Ln50
       flags:
       - Alias
@@ -490,7 +461,7 @@
       name: _ItemStatement-Ln63
       cardinality: <single>
       reference:
-        unique_type_name: ObjectAlias
+        unique_name: ObjectAlias
         range: Typedefs.SimpleSchema (Ln 53, Col 1 -> Ln 55, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -501,8 +472,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 65, Col 10 -> Ln 65, Col 17)
-      unique_type_name: _ItemStatement-Ln65
-      reference_count: 1
+      unique_name: _ItemStatement-Ln65
       display_type: _Object-Struct-Ln50+
       flags:
       - Alias
@@ -512,7 +482,7 @@
       name: _ItemStatement-Ln65
       cardinality: +
       reference:
-        unique_type_name: Objects
+        unique_name: Objects
         range: Typedefs.SimpleSchema (Ln 55, Col 1 -> Ln 56, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -523,8 +493,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 66, Col 17 -> Ln 66, Col 30)
-      unique_type_name: _ItemStatement-Ln66
-      reference_count: 1
+      unique_name: _ItemStatement-Ln66
       display_type: _Object-Struct-Ln50+
       flags:
       - Alias
@@ -534,7 +503,7 @@
       name: _ItemStatement-Ln66
       cardinality: +
       reference:
-        unique_type_name: ObjectAliases
+        unique_name: ObjectAliases
         range: Typedefs.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -545,8 +514,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 68, Col 15 -> Ln 68, Col 26)
-      unique_type_name: _ItemStatement-Ln68
-      reference_count: 1
+      unique_name: _ItemStatement-Ln68
       display_type: _Object-Struct-Ln50
       flags:
       - Alias
@@ -556,7 +524,7 @@
       name: _ItemStatement-Ln68
       cardinality: <single>
       reference:
-        unique_type_name: ObjectsItem
+        unique_name: ObjectsItem
         range: Typedefs.SimpleSchema (Ln 58, Col 1 -> Ln 59, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -567,8 +535,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 69, Col 23 -> Ln 69, Col 40)
-      unique_type_name: _ItemStatement-Ln69
-      reference_count: 1
+      unique_name: _ItemStatement-Ln69
       display_type: _Object-Struct-Ln50
       flags:
       - Alias
@@ -578,7 +545,7 @@
       name: _ItemStatement-Ln69
       cardinality: <single>
       reference:
-        unique_type_name: ObjectAliasesItem
+        unique_name: ObjectAliasesItem
         range: Typedefs.SimpleSchema (Ln 59, Col 1 -> Ln 62, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -589,8 +556,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 71, Col 20 -> Ln 71, Col 28)
-      unique_type_name: _ItemStatement-Ln71
-      reference_count: 1
+      unique_name: _ItemStatement-Ln71
       display_type: _Object-Struct-Ln50+*
       flags:
       - Type
@@ -600,7 +566,7 @@
       name: _ItemStatement-Ln71
       cardinality: '*'
       reference:
-        unique_type_name: Objects
+        unique_name: Objects
         range: Typedefs.SimpleSchema (Ln 55, Col 1 -> Ln 56, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -611,8 +577,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 72, Col 27 -> Ln 72, Col 41)
-      unique_type_name: _ItemStatement-Ln72
-      reference_count: 1
+      unique_name: _ItemStatement-Ln72
       display_type: _Object-Struct-Ln50+*
       flags:
       - Type
@@ -622,7 +587,7 @@
       name: _ItemStatement-Ln72
       cardinality: '*'
       reference:
-        unique_type_name: ObjectAliases
+        unique_name: ObjectAliases
         range: Typedefs.SimpleSchema (Ln 56, Col 1 -> Ln 58, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -633,8 +598,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 74, Col 25 -> Ln 74, Col 39)
-      unique_type_name: _ItemStatement-Ln74
-      reference_count: 1
+      unique_name: _ItemStatement-Ln74
       display_type: _Object-Struct-Ln50[3]
       flags:
       - Type
@@ -644,7 +608,7 @@
       name: _ItemStatement-Ln74
       cardinality: '[3]'
       reference:
-        unique_type_name: ObjectsItem
+        unique_name: ObjectsItem
         range: Typedefs.SimpleSchema (Ln 58, Col 1 -> Ln 59, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -655,8 +619,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 75, Col 32 -> Ln 75, Col 52)
-      unique_type_name: _ItemStatement-Ln75
-      reference_count: 1
+      unique_name: _ItemStatement-Ln75
       display_type: _Object-Struct-Ln50[3]
       flags:
       - Type
@@ -666,13 +629,12 @@
       name: _ItemStatement-Ln75
       cardinality: '[3]'
       reference:
-        unique_type_name: ObjectAliasesItem
+        unique_name: ObjectAliasesItem
         range: Typedefs.SimpleSchema (Ln 59, Col 1 -> Ln 62, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
-    unique_type_name: OptionalObject
-    reference_count: 10
+    unique_name: OptionalObject
     display_type: _OptionalObject-Struct-Ln81?
     flags:
     - Type
@@ -684,8 +646,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
-      unique_type_name: _OptionalObject-Item-Ln81
-      reference_count: 10
+      unique_name: _OptionalObject-Item-Ln81
       display_type: _OptionalObject-Struct-Ln81
       flags:
       - Type
@@ -697,14 +658,12 @@
         __type__: StructureType
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
-        unique_type_name: _OptionalObject-Struct-Ln81
-        reference_count: 10
+        unique_name: _OptionalObject-Struct-Ln81
         structure:
           __type__: StructureStatement
           __disabled__: false
           range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
-          unique_type_name: _OptionalObject-Struct-Ln81
-          reference_count: 10
+          unique_name: _OptionalObject-Struct-Ln81
           visibility: Visibility.Private
           name: _OptionalObject-Struct-Ln81
           children:
@@ -717,8 +676,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Typedefs.SimpleSchema (Ln 82, Col 12 -> Ln 82, Col 18)
-              unique_type_name: _OptionalObject-Struct-Ln81._ItemStatement-Ln82
-              reference_count: 1
+              unique_name: _OptionalObject-Struct-Ln81._ItemStatement-Ln82
               display_type: String
               flags:
               - Alias
@@ -729,8 +687,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Typedefs.SimpleSchema (Ln 82, Col 12 -> Ln 82, Col 18)
-                unique_type_name: _OptionalObject-Struct-Ln81.String-Ln82
-                reference_count: 1
+                unique_name: _OptionalObject-Struct-Ln81.String-Ln82
                 min_length: 1
               visibility: Visibility.Private
               name: _ItemStatement-Ln82
@@ -744,8 +701,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
-    unique_type_name: OptionalObjectAlias
-    reference_count: 5
+    unique_name: OptionalObjectAlias
     display_type: _OptionalObject-Struct-Ln81?
     flags:
     - Alias
@@ -754,13 +710,12 @@
     name: OptionalObjectAlias
     cardinality: '?'
     reference:
-      unique_type_name: OptionalObject
+      unique_name: OptionalObject
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 87, Col 1 -> Ln 88, Col 1)
-    unique_type_name: ConcreteOptionalObject
-    reference_count: 0
+    unique_name: ConcreteOptionalObject
     display_type: _OptionalObject-Struct-Ln81
     flags:
     - Alias
@@ -771,13 +726,12 @@
     name: ConcreteOptionalObject
     cardinality: <single>
     reference:
-      unique_type_name: _OptionalObject-Item-Ln81
+      unique_name: _OptionalObject-Item-Ln81
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 88, Col 1 -> Ln 90, Col 1)
-    unique_type_name: ConcreteOptionalObjectAlias
-    reference_count: 0
+    unique_name: ConcreteOptionalObjectAlias
     display_type: _OptionalObject-Struct-Ln81
     flags:
     - Alias
@@ -788,13 +742,12 @@
     name: ConcreteOptionalObjectAlias
     cardinality: <single>
     reference:
-      unique_type_name: _OptionalObject-Item-Ln81
+      unique_name: _OptionalObject-Item-Ln81
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 90, Col 1 -> Ln 91, Col 1)
-    unique_type_name: OptionalObjects
-    reference_count: 2
+    unique_name: OptionalObjects
     display_type: _OptionalObject-Struct-Ln81?+
     flags:
     - Type
@@ -803,13 +756,12 @@
     name: OptionalObjects
     cardinality: +
     reference:
-      unique_type_name: OptionalObject
+      unique_name: OptionalObject
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 91, Col 1 -> Ln 93, Col 1)
-    unique_type_name: OptionalObjectAliases
-    reference_count: 2
+    unique_name: OptionalObjectAliases
     display_type: _OptionalObject-Struct-Ln81?+
     flags:
     - Type
@@ -818,13 +770,12 @@
     name: OptionalObjectAliases
     cardinality: +
     reference:
-      unique_type_name: OptionalObjectAlias
+      unique_name: OptionalObjectAlias
       range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 93, Col 1 -> Ln 94, Col 1)
-    unique_type_name: OptionalObjectsItem
-    reference_count: 2
+    unique_name: OptionalObjectsItem
     display_type: _OptionalObject-Struct-Ln81?
     flags:
     - Alias
@@ -833,13 +784,12 @@
     name: OptionalObjectsItem
     cardinality: '?'
     reference:
-      unique_type_name: OptionalObject
+      unique_name: OptionalObject
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 94, Col 1 -> Ln 96, Col 1)
-    unique_type_name: OptionalObjectAliasesItem
-    reference_count: 2
+    unique_name: OptionalObjectAliasesItem
     display_type: _OptionalObject-Struct-Ln81?
     flags:
     - Alias
@@ -848,13 +798,12 @@
     name: OptionalObjectAliasesItem
     cardinality: '?'
     reference:
-      unique_type_name: OptionalObjectAlias
+      unique_name: OptionalObjectAlias
       range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 96, Col 1 -> Ln 97, Col 1)
-    unique_type_name: ConcreteOptionalObjects
-    reference_count: 0
+    unique_name: ConcreteOptionalObjects
     display_type: _OptionalObject-Struct-Ln81+
     flags:
     - Type
@@ -865,13 +814,12 @@
     name: ConcreteOptionalObjects
     cardinality: +
     reference:
-      unique_type_name: _OptionalObject-Item-Ln81
+      unique_name: _OptionalObject-Item-Ln81
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 97, Col 1 -> Ln 100, Col 1)
-    unique_type_name: ConcreteOptionalObjectAliases
-    reference_count: 0
+    unique_name: ConcreteOptionalObjectAliases
     display_type: _OptionalObject-Struct-Ln81+
     flags:
     - Type
@@ -882,7 +830,7 @@
     name: ConcreteOptionalObjectAliases
     cardinality: +
     reference:
-      unique_type_name: _OptionalObject-Item-Ln81
+      unique_name: _OptionalObject-Item-Ln81
       range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -893,8 +841,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 100, Col 18 -> Ln 100, Col 32)
-      unique_type_name: _ItemStatement-Ln100
-      reference_count: 1
+      unique_name: _ItemStatement-Ln100
       display_type: _OptionalObject-Struct-Ln81?
       flags:
       - Alias
@@ -904,7 +851,7 @@
       name: _ItemStatement-Ln100
       cardinality: '?'
       reference:
-        unique_type_name: OptionalObject
+        unique_name: OptionalObject
         range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -915,8 +862,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 101, Col 24 -> Ln 101, Col 43)
-      unique_type_name: _ItemStatement-Ln101
-      reference_count: 1
+      unique_name: _ItemStatement-Ln101
       display_type: _OptionalObject-Struct-Ln81?
       flags:
       - Alias
@@ -926,7 +872,7 @@
       name: _ItemStatement-Ln101
       cardinality: '?'
       reference:
-        unique_type_name: OptionalObjectAlias
+        unique_name: OptionalObjectAlias
         range: Typedefs.SimpleSchema (Ln 85, Col 1 -> Ln 87, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -937,8 +883,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 103, Col 19 -> Ln 103, Col 34)
-      unique_type_name: _ItemStatement-Ln103
-      reference_count: 1
+      unique_name: _ItemStatement-Ln103
       display_type: _OptionalObject-Struct-Ln81?+
       flags:
       - Alias
@@ -948,7 +893,7 @@
       name: _ItemStatement-Ln103
       cardinality: +
       reference:
-        unique_type_name: OptionalObjects
+        unique_name: OptionalObjects
         range: Typedefs.SimpleSchema (Ln 90, Col 1 -> Ln 91, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -959,8 +904,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 104, Col 26 -> Ln 104, Col 47)
-      unique_type_name: _ItemStatement-Ln104
-      reference_count: 1
+      unique_name: _ItemStatement-Ln104
       display_type: _OptionalObject-Struct-Ln81?+
       flags:
       - Alias
@@ -970,7 +914,7 @@
       name: _ItemStatement-Ln104
       cardinality: +
       reference:
-        unique_type_name: OptionalObjectAliases
+        unique_name: OptionalObjectAliases
         range: Typedefs.SimpleSchema (Ln 91, Col 1 -> Ln 93, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -981,8 +925,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 106, Col 24 -> Ln 106, Col 43)
-      unique_type_name: _ItemStatement-Ln106
-      reference_count: 1
+      unique_name: _ItemStatement-Ln106
       display_type: _OptionalObject-Struct-Ln81?
       flags:
       - Alias
@@ -992,7 +935,7 @@
       name: _ItemStatement-Ln106
       cardinality: '?'
       reference:
-        unique_type_name: OptionalObjectsItem
+        unique_name: OptionalObjectsItem
         range: Typedefs.SimpleSchema (Ln 93, Col 1 -> Ln 94, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1003,8 +946,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 107, Col 32 -> Ln 107, Col 57)
-      unique_type_name: _ItemStatement-Ln107
-      reference_count: 1
+      unique_name: _ItemStatement-Ln107
       display_type: _OptionalObject-Struct-Ln81?
       flags:
       - Alias
@@ -1014,7 +956,7 @@
       name: _ItemStatement-Ln107
       cardinality: '?'
       reference:
-        unique_type_name: OptionalObjectAliasesItem
+        unique_name: OptionalObjectAliasesItem
         range: Typedefs.SimpleSchema (Ln 94, Col 1 -> Ln 96, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1025,8 +967,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 109, Col 29 -> Ln 109, Col 45)
-      unique_type_name: _ItemStatement-Ln109
-      reference_count: 1
+      unique_name: _ItemStatement-Ln109
       display_type: _OptionalObject-Struct-Ln81?+*
       flags:
       - Type
@@ -1036,7 +977,7 @@
       name: _ItemStatement-Ln109
       cardinality: '*'
       reference:
-        unique_type_name: OptionalObjects
+        unique_name: OptionalObjects
         range: Typedefs.SimpleSchema (Ln 90, Col 1 -> Ln 91, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1047,8 +988,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 110, Col 36 -> Ln 110, Col 58)
-      unique_type_name: _ItemStatement-Ln110
-      reference_count: 1
+      unique_name: _ItemStatement-Ln110
       display_type: _OptionalObject-Struct-Ln81?+*
       flags:
       - Type
@@ -1058,7 +998,7 @@
       name: _ItemStatement-Ln110
       cardinality: '*'
       reference:
-        unique_type_name: OptionalObjectAliases
+        unique_name: OptionalObjectAliases
         range: Typedefs.SimpleSchema (Ln 91, Col 1 -> Ln 93, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1069,8 +1009,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 112, Col 34 -> Ln 112, Col 56)
-      unique_type_name: _ItemStatement-Ln112
-      reference_count: 1
+      unique_name: _ItemStatement-Ln112
       display_type: _OptionalObject-Struct-Ln81?[3]
       flags:
       - Type
@@ -1080,7 +1019,7 @@
       name: _ItemStatement-Ln112
       cardinality: '[3]'
       reference:
-        unique_type_name: OptionalObjectsItem
+        unique_name: OptionalObjectsItem
         range: Typedefs.SimpleSchema (Ln 93, Col 1 -> Ln 94, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1091,8 +1030,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 113, Col 41 -> Ln 113, Col 69)
-      unique_type_name: _ItemStatement-Ln113
-      reference_count: 1
+      unique_name: _ItemStatement-Ln113
       display_type: _OptionalObject-Struct-Ln81?[3]
       flags:
       - Type
@@ -1102,13 +1040,12 @@
       name: _ItemStatement-Ln113
       cardinality: '[3]'
       reference:
-        unique_type_name: OptionalObjectAliasesItem
+        unique_name: OptionalObjectAliasesItem
         range: Typedefs.SimpleSchema (Ln 94, Col 1 -> Ln 96, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
-    unique_type_name: NestedTypes
-    reference_count: 4
+    unique_name: NestedTypes
     display_type: _NestedTypes-Struct-Ln119
     flags:
     - Alias
@@ -1119,22 +1056,19 @@
       __type__: StructureType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
-      unique_type_name: _NestedTypes-Struct-Ln119
-      reference_count: 4
+      unique_name: _NestedTypes-Struct-Ln119
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
-        unique_type_name: _NestedTypes-Struct-Ln119
-        reference_count: 4
+        unique_name: _NestedTypes-Struct-Ln119
         visibility: Visibility.Private
         name: _NestedTypes-Struct-Ln119
         children:
         - __type__: ReferenceType
           __disabled__: false
           range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
-          unique_type_name: _NestedTypes-Struct-Ln119.NestedStr
-          reference_count: 4
+          unique_name: _NestedTypes-Struct-Ln119.NestedStr
           display_type: String
           flags:
           - Alias
@@ -1144,8 +1078,7 @@
             __type__: StringType
             __disabled__: false
             range: Typedefs.SimpleSchema (Ln 120, Col 16 -> Ln 120, Col 22)
-            unique_type_name: _NestedTypes-Struct-Ln119.String-Ln120
-            reference_count: 4
+            unique_name: _NestedTypes-Struct-Ln119.String-Ln120
             min_length: 1
           visibility: Visibility.Public
           name: NestedStr
@@ -1153,8 +1086,7 @@
         - __type__: ReferenceType
           __disabled__: false
           range: Typedefs.SimpleSchema (Ln 121, Col 5 -> Ln 122, Col 1)
-          unique_type_name: _NestedTypes-Struct-Ln119.NestedStrAlias
-          reference_count: 2
+          unique_name: _NestedTypes-Struct-Ln119.NestedStrAlias
           display_type: String
           flags:
           - Alias
@@ -1163,7 +1095,7 @@
           name: NestedStrAlias
           cardinality: <single>
           reference:
-            unique_type_name: _NestedTypes-Struct-Ln119.NestedStr
+            unique_name: _NestedTypes-Struct-Ln119.NestedStr
             range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
     visibility: Visibility.Public
     name: NestedTypes
@@ -1171,8 +1103,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 123, Col 1 -> Ln 124, Col 1)
-    unique_type_name: NestedTypes_NestedStr
-    reference_count: 1
+    unique_name: NestedTypes_NestedStr
     display_type: String
     flags:
     - Alias
@@ -1181,13 +1112,12 @@
     name: NestedTypes_NestedStr
     cardinality: <single>
     reference:
-      unique_type_name: _NestedTypes-Struct-Ln119.NestedStr
+      unique_name: _NestedTypes-Struct-Ln119.NestedStr
       range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 124, Col 1 -> Ln 127, Col 1)
-    unique_type_name: NestedTypes_NestedStrAlias
-    reference_count: 1
+    unique_name: NestedTypes_NestedStrAlias
     display_type: String
     flags:
     - Alias
@@ -1196,7 +1126,7 @@
     name: NestedTypes_NestedStrAlias
     cardinality: <single>
     reference:
-      unique_type_name: _NestedTypes-Struct-Ln119.NestedStrAlias
+      unique_name: _NestedTypes-Struct-Ln119.NestedStrAlias
       range: Typedefs.SimpleSchema (Ln 121, Col 5 -> Ln 122, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1207,8 +1137,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 127, Col 26 -> Ln 127, Col 47)
-      unique_type_name: _ItemStatement-Ln127
-      reference_count: 1
+      unique_name: _ItemStatement-Ln127
       display_type: String
       flags:
       - Alias
@@ -1218,7 +1147,7 @@
       name: _ItemStatement-Ln127
       cardinality: <single>
       reference:
-        unique_type_name: _NestedTypes-Struct-Ln119.NestedStr
+        unique_name: _NestedTypes-Struct-Ln119.NestedStr
         range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
   - __type__: ItemStatement
     __disabled__: false
@@ -1229,8 +1158,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 128, Col 32 -> Ln 128, Col 58)
-      unique_type_name: _ItemStatement-Ln128
-      reference_count: 1
+      unique_name: _ItemStatement-Ln128
       display_type: String
       flags:
       - Alias
@@ -1240,7 +1168,7 @@
       name: _ItemStatement-Ln128
       cardinality: <single>
       reference:
-        unique_type_name: _NestedTypes-Struct-Ln119.NestedStrAlias
+        unique_name: _NestedTypes-Struct-Ln119.NestedStrAlias
         range: Typedefs.SimpleSchema (Ln 121, Col 5 -> Ln 122, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1251,8 +1179,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 130, Col 32 -> Ln 130, Col 53)
-      unique_type_name: _ItemStatement-Ln130
-      reference_count: 1
+      unique_name: _ItemStatement-Ln130
       display_type: String
       flags:
       - Alias
@@ -1262,7 +1189,7 @@
       name: _ItemStatement-Ln130
       cardinality: <single>
       reference:
-        unique_type_name: NestedTypes_NestedStr
+        unique_name: NestedTypes_NestedStr
         range: Typedefs.SimpleSchema (Ln 123, Col 1 -> Ln 124, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1273,8 +1200,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 131, Col 37 -> Ln 131, Col 63)
-      unique_type_name: _ItemStatement-Ln131
-      reference_count: 1
+      unique_name: _ItemStatement-Ln131
       display_type: String
       flags:
       - Alias
@@ -1284,13 +1210,12 @@
       name: _ItemStatement-Ln131
       cardinality: <single>
       reference:
-        unique_type_name: NestedTypes_NestedStrAlias
+        unique_name: NestedTypes_NestedStrAlias
         range: Typedefs.SimpleSchema (Ln 124, Col 1 -> Ln 127, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
-    unique_type_name: Container
-    reference_count: 2
+    unique_name: Container
     display_type: <Integer {>= 0}>+
     flags:
     - Type
@@ -1301,8 +1226,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
-      unique_type_name: _Container-Item-Ln137
-      reference_count: 4
+      unique_name: _Container-Item-Ln137
       display_type: Integer {>= 0}
       flags:
       - Type
@@ -1313,8 +1237,7 @@
         __type__: IntegerType
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 137, Col 12 -> Ln 137, Col 31)
-        unique_type_name: Integer-Ln137
-        reference_count: 4
+        unique_name: Integer-Ln137
         min: 0
       visibility: Visibility.Private
       name: _Container-Item-Ln137
@@ -1325,8 +1248,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 138, Col 1 -> Ln 139, Col 1)
-    unique_type_name: Containers
-    reference_count: 1
+    unique_name: Containers
     display_type: <Integer {>= 0}>+*
     flags:
     - Type
@@ -1335,13 +1257,12 @@
     name: Containers
     cardinality: '*'
     reference:
-      unique_type_name: Container
+      unique_name: Container
       range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Typedefs.SimpleSchema (Ln 139, Col 1 -> Ln 141, Col 1)
-    unique_type_name: AlteredContainers
-    reference_count: 1
+    unique_name: AlteredContainers
     display_type: <Integer {>= 0}>[10]
     flags:
     - Type
@@ -1351,7 +1272,7 @@
     name: AlteredContainers
     cardinality: '[10]'
     reference:
-      unique_type_name: _Container-Item-Ln137
+      unique_name: _Container-Item-Ln137
       range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1362,8 +1283,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 141, Col 12 -> Ln 141, Col 21)
-      unique_type_name: _ItemStatement-Ln141
-      reference_count: 1
+      unique_name: _ItemStatement-Ln141
       display_type: <Integer {>= 0}>+
       flags:
       - Alias
@@ -1373,7 +1293,7 @@
       name: _ItemStatement-Ln141
       cardinality: +
       reference:
-        unique_type_name: Container
+        unique_name: Container
         range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1384,8 +1304,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 142, Col 13 -> Ln 142, Col 23)
-      unique_type_name: _ItemStatement-Ln142
-      reference_count: 1
+      unique_name: _ItemStatement-Ln142
       display_type: <Integer {>= 0}>+*
       flags:
       - Alias
@@ -1395,7 +1314,7 @@
       name: _ItemStatement-Ln142
       cardinality: '*'
       reference:
-        unique_type_name: Containers
+        unique_name: Containers
         range: Typedefs.SimpleSchema (Ln 138, Col 1 -> Ln 139, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1406,8 +1325,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 143, Col 21 -> Ln 143, Col 38)
-      unique_type_name: _ItemStatement-Ln143
-      reference_count: 1
+      unique_name: _ItemStatement-Ln143
       display_type: <Integer {>= 0}>[10]
       flags:
       - Alias
@@ -1417,7 +1335,7 @@
       name: _ItemStatement-Ln143
       cardinality: '[10]'
       reference:
-        unique_type_name: AlteredContainers
+        unique_name: AlteredContainers
         range: Typedefs.SimpleSchema (Ln 139, Col 1 -> Ln 141, Col 1)
   - __type__: ItemStatement
     __disabled__: false
@@ -1428,8 +1346,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 144, Col 29 -> Ln 144, Col 56)
-      unique_type_name: _ItemStatement-Ln144
-      reference_count: 1
+      unique_name: _ItemStatement-Ln144
       display_type: <Integer {>= 0}>[20]
       flags:
       - Type
@@ -1440,5 +1357,5 @@
       name: _ItemStatement-Ln144
       cardinality: '[20]'
       reference:
-        unique_type_name: _Container-Item-Ln137
+        unique_name: _Container-Item-Ln137
         range: Typedefs.SimpleSchema (Ln 137, Col 1 -> Ln 138, Col 1)

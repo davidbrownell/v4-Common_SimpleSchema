@@ -10,7 +10,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 1, Col 12 -> Ln 1, Col 46>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 12 -> Ln 1, Col 46>
@@ -60,7 +59,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 2, Col 12 -> Ln 2, Col 47>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 2, Col 12 -> Ln 2, Col 47>
@@ -110,7 +108,6 @@
     type:
       __type__: ParseIdentifierType
       range: entry_point <Ln 3, Col 12 -> Ln 7, Col 2>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 3, Col 12 -> Ln 7, Col 2>

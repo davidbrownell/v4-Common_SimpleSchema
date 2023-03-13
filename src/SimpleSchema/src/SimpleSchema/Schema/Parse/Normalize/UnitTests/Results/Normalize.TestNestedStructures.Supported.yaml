@@ -3,19 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-    unique_type_name: Structure
-    reference_count: 0
+    unique_name: Structure
     display_type: _Structure-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      unique_type_name: _Structure-Struct-Ln1
-      reference_count: 0
+      unique_name: _Structure-Struct-Ln1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-        unique_type_name: _Structure-Struct-Ln1
-        reference_count: 0
+        unique_name: _Structure-Struct-Ln1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -27,19 +24,16 @@
         children:
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
-          unique_type_name: _Structure-Struct-Ln1.Nested
-          reference_count: 0
+          unique_name: _Structure-Struct-Ln1.Nested
           display_type: _Nested-Struct-Ln2
           type:
             __type__: StructureType
             range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
-            unique_type_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
-            reference_count: 0
+            unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
             structure:
               __type__: StructureStatement
               range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
-              unique_type_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
-              reference_count: 0
+              unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
               visibility:
                 __type__: SimpleElement
                 range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
@@ -62,14 +56,12 @@
                 type:
                   __type__: ReferenceType
                   range: entry_point <Ln 3, Col 15 -> Ln 3, Col 21>
-                  unique_type_name: _Structure-Struct-Ln1._Nested-Struct-Ln2._ItemStatement-Ln3
-                  reference_count: 1
+                  unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2._ItemStatement-Ln3
                   display_type: String
                   type:
                     __type__: StringType
                     range: entry_point <Ln 3, Col 15 -> Ln 3, Col 21>
-                    unique_type_name: _Structure-Struct-Ln1._Nested-Struct-Ln2.String-Ln3
-                    reference_count: 1
+                    unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2.String-Ln3
                     min_length: 1
                   visibility:
                     __type__: SimpleElement

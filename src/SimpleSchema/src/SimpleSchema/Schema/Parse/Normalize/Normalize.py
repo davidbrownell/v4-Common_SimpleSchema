@@ -29,12 +29,14 @@ from Common_Foundation.Types import overridemethod
 
 from Common_FoundationEx import ExecuteTasks
 
+from ..ParseState.ParseState import ParseState
+
 from ...MetadataAttributes.MetadataAttribute import MetadataAttribute
 
 from ...Elements.Common.Element import Element
 from ...Elements.Common.Metadata import MetadataItem
-from ...Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from ...Elements.Common.SimpleElement import SimpleElement
+from ...Elements.Common.UniqueNameTrait import UniqueNameTrait
 from ...Elements.Common.Visibility import Visibility
 
 from ...Elements.Expressions.Expression import Expression
@@ -96,6 +98,7 @@ class Flag(IntFlag):
 # ----------------------------------------------------------------------
 def Normalize(
     dm: DoneManager,
+    parse_state: ParseState,
     roots: dict[Path, RootStatement],
     metadata_attributes: list[MetadataAttribute],
     supported_extension_names: set[str],
@@ -147,6 +150,7 @@ def Normalize(
         status.OnProgress(Steps.Pass1.value, "Pass 1...")
 
         visitor = _Pass1Visitor(
+            parse_state,
             inherited_attribute_names,
             supported_extension_names,
             flags,
@@ -212,12 +216,14 @@ class _Pass1Visitor(Visitor):
     # ----------------------------------------------------------------------
     def __init__(
         self,
+        parse_state: ParseState,
         inherited_attribute_names: set[str],
         supported_extension_names: set[str],
         flags: Flag,
     ):
         super(_Pass1Visitor, self).__init__()
 
+        self._parse_state                   = parse_state
         self._inherited_attribute_names     = inherited_attribute_names
         self._supported_extension_names     = supported_extension_names
         self._flags                         = flags
@@ -259,7 +265,7 @@ class _Pass1Visitor(Visitor):
 
         self._element_stack.append(element)
         with ExitStack(self._element_stack.pop):
-            if isinstance(element, ReferenceCountMixin):
+            if isinstance(element, UniqueNameTrait):
                 type_name_parts: list[str] = [
                     element.name.value
                     for element in self._element_stack
@@ -281,7 +287,7 @@ class _Pass1Visitor(Visitor):
                 else:
                     assert False, element  # pragma: no cover
 
-                element.NormalizeUniqueTypeName(".".join(type_name_parts))
+                element.NormalizeUniqueName(".".join(type_name_parts))
 
             yield
 
@@ -425,7 +431,10 @@ class _Pass1Visitor(Visitor):
                     not child.is_disabled
                     and (
                         isinstance(child, ItemStatement)
-                        or (isinstance(child, ReferenceType) and child.reference_count != 0)
+                        or (
+                            isinstance(child, ReferenceType)
+                            and self._parse_state.reference_counts.Get(child) != 0
+                        )
                     )
                 )
                 for child in element.children

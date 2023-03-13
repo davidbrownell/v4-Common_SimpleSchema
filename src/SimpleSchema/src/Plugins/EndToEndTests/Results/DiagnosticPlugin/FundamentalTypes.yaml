@@ -5,8 +5,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
-    unique_type_name: FundamentalTypes
-    reference_count: 1
+    unique_name: FundamentalTypes
     display_type: _FundamentalTypes-Struct-Ln19
     flags:
     - Alias
@@ -17,14 +16,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
-      unique_type_name: _FundamentalTypes-Struct-Ln19
-      reference_count: 1
+      unique_name: _FundamentalTypes-Struct-Ln19
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
-        unique_type_name: _FundamentalTypes-Struct-Ln19
-        reference_count: 1
+        unique_name: _FundamentalTypes-Struct-Ln19
         visibility: Visibility.Private
         name: _FundamentalTypes-Struct-Ln19
         children:
@@ -37,8 +34,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 20, Col 14 -> Ln 20, Col 21)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln20
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln20
             display_type: Boolean
             flags:
             - Alias
@@ -49,8 +45,7 @@
               __type__: BooleanType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 20, Col 14 -> Ln 20, Col 21)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Boolean-Ln20
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Boolean-Ln20
             visibility: Visibility.Private
             name: _ItemStatement-Ln20
             cardinality: <single>
@@ -63,8 +58,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 21, Col 16 -> Ln 21, Col 24)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln21
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln21
             display_type: DateTime
             flags:
             - Alias
@@ -75,8 +69,7 @@
               __type__: DateTimeType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 21, Col 16 -> Ln 21, Col 24)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.DateTime-Ln21
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.DateTime-Ln21
             visibility: Visibility.Private
             name: _ItemStatement-Ln21
             cardinality: <single>
@@ -89,8 +82,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 22, Col 11 -> Ln 22, Col 15)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln22
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln22
             display_type: Date
             flags:
             - Alias
@@ -101,8 +93,7 @@
               __type__: DateType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 22, Col 11 -> Ln 22, Col 15)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Date-Ln22
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Date-Ln22
             visibility: Visibility.Private
             name: _ItemStatement-Ln22
             cardinality: <single>
@@ -115,8 +106,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 23, Col 16 -> Ln 23, Col 25)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln23
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln23
             display_type: Directory!
             flags:
             - Alias
@@ -127,8 +117,7 @@
               __type__: DirectoryType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 23, Col 16 -> Ln 23, Col 25)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Directory-Ln23
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Directory-Ln23
               ensure_exists: true
             visibility: Visibility.Private
             name: _ItemStatement-Ln23
@@ -142,8 +131,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 24, Col 15 -> Ln 24, Col 23)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln24
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln24
             display_type: Duration
             flags:
             - Alias
@@ -154,8 +142,7 @@
               __type__: DurationType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 24, Col 15 -> Ln 24, Col 23)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Duration-Ln24
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Duration-Ln24
             visibility: Visibility.Private
             name: _ItemStatement-Ln24
             cardinality: <single>
@@ -168,8 +155,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 25, Col 11 -> Ln 25, Col 37)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln25
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln25
             display_type: Enum
             flags:
             - Alias
@@ -180,8 +166,7 @@
               __type__: EnumType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 25, Col 11 -> Ln 25, Col 37)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Enum-Ln25
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Enum-Ln25
               values:
               - name: Value1
                 value: 1
@@ -202,8 +187,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 26, Col 15 -> Ln 26, Col 23)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln26
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln26
             display_type: Filename!
             flags:
             - Alias
@@ -214,8 +198,7 @@
               __type__: FilenameType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 26, Col 15 -> Ln 26, Col 23)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Filename-Ln26
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Filename-Ln26
               ensure_exists: true
               match_any: false
             visibility: Visibility.Private
@@ -230,8 +213,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 27, Col 11 -> Ln 27, Col 15)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln27
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln27
             display_type: Guid
             flags:
             - Alias
@@ -242,8 +224,7 @@
               __type__: GuidType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 27, Col 11 -> Ln 27, Col 15)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Guid-Ln27
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Guid-Ln27
             visibility: Visibility.Private
             name: _ItemStatement-Ln27
             cardinality: <single>
@@ -256,8 +237,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 28, Col 14 -> Ln 28, Col 21)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln28
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln28
             display_type: Integer
             flags:
             - Alias
@@ -268,8 +248,7 @@
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 28, Col 14 -> Ln 28, Col 21)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Integer-Ln28
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Integer-Ln28
             visibility: Visibility.Private
             name: _ItemStatement-Ln28
             cardinality: <single>
@@ -282,8 +261,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 29, Col 13 -> Ln 29, Col 19)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln29
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln29
             display_type: Number
             flags:
             - Alias
@@ -294,8 +272,7 @@
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 29, Col 13 -> Ln 29, Col 19)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Number-Ln29
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Number-Ln29
             visibility: Visibility.Private
             name: _ItemStatement-Ln29
             cardinality: <single>
@@ -308,8 +285,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 30, Col 13 -> Ln 30, Col 19)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln30
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln30
             display_type: String
             flags:
             - Alias
@@ -320,8 +296,7 @@
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 30, Col 13 -> Ln 30, Col 19)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.String-Ln30
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.String-Ln30
               min_length: 1
             visibility: Visibility.Private
             name: _ItemStatement-Ln30
@@ -335,8 +310,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 31, Col 11 -> Ln 31, Col 15)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln31
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln31
             display_type: Time
             flags:
             - Alias
@@ -347,8 +321,7 @@
               __type__: TimeType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 31, Col 11 -> Ln 31, Col 15)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Time-Ln31
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Time-Ln31
             visibility: Visibility.Private
             name: _ItemStatement-Ln31
             cardinality: <single>
@@ -361,8 +334,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 32, Col 10 -> Ln 32, Col 13)
-            unique_type_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln32
-            reference_count: 1
+            unique_name: _FundamentalTypes-Struct-Ln19._ItemStatement-Ln32
             display_type: Uri
             flags:
             - Alias
@@ -373,8 +345,7 @@
               __type__: UriType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 32, Col 10 -> Ln 32, Col 13)
-              unique_type_name: _FundamentalTypes-Struct-Ln19.Uri-Ln32
-              reference_count: 1
+              unique_name: _FundamentalTypes-Struct-Ln19.Uri-Ln32
             visibility: Visibility.Private
             name: _ItemStatement-Ln32
             cardinality: <single>
@@ -390,8 +361,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 34, Col 20 -> Ln 34, Col 37)
-      unique_type_name: _ItemStatement-Ln34
-      reference_count: 1
+      unique_name: _ItemStatement-Ln34
       display_type: _FundamentalTypes-Struct-Ln19?
       flags:
       - Type
@@ -401,13 +371,12 @@
       name: _ItemStatement-Ln34
       cardinality: '?'
       reference:
-        unique_type_name: FundamentalTypes
+        unique_name: FundamentalTypes
         range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
-    unique_type_name: DirectoryCustomizations
-    reference_count: 1
+    unique_name: DirectoryCustomizations
     display_type: _DirectoryCustomizations-Struct-Ln38
     flags:
     - Alias
@@ -418,14 +387,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
-      unique_type_name: _DirectoryCustomizations-Struct-Ln38
-      reference_count: 1
+      unique_name: _DirectoryCustomizations-Struct-Ln38
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
-        unique_type_name: _DirectoryCustomizations-Struct-Ln38
-        reference_count: 1
+        unique_name: _DirectoryCustomizations-Struct-Ln38
         visibility: Visibility.Private
         name: _DirectoryCustomizations-Struct-Ln38
         children:
@@ -438,8 +405,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 39, Col 14 -> Ln 39, Col 23)
-            unique_type_name: _DirectoryCustomizations-Struct-Ln38._ItemStatement-Ln39
-            reference_count: 1
+            unique_name: _DirectoryCustomizations-Struct-Ln38._ItemStatement-Ln39
             display_type: Directory!
             flags:
             - Alias
@@ -450,8 +416,7 @@
               __type__: DirectoryType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 39, Col 14 -> Ln 39, Col 23)
-              unique_type_name: _DirectoryCustomizations-Struct-Ln38.Directory-Ln39
-              reference_count: 1
+              unique_name: _DirectoryCustomizations-Struct-Ln38.Directory-Ln39
               ensure_exists: true
             visibility: Visibility.Private
             name: _ItemStatement-Ln39
@@ -465,8 +430,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 40, Col 23 -> Ln 40, Col 57)
-            unique_type_name: _DirectoryCustomizations-Struct-Ln38._ItemStatement-Ln40
-            reference_count: 1
+            unique_name: _DirectoryCustomizations-Struct-Ln38._ItemStatement-Ln40
             display_type: Directory
             flags:
             - Alias
@@ -477,8 +441,7 @@
               __type__: DirectoryType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 40, Col 23 -> Ln 40, Col 57)
-              unique_type_name: _DirectoryCustomizations-Struct-Ln38.Directory-Ln40
-              reference_count: 1
+              unique_name: _DirectoryCustomizations-Struct-Ln38.Directory-Ln40
               ensure_exists: false
             visibility: Visibility.Private
             name: _ItemStatement-Ln40
@@ -495,8 +458,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 42, Col 27 -> Ln 42, Col 51)
-      unique_type_name: _ItemStatement-Ln42
-      reference_count: 1
+      unique_name: _ItemStatement-Ln42
       display_type: _DirectoryCustomizations-Struct-Ln38?
       flags:
       - Type
@@ -506,13 +468,12 @@
       name: _ItemStatement-Ln42
       cardinality: '?'
       reference:
-        unique_type_name: DirectoryCustomizations
+        unique_name: DirectoryCustomizations
         range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
-    unique_type_name: EnumCustomizations
-    reference_count: 1
+    unique_name: EnumCustomizations
     display_type: _EnumCustomizations-Struct-Ln46
     flags:
     - Alias
@@ -523,14 +484,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
-      unique_type_name: _EnumCustomizations-Struct-Ln46
-      reference_count: 1
+      unique_name: _EnumCustomizations-Struct-Ln46
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
-        unique_type_name: _EnumCustomizations-Struct-Ln46
-        reference_count: 1
+        unique_name: _EnumCustomizations-Struct-Ln46
         visibility: Visibility.Private
         name: _EnumCustomizations-Struct-Ln46
         children:
@@ -543,8 +502,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 47, Col 12 -> Ln 47, Col 38)
-            unique_type_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln47
-            reference_count: 1
+            unique_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln47
             display_type: Enum
             flags:
             - Alias
@@ -555,8 +513,7 @@
               __type__: EnumType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 47, Col 12 -> Ln 47, Col 38)
-              unique_type_name: _EnumCustomizations-Struct-Ln46.Enum-Ln47
-              reference_count: 1
+              unique_name: _EnumCustomizations-Struct-Ln46.Enum-Ln47
               values:
               - name: Value1
                 value: 1
@@ -577,8 +534,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 48, Col 12 -> Ln 48, Col 52)
-            unique_type_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln48
-            reference_count: 1
+            unique_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln48
             display_type: Enum
             flags:
             - Alias
@@ -589,8 +545,7 @@
               __type__: EnumType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 48, Col 12 -> Ln 48, Col 52)
-              unique_type_name: _EnumCustomizations-Struct-Ln46.Enum-Ln48
-              reference_count: 1
+              unique_name: _EnumCustomizations-Struct-Ln46.Enum-Ln48
               values:
               - name: One
                 value: 1
@@ -611,8 +566,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 49, Col 12 -> Ln 49, Col 59)
-            unique_type_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln49
-            reference_count: 1
+            unique_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln49
             display_type: Enum
             flags:
             - Alias
@@ -623,8 +577,7 @@
               __type__: EnumType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 49, Col 12 -> Ln 49, Col 59)
-              unique_type_name: _EnumCustomizations-Struct-Ln46.Enum-Ln49
-              reference_count: 1
+              unique_name: _EnumCustomizations-Struct-Ln46.Enum-Ln49
               values:
               - name: Value1
                 value: '1'
@@ -645,8 +598,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 50, Col 12 -> Ln 50, Col 73)
-            unique_type_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln50
-            reference_count: 1
+            unique_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln50
             display_type: Enum
             flags:
             - Alias
@@ -657,8 +609,7 @@
               __type__: EnumType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 50, Col 12 -> Ln 50, Col 73)
-              unique_type_name: _EnumCustomizations-Struct-Ln46.Enum-Ln50
-              reference_count: 1
+              unique_name: _EnumCustomizations-Struct-Ln46.Enum-Ln50
               values:
               - name: One
                 value: '1'
@@ -679,8 +630,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 59)
-            unique_type_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln51
-            reference_count: 1
+            unique_name: _EnumCustomizations-Struct-Ln46._ItemStatement-Ln51
             display_type: Enum
             flags:
             - Alias
@@ -691,8 +641,7 @@
               __type__: EnumType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 59)
-              unique_type_name: _EnumCustomizations-Struct-Ln46.Enum-Ln51
-              reference_count: 1
+              unique_name: _EnumCustomizations-Struct-Ln46.Enum-Ln51
               values:
               - name: Value1
                 value: 100
@@ -716,8 +665,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 53, Col 22 -> Ln 53, Col 41)
-      unique_type_name: _ItemStatement-Ln53
-      reference_count: 1
+      unique_name: _ItemStatement-Ln53
       display_type: _EnumCustomizations-Struct-Ln46?
       flags:
       - Type
@@ -727,13 +675,12 @@
       name: _ItemStatement-Ln53
       cardinality: '?'
       reference:
-        unique_type_name: EnumCustomizations
+        unique_name: EnumCustomizations
         range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
-    unique_type_name: FilenameCustomizations
-    reference_count: 1
+    unique_name: FilenameCustomizations
     display_type: _FilenameCustomizations-Struct-Ln57
     flags:
     - Alias
@@ -744,14 +691,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
-      unique_type_name: _FilenameCustomizations-Struct-Ln57
-      reference_count: 1
+      unique_name: _FilenameCustomizations-Struct-Ln57
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
-        unique_type_name: _FilenameCustomizations-Struct-Ln57
-        reference_count: 1
+        unique_name: _FilenameCustomizations-Struct-Ln57
         visibility: Visibility.Private
         name: _FilenameCustomizations-Struct-Ln57
         children:
@@ -764,8 +709,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 58, Col 14 -> Ln 58, Col 22)
-            unique_type_name: _FilenameCustomizations-Struct-Ln57._ItemStatement-Ln58
-            reference_count: 1
+            unique_name: _FilenameCustomizations-Struct-Ln57._ItemStatement-Ln58
             display_type: Filename!
             flags:
             - Alias
@@ -776,8 +720,7 @@
               __type__: FilenameType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 58, Col 14 -> Ln 58, Col 22)
-              unique_type_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln58
-              reference_count: 1
+              unique_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln58
               ensure_exists: true
               match_any: false
             visibility: Visibility.Private
@@ -792,8 +735,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 59, Col 23 -> Ln 59, Col 56)
-            unique_type_name: _FilenameCustomizations-Struct-Ln57._ItemStatement-Ln59
-            reference_count: 1
+            unique_name: _FilenameCustomizations-Struct-Ln57._ItemStatement-Ln59
             display_type: Filename
             flags:
             - Alias
@@ -804,8 +746,7 @@
               __type__: FilenameType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 59, Col 23 -> Ln 59, Col 56)
-              unique_type_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln59
-              reference_count: 1
+              unique_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln59
               ensure_exists: false
             visibility: Visibility.Private
             name: _ItemStatement-Ln59
@@ -819,8 +760,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 60, Col 16 -> Ln 60, Col 44)
-            unique_type_name: _FilenameCustomizations-Struct-Ln57._ItemStatement-Ln60
-            reference_count: 1
+            unique_name: _FilenameCustomizations-Struct-Ln57._ItemStatement-Ln60
             display_type: Filename!^
             flags:
             - Alias
@@ -831,8 +771,7 @@
               __type__: FilenameType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 60, Col 16 -> Ln 60, Col 44)
-              unique_type_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln60
-              reference_count: 1
+              unique_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln60
               ensure_exists: true
               match_any: true
             visibility: Visibility.Private
@@ -850,8 +789,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 62, Col 26 -> Ln 62, Col 49)
-      unique_type_name: _ItemStatement-Ln62
-      reference_count: 1
+      unique_name: _ItemStatement-Ln62
       display_type: _FilenameCustomizations-Struct-Ln57?
       flags:
       - Type
@@ -861,13 +799,12 @@
       name: _ItemStatement-Ln62
       cardinality: '?'
       reference:
-        unique_type_name: FilenameCustomizations
+        unique_name: FilenameCustomizations
         range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
-    unique_type_name: IntegerCustomizations
-    reference_count: 1
+    unique_name: IntegerCustomizations
     display_type: _IntegerCustomizations-Struct-Ln66
     flags:
     - Alias
@@ -878,14 +815,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
-      unique_type_name: _IntegerCustomizations-Struct-Ln66
-      reference_count: 1
+      unique_name: _IntegerCustomizations-Struct-Ln66
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
-        unique_type_name: _IntegerCustomizations-Struct-Ln66
-        reference_count: 1
+        unique_name: _IntegerCustomizations-Struct-Ln66
         visibility: Visibility.Private
         name: _IntegerCustomizations-Struct-Ln66
         children:
@@ -898,8 +833,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 67, Col 14 -> Ln 67, Col 21)
-            unique_type_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln67
-            reference_count: 1
+            unique_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln67
             display_type: Integer
             flags:
             - Alias
@@ -910,8 +844,7 @@
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 67, Col 14 -> Ln 67, Col 21)
-              unique_type_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln67
-              reference_count: 1
+              unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln67
             visibility: Visibility.Private
             name: _ItemStatement-Ln67
             cardinality: <single>
@@ -924,8 +857,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 68, Col 10 -> Ln 68, Col 28)
-            unique_type_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln68
-            reference_count: 1
+            unique_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln68
             display_type: Integer {>= 0}
             flags:
             - Alias
@@ -936,8 +868,7 @@
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 68, Col 10 -> Ln 68, Col 28)
-              unique_type_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln68
-              reference_count: 1
+              unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln68
               min: 0
             visibility: Visibility.Private
             name: _ItemStatement-Ln68
@@ -951,8 +882,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 69, Col 10 -> Ln 69, Col 29)
-            unique_type_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln69
-            reference_count: 1
+            unique_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln69
             display_type: Integer {<= 10}
             flags:
             - Alias
@@ -963,8 +893,7 @@
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 69, Col 10 -> Ln 69, Col 29)
-              unique_type_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln69
-              reference_count: 1
+              unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln69
               max: 10
             visibility: Visibility.Private
             name: _ItemStatement-Ln69
@@ -978,8 +907,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 70, Col 18 -> Ln 70, Col 45)
-            unique_type_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln70
-            reference_count: 1
+            unique_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln70
             display_type: Integer {>= 0, <= 10}
             flags:
             - Alias
@@ -990,8 +918,7 @@
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 70, Col 18 -> Ln 70, Col 45)
-              unique_type_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln70
-              reference_count: 1
+              unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln70
               min: 0
               max: 10
             visibility: Visibility.Private
@@ -1006,8 +933,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 71, Col 16 -> Ln 71, Col 43)
-            unique_type_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln71
-            reference_count: 1
+            unique_name: _IntegerCustomizations-Struct-Ln66._ItemStatement-Ln71
             display_type: Integer
             flags:
             - Alias
@@ -1018,8 +944,7 @@
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 71, Col 16 -> Ln 71, Col 43)
-              unique_type_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln71
-              reference_count: 1
+              unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln71
               bits: BitsEnum.Value16
             visibility: Visibility.Private
             name: _ItemStatement-Ln71
@@ -1036,8 +961,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 73, Col 25 -> Ln 73, Col 47)
-      unique_type_name: _ItemStatement-Ln73
-      reference_count: 1
+      unique_name: _ItemStatement-Ln73
       display_type: _IntegerCustomizations-Struct-Ln66?
       flags:
       - Type
@@ -1047,13 +971,12 @@
       name: _ItemStatement-Ln73
       cardinality: '?'
       reference:
-        unique_type_name: IntegerCustomizations
+        unique_name: IntegerCustomizations
         range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
-    unique_type_name: NumberCustomizations
-    reference_count: 1
+    unique_name: NumberCustomizations
     display_type: _NumberCustomizations-Struct-Ln77
     flags:
     - Alias
@@ -1064,14 +987,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
-      unique_type_name: _NumberCustomizations-Struct-Ln77
-      reference_count: 1
+      unique_name: _NumberCustomizations-Struct-Ln77
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
-        unique_type_name: _NumberCustomizations-Struct-Ln77
-        reference_count: 1
+        unique_name: _NumberCustomizations-Struct-Ln77
         visibility: Visibility.Private
         name: _NumberCustomizations-Struct-Ln77
         children:
@@ -1084,8 +1005,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 78, Col 14 -> Ln 78, Col 20)
-            unique_type_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln78
-            reference_count: 1
+            unique_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln78
             display_type: Number
             flags:
             - Alias
@@ -1096,8 +1016,7 @@
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 78, Col 14 -> Ln 78, Col 20)
-              unique_type_name: _NumberCustomizations-Struct-Ln77.Number-Ln78
-              reference_count: 1
+              unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln78
             visibility: Visibility.Private
             name: _ItemStatement-Ln78
             cardinality: <single>
@@ -1110,8 +1029,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 79, Col 10 -> Ln 79, Col 29)
-            unique_type_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln79
-            reference_count: 1
+            unique_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln79
             display_type: Number {>= 0.0}
             flags:
             - Alias
@@ -1122,8 +1040,7 @@
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 79, Col 10 -> Ln 79, Col 29)
-              unique_type_name: _NumberCustomizations-Struct-Ln77.Number-Ln79
-              reference_count: 1
+              unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln79
               min: 0.0
             visibility: Visibility.Private
             name: _ItemStatement-Ln79
@@ -1137,8 +1054,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 80, Col 10 -> Ln 80, Col 30)
-            unique_type_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln80
-            reference_count: 1
+            unique_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln80
             display_type: Number {<= 10.0}
             flags:
             - Alias
@@ -1149,8 +1065,7 @@
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 80, Col 10 -> Ln 80, Col 30)
-              unique_type_name: _NumberCustomizations-Struct-Ln77.Number-Ln80
-              reference_count: 1
+              unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln80
               max: 10.0
             visibility: Visibility.Private
             name: _ItemStatement-Ln80
@@ -1164,8 +1079,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 81, Col 18 -> Ln 81, Col 48)
-            unique_type_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln81
-            reference_count: 1
+            unique_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln81
             display_type: Number {>= 0.0, <= 10.0}
             flags:
             - Alias
@@ -1176,8 +1090,7 @@
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 81, Col 18 -> Ln 81, Col 48)
-              unique_type_name: _NumberCustomizations-Struct-Ln77.Number-Ln81
-              reference_count: 1
+              unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln81
               min: 0.0
               max: 10.0
             visibility: Visibility.Private
@@ -1192,8 +1105,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 82, Col 16 -> Ln 82, Col 42)
-            unique_type_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln82
-            reference_count: 1
+            unique_name: _NumberCustomizations-Struct-Ln77._ItemStatement-Ln82
             display_type: Number
             flags:
             - Alias
@@ -1204,8 +1116,7 @@
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 82, Col 16 -> Ln 82, Col 42)
-              unique_type_name: _NumberCustomizations-Struct-Ln77.Number-Ln82
-              reference_count: 1
+              unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln82
               bits: BitsEnum.Value16
             visibility: Visibility.Private
             name: _ItemStatement-Ln82
@@ -1222,8 +1133,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 84, Col 24 -> Ln 84, Col 45)
-      unique_type_name: _ItemStatement-Ln84
-      reference_count: 1
+      unique_name: _ItemStatement-Ln84
       display_type: _NumberCustomizations-Struct-Ln77?
       flags:
       - Type
@@ -1233,13 +1143,12 @@
       name: _ItemStatement-Ln84
       cardinality: '?'
       reference:
-        unique_type_name: NumberCustomizations
+        unique_name: NumberCustomizations
         range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
-    unique_type_name: StringCustomizations
-    reference_count: 1
+    unique_name: StringCustomizations
     display_type: _StringCustomizations-Struct-Ln88
     flags:
     - Alias
@@ -1250,14 +1159,12 @@
       __type__: StructureType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
-      unique_type_name: _StringCustomizations-Struct-Ln88
-      reference_count: 1
+      unique_name: _StringCustomizations-Struct-Ln88
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
-        unique_type_name: _StringCustomizations-Struct-Ln88
-        reference_count: 1
+        unique_name: _StringCustomizations-Struct-Ln88
         visibility: Visibility.Private
         name: _StringCustomizations-Struct-Ln88
         children:
@@ -1270,8 +1177,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 89, Col 14 -> Ln 89, Col 20)
-            unique_type_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln89
-            reference_count: 1
+            unique_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln89
             display_type: String
             flags:
             - Alias
@@ -1282,8 +1188,7 @@
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 89, Col 14 -> Ln 89, Col 20)
-              unique_type_name: _StringCustomizations-Struct-Ln88.String-Ln89
-              reference_count: 1
+              unique_name: _StringCustomizations-Struct-Ln88.String-Ln89
               min_length: 1
             visibility: Visibility.Private
             name: _ItemStatement-Ln89
@@ -1297,8 +1202,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 90, Col 17 -> Ln 90, Col 42)
-            unique_type_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln90
-            reference_count: 1
+            unique_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln90
             display_type: String {>= 10 characters}
             flags:
             - Alias
@@ -1309,8 +1213,7 @@
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 90, Col 17 -> Ln 90, Col 42)
-              unique_type_name: _StringCustomizations-Struct-Ln88.String-Ln90
-              reference_count: 1
+              unique_name: _StringCustomizations-Struct-Ln88.String-Ln90
               min_length: 10
             visibility: Visibility.Private
             name: _ItemStatement-Ln90
@@ -1324,8 +1227,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 91, Col 17 -> Ln 91, Col 42)
-            unique_type_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln91
-            reference_count: 1
+            unique_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln91
             display_type: String {<= 20 characters}
             flags:
             - Alias
@@ -1336,8 +1238,7 @@
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 91, Col 17 -> Ln 91, Col 42)
-              unique_type_name: _StringCustomizations-Struct-Ln88.String-Ln91
-              reference_count: 1
+              unique_name: _StringCustomizations-Struct-Ln88.String-Ln91
               min_length: 1
               max_length: 20
             visibility: Visibility.Private
@@ -1352,8 +1253,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 92, Col 25 -> Ln 92, Col 66)
-            unique_type_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln92
-            reference_count: 1
+            unique_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln92
             display_type: String {>= 10 characters, <= 20 characters}
             flags:
             - Alias
@@ -1364,8 +1264,7 @@
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 92, Col 25 -> Ln 92, Col 66)
-              unique_type_name: _StringCustomizations-Struct-Ln88.String-Ln92
-              reference_count: 1
+              unique_name: _StringCustomizations-Struct-Ln88.String-Ln92
               min_length: 10
               max_length: 20
             visibility: Visibility.Private
@@ -1380,8 +1279,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: FundamentalTypes.SimpleSchema (Ln 93, Col 28 -> Ln 93, Col 70)
-            unique_type_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln93
-            reference_count: 1
+            unique_name: _StringCustomizations-Struct-Ln88._ItemStatement-Ln93
             display_type: String {'__.+__'}
             flags:
             - Alias
@@ -1392,8 +1290,7 @@
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 93, Col 28 -> Ln 93, Col 70)
-              unique_type_name: _StringCustomizations-Struct-Ln88.String-Ln93
-              reference_count: 1
+              unique_name: _StringCustomizations-Struct-Ln88.String-Ln93
               min_length: 1
               validation_expression: __.+__
             visibility: Visibility.Private
@@ -1411,8 +1308,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: FundamentalTypes.SimpleSchema (Ln 95, Col 24 -> Ln 95, Col 45)
-      unique_type_name: _ItemStatement-Ln95
-      reference_count: 1
+      unique_name: _ItemStatement-Ln95
       display_type: _StringCustomizations-Struct-Ln88?
       flags:
       - Type
@@ -1422,5 +1318,5 @@
       name: _ItemStatement-Ln95
       cardinality: '?'
       reference:
-        unique_type_name: StringCustomizations
+        unique_name: StringCustomizations
         range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)

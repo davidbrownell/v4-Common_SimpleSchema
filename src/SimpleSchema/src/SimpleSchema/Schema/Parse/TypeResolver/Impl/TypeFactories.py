@@ -27,6 +27,8 @@ from Common_Foundation.Types import extensionmethod, overridemethod
 from ...ANTLR.Elements.Statements.ParseItemStatement import ParseItemStatement
 from ...ANTLR.Elements.Statements.ParseStructureStatement import ParseStructureStatement
 
+from ...ParseState.ParseState import ParseState
+
 from ....Elements.Common.SimpleElement import SimpleElement
 from ....Elements.Common.Visibility import Visibility
 
@@ -50,14 +52,17 @@ class _TypeFactory(ABC):
     # ----------------------------------------------------------------------
     def __init__(
         self,
+        parse_state: ParseState,
         statement: Union[ParseItemStatement, ParseStructureStatement],
         active_namespace: "Namespace",
     ):
+        self._parse_state                                                   = parse_state
         self._statement                                                     = statement
 
         self._active_namespace_ref: WeakReferenceType["Namespace"]          = ref(active_namespace)
 
         self._created_type: Union[None, Exception, ReferenceType]           = None
+        self._created_type_ref_count: int                                   = 0
         self._created_type_lock                                             = threading.RLock()
 
     # ----------------------------------------------------------------------
@@ -89,6 +94,8 @@ class _TypeFactory(ABC):
 
                 self._created_type = result
 
+            self._created_type_ref_count += 1
+
         if isinstance(self._created_type, Exception):
             raise self._created_type
 
@@ -98,10 +105,16 @@ class _TypeFactory(ABC):
         assert False, self._created_type  # pragma: no cover
 
     # ----------------------------------------------------------------------
-    @abstractmethod
     def Finalize(self) -> None:
         """Finalizes the created element"""
-        raise Exception("Abstract method")  # pragma: no cover
+
+        with self._parse_state.YieldReferenceCounts() as reference_counts:
+            reference_counts.Increment(
+                self._created_type,
+                delta=self._created_type_ref_count,
+            )
+
+        self._FinalizeImpl()
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -114,6 +127,11 @@ class _TypeFactory(ABC):
     ) -> ReferenceType:
         raise Exception("Abstract method")  # pragma: no cover
 
+    # ----------------------------------------------------------------------
+    @abstractmethod
+    def _FinalizeImpl(self) -> None:
+        raise Exception("Abstract method")  # pragma: no cover
+
 
 # ----------------------------------------------------------------------
 class StructureTypeFactory(_TypeFactory):
@@ -121,7 +139,8 @@ class StructureTypeFactory(_TypeFactory):
     def __init__(self, *args, **kwargs):
         super(StructureTypeFactory, self).__init__(*args, **kwargs)
 
-        self._shallow_increment_ctr         = 0
+        self._shallow_ref_count         = 0
+        self._shallow_ref_count_lock    = threading.Lock()
 
     # ----------------------------------------------------------------------
     @property
@@ -131,27 +150,8 @@ class StructureTypeFactory(_TypeFactory):
 
     # ----------------------------------------------------------------------
     def ShallowIncrement(self) -> None:
-        with self._created_type_lock:
-            if self._created_type is None:
-                self._shallow_increment_ctr += 1
-            elif isinstance(self._created_type, ReferenceType):
-                self._created_type.Increment(shallow=True)
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def Finalize(self) -> None:
-        the_type = self._created_type
-
-        while isinstance(the_type, ReferenceType):
-            the_type = the_type.type
-
-        assert isinstance(the_type, StructureType), the_type
-
-        for child in self.statement.children:
-            if child.is_disabled:
-                continue
-
-            the_type.structure.children.append(child)  # pylint: disable=no-member
+        with self._shallow_ref_count_lock:
+            self._shallow_ref_count += 1
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -225,10 +225,31 @@ class StructureTypeFactory(_TypeFactory):
             was_dynamically_generated=False,
         )
 
-        for _ in range(self._shallow_increment_ctr):
-            result.Increment(shallow=True)
-
         return result
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _FinalizeImpl(self) -> None:
+        the_type = self._created_type
+
+        if self._shallow_ref_count:
+            with self._parse_state.YieldReferenceCounts() as reference_counts:
+                reference_counts.Increment(
+                    the_type,
+                    shallow=True,
+                    delta=self._shallow_ref_count,
+                )
+
+        while isinstance(the_type, ReferenceType):
+            the_type = the_type.type
+
+        assert isinstance(the_type, StructureType), the_type
+
+        for child in self.statement.children:
+            if child.is_disabled:
+                continue
+
+            the_type.structure.children.append(child)  # pylint: disable=no-member
 
 
 # ----------------------------------------------------------------------
@@ -238,12 +259,6 @@ class ReferenceTypeFactory(_TypeFactory):
     @overridemethod
     def statement(self) -> ParseItemStatement:
         return cast(ParseItemStatement, super(ReferenceTypeFactory, self).statement)
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def Finalize(self) -> None:
-        # Nothing to do here
-        pass
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -268,3 +283,9 @@ class ReferenceTypeFactory(_TypeFactory):
             is_dynamically_generated=False,
             range_value=statement.range,
         )
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _FinalizeImpl(self) -> None:
+        # Nothing to do here
+        pass

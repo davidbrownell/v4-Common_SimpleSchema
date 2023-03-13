@@ -31,7 +31,6 @@ Subdir/Foo.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: Subdir/Foo.SimpleSchema <Ln 1, Col 6 -> Ln 1, Col 9>
@@ -61,7 +60,6 @@ Bar.SimpleSchema:
     type:
       __type__: ParseIdentifierType
       range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>
-      reference_count: 0
       cardinality:
         __type__: Cardinality
         range: Bar.SimpleSchema <Ln 1, Col 8 -> Ln 1, Col 12>

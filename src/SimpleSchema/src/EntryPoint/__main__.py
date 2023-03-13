@@ -68,6 +68,7 @@ with ExitStack(lambda: sys.path.pop(0)):
 
     from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse                                         # pylint: disable=import-error
     from SimpleSchema.Schema.Parse.Normalize.Normalize import Normalize, Flag as NormalizeFlag      # pylint: disable=import-error
+    from SimpleSchema.Schema.Parse.ParseState.ParseState import ParseState                          # pylint: disable=import-error
     from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve                              # pylint: disable=import-error
 
 
@@ -370,9 +371,12 @@ class CodeGenerator(
 
         roots = cast(dict[Path, RootStatement], results)
 
+        parse_state = ParseState()
+
         # Resolve
         results = Resolve(
             dm,
+            parse_state,
             roots,
             single_threaded=False,
             quiet=False,
@@ -401,6 +405,7 @@ class CodeGenerator(
 
         results = Normalize(
             dm,
+            parse_state,
             roots,
             plugin.metadata_attributes,
             plugin.extension_names,

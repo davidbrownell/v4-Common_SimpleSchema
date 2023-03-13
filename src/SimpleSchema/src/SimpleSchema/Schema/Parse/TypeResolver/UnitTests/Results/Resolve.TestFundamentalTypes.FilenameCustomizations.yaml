@@ -14,12 +14,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
-      reference_count: 1
       display_type: Filename!
       type:
         __type__: FilenameType
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 19>
-        reference_count: 1
         ensure_exists: true
         match_any: false
       visibility:
@@ -54,12 +52,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
-      reference_count: 1
       display_type: Filename
       type:
         __type__: FilenameType
         range: entry_point <Ln 2, Col 19 -> Ln 2, Col 52>
-        reference_count: 1
         ensure_exists: false
         match_any: false
       visibility:
@@ -94,12 +90,10 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
-      reference_count: 1
       display_type: Filename!^
       type:
         __type__: FilenameType
         range: entry_point <Ln 3, Col 12 -> Ln 3, Col 40>
-        reference_count: 1
         ensure_exists: true
         match_any: true
       visibility:

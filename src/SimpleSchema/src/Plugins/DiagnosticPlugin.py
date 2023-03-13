@@ -36,8 +36,8 @@ from SimpleSchema.Plugin import Plugin as PluginBase
 from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
 from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata, MetadataItem
-from SimpleSchema.Schema.Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
+from SimpleSchema.Schema.Elements.Common.UniqueNameTrait import UniqueNameTrait
 
 from SimpleSchema.Schema.Elements.Expressions.BooleanExpression import BooleanExpression
 from SimpleSchema.Schema.Elements.Expressions.IntegerExpression import IntegerExpression
@@ -209,11 +209,10 @@ class _Visitor(Visitor):
             },
         )
 
-        if isinstance(element, ReferenceCountMixin):
+        if isinstance(element, UniqueNameTrait):
             d = self._content_stack[-1][-1]
 
-            d["unique_type_name"] = element.unique_type_name
-            d["reference_count"] = element.reference_count
+            d["unique_name"] = element.unique_name
 
         yield
 
@@ -512,7 +511,7 @@ class _Visitor(Visitor):
 
         if not (element.flags & ReferenceType.Flag.DefinedInline):
             d["reference"] = {
-                "unique_type_name": element.type.unique_type_name,
+                "unique_name": element.type.unique_name,
                 "range": self.__class__._ToString(element.type.range),  # pylint: disable=protected-access
             }
 

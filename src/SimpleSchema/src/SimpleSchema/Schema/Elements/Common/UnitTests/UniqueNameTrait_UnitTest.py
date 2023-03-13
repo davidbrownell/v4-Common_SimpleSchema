@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # |
-# |  ReferenceCountMixin_UnitTest.py
+# |  UniqueNameTrait_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
 # |      2023-02-22 15:19:00
@@ -13,7 +13,7 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Unit tests for ReferenceCountMixin.py"""
+"""Unit tests for UniqueNameTrait.py"""
 
 
 import re
@@ -31,33 +31,20 @@ from Common_Foundation import PathEx
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
-    from SimpleSchema.Schema.Elements.Common.ReferenceCountMixin import ReferenceCountMixin
+    from SimpleSchema.Schema.Elements.Common.UniqueNameTrait import UniqueNameTrait
 
 
 # ----------------------------------------------------------------------
 def test_Standard():
-    r = ReferenceCountMixin()
+    r = UniqueNameTrait()
 
-    assert r.reference_count == 0
-
-    r.Increment()
-    assert r.reference_count == 1
-
-    r.Increment()
-    assert r.reference_count == 2
-
-
-# ----------------------------------------------------------------------
-def test_Normalize():
-    r = ReferenceCountMixin()
-
-    assert r.is_unique_type_name_normalized is False
+    assert r.is_unique_name_normalized is False
 
     with pytest.raises(AssertionError):
-        r.unique_type_name
+        r.unique_name
 
-    r.NormalizeUniqueTypeName("unique_name")
-    assert r.unique_type_name == "unique_name"
+    r.NormalizeUniqueName("unique_name")
+    assert r.unique_name == "unique_name"
 
     with pytest.raises(AssertionError):
-        r.NormalizeUniqueTypeName("different_name")
+        r.NormalizeUniqueName("different_name")

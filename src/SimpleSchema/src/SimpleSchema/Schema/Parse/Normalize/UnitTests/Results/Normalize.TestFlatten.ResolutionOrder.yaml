@@ -3,19 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-    unique_type_name: Derived
-    reference_count: 0
+    unique_name: Derived
     display_type: _Derived-Struct-Ln3
     type:
       __type__: StructureType
       range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-      unique_type_name: _Derived-Struct-Ln3
-      reference_count: 0
+      unique_name: _Derived-Struct-Ln3
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-        unique_type_name: _Derived-Struct-Ln3
-        reference_count: 0
+        unique_name: _Derived-Struct-Ln3
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
@@ -38,14 +35,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 7, Col 12 -> Ln 7, Col 18>
-            unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._ItemStatement-Ln7
-            reference_count: 1
+            unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._ItemStatement-Ln7
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 7, Col 12 -> Ln 7, Col 18>
-              unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6.String-Ln7
-              reference_count: 1
+              unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6.String-Ln7
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -79,14 +74,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
-            unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9._ItemStatement-Ln10
-            reference_count: 1
+            unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9._ItemStatement-Ln10
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
-              unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9.String-Ln10
-              reference_count: 1
+              unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9.String-Ln10
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -128,19 +121,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 6, Col 1 -> Ln 8, Col 1>
-    unique_type_name: _Derived-Struct-Ln3.Base1
-    reference_count: 0
+    unique_name: _Derived-Struct-Ln3.Base1
     display_type: _Base1-Struct-Ln6
     type:
       __type__: StructureType
       range: entry_point <Ln 6, Col 1 -> Ln 8, Col 1>
-      unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6
-      reference_count: 0
+      unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 6, Col 1 -> Ln 8, Col 1>
-        unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6
-        reference_count: 0
+        unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 6, Col 1 -> Ln 8, Col 1>
@@ -163,14 +153,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 7, Col 12 -> Ln 7, Col 18>
-            unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._ItemStatement-Ln7
-            reference_count: 1
+            unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._ItemStatement-Ln7
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 7, Col 12 -> Ln 7, Col 18>
-              unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6.String-Ln7
-              reference_count: 1
+              unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6.String-Ln7
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -204,14 +192,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
-            unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9._ItemStatement-Ln10
-            reference_count: 1
+            unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9._ItemStatement-Ln10
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
-              unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9.String-Ln10
-              reference_count: 1
+              unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9.String-Ln10
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -253,19 +239,16 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 9, Col 1 -> Ln 11, Col 1>
-    unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6.Base2
-    reference_count: 0
+    unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6.Base2
     display_type: _Base2-Struct-Ln9
     type:
       __type__: StructureType
       range: entry_point <Ln 9, Col 1 -> Ln 11, Col 1>
-      unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9
-      reference_count: 0
+      unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 9, Col 1 -> Ln 11, Col 1>
-        unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9
-        reference_count: 0
+        unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 9, Col 1 -> Ln 11, Col 1>
@@ -288,14 +271,12 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
-            unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9._ItemStatement-Ln10
-            reference_count: 1
+            unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9._ItemStatement-Ln10
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 10, Col 12 -> Ln 10, Col 18>
-              unique_type_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9.String-Ln10
-              reference_count: 1
+              unique_name: _Derived-Struct-Ln3._Base1-Struct-Ln6._Base2-Struct-Ln9.String-Ln10
               min_length: 1
             visibility:
               __type__: SimpleElement

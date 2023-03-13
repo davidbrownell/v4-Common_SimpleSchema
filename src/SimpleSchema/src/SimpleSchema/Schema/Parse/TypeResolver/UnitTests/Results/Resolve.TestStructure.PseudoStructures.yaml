@@ -3,16 +3,13 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-    reference_count: 1
     display_type: __PseudoType-Ln1-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      reference_count: 1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -35,12 +32,10 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
-            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
-              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -74,12 +69,10 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 3, Col 13 -> Ln 3, Col 19>
-            reference_count: 1
             display_type: Number
             type:
               __type__: NumberType
               range: entry_point <Ln 3, Col 13 -> Ln 3, Col 19>
-              reference_count: 1
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 3, Col 5 -> Ln 4, Col 1>
@@ -131,7 +124,6 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln1-Struct-Ln1
       visibility:
         __type__: SimpleElement
@@ -157,16 +149,13 @@
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-    reference_count: 1
     display_type: __PseudoType-Ln5-Struct-Ln5
     type:
       __type__: StructureType
       range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-      reference_count: 1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -178,12 +167,10 @@
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
-          reference_count: 1
           display_type: String
           type:
             __type__: StringType
             range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
-            reference_count: 1
             min_length: 1
           visibility:
             __type__: SimpleElement
@@ -218,12 +205,10 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 6, Col 13 -> Ln 6, Col 19>
-            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 6, Col 13 -> Ln 6, Col 19>
-              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -276,7 +261,6 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln5-Struct-Ln5
       visibility:
         __type__: SimpleElement
@@ -302,16 +286,13 @@
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-    reference_count: 1
     display_type: __PseudoType-Ln8-Struct-Ln8
     type:
       __type__: StructureType
       range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-      reference_count: 1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-        reference_count: 1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
@@ -334,12 +315,10 @@
           type:
             __type__: ReferenceType
             range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -406,7 +385,6 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln8-Struct-Ln8
       visibility:
         __type__: SimpleElement
@@ -432,21 +410,17 @@
         range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-    reference_count: 1
     display_type: __PseudoType-Ln14-Struct-Ln14*
     type:
       __type__: ReferenceType
       range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln14-Struct-Ln14
       type:
         __type__: StructureType
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-        reference_count: 1
         structure:
           __type__: StructureStatement
           range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-          reference_count: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
@@ -469,12 +443,10 @@
             type:
               __type__: ReferenceType
               range: entry_point <Ln 15, Col 13 -> Ln 15, Col 20>
-              reference_count: 1
               display_type: Boolean
               type:
                 __type__: BooleanType
                 range: entry_point <Ln 15, Col 13 -> Ln 15, Col 20>
-                reference_count: 1
               visibility:
                 __type__: SimpleElement
                 range: entry_point <Ln 15, Col 5 -> Ln 15, Col 20>
@@ -541,7 +513,6 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln14-Struct-Ln14*
       visibility:
         __type__: SimpleElement
@@ -563,21 +534,17 @@
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-    reference_count: 1
     display_type: __PseudoType-Ln18-Struct-Ln18?
     type:
       __type__: ReferenceType
       range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln18-Struct-Ln18
       type:
         __type__: StructureType
         range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-        reference_count: 1
         structure:
           __type__: StructureStatement
           range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-          reference_count: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
@@ -589,12 +556,10 @@
           base_types:
           - __type__: ReferenceType
             range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-            reference_count: 1
             display_type: String
             type:
               __type__: StringType
               range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-              reference_count: 1
               min_length: 1
             visibility:
               __type__: SimpleElement
@@ -629,12 +594,10 @@
             type:
               __type__: ReferenceType
               range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-              reference_count: 1
               display_type: Boolean
               type:
                 __type__: BooleanType
                 range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-                reference_count: 1
               visibility:
                 __type__: SimpleElement
                 range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
@@ -729,7 +692,6 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-      reference_count: 1
       display_type: __PseudoType-Ln18-Struct-Ln18?
       visibility:
         __type__: SimpleElement

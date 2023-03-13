@@ -261,16 +261,6 @@ class ReferenceType(BaseType):
         object.__setattr__(self, "_metadata", metadata)
 
     # ----------------------------------------------------------------------
-    @overridemethod
-    def Increment(
-        self,
-        *,
-        shallow: bool=False,
-    ) -> None:
-        super(ReferenceType, self).Increment(shallow=shallow)
-        self.type.Increment(shallow=shallow)
-
-    # ----------------------------------------------------------------------
     @contextmanager
     def Resolve(self) -> Iterator["ReferenceType"]:
         try:

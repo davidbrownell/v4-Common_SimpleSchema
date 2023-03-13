@@ -35,6 +35,8 @@ from ...ANTLR.Elements.Types.ParseTupleType import ParseTupleType
 from ...ANTLR.Elements.Types.ParseType import ParseType
 from ...ANTLR.Elements.Types.ParseVariantType import ParseVariantType
 
+from ...ParseState.ParseState import ParseState
+
 from ....Elements.Common.Element import Element
 from ....Elements.Common.Metadata import Metadata, MetadataItem
 from ....Elements.Common.SimpleElement import SimpleElement
@@ -68,6 +70,7 @@ class Namespace(object):
     # ----------------------------------------------------------------------
     def __init__(
         self,
+        parse_state: ParseState,
         parent: Optional["Namespace"],
         visibility: Visibility,
         name: str,
@@ -79,6 +82,7 @@ class Namespace(object):
 
         self._parent_ref: Optional[WeakReferenceType[Namespace]]            = None if parent is None else ref(parent)
 
+        self.parse_state                    = parse_state
         self.visibility                     = visibility
         self.name                           = name
         self.statement                      = statement
@@ -268,6 +272,7 @@ class Namespace(object):
 
             if statement.include_type == ParseIncludeStatementType.Module:
                 module_namespace = Namespace(
+                    self.parse_state,
                     self.parent,
                     Visibility.Private,
                     statement.filename.value.stem,
@@ -425,8 +430,6 @@ class Namespace(object):
                     fundamental_types,
                 ),
             )
-
-            new_statement.type.Increment()
 
             ReplaceElement(item_statement, new_statement)
 

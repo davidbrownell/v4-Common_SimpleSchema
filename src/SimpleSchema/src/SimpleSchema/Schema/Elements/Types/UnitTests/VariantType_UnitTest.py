@@ -481,32 +481,6 @@ def test_ErrorNoMatchesExpressionViaReferenceType():
             None,
         ).ToPython(NumberExpression(Range.Create(Path("filename"), 100, 200, 300, 400), 3.14))
 
-# ----------------------------------------------------------------------
-def test_ReferenceCount():
-    t1 = Mock()
-    t2 = Mock()
-
-    tt = VariantType(Mock(), [t1, t2])
-
-    assert tt.reference_count == 0
-    assert t1.Increment.call_count == 0
-    assert t2.Increment.call_count == 0
-
-    tt.Increment()
-    assert tt.reference_count == 1
-    assert t1.Increment.call_count == 1
-    assert t2.Increment.call_count == 1
-
-    tt.Increment()
-    assert tt.reference_count == 2
-    assert t1.Increment.call_count == 2
-    assert t2.Increment.call_count == 2
-
-    tt.Increment(shallow=True)
-    assert tt.reference_count == 3
-    assert t1.Increment.call_count == 2
-    assert t2.Increment.call_count == 2
-
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------

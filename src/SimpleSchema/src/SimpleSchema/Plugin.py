@@ -26,7 +26,6 @@ from Common_FoundationEx.CompilerImpl.PluginBase import PluginBase
 from .Common import Errors
 from .Common.Range import Range
 
-from .Schema.Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from .Schema.Elements.Common.SimpleElement import SimpleElement
 from .Schema.Elements.Common.Visibility import Visibility
 

@@ -3,8 +3,7 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-    unique_type_name: Type1
-    reference_count: 0
+    unique_name: Type1
     display_type: String
     metadata:
       inheritable:
@@ -18,8 +17,7 @@
     type:
       __type__: StringType
       range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
-      unique_type_name: String-Ln1
-      reference_count: 0
+      unique_name: String-Ln1
       min_length: 1
     visibility:
       __type__: SimpleElement
@@ -42,8 +40,7 @@
         value: 1
   - __type__: ReferenceType
     range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
-    unique_type_name: Type2
-    reference_count: 0
+    unique_name: Type2
     display_type: String
     metadata:
       inheritable:
@@ -74,8 +71,7 @@
       range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
-    unique_type_name: Type3
-    reference_count: 0
+    unique_name: Type3
     display_type: String
     metadata:
       inheritable:
@@ -106,8 +102,7 @@
       range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 9, Col 1 -> Ln 13, Col 1>
-    unique_type_name: Type4
-    reference_count: 0
+    unique_name: Type4
     display_type: String
     metadata:
       inheritable:

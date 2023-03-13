@@ -59,25 +59,3 @@ def test_ErrorToPython():
         match=re.escape("This method should never be called for StructureType instances."),
     ):
         StructureType(Mock(), Mock()).ToPython("test")
-
-
-# ----------------------------------------------------------------------
-def test_ReferenceCount():
-    structure = Mock()
-
-    st = StructureType(Mock(), structure)
-
-    assert st.reference_count == 0
-    assert structure.Increment.call_count == 0
-
-    st.Increment()
-    assert st.reference_count == 1
-    assert structure.Increment.call_count == 1
-
-    st.Increment()
-    assert st.reference_count == 2
-    assert structure.Increment.call_count == 2
-
-    st.Increment(shallow=True)
-    assert st.reference_count == 3
-    assert structure.Increment.call_count == 3

@@ -5,8 +5,7 @@
   - __type__: ReferenceType
     __disabled__: false
     range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
-    unique_type_name: Cardinality
-    reference_count: 1
+    unique_name: Cardinality
     display_type: _Cardinality-Struct-Ln19
     flags:
     - Alias
@@ -17,14 +16,12 @@
       __type__: StructureType
       __disabled__: false
       range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
-      unique_type_name: _Cardinality-Struct-Ln19
-      reference_count: 1
+      unique_name: _Cardinality-Struct-Ln19
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
-        unique_type_name: _Cardinality-Struct-Ln19
-        reference_count: 1
+        unique_name: _Cardinality-Struct-Ln19
         visibility: Visibility.Private
         name: _Cardinality-Struct-Ln19
         children:
@@ -37,8 +34,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 20, Col 15 -> Ln 20, Col 21)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln20
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln20
             display_type: String
             flags:
             - Alias
@@ -49,8 +45,7 @@
               __type__: StringType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 20, Col 15 -> Ln 20, Col 21)
-              unique_type_name: _Cardinality-Struct-Ln19.String-Ln20
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.String-Ln20
               min_length: 1
             visibility: Visibility.Private
             name: _ItemStatement-Ln20
@@ -64,8 +59,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 22, Col 19 -> Ln 22, Col 26)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln22
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln22
             display_type: String*
             flags:
             - Type
@@ -77,8 +71,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 22, Col 19 -> Ln 22, Col 26)
-              unique_type_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22
               display_type: String
               flags:
               - Type
@@ -89,8 +82,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 22, Col 19 -> Ln 22, Col 26)
-                unique_type_name: _Cardinality-Struct-Ln19.String-Ln22
-                reference_count: 1
+                unique_name: _Cardinality-Struct-Ln19.String-Ln22
                 min_length: 1
               visibility: Visibility.Private
               name: __ItemStatement-Ln22-Item-Ln22
@@ -107,8 +99,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 25)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln23
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln23
             display_type: String+
             flags:
             - Type
@@ -120,8 +111,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 25)
-              unique_type_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln23-Item-Ln23
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln23-Item-Ln23
               display_type: String
               flags:
               - Type
@@ -132,8 +122,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 25)
-                unique_type_name: _Cardinality-Struct-Ln19.String-Ln23
-                reference_count: 1
+                unique_name: _Cardinality-Struct-Ln19.String-Ln23
                 min_length: 1
               visibility: Visibility.Private
               name: __ItemStatement-Ln23-Item-Ln23
@@ -150,8 +139,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 24, Col 18 -> Ln 24, Col 31)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln24
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln24
             display_type: String[3, 10]
             flags:
             - Type
@@ -163,8 +151,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 24, Col 18 -> Ln 24, Col 31)
-              unique_type_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln24-Item-Ln24
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln24-Item-Ln24
               display_type: String
               flags:
               - Type
@@ -175,8 +162,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 24, Col 18 -> Ln 24, Col 31)
-                unique_type_name: _Cardinality-Struct-Ln19.String-Ln24
-                reference_count: 1
+                unique_name: _Cardinality-Struct-Ln19.String-Ln24
                 min_length: 1
               visibility: Visibility.Private
               name: __ItemStatement-Ln24-Item-Ln24
@@ -193,8 +179,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 25, Col 12 -> Ln 25, Col 24)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln25
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln25
             display_type: String[3]
             flags:
             - Type
@@ -206,8 +191,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 25, Col 12 -> Ln 25, Col 24)
-              unique_type_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln25-Item-Ln25
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln25-Item-Ln25
               display_type: String
               flags:
               - Type
@@ -218,8 +202,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 25, Col 12 -> Ln 25, Col 24)
-                unique_type_name: _Cardinality-Struct-Ln19.String-Ln25
-                reference_count: 1
+                unique_name: _Cardinality-Struct-Ln19.String-Ln25
                 min_length: 1
               visibility: Visibility.Private
               name: __ItemStatement-Ln25-Item-Ln25
@@ -236,8 +219,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 27, Col 15 -> Ln 27, Col 22)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln27
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln27
             display_type: String?
             flags:
             - Type
@@ -249,8 +231,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 27, Col 15 -> Ln 27, Col 22)
-              unique_type_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln27-Item-Ln27
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln27-Item-Ln27
               display_type: String
               flags:
               - Type
@@ -261,8 +242,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 27, Col 15 -> Ln 27, Col 22)
-                unique_type_name: _Cardinality-Struct-Ln19.String-Ln27
-                reference_count: 1
+                unique_name: _Cardinality-Struct-Ln19.String-Ln27
                 min_length: 1
               visibility: Visibility.Private
               name: __ItemStatement-Ln27-Item-Ln27
@@ -279,8 +259,7 @@
             __type__: ReferenceType
             __disabled__: false
             range: Cardinality.SimpleSchema (Ln 28, Col 28 -> Ln 28, Col 54)
-            unique_type_name: _Cardinality-Struct-Ln19._ItemStatement-Ln28
-            reference_count: 1
+            unique_name: _Cardinality-Struct-Ln19._ItemStatement-Ln28
             display_type: String?
             flags:
             - Type
@@ -294,8 +273,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 28, Col 28 -> Ln 28, Col 54)
-              unique_type_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln28-Item-Ln28
-              reference_count: 1
+              unique_name: _Cardinality-Struct-Ln19.__ItemStatement-Ln28-Item-Ln28
               display_type: String
               flags:
               - Type
@@ -306,8 +284,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 28, Col 28 -> Ln 28, Col 54)
-                unique_type_name: _Cardinality-Struct-Ln19.String-Ln28
-                reference_count: 1
+                unique_name: _Cardinality-Struct-Ln19.String-Ln28
                 min_length: 1
               visibility: Visibility.Private
               name: __ItemStatement-Ln28-Item-Ln28
@@ -327,8 +304,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Cardinality.SimpleSchema (Ln 30, Col 14 -> Ln 30, Col 26)
-      unique_type_name: _ItemStatement-Ln30
-      reference_count: 1
+      unique_name: _ItemStatement-Ln30
       display_type: _Cardinality-Struct-Ln19?
       flags:
       - Type
@@ -338,13 +314,12 @@
       name: _ItemStatement-Ln30
       cardinality: '?'
       reference:
-        unique_type_name: Cardinality
+        unique_name: Cardinality
         range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
-    unique_type_name: OptionalObject
-    reference_count: 1
+    unique_name: OptionalObject
     display_type: _OptionalObject-Struct-Ln34?
     flags:
     - Type
@@ -356,8 +331,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
-      unique_type_name: _OptionalObject-Item-Ln34
-      reference_count: 1
+      unique_name: _OptionalObject-Item-Ln34
       display_type: _OptionalObject-Struct-Ln34
       flags:
       - Type
@@ -369,14 +343,12 @@
         __type__: StructureType
         __disabled__: false
         range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
-        unique_type_name: _OptionalObject-Struct-Ln34
-        reference_count: 1
+        unique_name: _OptionalObject-Struct-Ln34
         structure:
           __type__: StructureStatement
           __disabled__: false
           range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
-          unique_type_name: _OptionalObject-Struct-Ln34
-          reference_count: 1
+          unique_name: _OptionalObject-Struct-Ln34
           visibility: Visibility.Private
           name: _OptionalObject-Struct-Ln34
           children:
@@ -389,8 +361,7 @@
               __type__: ReferenceType
               __disabled__: false
               range: Cardinality.SimpleSchema (Ln 35, Col 12 -> Ln 35, Col 18)
-              unique_type_name: _OptionalObject-Struct-Ln34._ItemStatement-Ln35
-              reference_count: 1
+              unique_name: _OptionalObject-Struct-Ln34._ItemStatement-Ln35
               display_type: String
               flags:
               - Alias
@@ -401,8 +372,7 @@
                 __type__: StringType
                 __disabled__: false
                 range: Cardinality.SimpleSchema (Ln 35, Col 12 -> Ln 35, Col 18)
-                unique_type_name: _OptionalObject-Struct-Ln34.String-Ln35
-                reference_count: 1
+                unique_name: _OptionalObject-Struct-Ln34.String-Ln35
                 min_length: 1
               visibility: Visibility.Private
               name: _ItemStatement-Ln35
@@ -422,8 +392,7 @@
       __type__: ReferenceType
       __disabled__: false
       range: Cardinality.SimpleSchema (Ln 38, Col 18 -> Ln 38, Col 32)
-      unique_type_name: _ItemStatement-Ln38
-      reference_count: 1
+      unique_name: _ItemStatement-Ln38
       display_type: _OptionalObject-Struct-Ln34?
       flags:
       - Alias
@@ -433,5 +402,5 @@
       name: _ItemStatement-Ln38
       cardinality: '?'
       reference:
-        unique_type_name: OptionalObject
+        unique_name: OptionalObject
         range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)

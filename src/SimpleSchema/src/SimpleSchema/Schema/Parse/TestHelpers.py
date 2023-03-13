@@ -38,8 +38,8 @@ from Common_PythonDevelopment.TestHelpers import CompareResultsFromFile as Compa
 # pylint: disable=wrong-import-position
 
 from ..Elements.Common.Element import Element, VisitResult
-from ..Elements.Common.ReferenceCountMixin import ReferenceCountMixin
 from ..Elements.Common.SimpleElement import SimpleElement
+from ..Elements.Common.UniqueNameTrait import UniqueNameTrait
 
 from ..Elements.Expressions.BooleanExpression import BooleanExpression
 from ..Elements.Expressions.IntegerExpression import IntegerExpression
@@ -316,11 +316,9 @@ class _ToPythonDictVisitor(Visitor):
         if self.include_disabled_status:
             self._stack[-1]["__disabled__"] = element.is_disabled
 
-        if isinstance(element, ReferenceCountMixin):
-            if element.is_unique_type_name_normalized:
-                self._stack[-1]["unique_type_name"] = element.unique_type_name
-
-            self._stack[-1]["reference_count"] = element.reference_count
+        if isinstance(element, UniqueNameTrait):
+            if element.is_unique_name_normalized:
+                self._stack[-1]["unique_name"] = element.unique_name
 
         yield
 

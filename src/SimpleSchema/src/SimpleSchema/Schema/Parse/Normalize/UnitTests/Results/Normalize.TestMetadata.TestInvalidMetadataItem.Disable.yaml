@@ -3,19 +3,16 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-    unique_type_name: Structure
-    reference_count: 0
+    unique_name: Structure
     display_type: _Structure-Struct-Ln1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-      unique_type_name: _Structure-Struct-Ln1
-      reference_count: 0
+      unique_name: _Structure-Struct-Ln1
       structure:
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-        unique_type_name: _Structure-Struct-Ln1
-        reference_count: 0
+        unique_name: _Structure-Struct-Ln1
         visibility:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
