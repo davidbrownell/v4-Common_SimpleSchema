@@ -14,15 +14,15 @@
         __type__: SimpleElement
         range: entry_point <Ln 3, Col 15 -> Ln 3, Col 26>
         value: Standard1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
       unique_name: String-Ln1
       min_length: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>

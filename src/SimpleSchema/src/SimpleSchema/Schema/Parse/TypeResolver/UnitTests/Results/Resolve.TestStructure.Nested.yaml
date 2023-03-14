@@ -4,6 +4,10 @@
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 11, Col 1>
     display_type: _Person-Struct-Ln1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 7>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 11, Col 1>
@@ -22,6 +26,10 @@
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 5 -> Ln 9, Col 1>
           display_type: __PseudoType-Ln2-Struct-Ln2
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 6>
+            value: Visibility.Private
           type:
             __type__: StructureType
             range: entry_point <Ln 2, Col 5 -> Ln 9, Col 1>
@@ -51,14 +59,14 @@
                   __type__: ReferenceType
                   range: entry_point <Ln 3, Col 17 -> Ln 3, Col 23>
                   display_type: String
-                  type:
-                    __type__: StringType
-                    range: entry_point <Ln 3, Col 17 -> Ln 3, Col 23>
-                    min_length: 1
                   visibility:
                     __type__: SimpleElement
                     range: entry_point <Ln 3, Col 9 -> Ln 5, Col 9>
                     value: Visibility.Private
+                  type:
+                    __type__: StringType
+                    range: entry_point <Ln 3, Col 17 -> Ln 3, Col 23>
+                    min_length: 1
                   name:
                     __type__: SimpleElement
                     range: entry_point <Ln 3, Col 9 -> Ln 5, Col 9>
@@ -77,6 +85,10 @@
               - __type__: ReferenceType
                 range: entry_point <Ln 5, Col 9 -> Ln 7, Col 1>
                 display_type: __PseudoType-Ln5-Struct-Ln5
+                visibility:
+                  __type__: SimpleElement
+                  range: entry_point <Ln 5, Col 9 -> Ln 5, Col 10>
+                  value: Visibility.Private
                 type:
                   __type__: StructureType
                   range: entry_point <Ln 5, Col 9 -> Ln 7, Col 1>
@@ -106,13 +118,13 @@
                         __type__: ReferenceType
                         range: entry_point <Ln 6, Col 21 -> Ln 6, Col 27>
                         display_type: Number
-                        type:
-                          __type__: NumberType
-                          range: entry_point <Ln 6, Col 21 -> Ln 6, Col 27>
                         visibility:
                           __type__: SimpleElement
                           range: entry_point <Ln 6, Col 13 -> Ln 7, Col 1>
                           value: Visibility.Private
+                        type:
+                          __type__: NumberType
+                          range: entry_point <Ln 6, Col 21 -> Ln 6, Col 27>
                         name:
                           __type__: SimpleElement
                           range: entry_point <Ln 6, Col 13 -> Ln 7, Col 1>
@@ -128,10 +140,6 @@
                             __type__: IntegerExpression
                             range: entry_point <Ln 6, Col 21 -> Ln 6, Col 27>
                             value: 1
-                visibility:
-                  __type__: SimpleElement
-                  range: entry_point <Ln 5, Col 9 -> Ln 5, Col 10>
-                  value: Visibility.Private
                 name:
                   __type__: SimpleElement
                   range: entry_point <Ln 5, Col 9 -> Ln 7, Col 1>
@@ -197,13 +205,13 @@
                   __type__: ReferenceType
                   range: entry_point <Ln 8, Col 17 -> Ln 8, Col 24>
                   display_type: Boolean
-                  type:
-                    __type__: BooleanType
-                    range: entry_point <Ln 8, Col 17 -> Ln 8, Col 24>
                   visibility:
                     __type__: SimpleElement
                     range: entry_point <Ln 8, Col 9 -> Ln 9, Col 1>
                     value: Visibility.Private
+                  type:
+                    __type__: BooleanType
+                    range: entry_point <Ln 8, Col 17 -> Ln 8, Col 24>
                   name:
                     __type__: SimpleElement
                     range: entry_point <Ln 8, Col 9 -> Ln 9, Col 1>
@@ -219,10 +227,6 @@
                       __type__: IntegerExpression
                       range: entry_point <Ln 8, Col 17 -> Ln 8, Col 24>
                       value: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 6>
-            value: Visibility.Private
           name:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 5 -> Ln 9, Col 1>
@@ -288,13 +292,13 @@
             __type__: ReferenceType
             range: entry_point <Ln 10, Col 13 -> Ln 10, Col 20>
             display_type: Boolean
-            type:
-              __type__: BooleanType
-              range: entry_point <Ln 10, Col 13 -> Ln 10, Col 20>
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 10, Col 5 -> Ln 11, Col 1>
               value: Visibility.Private
+            type:
+              __type__: BooleanType
+              range: entry_point <Ln 10, Col 13 -> Ln 10, Col 20>
             name:
               __type__: SimpleElement
               range: entry_point <Ln 10, Col 5 -> Ln 11, Col 1>
@@ -310,10 +314,6 @@
                 __type__: IntegerExpression
                 range: entry_point <Ln 10, Col 13 -> Ln 10, Col 20>
                 value: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 7>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 7>

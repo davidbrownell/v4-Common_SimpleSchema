@@ -52,11 +52,9 @@ class _TypeFactory(ABC):
     # ----------------------------------------------------------------------
     def __init__(
         self,
-        parse_state: ParseState,
         statement: Union[ParseItemStatement, ParseStructureStatement],
         active_namespace: "Namespace",
     ):
-        self._parse_state                                                   = parse_state
         self._statement                                                     = statement
 
         self._active_namespace_ref: WeakReferenceType["Namespace"]          = ref(active_namespace)
@@ -93,8 +91,10 @@ class _TypeFactory(ABC):
                     result = ex
 
                 self._created_type = result
-
-            self._created_type_ref_count += 1
+            else:
+                # We only want to increment the reference count when the type is referenced,
+                # not when it is created.
+                self._created_type_ref_count += 1
 
         if isinstance(self._created_type, Exception):
             raise self._created_type
@@ -105,16 +105,10 @@ class _TypeFactory(ABC):
         assert False, self._created_type  # pragma: no cover
 
     # ----------------------------------------------------------------------
+    @abstractmethod
     def Finalize(self) -> None:
         """Finalizes the created element"""
-
-        with self._parse_state.YieldReferenceCounts() as reference_counts:
-            reference_counts.Increment(
-                self._created_type,
-                delta=self._created_type_ref_count,
-            )
-
-        self._FinalizeImpl()
+        raise Exception("Abstract method")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -127,21 +121,9 @@ class _TypeFactory(ABC):
     ) -> ReferenceType:
         raise Exception("Abstract method")  # pragma: no cover
 
-    # ----------------------------------------------------------------------
-    @abstractmethod
-    def _FinalizeImpl(self) -> None:
-        raise Exception("Abstract method")  # pragma: no cover
-
 
 # ----------------------------------------------------------------------
 class StructureTypeFactory(_TypeFactory):
-    # ----------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
-        super(StructureTypeFactory, self).__init__(*args, **kwargs)
-
-        self._shallow_ref_count         = 0
-        self._shallow_ref_count_lock    = threading.Lock()
-
     # ----------------------------------------------------------------------
     @property
     @overridemethod
@@ -149,9 +131,21 @@ class StructureTypeFactory(_TypeFactory):
         return cast(ParseStructureStatement, super(StructureTypeFactory, self).statement)
 
     # ----------------------------------------------------------------------
-    def ShallowIncrement(self) -> None:
-        with self._shallow_ref_count_lock:
-            self._shallow_ref_count += 1
+    @overridemethod
+    def Finalize(self) -> None:
+        the_type = self._created_type
+        assert isinstance(the_type, ReferenceType), the_type
+
+        while isinstance(the_type, ReferenceType):
+            the_type = the_type.type
+
+        assert isinstance(the_type, StructureType), the_type
+
+        for child in self.statement.children:
+            if child.is_disabled:
+                continue
+
+            the_type.structure.children.append(child)  # pylint: disable=no-member
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -216,9 +210,9 @@ class StructureTypeFactory(_TypeFactory):
                         statement.range,
                         "_{}-Struct-Ln{}".format(statement.name.value, statement.range.begin.line),
                     ),
-                    base_types,
+                    base_types,  # type: ignore
                     [], # The children will be populated during Finalize
-                ),
+                ),  # type: ignore
             ),
             statement.cardinality,
             statement.unresolved_metadata,
@@ -226,30 +220,6 @@ class StructureTypeFactory(_TypeFactory):
         )
 
         return result
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _FinalizeImpl(self) -> None:
-        the_type = self._created_type
-
-        if self._shallow_ref_count:
-            with self._parse_state.YieldReferenceCounts() as reference_counts:
-                reference_counts.Increment(
-                    the_type,
-                    shallow=True,
-                    delta=self._shallow_ref_count,
-                )
-
-        while isinstance(the_type, ReferenceType):
-            the_type = the_type.type
-
-        assert isinstance(the_type, StructureType), the_type
-
-        for child in self.statement.children:
-            if child.is_disabled:
-                continue
-
-            the_type.structure.children.append(child)  # pylint: disable=no-member
 
 
 # ----------------------------------------------------------------------
@@ -259,6 +229,12 @@ class ReferenceTypeFactory(_TypeFactory):
     @overridemethod
     def statement(self) -> ParseItemStatement:
         return cast(ParseItemStatement, super(ReferenceTypeFactory, self).statement)
+
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def Finalize(self) -> None:
+        # Nothing to do here
+        pass
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -283,9 +259,3 @@ class ReferenceTypeFactory(_TypeFactory):
             is_dynamically_generated=False,
             range_value=statement.range,
         )
-
-    # ----------------------------------------------------------------------
-    @overridemethod
-    def _FinalizeImpl(self) -> None:
-        # Nothing to do here
-        pass

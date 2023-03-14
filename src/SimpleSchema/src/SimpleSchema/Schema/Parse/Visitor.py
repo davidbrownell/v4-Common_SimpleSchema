@@ -30,7 +30,7 @@ from .ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 from .ANTLR.Elements.Types.ParseTupleType import ParseTupleType
 from .ANTLR.Elements.Types.ParseVariantType import ParseVariantType
 
-from ..Visitor import Visitor as VisitorBase, VisitResult
+from ..Visitors.Visitor import Visitor as VisitorBase, VisitResult
 
 
 # ----------------------------------------------------------------------

@@ -15,14 +15,14 @@
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
       display_type: Directory!
-      type:
-        __type__: DirectoryType
-        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
-        ensure_exists: true
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
         value: Visibility.Private
+      type:
+        __type__: DirectoryType
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 20>
+        ensure_exists: true
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
@@ -52,14 +52,14 @@
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
       display_type: Directory
-      type:
-        __type__: DirectoryType
-        range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
-        ensure_exists: false
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
         value: Visibility.Private
+      type:
+        __type__: DirectoryType
+        range: entry_point <Ln 2, Col 19 -> Ln 2, Col 50>
+        ensure_exists: false
       name:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>

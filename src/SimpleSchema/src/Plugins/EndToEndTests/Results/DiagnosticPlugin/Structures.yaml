@@ -12,6 +12,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -41,16 +42,15 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: Structures.SimpleSchema (Ln 20, Col 12 -> Ln 20, Col 18)
               unique_name: _BasicStructure-Struct-Ln19.String-Ln20
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln20
             cardinality: <single>
-    visibility: Visibility.Public
     name: BasicStructure
     cardinality: <single>
   - __type__: ReferenceType
@@ -63,6 +63,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -75,7 +76,6 @@
         unique_name: _EmptyStructure-Struct-Ln24
         visibility: Visibility.Private
         name: _EmptyStructure-Struct-Ln24
-    visibility: Visibility.Public
     name: EmptyStructure
     cardinality: <single>
   - __type__: ReferenceType
@@ -88,6 +88,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -110,6 +111,7 @@
           - Alias
           - BasicRef
           - DefinedInline
+          visibility: Visibility.Public
           type:
             __type__: StringType
             __disabled__: false
@@ -117,10 +119,8 @@
             unique_name: _TypeOnly-Struct-Ln29.String-Ln30
             min_length: 1
             max_length: 10
-          visibility: Visibility.Public
           name: StringRef
           cardinality: <single>
-    visibility: Visibility.Public
     name: TypeOnly
     cardinality: <single>
   - __type__: ItemStatement
@@ -154,6 +154,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -183,13 +184,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: Structures.SimpleSchema (Ln 38, Col 13 -> Ln 38, Col 19)
               unique_name: _Nested0-Struct-Ln37.String-Ln38
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln38
             cardinality: <single>
         - __type__: ReferenceType
@@ -202,6 +203,7 @@
           - BasicRef
           - StructureRef
           - DefinedInline
+          visibility: Visibility.Public
           type:
             __type__: StructureType
             __disabled__: false
@@ -231,13 +233,13 @@
                   - BasicRef
                   - DynamicallyGenerated
                   - DefinedInline
+                  visibility: Visibility.Private
                   type:
                     __type__: StringType
                     __disabled__: false
                     range: Structures.SimpleSchema (Ln 41, Col 17 -> Ln 41, Col 23)
                     unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.String-Ln41
                     min_length: 1
-                  visibility: Visibility.Private
                   name: _ItemStatement-Ln41
                   cardinality: <single>
               - __type__: ReferenceType
@@ -250,6 +252,7 @@
                 - BasicRef
                 - StructureRef
                 - DefinedInline
+                visibility: Visibility.Public
                 type:
                   __type__: StructureType
                   __disabled__: false
@@ -279,13 +282,13 @@
                         - BasicRef
                         - DynamicallyGenerated
                         - DefinedInline
+                        visibility: Visibility.Private
                         type:
                           __type__: StringType
                           __disabled__: false
                           range: Structures.SimpleSchema (Ln 44, Col 21 -> Ln 44, Col 27)
                           unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.String-Ln44
                           min_length: 1
-                        visibility: Visibility.Private
                         name: _ItemStatement-Ln44
                         cardinality: <single>
                     - __type__: ReferenceType
@@ -298,6 +301,7 @@
                       - BasicRef
                       - StructureRef
                       - DefinedInline
+                      visibility: Visibility.Public
                       type:
                         __type__: StructureType
                         __disabled__: false
@@ -327,16 +331,15 @@
                               - BasicRef
                               - DynamicallyGenerated
                               - DefinedInline
+                              visibility: Visibility.Private
                               type:
                                 __type__: StringType
                                 __disabled__: false
                                 range: Structures.SimpleSchema (Ln 47, Col 25 -> Ln 47, Col 31)
                                 unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46.String-Ln47
                                 min_length: 1
-                              visibility: Visibility.Private
                               name: _ItemStatement-Ln47
                               cardinality: <single>
-                      visibility: Visibility.Public
                       name: Nested3
                       cardinality: <single>
                     - __type__: ItemStatement
@@ -360,7 +363,6 @@
                         reference:
                           unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3
                           range: Structures.SimpleSchema (Ln 46, Col 13 -> Ln 48, Col 1)
-                visibility: Visibility.Public
                 name: Nested2
                 cardinality: <single>
               - __type__: ItemStatement
@@ -384,7 +386,6 @@
                   reference:
                     unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
                     range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-          visibility: Visibility.Public
           name: Nested1
           cardinality: <single>
         - __type__: ItemStatement
@@ -408,7 +409,6 @@
             reference:
               unique_name: _Nested0-Struct-Ln37.Nested1
               range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
-    visibility: Visibility.Public
     name: Nested0
     cardinality: <single>
   - __type__: ItemStatement
@@ -442,6 +442,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -465,6 +466,7 @@
           - BasicRef
           - DynamicallyGenerated
           - DefinedInline
+          visibility: Visibility.Private
           type:
             __type__: StringType
             __disabled__: false
@@ -472,10 +474,8 @@
             unique_name: _SingleBasicBase-Struct-Ln59.String-Ln59
             min_length: 1
             max_length: 10
-          visibility: Visibility.Private
           name: _Base0
           cardinality: <single>
-    visibility: Visibility.Public
     name: SingleBasicBase
     cardinality: <single>
   - __type__: ReferenceType
@@ -488,6 +488,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -516,7 +517,6 @@
           reference:
             unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
             range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-    visibility: Visibility.Public
     name: SingleStructureBase
     cardinality: <single>
   - __type__: ReferenceType
@@ -529,6 +529,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -587,6 +588,5 @@
           reference:
             unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
             range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-    visibility: Visibility.Public
     name: MultipleStructureBase
     cardinality: <single>

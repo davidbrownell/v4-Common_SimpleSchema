@@ -15,13 +15,13 @@
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 11 -> Ln 1, Col 17>
       display_type: Number
-      type:
-        __type__: NumberType
-        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 17>
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
         value: Visibility.Private
+      type:
+        __type__: NumberType
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 17>
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
@@ -51,14 +51,14 @@
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 11 -> Ln 2, Col 31>
       display_type: Number {>= 10.0}
-      type:
-        __type__: NumberType
-        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 31>
-        min: 10.0
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
         value: Visibility.Private
+      type:
+        __type__: NumberType
+        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 31>
+        min: 10.0
       name:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
@@ -88,14 +88,14 @@
       __type__: ReferenceType
       range: entry_point <Ln 3, Col 11 -> Ln 3, Col 31>
       display_type: Number {<= 20.0}
-      type:
-        __type__: NumberType
-        range: entry_point <Ln 3, Col 11 -> Ln 3, Col 31>
-        max: 20.0
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
         value: Visibility.Private
+      type:
+        __type__: NumberType
+        range: entry_point <Ln 3, Col 11 -> Ln 3, Col 31>
+        max: 20.0
       name:
         __type__: SimpleElement
         range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
@@ -125,15 +125,15 @@
       __type__: ReferenceType
       range: entry_point <Ln 4, Col 19 -> Ln 4, Col 50>
       display_type: Number {>= 10.0, <= 20.0}
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
+        value: Visibility.Private
       type:
         __type__: NumberType
         range: entry_point <Ln 4, Col 19 -> Ln 4, Col 50>
         min: 10.0
         max: 20.0
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
-        value: Visibility.Private
       name:
         __type__: SimpleElement
         range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
@@ -163,14 +163,14 @@
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 7 -> Ln 5, Col 33>
       display_type: Number
-      type:
-        __type__: NumberType
-        range: entry_point <Ln 5, Col 7 -> Ln 5, Col 33>
-        bits: BitsEnum.Value32
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
         value: Visibility.Private
+      type:
+        __type__: NumberType
+        range: entry_point <Ln 5, Col 7 -> Ln 5, Col 33>
+        bits: BitsEnum.Value32
       name:
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>

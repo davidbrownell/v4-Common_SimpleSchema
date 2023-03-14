@@ -32,7 +32,7 @@ from ..Common.Cardinality import Cardinality
 from ..Common.Element import Element
 from ..Common.Metadata import Metadata
 from ..Common.SimpleElement import SimpleElement
-from ..Common.Visibility import Visibility
+from ..Common.Visibility import Visibility, VisibilityTrait
 
 from ..Expressions.Expression import Expression
 from ..Expressions.ListExpression import ListExpression
@@ -48,7 +48,7 @@ from ....Common.SimpleSchemaException import SimpleSchemaException
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class ReferenceType(BaseType):
+class ReferenceType(VisibilityTrait, BaseType):
     """A type that has cardinality and metadata"""
 
     # ----------------------------------------------------------------------
@@ -94,10 +94,7 @@ class ReferenceType(BaseType):
     NAME: ClassVar[str]                                 = "Reference"
 
     type: Union[BasicType, "ReferenceType"]
-
-    visibility: SimpleElement[Visibility]
     name: SimpleElement[str]
-
     cardinality: Cardinality
 
     _metadata: Union[
@@ -142,8 +139,8 @@ class ReferenceType(BaseType):
             else:
                 referenced_type = cls(
                     range_value,
-                    the_type,
                     SimpleElement[Visibility](the_type.range, Visibility.Private),
+                    the_type,
                     SimpleElement[str](
                         the_type.range,
                         "_{}-Item-Ln{}".format(name.value, the_type.range.begin.line),
@@ -158,8 +155,8 @@ class ReferenceType(BaseType):
 
         return cls(
             range_value,
-            referenced_type,
             visibility,
+            referenced_type,
             name,
             cardinality,
             metadata,
@@ -352,11 +349,10 @@ class ReferenceType(BaseType):
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield from VisibilityTrait._GenerateAcceptDetails(self)
+
         yield "type", cast(WeakReferenceType[Element], ref(self.type))
-
-        yield "visibility", self.visibility
         yield "name", self.name
-
         yield "cardinality", self.cardinality
 
         if isinstance(self._metadata, Metadata):

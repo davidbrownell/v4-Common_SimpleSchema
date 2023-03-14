@@ -64,8 +64,8 @@ def test_Standard():
 
     rt = ReferenceType(
         range_mock,
-        type_mock,
         visibility_mock,
+        type_mock,
         name_mock,
         cardinality_mock,
         metadata_mock,
@@ -648,8 +648,8 @@ def _Create(
 ) -> ReferenceType:
     return ReferenceType(
         range_value or Mock(),
-        the_type,
         Mock(),
+        the_type,
         Mock(),
         cardinality,
         Mock() if metadata is DoesNotExist.instance else metadata,

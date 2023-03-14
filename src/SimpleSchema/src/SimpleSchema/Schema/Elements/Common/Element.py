@@ -20,7 +20,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import auto, Flag
 from typing import Any, ClassVar, Generator, Iterator, Optional, Tuple, Union
-from weakref import ref, ReferenceType
+from weakref import ReferenceType as WeakReferenceType
 
 from Common_Foundation.Types import extensionmethod
 
@@ -53,9 +53,9 @@ class Element(ABC):
     # ----------------------------------------------------------------------
     GenerateAcceptDetailsGeneratorItemsType = Union[
         "Element",
-        ReferenceType["Element"],
+        WeakReferenceType["Element"],
         list["Element"],
-        list[ReferenceType["Element"]],
+        list[WeakReferenceType["Element"]],
     ]
 
     # ----------------------------------------------------------------------

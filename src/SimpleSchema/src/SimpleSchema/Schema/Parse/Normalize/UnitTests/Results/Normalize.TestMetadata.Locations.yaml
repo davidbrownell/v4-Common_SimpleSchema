@@ -10,6 +10,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 8, Col 12 -> Ln 8, Col 13>
         value: 4
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 10>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 4, Col 1 -> Ln 9, Col 1>
@@ -36,15 +40,15 @@
               __type__: SimpleElement
               range: entry_point <Ln 4, Col 30 -> Ln 4, Col 31>
               value: 1
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 4, Col 12 -> Ln 4, Col 33>
+            value: Visibility.Private
           type:
             __type__: StringType
             range: entry_point <Ln 4, Col 12 -> Ln 4, Col 33>
             unique_name: _Structure-Struct-Ln4.String-Ln4
             min_length: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 4, Col 12 -> Ln 4, Col 33>
-            value: Visibility.Private
           name:
             __type__: SimpleElement
             range: entry_point <Ln 4, Col 12 -> Ln 4, Col 33>
@@ -81,14 +85,14 @@
                 __type__: SimpleElement
                 range: entry_point <Ln 5, Col 29 -> Ln 5, Col 30>
                 value: 2
-            type:
-              __type__: NumberType
-              range: entry_point <Ln 5, Col 11 -> Ln 5, Col 32>
-              unique_name: _Structure-Struct-Ln4.Number-Ln5
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 5, Col 5 -> Ln 7, Col 5>
               value: Visibility.Private
+            type:
+              __type__: NumberType
+              range: entry_point <Ln 5, Col 11 -> Ln 5, Col 32>
+              unique_name: _Structure-Struct-Ln4.Number-Ln5
             name:
               __type__: SimpleElement
               range: entry_point <Ln 5, Col 5 -> Ln 7, Col 5>
@@ -113,15 +117,15 @@
               __type__: SimpleElement
               range: entry_point <Ln 7, Col 29 -> Ln 7, Col 30>
               value: 3
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 7, Col 5 -> Ln 7, Col 9>
+            value: Visibility.Public
           type:
             __type__: StringType
             range: entry_point <Ln 7, Col 11 -> Ln 7, Col 32>
             unique_name: _Structure-Struct-Ln4.String-Ln7
             min_length: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 7, Col 5 -> Ln 7, Col 9>
-            value: Visibility.Public
           name:
             __type__: SimpleElement
             range: entry_point <Ln 7, Col 5 -> Ln 7, Col 9>
@@ -137,10 +141,6 @@
               __type__: IntegerExpression
               range: entry_point <Ln 7, Col 11 -> Ln 7, Col 32>
               value: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 4, Col 1 -> Ln 4, Col 10>

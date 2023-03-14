@@ -12,6 +12,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -41,12 +42,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: BooleanType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 20, Col 14 -> Ln 20, Col 21)
               unique_name: _FundamentalTypes-Struct-Ln19.Boolean-Ln20
-            visibility: Visibility.Private
             name: _ItemStatement-Ln20
             cardinality: <single>
         - __type__: ItemStatement
@@ -65,12 +66,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: DateTimeType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 21, Col 16 -> Ln 21, Col 24)
               unique_name: _FundamentalTypes-Struct-Ln19.DateTime-Ln21
-            visibility: Visibility.Private
             name: _ItemStatement-Ln21
             cardinality: <single>
         - __type__: ItemStatement
@@ -89,12 +90,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: DateType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 22, Col 11 -> Ln 22, Col 15)
               unique_name: _FundamentalTypes-Struct-Ln19.Date-Ln22
-            visibility: Visibility.Private
             name: _ItemStatement-Ln22
             cardinality: <single>
         - __type__: ItemStatement
@@ -113,13 +114,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: DirectoryType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 23, Col 16 -> Ln 23, Col 25)
               unique_name: _FundamentalTypes-Struct-Ln19.Directory-Ln23
               ensure_exists: true
-            visibility: Visibility.Private
             name: _ItemStatement-Ln23
             cardinality: <single>
         - __type__: ItemStatement
@@ -138,12 +139,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: DurationType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 24, Col 15 -> Ln 24, Col 23)
               unique_name: _FundamentalTypes-Struct-Ln19.Duration-Ln24
-            visibility: Visibility.Private
             name: _ItemStatement-Ln24
             cardinality: <single>
         - __type__: ItemStatement
@@ -162,6 +163,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: EnumType
               __disabled__: false
@@ -175,7 +177,6 @@
               - name: Value3
                 value: 3
               starting_value: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln25
             cardinality: <single>
         - __type__: ItemStatement
@@ -194,6 +195,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: FilenameType
               __disabled__: false
@@ -201,7 +203,6 @@
               unique_name: _FundamentalTypes-Struct-Ln19.Filename-Ln26
               ensure_exists: true
               match_any: false
-            visibility: Visibility.Private
             name: _ItemStatement-Ln26
             cardinality: <single>
         - __type__: ItemStatement
@@ -220,12 +221,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: GuidType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 27, Col 11 -> Ln 27, Col 15)
               unique_name: _FundamentalTypes-Struct-Ln19.Guid-Ln27
-            visibility: Visibility.Private
             name: _ItemStatement-Ln27
             cardinality: <single>
         - __type__: ItemStatement
@@ -244,12 +245,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 28, Col 14 -> Ln 28, Col 21)
               unique_name: _FundamentalTypes-Struct-Ln19.Integer-Ln28
-            visibility: Visibility.Private
             name: _ItemStatement-Ln28
             cardinality: <single>
         - __type__: ItemStatement
@@ -268,12 +269,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 29, Col 13 -> Ln 29, Col 19)
               unique_name: _FundamentalTypes-Struct-Ln19.Number-Ln29
-            visibility: Visibility.Private
             name: _ItemStatement-Ln29
             cardinality: <single>
         - __type__: ItemStatement
@@ -292,13 +293,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 30, Col 13 -> Ln 30, Col 19)
               unique_name: _FundamentalTypes-Struct-Ln19.String-Ln30
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln30
             cardinality: <single>
         - __type__: ItemStatement
@@ -317,12 +318,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: TimeType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 31, Col 11 -> Ln 31, Col 15)
               unique_name: _FundamentalTypes-Struct-Ln19.Time-Ln31
-            visibility: Visibility.Private
             name: _ItemStatement-Ln31
             cardinality: <single>
         - __type__: ItemStatement
@@ -341,15 +342,14 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: UriType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 32, Col 10 -> Ln 32, Col 13)
               unique_name: _FundamentalTypes-Struct-Ln19.Uri-Ln32
-            visibility: Visibility.Private
             name: _ItemStatement-Ln32
             cardinality: <single>
-    visibility: Visibility.Public
     name: FundamentalTypes
     cardinality: <single>
   - __type__: ItemStatement
@@ -383,6 +383,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -412,13 +413,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: DirectoryType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 39, Col 14 -> Ln 39, Col 23)
               unique_name: _DirectoryCustomizations-Struct-Ln38.Directory-Ln39
               ensure_exists: true
-            visibility: Visibility.Private
             name: _ItemStatement-Ln39
             cardinality: <single>
         - __type__: ItemStatement
@@ -437,16 +438,15 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: DirectoryType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 40, Col 23 -> Ln 40, Col 57)
               unique_name: _DirectoryCustomizations-Struct-Ln38.Directory-Ln40
               ensure_exists: false
-            visibility: Visibility.Private
             name: _ItemStatement-Ln40
             cardinality: <single>
-    visibility: Visibility.Public
     name: DirectoryCustomizations
     cardinality: <single>
   - __type__: ItemStatement
@@ -480,6 +480,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -509,6 +510,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: EnumType
               __disabled__: false
@@ -522,7 +524,6 @@
               - name: Value3
                 value: 3
               starting_value: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln47
             cardinality: <single>
         - __type__: ItemStatement
@@ -541,6 +542,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: EnumType
               __disabled__: false
@@ -554,7 +556,6 @@
               - name: Three
                 value: 3
               starting_value: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln48
             cardinality: <single>
         - __type__: ItemStatement
@@ -573,6 +574,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: EnumType
               __disabled__: false
@@ -586,7 +588,6 @@
               - name: Value3
                 value: '3'
               starting_value: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln49
             cardinality: <single>
         - __type__: ItemStatement
@@ -605,6 +606,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: EnumType
               __disabled__: false
@@ -618,7 +620,6 @@
               - name: Three
                 value: '3'
               starting_value: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln50
             cardinality: <single>
         - __type__: ItemStatement
@@ -637,6 +638,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: EnumType
               __disabled__: false
@@ -650,10 +652,8 @@
               - name: Value3
                 value: 102
               starting_value: 100
-            visibility: Visibility.Private
             name: _ItemStatement-Ln51
             cardinality: <single>
-    visibility: Visibility.Public
     name: EnumCustomizations
     cardinality: <single>
   - __type__: ItemStatement
@@ -687,6 +687,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -716,6 +717,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: FilenameType
               __disabled__: false
@@ -723,7 +725,6 @@
               unique_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln58
               ensure_exists: true
               match_any: false
-            visibility: Visibility.Private
             name: _ItemStatement-Ln58
             cardinality: <single>
         - __type__: ItemStatement
@@ -742,13 +743,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: FilenameType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 59, Col 23 -> Ln 59, Col 56)
               unique_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln59
               ensure_exists: false
-            visibility: Visibility.Private
             name: _ItemStatement-Ln59
             cardinality: <single>
         - __type__: ItemStatement
@@ -767,6 +768,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: FilenameType
               __disabled__: false
@@ -774,10 +776,8 @@
               unique_name: _FilenameCustomizations-Struct-Ln57.Filename-Ln60
               ensure_exists: true
               match_any: true
-            visibility: Visibility.Private
             name: _ItemStatement-Ln60
             cardinality: <single>
-    visibility: Visibility.Public
     name: FilenameCustomizations
     cardinality: <single>
   - __type__: ItemStatement
@@ -811,6 +811,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -840,12 +841,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 67, Col 14 -> Ln 67, Col 21)
               unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln67
-            visibility: Visibility.Private
             name: _ItemStatement-Ln67
             cardinality: <single>
         - __type__: ItemStatement
@@ -864,13 +865,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 68, Col 10 -> Ln 68, Col 28)
               unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln68
               min: 0
-            visibility: Visibility.Private
             name: _ItemStatement-Ln68
             cardinality: <single>
         - __type__: ItemStatement
@@ -889,13 +890,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 69, Col 10 -> Ln 69, Col 29)
               unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln69
               max: 10
-            visibility: Visibility.Private
             name: _ItemStatement-Ln69
             cardinality: <single>
         - __type__: ItemStatement
@@ -914,6 +915,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: IntegerType
               __disabled__: false
@@ -921,7 +923,6 @@
               unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln70
               min: 0
               max: 10
-            visibility: Visibility.Private
             name: _ItemStatement-Ln70
             cardinality: <single>
         - __type__: ItemStatement
@@ -940,16 +941,15 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: IntegerType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 71, Col 16 -> Ln 71, Col 43)
               unique_name: _IntegerCustomizations-Struct-Ln66.Integer-Ln71
               bits: BitsEnum.Value16
-            visibility: Visibility.Private
             name: _ItemStatement-Ln71
             cardinality: <single>
-    visibility: Visibility.Public
     name: IntegerCustomizations
     cardinality: <single>
   - __type__: ItemStatement
@@ -983,6 +983,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -1012,12 +1013,12 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 78, Col 14 -> Ln 78, Col 20)
               unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln78
-            visibility: Visibility.Private
             name: _ItemStatement-Ln78
             cardinality: <single>
         - __type__: ItemStatement
@@ -1036,13 +1037,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 79, Col 10 -> Ln 79, Col 29)
               unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln79
               min: 0.0
-            visibility: Visibility.Private
             name: _ItemStatement-Ln79
             cardinality: <single>
         - __type__: ItemStatement
@@ -1061,13 +1062,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 80, Col 10 -> Ln 80, Col 30)
               unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln80
               max: 10.0
-            visibility: Visibility.Private
             name: _ItemStatement-Ln80
             cardinality: <single>
         - __type__: ItemStatement
@@ -1086,6 +1087,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: NumberType
               __disabled__: false
@@ -1093,7 +1095,6 @@
               unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln81
               min: 0.0
               max: 10.0
-            visibility: Visibility.Private
             name: _ItemStatement-Ln81
             cardinality: <single>
         - __type__: ItemStatement
@@ -1112,16 +1113,15 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: NumberType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 82, Col 16 -> Ln 82, Col 42)
               unique_name: _NumberCustomizations-Struct-Ln77.Number-Ln82
               bits: BitsEnum.Value16
-            visibility: Visibility.Private
             name: _ItemStatement-Ln82
             cardinality: <single>
-    visibility: Visibility.Public
     name: NumberCustomizations
     cardinality: <single>
   - __type__: ItemStatement
@@ -1155,6 +1155,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -1184,13 +1185,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 89, Col 14 -> Ln 89, Col 20)
               unique_name: _StringCustomizations-Struct-Ln88.String-Ln89
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln89
             cardinality: <single>
         - __type__: ItemStatement
@@ -1209,13 +1210,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: FundamentalTypes.SimpleSchema (Ln 90, Col 17 -> Ln 90, Col 42)
               unique_name: _StringCustomizations-Struct-Ln88.String-Ln90
               min_length: 10
-            visibility: Visibility.Private
             name: _ItemStatement-Ln90
             cardinality: <single>
         - __type__: ItemStatement
@@ -1234,6 +1235,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
@@ -1241,7 +1243,6 @@
               unique_name: _StringCustomizations-Struct-Ln88.String-Ln91
               min_length: 1
               max_length: 20
-            visibility: Visibility.Private
             name: _ItemStatement-Ln91
             cardinality: <single>
         - __type__: ItemStatement
@@ -1260,6 +1261,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
@@ -1267,7 +1269,6 @@
               unique_name: _StringCustomizations-Struct-Ln88.String-Ln92
               min_length: 10
               max_length: 20
-            visibility: Visibility.Private
             name: _ItemStatement-Ln92
             cardinality: <single>
         - __type__: ItemStatement
@@ -1286,6 +1287,7 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
@@ -1293,10 +1295,8 @@
               unique_name: _StringCustomizations-Struct-Ln88.String-Ln93
               min_length: 1
               validation_expression: __.+__
-            visibility: Visibility.Private
             name: _ItemStatement-Ln93
             cardinality: <single>
-    visibility: Visibility.Public
     name: StringCustomizations
     cardinality: <single>
   - __type__: ItemStatement

@@ -21,14 +21,14 @@
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 20 -> Ln 1, Col 27>
           value: value
-      type:
-        __type__: DateType
-        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
-        unique_name: Date-Ln1
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
         value: Visibility.Private
+      type:
+        __type__: DateType
+        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 29>
+        unique_name: Date-Ln1
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -48,6 +48,10 @@
     range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
     unique_name: Structure
     display_type: _Structure-Struct-Ln3
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
@@ -85,14 +89,14 @@
                 __type__: SimpleElement
                 range: entry_point <Ln 4, Col 28 -> Ln 4, Col 29>
                 value: 0
-            type:
-              __type__: DateType
-              range: entry_point <Ln 4, Col 13 -> Ln 4, Col 31>
-              unique_name: _Structure-Struct-Ln3.Date-Ln4
             visibility:
               __type__: SimpleElement
               range: entry_point <Ln 4, Col 5 -> Ln 5, Col 1>
               value: Visibility.Private
+            type:
+              __type__: DateType
+              range: entry_point <Ln 4, Col 13 -> Ln 4, Col 31>
+              unique_name: _Structure-Struct-Ln3.Date-Ln4
             name:
               __type__: SimpleElement
               range: entry_point <Ln 4, Col 5 -> Ln 5, Col 1>
@@ -108,10 +112,6 @@
                 __type__: IntegerExpression
                 range: entry_point <Ln 4, Col 13 -> Ln 4, Col 31>
                 value: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>

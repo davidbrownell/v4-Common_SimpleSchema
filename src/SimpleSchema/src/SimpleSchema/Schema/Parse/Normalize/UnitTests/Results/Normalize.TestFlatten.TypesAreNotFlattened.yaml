@@ -5,6 +5,10 @@
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
     unique_name: Base
     display_type: _Base-Struct-Ln1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -26,15 +30,15 @@
           range: entry_point <Ln 2, Col 5 -> Ln 3, Col 5>
           unique_name: _Base-Struct-Ln1.Type
           display_type: String
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 9>
+            value: Visibility.Public
           type:
             __type__: StringType
             range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
             unique_name: _Base-Struct-Ln1.String-Ln2
             min_length: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 9>
-            value: Visibility.Public
           name:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 5 -> Ln 2, Col 9>
@@ -87,10 +91,6 @@
             reference:
               name: Type
               range: entry_point <Ln 2, Col 5 -> Ln 3, Col 5>
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 5>
@@ -110,6 +110,10 @@
     range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
     unique_name: Derived
     display_type: _Derived-Struct-Ln5
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -164,10 +168,6 @@
             reference:
               name: Type
               range: entry_point <Ln 2, Col 5 -> Ln 3, Col 5>
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>

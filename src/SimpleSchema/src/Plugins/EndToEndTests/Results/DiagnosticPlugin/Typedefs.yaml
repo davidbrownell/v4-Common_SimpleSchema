@@ -11,13 +11,13 @@
     - Alias
     - BasicRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StringType
       __disabled__: false
       range: Typedefs.SimpleSchema (Ln 21, Col 6 -> Ln 21, Col 12)
       unique_name: String-Ln21
       min_length: 1
-    visibility: Visibility.Public
     name: Str
     cardinality: <single>
   - __type__: ReferenceType
@@ -310,6 +310,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -339,16 +340,15 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: Typedefs.SimpleSchema (Ln 51, Col 12 -> Ln 51, Col 18)
               unique_name: _Object-Struct-Ln50.String-Ln51
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln51
             cardinality: <single>
-    visibility: Visibility.Public
     name: Object
     cardinality: <single>
   - __type__: ReferenceType
@@ -642,6 +642,7 @@
     - BasicCollectionRef
     - StructureCollectionRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: ReferenceType
       __disabled__: false
@@ -654,6 +655,7 @@
       - StructureRef
       - DynamicallyGenerated
       - DefinedInline
+      visibility: Visibility.Private
       type:
         __type__: StructureType
         __disabled__: false
@@ -683,19 +685,17 @@
               - BasicRef
               - DynamicallyGenerated
               - DefinedInline
+              visibility: Visibility.Private
               type:
                 __type__: StringType
                 __disabled__: false
                 range: Typedefs.SimpleSchema (Ln 82, Col 12 -> Ln 82, Col 18)
                 unique_name: _OptionalObject-Struct-Ln81.String-Ln82
                 min_length: 1
-              visibility: Visibility.Private
               name: _ItemStatement-Ln82
               cardinality: <single>
-      visibility: Visibility.Private
       name: _OptionalObject-Item-Ln81
       cardinality: <single>
-    visibility: Visibility.Public
     name: OptionalObject
     cardinality: '?'
   - __type__: ReferenceType
@@ -1052,6 +1052,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -1074,13 +1075,13 @@
           - Alias
           - BasicRef
           - DefinedInline
+          visibility: Visibility.Public
           type:
             __type__: StringType
             __disabled__: false
             range: Typedefs.SimpleSchema (Ln 120, Col 16 -> Ln 120, Col 22)
             unique_name: _NestedTypes-Struct-Ln119.String-Ln120
             min_length: 1
-          visibility: Visibility.Public
           name: NestedStr
           cardinality: <single>
         - __type__: ReferenceType
@@ -1097,7 +1098,6 @@
           reference:
             unique_name: _NestedTypes-Struct-Ln119.NestedStr
             range: Typedefs.SimpleSchema (Ln 120, Col 5 -> Ln 121, Col 5)
-    visibility: Visibility.Public
     name: NestedTypes
     cardinality: <single>
   - __type__: ReferenceType
@@ -1222,6 +1222,7 @@
     - ReferenceRef
     - BasicCollectionRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: ReferenceType
       __disabled__: false
@@ -1233,16 +1234,15 @@
       - BasicRef
       - DynamicallyGenerated
       - DefinedInline
+      visibility: Visibility.Private
       type:
         __type__: IntegerType
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 137, Col 12 -> Ln 137, Col 31)
         unique_name: Integer-Ln137
         min: 0
-      visibility: Visibility.Private
       name: _Container-Item-Ln137
       cardinality: <single>
-    visibility: Visibility.Public
     name: Container
     cardinality: +
   - __type__: ReferenceType

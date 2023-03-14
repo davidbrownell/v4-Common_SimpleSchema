@@ -27,7 +27,7 @@ from .Statement import Statement
 from ..Common.Element import Element
 from ..Common.SimpleElement import SimpleElement
 from ..Common.UniqueNameTrait import UniqueNameTrait
-from ..Common.Visibility import Visibility
+from ..Common.Visibility import VisibilityTrait
 
 if TYPE_CHECKING:
     from ..Types.ReferenceType import ReferenceType  # pragma: no cover
@@ -35,13 +35,12 @@ if TYPE_CHECKING:
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class StructureStatement(UniqueNameTrait, Statement):
+class StructureStatement(UniqueNameTrait, VisibilityTrait, Statement):
     """The definition of a structure"""
 
     # ----------------------------------------------------------------------
     CHILDREN_NAME: ClassVar[str]            = "children"
 
-    visibility: SimpleElement[Visibility]
     name: SimpleElement[str]
     base_types: list["ReferenceType"]       # Can be an empty list
     children: list[Statement]               # Can be an empty list
@@ -51,7 +50,8 @@ class StructureStatement(UniqueNameTrait, Statement):
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
-        yield "visibility", self.visibility
+        yield from VisibilityTrait._GenerateAcceptDetails(self)
+
         yield "name", self.name
 
         if self.base_types:

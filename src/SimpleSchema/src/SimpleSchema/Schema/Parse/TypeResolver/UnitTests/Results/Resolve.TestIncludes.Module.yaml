@@ -81,6 +81,10 @@ Foo.SimpleSchema:
   - __type__: ReferenceType
     range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
     display_type: _Bar-Struct-Ln1
+    visibility:
+      __type__: SimpleElement
+      range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -110,14 +114,14 @@ Foo.SimpleSchema:
             __type__: ReferenceType
             range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
             display_type: String
-            type:
-              __type__: StringType
-              range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
-              min_length: 1
             visibility:
               __type__: SimpleElement
               range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
               value: Visibility.Private
+            type:
+              __type__: StringType
+              range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
+              min_length: 1
             name:
               __type__: SimpleElement
               range: Foo.SimpleSchema <Ln 2, Col 5 -> Ln 3, Col 1>
@@ -133,10 +137,6 @@ Foo.SimpleSchema:
                 __type__: IntegerExpression
                 range: Foo.SimpleSchema <Ln 2, Col 12 -> Ln 2, Col 18>
                 value: 1
-    visibility:
-      __type__: SimpleElement
-      range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: Foo.SimpleSchema <Ln 1, Col 1 -> Ln 1, Col 4>
@@ -155,6 +155,10 @@ Foo.SimpleSchema:
   - __type__: ReferenceType
     range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
     display_type: _Baz-Struct-Ln4
+    visibility:
+      __type__: SimpleElement
+      range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 4, Col 4>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 6, Col 1>
@@ -184,13 +188,13 @@ Foo.SimpleSchema:
             __type__: ReferenceType
             range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
             display_type: Number
-            type:
-              __type__: NumberType
-              range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
             visibility:
               __type__: SimpleElement
               range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
               value: Visibility.Private
+            type:
+              __type__: NumberType
+              range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
             name:
               __type__: SimpleElement
               range: Foo.SimpleSchema <Ln 5, Col 5 -> Ln 6, Col 1>
@@ -206,10 +210,6 @@ Foo.SimpleSchema:
                 __type__: IntegerExpression
                 range: Foo.SimpleSchema <Ln 5, Col 12 -> Ln 5, Col 18>
                 value: 1
-    visibility:
-      __type__: SimpleElement
-      range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 4, Col 4>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: Foo.SimpleSchema <Ln 4, Col 1 -> Ln 4, Col 4>

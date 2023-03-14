@@ -33,6 +33,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -55,13 +56,13 @@
           - Alias
           - BasicRef
           - DefinedInline
+          visibility: Visibility.Private
           type:
             __type__: StringType
             __disabled__: false
             range: UnusualOrder.SimpleSchema (Ln 21, Col 19 -> Ln 21, Col 25)
             unique_name: String-Ln21
             min_length: 1
-          visibility: Visibility.Private
           name: _PrivateType
           cardinality: <single>
         - __type__: ReferenceType
@@ -78,6 +79,5 @@
           reference:
             unique_name: _PrivateType
             range: UnusualOrder.SimpleSchema (Ln 21, Col 5 -> Ln 22, Col 5)
-    visibility: Visibility.Public
     name: DefinedLater
     cardinality: <single>

@@ -12,6 +12,7 @@
     - BasicRef
     - StructureRef
     - DefinedInline
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -41,13 +42,13 @@
             - BasicRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: Recursive.SimpleSchema (Ln 20, Col 11 -> Ln 20, Col 17)
               unique_name: _Directory-Struct-Ln19.String-Ln20
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln20
             cardinality: <single>
         - __type__: ItemStatement
@@ -67,6 +68,7 @@
             - BasicCollectionRef
             - DynamicallyGenerated
             - DefinedInline
+            visibility: Visibility.Private
             type:
               __type__: ReferenceType
               __disabled__: false
@@ -78,16 +80,15 @@
               - BasicRef
               - DynamicallyGenerated
               - DefinedInline
+              visibility: Visibility.Private
               type:
                 __type__: StringType
                 __disabled__: false
                 range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
                 unique_name: _Directory-Struct-Ln19.String-Ln22
                 min_length: 1
-              visibility: Visibility.Private
               name: __ItemStatement-Ln22-Item-Ln22
               cardinality: <single>
-            visibility: Visibility.Private
             name: _ItemStatement-Ln22
             cardinality: '*'
         - __type__: ItemStatement
@@ -111,7 +112,6 @@
             reference:
               unique_name: Directory
               range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
-    visibility: Visibility.Public
     name: Directory
     cardinality: <single>
   - __type__: ItemStatement

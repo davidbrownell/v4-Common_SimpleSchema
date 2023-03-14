@@ -18,12 +18,11 @@
 import copy
 
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import auto, Enum, IntFlag
 from pathlib import Path
 from typing import cast, Iterator, Optional, Union
 
-from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Streams.DoneManager import DoneManager
 from Common_Foundation.Types import overridemethod
 
@@ -33,11 +32,12 @@ from ..ParseState.ParseState import ParseState
 
 from ...MetadataAttributes.MetadataAttribute import MetadataAttribute
 
+from ...Elements.Common.Cardinality import Cardinality
 from ...Elements.Common.Element import Element
 from ...Elements.Common.Metadata import MetadataItem
 from ...Elements.Common.SimpleElement import SimpleElement
 from ...Elements.Common.UniqueNameTrait import UniqueNameTrait
-from ...Elements.Common.Visibility import Visibility
+from ...Elements.Common.Visibility import Visibility, VisibilityTrait
 
 from ...Elements.Expressions.Expression import Expression
 
@@ -50,7 +50,8 @@ from ...Elements.Types.BasicType import BasicType
 from ...Elements.Types.ReferenceType import ReferenceType
 from ...Elements.Types.StructureType import StructureType
 
-from ...Visitor import Visitor, VisitResult
+from ...Visitors.DescendantVisitor import DescendantVisitor
+from ...Visitors.NonRecursiveVisitor import NonRecursiveVisitor, VisitResult
 
 from ....Common import Errors
 from ....Common.ExecuteInParallel import ExecuteInParallel as ExecuteInParallelImpl
@@ -80,7 +81,6 @@ class Flag(IntFlag):
     FlattenStructureHierarchies             = auto()
 
     # TODO: CollapseTypesWhenPossible               = auto()
-    # TODO: RemoveUnusedElements                    = auto()
 
     # Amalgamations
     AlwaysDisableUnsupported                = (
@@ -138,18 +138,19 @@ def Normalize(
 
     # ----------------------------------------------------------------------
     class Steps(Enum):
-        Pass1                               = auto()
-        Pass2                               = auto()
+        Step1                               = auto()
+        Step2                               = auto()
+        Step3                               = auto()
 
     # ----------------------------------------------------------------------
     def Execute(
         root: RootStatement,
         status: ExecuteTasks.Status,
     ) -> None:
-        # Pass 1
-        status.OnProgress(Steps.Pass1.value, "Pass 1...")
+        # Step 1
+        status.OnProgress(Steps.Step1.value, "Step 1...")
 
-        visitor = _Pass1Visitor(
+        visitor = _Step1Visitor(
             parse_state,
             inherited_attribute_names,
             supported_extension_names,
@@ -158,35 +159,40 @@ def Normalize(
 
         root.Accept(visitor)
 
-        # Pass 2
-        status.OnProgress(Steps.Pass2.value, "Pass 2...")
+        # Step 2
+        status.OnProgress(Steps.Step2.value, "Step 2...")
 
-        visitor = _Pass2Visitor(
+        visitor = _Step2Visitor(
             metadata_attributes,
             flags,
-            visitor.all_elements,
             visitor.root_elements,
-            visitor.resolved_metadata_cache,
+            visitor.inherited_metadata_info_items,
         )
 
         root.Accept(visitor)
 
+        # Step 3
+        status.OnProgress(Steps.Step3.value, "Step 3...")
+
+        root.Accept(_Step3Visitor(flags))
+
     # ----------------------------------------------------------------------
 
-    results = ExecuteInParallelImpl(
-        dm,
-        "Normalizing",
-        roots,
-        Execute,
-        quiet=quiet,
-        max_num_threads=1 if single_threaded else None,
-        raise_if_single_exception=raise_if_single_exception,
-        num_steps=len(Steps),
-    )
+    with dm.VerboseNested("Normalizing types...") as normalizing_dm:
+        results = ExecuteInParallelImpl(
+            normalizing_dm,
+            "Normalizing",
+            roots,
+            Execute,
+            quiet=quiet,
+            max_num_threads=1 if single_threaded else None,
+            raise_if_single_exception=raise_if_single_exception,
+            num_steps=len(Steps),
+        )
 
-    if dm.result != 0:
-        assert all(isinstance(value, Exception) for value in results.values()), results
-        return cast(dict[Path, Exception], results)
+        if normalizing_dm.result != 0:
+            assert all(isinstance(value, Exception) for value in results.values()), results
+            return cast(dict[Path, Exception], results)
 
 
 # ----------------------------------------------------------------------
@@ -196,22 +202,16 @@ _METADATA_ATTRIBUTE_REALIZED_TYPE_ATTRIBUTE_NAME        = "_realized_type"
 
 
 # ----------------------------------------------------------------------
-@dataclass(frozen=True)
-class _ResolvedMetadataCacheItem(object):
-    reference_type: ReferenceType
-    unresolved_metadata: dict[str, MetadataItem]
-
-
-# ----------------------------------------------------------------------
-class _Pass1Visitor(Visitor):
+class _Step1Visitor(NonRecursiveVisitor):
     # Pass 1:
+    #     - Create element map
     #     - Create unique type names
-    #     - Validate:
+    #     - Validate element usage based on flags
     #         * Extensions
     #         * ItemStatements
     #         * StructureStatements
-    #     - Resolve metadata for all elements that need it
-    #     - Flatten any structures that need flattening
+    #     - Resolve inherited metadata
+    #     - Flatten any structures that can be flattened
 
     # ----------------------------------------------------------------------
     def __init__(
@@ -221,54 +221,39 @@ class _Pass1Visitor(Visitor):
         supported_extension_names: set[str],
         flags: Flag,
     ):
-        super(_Pass1Visitor, self).__init__()
+        super(_Step1Visitor, self).__init__()
 
         self._parse_state                   = parse_state
         self._inherited_attribute_names     = inherited_attribute_names
         self._supported_extension_names     = supported_extension_names
         self._flags                         = flags
 
-        self._element_stack: list[Element]                                      = []
-
-        self._all_elements: dict[int, Element]                                  = {}
-        self._root_elements: set[int]                                           = set()
-
-        self._resolved_metadata_cache: dict[int, _ResolvedMetadataCacheItem]    = {}
+        self._root_elements: set[int]                                       = set()
+        self._inherited_metadata_info: dict[int, dict[str, MetadataItem]]   = {}
 
     # ----------------------------------------------------------------------
     @property
-    def all_elements(self) -> dict[int, Element]:
-        assert not self._element_stack
-        return self._all_elements
-
-    @property
     def root_elements(self) -> set[int]:
-        assert not self._element_stack
         return self._root_elements
 
     @property
-    def resolved_metadata_cache(self) -> dict[int, _ResolvedMetadataCacheItem]:
-        assert not self._element_stack
-        return self._resolved_metadata_cache
+    def inherited_metadata_info_items(self) -> dict[int, dict[str, MetadataItem]]:
+        assert not self.element_stack
+        return self._inherited_metadata_info
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
-        element_id = id(element)
+        with super(_Step1Visitor, self).OnElement(element) as visit_result:
+            if visit_result is not None:
+                yield visit_result
+                return
 
-        if element_id in self._all_elements:
-            yield VisitResult.SkipAll
-            return
-
-        self._all_elements[element_id] = element
-
-        self._element_stack.append(element)
-        with ExitStack(self._element_stack.pop):
             if isinstance(element, UniqueNameTrait):
                 type_name_parts: list[str] = [
                     element.name.value
-                    for element in self._element_stack
+                    for element in self.element_stack
                     if isinstance(element, StructureStatement)
                 ]
 
@@ -307,13 +292,18 @@ class _Pass1Visitor(Visitor):
                 element.name.value,
             )
 
+        is_root = len(self.element_stack) == 2  # RootStatement and this Element
+
+        if is_root:
+            self._root_elements.add(id(element))
+
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        is_root = len(self._element_stack) == 2  # RootStatement and this Element
+        is_root = len(self.element_stack) == 2  # RootStatement and this Element
 
         if is_root:
             self._root_elements.add(id(element))
@@ -341,7 +331,7 @@ class _Pass1Visitor(Visitor):
             # Determine if we are at the root by the number of structure statements that are on the stack
             stack_count = 0
 
-            for stack_element in self._element_stack:
+            for stack_element in self.element_stack:
                 if isinstance(stack_element, StructureStatement):
                     stack_count += 1
 
@@ -379,6 +369,8 @@ class _Pass1Visitor(Visitor):
             object.__setattr__(element, "base_types", [])
 
             for base_type in base_types:
+                assert not base_type.is_disabled
+
                 with base_type.Resolve() as resolved_base_type:
                     if resolved_base_type.flags & ReferenceType.Flag.StructureRef:
                         assert isinstance(resolved_base_type.type, StructureType), resolved_base_type.type
@@ -394,10 +386,8 @@ class _Pass1Visitor(Visitor):
                             base_type.range,
                             SimpleElement[Visibility](base_type.range, Visibility.Public),
                             SimpleElement[str](base_type.range, "__value__"),
-                            resolved_base_type,
+                            resolved_base_type,  # type: ignore
                         )
-
-                        self._all_elements[id(item_statement)] = item_statement
 
                         items_to_add.append(item_statement)
 
@@ -424,33 +414,24 @@ class _Pass1Visitor(Visitor):
 
                 element.children.append(item_to_add)
 
-        # Disable empty structures
-        if self._flags & Flag.DisableEmptyStructures:
-            if not any(
-                (
-                    not child.is_disabled
-                    and (
-                        isinstance(child, ItemStatement)
-                        or (
-                            isinstance(child, ReferenceType)
-                            and self._parse_state.reference_counts.Get(child) != 0
-                        )
-                    )
-                )
-                for child in element.children
-            ):
-                element.Disable()
-
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-        resolved_metadata_key = id(element)
+        is_root = len(self.element_stack) == 2  # RootStatement and this Element
 
-        assert resolved_metadata_key not in self._resolved_metadata_cache
+        if is_root:
+            self._root_elements.add(id(element))
+
+        # Note that we don't yet have a way to determine the context of this type, so we will
+        # validate in a later pass.
+
+        # Create the inherited metadata
+        inherited_metadata_key = id(element)
+        assert inherited_metadata_key not in self._inherited_metadata_info
 
         # Resolve the metadata
-        metadata: dict[str, MetadataItem] = (
+        metadata_items: dict[str, MetadataItem] = (
             {} if element.unresolved_metadata is None else copy.deepcopy(element.unresolved_metadata.items)
         )
 
@@ -459,66 +440,46 @@ class _Pass1Visitor(Visitor):
         while isinstance(ptr, ReferenceType):
             if ptr.unresolved_metadata is not None:
                 for k, v in ptr.unresolved_metadata.items.items():
-                    if k in metadata:
+                    if k in metadata_items:
                         continue
 
                     if k not in self._inherited_attribute_names:
                         continue
 
-                    metadata[k] = v
+                    metadata_items[k] = v
 
             if ptr.flags & ReferenceType.Flag.Type:
                 break
 
             ptr = ptr.type
 
-        self._resolved_metadata_cache[resolved_metadata_key] = _ResolvedMetadataCacheItem(element, metadata)
-
-        # Apply the element
-        is_root = len(self._element_stack) == 2  # RootStatement and this Element
-
-        if is_root:
-            self._root_elements.add(id(element))
-
-        # Note that we don't yet have a way to determine the context of this type, so we will
-        # validate in a later pass.
+        self._inherited_metadata_info[inherited_metadata_key] = metadata_items
 
         yield
 
 
 # ----------------------------------------------------------------------
-class _Pass2Visitor(Visitor):
+class _Step2Visitor(NonRecursiveVisitor):
     # Pass 2:
     #     - Validate the metadata generated in pass 1
-    #     - Calculate the elements that can no longer be referenced
+    #     - Reduce elements
 
     # ----------------------------------------------------------------------
     def __init__(
         self,
         metadata_attributes: list[MetadataAttribute],
         flags: Flag,
-        all_elements: dict[int, Element],
         root_elements: set[int],
-        resolved_metadata_cache: dict[int, _ResolvedMetadataCacheItem],
+        metadata_items_map: dict[int, dict[str, MetadataItem]],
     ):
-        super(_Pass2Visitor, self).__init__()
+        super(_Step2Visitor, self).__init__()
 
         self._metadata_attributes           = metadata_attributes
         self._flags                         = flags
 
-        self._unvisited_elements            = all_elements
         self._root_elements                 = root_elements
-        self._pending_metadata_cache        = resolved_metadata_cache
 
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
-        if self._unvisited_elements.pop(id(element), None) is None:
-            yield VisitResult.SkipAll
-            return
-
-        yield
+        self._metadata_items_map            = metadata_items_map
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -532,14 +493,12 @@ class _Pass2Visitor(Visitor):
     @overridemethod
     def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
         if element.base_types:
-            is_root = id(element) in self._root_elements
-
             for base_type in element.base_types:
                 self._ApplyResolvedMetadata(
                     base_type,
                     MetadataAttribute.Flag.BaseType,
                     base_type,
-                    is_root=is_root,
+                    is_root=id(element) in self._root_elements,
                 )
 
         yield
@@ -548,11 +507,7 @@ class _Pass2Visitor(Visitor):
     @contextmanager
     @overridemethod
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-        if self._pending_metadata_cache.get(id(element), None) is not None:
-            # Create a list of elements that should be disabled atomically if any of the
-            # elements in its collection are disabled.
-            disabled_elements_set: list[Element] = [element, ]
-
+        if self._metadata_items_map.get(id(element), None) is not None:
             if (
                 (element.flags & ReferenceType.Flag.StructureRef)
                 or (element.flags & ReferenceType.Flag.StructureCollectionRef)
@@ -561,19 +516,11 @@ class _Pass2Visitor(Visitor):
 
                 if element.flags & ReferenceType.Flag.StructureRef:
                     assert isinstance(element.type, StructureType), element.type
-
-                    disabled_elements_set += [element.type, element.type.structure, ]
                     referenced_element = element.type.structure
 
                 elif element.flags & ReferenceType.Flag.StructureCollectionRef:
                     assert isinstance(element.type, ReferenceType), element.type
                     assert isinstance(element.type.type, StructureType), element.type.type
-
-                    disabled_elements_set += [
-                        element.type,
-                        element.type.type,
-                        element.type.type.structure,
-                    ]
 
                     referenced_element = element.type.type.structure
 
@@ -602,14 +549,6 @@ class _Pass2Visitor(Visitor):
 
             self._ApplyResolvedMetadata(element, reference_type_category, referenced_element)
 
-            if any(disabled_element.is_disabled for disabled_element in disabled_elements_set):
-                for disabled_element in disabled_elements_set:
-                    if not disabled_element.is_disabled:
-                        disabled_element.Disable()
-
-                yield VisitResult.SkipAll
-                return
-
         yield
 
     # ----------------------------------------------------------------------
@@ -628,12 +567,10 @@ class _Pass2Visitor(Visitor):
         *,
         is_root: Optional[bool]=None,
     ) -> None:
-        cache_key = id(reference_type)
+        metadata_info_key = id(reference_type)
 
-        cache_info = self._pending_metadata_cache.pop(cache_key, None)
-        assert cache_info is not None
-
-        metadata = cache_info.unresolved_metadata
+        metadata_items = self._metadata_items_map.pop(metadata_info_key, None)
+        assert metadata_items is not None
 
         if is_root is None:
             is_root = id(referenced_element) in self._root_elements
@@ -770,7 +707,7 @@ class _Pass2Visitor(Visitor):
             realized_type: ReferenceType = cast(ReferenceType, getattr(attribute, _METADATA_ATTRIBUTE_REALIZED_TYPE_ATTRIBUTE_NAME, None))
             assert realized_type is not None
 
-            metadata_item = metadata.get(attribute.name, None)
+            metadata_item = metadata_items.get(attribute.name, None)
 
             if metadata_item is None:
                 if realized_type.cardinality.min.value != 0:
@@ -811,8 +748,8 @@ class _Pass2Visitor(Visitor):
             except Exception as ex:
                 raise SimpleSchemaException(metadata_item.range, str(ex)) from ex
 
-        if len(results) != len(metadata):
-            for metadata_item in metadata.values():
+        if len(results) != len(metadata_items):
+            for metadata_item in metadata_items.values():
                 if metadata_item.name.value in results:
                     continue
 
@@ -826,3 +763,167 @@ class _Pass2Visitor(Visitor):
                 metadata_item.expression.Disable()
 
         reference_type.ResolveMetadata(results)
+
+
+# ----------------------------------------------------------------------
+class _Step3Visitor(NonRecursiveVisitor):
+    # Pass3:
+    #     - Remove empty structures
+    #     - Remove items that are no longer referenced
+
+    # ----------------------------------------------------------------------
+    def __init__(
+        self,
+        flags: Flag,
+    ):
+        super(_Step3Visitor, self).__init__()
+
+        self._flags                         = flags
+
+        self._nodes: dict[int, _Step3Visitor._ElementNode]                  = {}
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
+        referencing_element = None if not self.element_stack else self.element_stack[-1]
+
+        with super(_Step3Visitor, self).OnElement(element) as visit_result:
+            if visit_result is not None:
+                yield visit_result
+                return
+
+            element_key = id(element)
+
+            element_node = self._nodes.get(element_key, None)
+            if element_node is None:
+                element_node = _Step3Visitor._ElementNode(element)
+                self._nodes[element_key] = element_node
+
+            # Maintain the references if....
+            if (
+                referencing_element                                         # ...this element is not the root element
+                and (                                                       # ...and...
+                    not isinstance(referencing_element, RootStatement)      # ...it is not at the root...
+                    or not isinstance(element, VisibilityTrait)             # ...or isn't based on VisibilityTrait...
+                    or element.visibility.value == Visibility.Public        # ...or has a visibility and the visibility is public
+                )
+            ):
+                element_node.referenced_by[id(referencing_element)] = referencing_element
+
+            yield
+
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnRootStatement(self, element: RootStatement) -> Iterator[Optional[VisitResult]]:
+        yield
+
+        queue: list[Element] = [node.element for node in self._nodes.values()]
+
+        # ----------------------------------------------------------------------
+        def AreAllDescendantsDisabled(
+            element: Element,
+        ) -> bool:
+            # Prime this value for structures (as a structure is expected to have descendants),
+            # but let all others start with the assumption that there aren't descendants
+            # until we discover them naturally.
+            has_descendant = isinstance(element, StructureStatement)
+            has_enabled = False
+
+            # ----------------------------------------------------------------------
+            def OnElement(
+                query_element: Element,
+            ) -> Optional[VisitResult]:
+                if query_element is element:
+                    return None
+
+                if isinstance(query_element, (Cardinality, SimpleElement)):
+                    # These values and their descendants do not impact the
+                    # disabled status.
+                    return VisitResult.SkipAll
+
+                nonlocal has_descendant
+                nonlocal has_enabled
+
+                has_descendant = True
+
+                if not query_element.is_disabled:
+                    has_enabled = True
+
+                return VisitResult.SkipAll
+
+            # ----------------------------------------------------------------------
+
+            element.Accept(DescendantVisitor(OnElement), include_disabled=True)
+
+            return has_descendant and not has_enabled
+
+        # ----------------------------------------------------------------------
+        def DisableElement(
+            element: Element,
+        ) -> None:
+            descendants: list[Element] = []
+
+            # ----------------------------------------------------------------------
+            def OnElement(
+                descendant: Element,
+            ) -> Optional[VisitResult]:
+                descendants.append(descendant)
+                return None
+
+            # ----------------------------------------------------------------------
+
+            element.Accept(DescendantVisitor(OnElement))
+
+            for descendant in descendants:
+                assert not descendant.is_disabled
+                descendant.Disable()
+
+                nonlocal queue
+                queue += self._nodes[id(descendant)].referenced_by.values()
+
+        # ----------------------------------------------------------------------
+
+        while queue:
+            this_element = queue.pop(0)
+
+            if this_element is element:
+                continue
+
+            if this_element.is_disabled:
+                continue
+
+            node = self._nodes.get(id(this_element), None)
+            assert node is not None
+
+            should_disable = False
+
+            # Disable this element if everything that references it is disabled
+            if (
+                should_disable is False
+                and all(referenced_by.is_disabled for referenced_by in node.referenced_by.values())
+            ):
+                should_disable = True
+
+            # Disable things whose descendants are disabled?
+            if (
+                should_disable is False
+                and AreAllDescendantsDisabled(node.element)
+                and (
+                    not isinstance(node.element, StructureStatement)
+                    or self._flags & Flag.DisableEmptyStructures
+                )
+            ):
+                should_disable = True
+
+            if should_disable:
+                DisableElement(node.element)
+
+    # ----------------------------------------------------------------------
+    # |  Private Types
+    @dataclass(frozen=True)
+    class _ElementNode(object):
+        element: Element
+
+        referenced_by: dict[int, Element]   = field(init=False, default_factory=dict)

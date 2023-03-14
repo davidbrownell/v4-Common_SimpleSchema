@@ -21,20 +21,24 @@
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 29 -> Ln 1, Col 30>
           value: 1
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: Visibility.Private
       type:
         __type__: ReferenceType
         range: entry_point <Ln 1, Col 8 -> Ln 1, Col 32>
         unique_name: __ItemStatement-Ln1-Item-Ln1
         display_type: String
+        visibility:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 8 -> Ln 1, Col 32>
+          value: Visibility.Private
         type:
           __type__: StringType
           range: entry_point <Ln 1, Col 8 -> Ln 1, Col 32>
           unique_name: String-Ln1
           min_length: 1
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 1, Col 8 -> Ln 1, Col 32>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 8 -> Ln 1, Col 32>
@@ -50,10 +54,6 @@
             __type__: IntegerExpression
             range: entry_point <Ln 1, Col 8 -> Ln 1, Col 32>
             value: 1
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-        value: Visibility.Private
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
