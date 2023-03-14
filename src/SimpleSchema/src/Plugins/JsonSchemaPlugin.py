@@ -75,7 +75,7 @@ from SimpleSchema.Schema.MetadataAttributes.ContainerAttributes import PluralNam
 from SimpleSchema.Schema.MetadataAttributes.ElementAttributes import DefaultMetadataAttribute, DescriptionMetadataAttribute, NameMetadataAttribute
 from SimpleSchema.Schema.MetadataAttributes.MetadataAttribute import MetadataAttribute
 
-from SimpleSchema.Schema.Visitor import Visitor, VisitResult
+from SimpleSchema.Schema.Visitors.Visitor import Visitor, VisitResult
 
 
 # ----------------------------------------------------------------------

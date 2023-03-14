@@ -18,6 +18,7 @@
 import sys
 
 from pathlib import Path
+from unittest.mock import MagicMock as Mock
 
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation import PathEx
@@ -32,3 +33,12 @@ with ExitStack(lambda: sys.path.pop(0)):
 # ----------------------------------------------------------------------
 def test_Standard():
     assert True
+
+
+# ----------------------------------------------------------------------
+def test_VisibilityTraits():
+    visibility_mock = Mock()
+
+    vt = VisibilityTrait(visibility_mock)
+
+    assert vt.visibility is visibility_mock

@@ -40,6 +40,10 @@
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 6, Col 1>
     display_type: _DefinedLater-Struct-Ln3
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 13>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 3, Col 1 -> Ln 6, Col 1>
@@ -58,14 +62,14 @@
         - __type__: ReferenceType
           range: entry_point <Ln 4, Col 5 -> Ln 5, Col 5>
           display_type: String
-          type:
-            __type__: StringType
-            range: entry_point <Ln 4, Col 19 -> Ln 4, Col 25>
-            min_length: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 4, Col 5 -> Ln 4, Col 6>
             value: Visibility.Private
+          type:
+            __type__: StringType
+            range: entry_point <Ln 4, Col 19 -> Ln 4, Col 25>
+            min_length: 1
           name:
             __type__: SimpleElement
             range: entry_point <Ln 4, Col 5 -> Ln 4, Col 17>
@@ -106,10 +110,6 @@
           reference:
             name: _PrivateType
             range: entry_point <Ln 4, Col 5 -> Ln 5, Col 5>
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 13>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 13>

@@ -21,15 +21,15 @@
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 22 -> Ln 1, Col 23>
           value: 1
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: Visibility.Private
       type:
         __type__: StringType
         range: entry_point <Ln 1, Col 7 -> Ln 1, Col 25>
         unique_name: String-Ln1
         min_length: 1
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-        value: Visibility.Private
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -54,6 +54,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 10, Col 9 -> Ln 10, Col 10>
         value: 3
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 3, Col 1 -> Ln 12, Col 1>
@@ -80,15 +84,15 @@
               __type__: SimpleElement
               range: entry_point <Ln 3, Col 27 -> Ln 3, Col 28>
               value: 2
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
+            value: Visibility.Private
           type:
             __type__: StringType
             range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
             unique_name: _Structure-Struct-Ln3.String-Ln3
             min_length: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
-            value: Visibility.Private
           name:
             __type__: SimpleElement
             range: entry_point <Ln 3, Col 12 -> Ln 3, Col 30>
@@ -125,15 +129,15 @@
                 __type__: SimpleElement
                 range: entry_point <Ln 4, Col 28 -> Ln 4, Col 31>
                 value: 100
+            visibility:
+              __type__: SimpleElement
+              range: entry_point <Ln 4, Col 5 -> Ln 6, Col 5>
+              value: Visibility.Private
             type:
               __type__: StringType
               range: entry_point <Ln 4, Col 11 -> Ln 4, Col 33>
               unique_name: _Structure-Struct-Ln3.String-Ln4
               min_length: 1
-            visibility:
-              __type__: SimpleElement
-              range: entry_point <Ln 4, Col 5 -> Ln 6, Col 5>
-              value: Visibility.Private
             name:
               __type__: SimpleElement
               range: entry_point <Ln 4, Col 5 -> Ln 6, Col 5>
@@ -158,6 +162,10 @@
               __type__: SimpleElement
               range: entry_point <Ln 8, Col 15 -> Ln 8, Col 18>
               value: 102
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 6, Col 5 -> Ln 6, Col 11>
+            value: Visibility.Public
           type:
             __type__: StructureType
             range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
@@ -184,15 +192,15 @@
                     __type__: SimpleElement
                     range: entry_point <Ln 6, Col 30 -> Ln 6, Col 33>
                     value: 101
+                visibility:
+                  __type__: SimpleElement
+                  range: entry_point <Ln 6, Col 13 -> Ln 6, Col 35>
+                  value: Visibility.Private
                 type:
                   __type__: StringType
                   range: entry_point <Ln 6, Col 13 -> Ln 6, Col 35>
                   unique_name: _Structure-Struct-Ln3._Nested-Struct-Ln6.String-Ln6
                   min_length: 1
-                visibility:
-                  __type__: SimpleElement
-                  range: entry_point <Ln 6, Col 13 -> Ln 6, Col 35>
-                  value: Visibility.Private
                 name:
                   __type__: SimpleElement
                   range: entry_point <Ln 6, Col 13 -> Ln 6, Col 35>
@@ -208,10 +216,6 @@
                     __type__: IntegerExpression
                     range: entry_point <Ln 6, Col 13 -> Ln 6, Col 35>
                     value: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 6, Col 5 -> Ln 6, Col 11>
-            value: Visibility.Public
           name:
             __type__: SimpleElement
             range: entry_point <Ln 6, Col 5 -> Ln 6, Col 11>
@@ -227,10 +231,6 @@
               __type__: IntegerExpression
               range: entry_point <Ln 6, Col 5 -> Ln 9, Col 1>
               value: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
@@ -255,15 +255,15 @@
         __type__: SimpleElement
         range: entry_point <Ln 12, Col 22 -> Ln 12, Col 23>
         value: 4
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 12, Col 1 -> Ln 12, Col 5>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 12, Col 7 -> Ln 12, Col 25>
       unique_name: String-Ln12
       min_length: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 12, Col 1 -> Ln 12, Col 5>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 12, Col 1 -> Ln 12, Col 5>

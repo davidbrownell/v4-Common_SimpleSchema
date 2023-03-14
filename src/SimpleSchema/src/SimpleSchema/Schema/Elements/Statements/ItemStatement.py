@@ -25,7 +25,7 @@ from .Statement import Statement
 
 from ..Common.Element import Element
 from ..Common.SimpleElement import SimpleElement
-from ..Common.Visibility import Visibility
+from ..Common.Visibility import VisibilityTrait
 
 if TYPE_CHECKING:
     from ..Types.ReferenceType import ReferenceType  # pragma: no cover
@@ -33,11 +33,10 @@ if TYPE_CHECKING:
 
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
-class ItemStatement(Statement):
+class ItemStatement(VisibilityTrait, Statement):
     """Defines a single variable item"""
 
     # ----------------------------------------------------------------------
-    visibility: SimpleElement[Visibility]
     name: SimpleElement[str]
     type: "ReferenceType"
 
@@ -46,6 +45,7 @@ class ItemStatement(Statement):
     # ----------------------------------------------------------------------
     @overridemethod
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
-        yield "visibility", self.visibility
+        yield from VisibilityTrait._GenerateAcceptDetails(self)
+
         yield "name", self.name
         yield "type", cast(WeakReferenceType[Element], ref(self.type))

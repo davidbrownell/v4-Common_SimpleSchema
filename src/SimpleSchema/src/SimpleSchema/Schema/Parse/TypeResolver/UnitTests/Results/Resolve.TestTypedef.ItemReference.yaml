@@ -4,18 +4,22 @@
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
     display_type: <String {>= 10 characters}>+
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
       display_type: String {>= 10 characters}
-      type:
-        __type__: StringType
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        min_length: 10
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
         value: Visibility.Private
+      type:
+        __type__: StringType
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+        min_length: 10
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
@@ -31,10 +35,6 @@
           __type__: IntegerExpression
           range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
           value: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>

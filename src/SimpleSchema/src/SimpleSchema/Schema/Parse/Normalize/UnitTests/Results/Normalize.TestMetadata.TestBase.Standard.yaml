@@ -5,6 +5,10 @@
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
     unique_name: Structure
     display_type: _Structure-Struct-Ln1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -31,15 +35,15 @@
               __type__: SimpleElement
               range: entry_point <Ln 1, Col 27 -> Ln 1, Col 28>
               value: 1
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 1, Col 12 -> Ln 1, Col 30>
+            value: Visibility.Private
           type:
             __type__: StringType
             range: entry_point <Ln 1, Col 12 -> Ln 1, Col 30>
             unique_name: _Structure-Struct-Ln1.String-Ln1
             min_length: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 1, Col 12 -> Ln 1, Col 30>
-            value: Visibility.Private
           name:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 12 -> Ln 1, Col 30>
@@ -60,6 +64,10 @@
           range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
           unique_name: _Structure-Struct-Ln1.Nested
           display_type: _Nested-Struct-Ln2
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 11>
+            value: Visibility.Public
           type:
             __type__: StructureType
             range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
@@ -86,15 +94,15 @@
                     __type__: SimpleElement
                     range: entry_point <Ln 2, Col 30 -> Ln 2, Col 31>
                     value: 2
+                visibility:
+                  __type__: SimpleElement
+                  range: entry_point <Ln 2, Col 13 -> Ln 2, Col 33>
+                  value: Visibility.Private
                 type:
                   __type__: StringType
                   range: entry_point <Ln 2, Col 13 -> Ln 2, Col 33>
                   unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2.String-Ln2
                   min_length: 1
-                visibility:
-                  __type__: SimpleElement
-                  range: entry_point <Ln 2, Col 13 -> Ln 2, Col 33>
-                  value: Visibility.Private
                 name:
                   __type__: SimpleElement
                   range: entry_point <Ln 2, Col 13 -> Ln 2, Col 33>
@@ -110,10 +118,6 @@
                     __type__: IntegerExpression
                     range: entry_point <Ln 2, Col 13 -> Ln 2, Col 33>
                     value: 1
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 2, Col 5 -> Ln 2, Col 11>
-            value: Visibility.Public
           name:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 5 -> Ln 2, Col 11>
@@ -129,10 +133,6 @@
               __type__: IntegerExpression
               range: entry_point <Ln 2, Col 5 -> Ln 4, Col 1>
               value: 1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>

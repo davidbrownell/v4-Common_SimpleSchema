@@ -48,7 +48,7 @@ from ....Common.ExecuteInParallel import ExecuteInParallel as ExecuteInParallelI
 # ----------------------------------------------------------------------
 def Resolve(
     dm: DoneManager,
-    parse_state: ParseState,
+    parse_state: ParseState,  # pylint: disable=unused-argument
     roots: dict[Path, RootStatement],
     *,
     single_threaded: bool=False,
@@ -64,7 +64,6 @@ def Resolve(
             root: RootStatement,
         ) -> Namespace:
             root_namespace = Namespace(
-                parse_state,
                 None,
                 Visibility.Public,
                 "root",
@@ -72,7 +71,7 @@ def Resolve(
                 None,
             )
 
-            root.Accept(_CreateNamespacesVisitor(parse_state, root, root_namespace))
+            root.Accept(_CreateNamespacesVisitor(root, root_namespace))
 
             return root_namespace
 
@@ -155,8 +154,6 @@ def Resolve(
             assert all(isinstance(value, Exception) for value in results.values()), namespaces
             return cast(dict[Path, Exception], results)
 
-    parse_state.FinalizeReferenceCounts()
-
     return None
 
 
@@ -169,13 +166,11 @@ class _CreateNamespacesVisitor(Visitor):
     # ----------------------------------------------------------------------
     def __init__(
         self,
-        parse_state: ParseState,
         root: RootStatement,
         root_namespace: Namespace,
     ):
         super(_CreateNamespacesVisitor, self).__init__()
 
-        self._parse_state                   = parse_state
         self._root                          = root
 
         self._namespace_stack: list[Namespace]          = [root_namespace, ]
@@ -205,7 +200,7 @@ class _CreateNamespacesVisitor(Visitor):
         if element.name.is_type:
             self._namespace_stack[-1].AddNestedItem(
                 element.name.ToSimpleElement(),
-                ReferenceTypeFactory(self._parse_state, element, self._namespace_stack[-1]),
+                ReferenceTypeFactory(element, self._namespace_stack[-1]),
             )
 
         elif element.name.is_expression:
@@ -266,12 +261,11 @@ class _CreateNamespacesVisitor(Visitor):
         assert element.name.is_type
 
         namespace = Namespace(
-            self._parse_state,
             self._namespace_stack[-1],
             element.name.visibility.value,
             element.name.value,
             element,
-            StructureTypeFactory(self._parse_state, element, self._namespace_stack[-1]),
+            StructureTypeFactory(element, self._namespace_stack[-1]),
         )
 
         self._namespace_stack[-1].AddNestedItem(

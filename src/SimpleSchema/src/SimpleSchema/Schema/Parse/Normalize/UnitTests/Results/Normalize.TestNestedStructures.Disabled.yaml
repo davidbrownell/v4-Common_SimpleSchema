@@ -5,6 +5,10 @@
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
     unique_name: Structure
     display_type: _Structure-Struct-Ln1
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -22,10 +26,6 @@
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
           value: _Structure-Struct-Ln1
         children: []
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>

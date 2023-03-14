@@ -15,6 +15,7 @@
     metadata:
       name: The object
       description: A description of the object
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -47,16 +48,15 @@
             metadata:
               name: A value
               description: A description of a value
+            visibility: Visibility.Private
             type:
               __type__: StringType
               __disabled__: false
               range: Metadata.SimpleSchema (Ln 19, Col 12 -> Ln 22, Col 6)
               unique_name: _Object-Struct-Ln18.String-Ln19
               min_length: 1
-            visibility: Visibility.Private
             name: _ItemStatement-Ln19
             cardinality: <single>
-    visibility: Visibility.Public
     name: Object
     cardinality: <single>
   - __type__: ReferenceType
@@ -221,6 +221,7 @@
     - DefinedInline
     metadata:
       default: 'null'
+    visibility: Visibility.Public
     type:
       __type__: ReferenceType
       __disabled__: false
@@ -232,16 +233,15 @@
       - BasicRef
       - DynamicallyGenerated
       - DefinedInline
+      visibility: Visibility.Private
       type:
         __type__: StringType
         __disabled__: false
         range: Metadata.SimpleSchema (Ln 42, Col 16 -> Ln 42, Col 43)
         unique_name: String-Ln42
         min_length: 1
-      visibility: Visibility.Private
       name: _DefaultObject-Item-Ln42
       cardinality: <single>
-    visibility: Visibility.Public
     name: DefaultObject
     cardinality: '?'
   - __type__: ItemStatement
@@ -355,6 +355,7 @@
           __disabled__: false
           range: Metadata.SimpleSchema (Ln 58, Col 23 -> Ln 58, Col 26)
           value: 3.0
+    visibility: Visibility.Public
     type:
       __type__: StructureType
       __disabled__: false
@@ -367,6 +368,5 @@
         unique_name: _MetadataTypes-Struct-Ln49
         visibility: Visibility.Private
         name: _MetadataTypes-Struct-Ln49
-    visibility: Visibility.Public
     name: MetadataTypes
     cardinality: <single>

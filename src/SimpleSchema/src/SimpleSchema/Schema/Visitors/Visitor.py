@@ -25,42 +25,42 @@ from weakref import ReferenceType as WeakReferenceType
 from Common_Foundation.ContextlibEx import ExitStack
 from Common_Foundation.Types import extensionmethod
 
-from .Elements.Common.Cardinality import Cardinality
-from .Elements.Common.Element import Element, VisitResult
-from .Elements.Common.Metadata import Metadata, MetadataItem
-from .Elements.Common.SimpleElement import SimpleElement
+from ..Elements.Common.Cardinality import Cardinality
+from ..Elements.Common.Element import Element, VisitResult
+from ..Elements.Common.Metadata import Metadata, MetadataItem
+from ..Elements.Common.SimpleElement import SimpleElement
 
-from .Elements.Expressions.BooleanExpression import BooleanExpression
-from .Elements.Expressions.IntegerExpression import IntegerExpression
-from .Elements.Expressions.ListExpression import ListExpression
-from .Elements.Expressions.NoneExpression import NoneExpression
-from .Elements.Expressions.NumberExpression import NumberExpression
-from .Elements.Expressions.StringExpression import StringExpression
-from .Elements.Expressions.TupleExpression import TupleExpression
+from ..Elements.Expressions.BooleanExpression import BooleanExpression
+from ..Elements.Expressions.IntegerExpression import IntegerExpression
+from ..Elements.Expressions.ListExpression import ListExpression
+from ..Elements.Expressions.NoneExpression import NoneExpression
+from ..Elements.Expressions.NumberExpression import NumberExpression
+from ..Elements.Expressions.StringExpression import StringExpression
+from ..Elements.Expressions.TupleExpression import TupleExpression
 
-from .Elements.Statements.ExtensionStatement import ExtensionStatement, ExtensionStatementKeywordArg
-from .Elements.Statements.ItemStatement import ItemStatement
-from .Elements.Statements.RootStatement import RootStatement
-from .Elements.Statements.StructureStatement import StructureStatement
+from ..Elements.Statements.ExtensionStatement import ExtensionStatement, ExtensionStatementKeywordArg
+from ..Elements.Statements.ItemStatement import ItemStatement
+from ..Elements.Statements.RootStatement import RootStatement
+from ..Elements.Statements.StructureStatement import StructureStatement
 
-from .Elements.Types.FundamentalTypes.BooleanType import BooleanType
-from .Elements.Types.FundamentalTypes.DateTimeType import DateTimeType
-from .Elements.Types.FundamentalTypes.DateType import DateType
-from .Elements.Types.FundamentalTypes.DirectoryType import DirectoryType
-from .Elements.Types.FundamentalTypes.DurationType import DurationType
-from .Elements.Types.FundamentalTypes.EnumType import EnumType
-from .Elements.Types.FundamentalTypes.FilenameType import FilenameType
-from .Elements.Types.FundamentalTypes.GuidType import GuidType
-from .Elements.Types.FundamentalTypes.IntegerType import IntegerType
-from .Elements.Types.FundamentalTypes.NumberType import NumberType
-from .Elements.Types.FundamentalTypes.StringType import StringType
-from .Elements.Types.FundamentalTypes.TimeType import TimeType
-from .Elements.Types.FundamentalTypes.UriType import UriType
+from ..Elements.Types.FundamentalTypes.BooleanType import BooleanType
+from ..Elements.Types.FundamentalTypes.DateTimeType import DateTimeType
+from ..Elements.Types.FundamentalTypes.DateType import DateType
+from ..Elements.Types.FundamentalTypes.DirectoryType import DirectoryType
+from ..Elements.Types.FundamentalTypes.DurationType import DurationType
+from ..Elements.Types.FundamentalTypes.EnumType import EnumType
+from ..Elements.Types.FundamentalTypes.FilenameType import FilenameType
+from ..Elements.Types.FundamentalTypes.GuidType import GuidType
+from ..Elements.Types.FundamentalTypes.IntegerType import IntegerType
+from ..Elements.Types.FundamentalTypes.NumberType import NumberType
+from ..Elements.Types.FundamentalTypes.StringType import StringType
+from ..Elements.Types.FundamentalTypes.TimeType import TimeType
+from ..Elements.Types.FundamentalTypes.UriType import UriType
 
-from .Elements.Types.ReferenceType import ReferenceType
-from .Elements.Types.StructureType import StructureType
-from .Elements.Types.TupleType import TupleType
-from .Elements.Types.VariantType import VariantType
+from ..Elements.Types.ReferenceType import ReferenceType
+from ..Elements.Types.StructureType import StructureType
+from ..Elements.Types.TupleType import TupleType
+from ..Elements.Types.VariantType import VariantType
 
 # ----------------------------------------------------------------------
 # pylint: disable=unused-argument
@@ -76,6 +76,8 @@ class Visitor(ABC):
     # ----------------------------------------------------------------------
     def __init__(self):
         self._processing_reference_element_ctr          = 0
+
+        self.element_stack: list[Element]               = []
 
     # ----------------------------------------------------------------------
     @property
@@ -97,7 +99,9 @@ class Visitor(ABC):
     @contextmanager
     @extensionmethod
     def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
-        yield
+        self.element_stack.append(element)
+        with ExitStack(self.element_stack.pop):
+            yield
 
     # ----------------------------------------------------------------------
     @contextmanager

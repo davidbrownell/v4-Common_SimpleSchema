@@ -124,14 +124,15 @@ def test_ReferenceTypeToPython():
 # ----------------------------------------------------------------------
 def test_ReferenceTypeToPythonWithChildCardinality():
     rt = ReferenceType(
-        Mock(),
+        Mock(), # range
+        Mock(), # visibility
         VariantType(
             Mock(),
             [
                 ReferenceType(
                     Mock(),
-                    _SimpleStringType(Mock()),
                     Mock(),
+                    _SimpleStringType(Mock()),
                     Mock(),
                     Cardinality.CreateFromCode(2, 2),
                     None,
@@ -140,8 +141,8 @@ def test_ReferenceTypeToPythonWithChildCardinality():
                 ),
                 ReferenceType(
                     Mock(),
-                    _SimpleIntegerType(Mock()),
                     Mock(),
+                    _SimpleIntegerType(Mock()),
                     Mock(),
                     Cardinality.CreateFromCode(2, 2),
                     None,
@@ -150,8 +151,7 @@ def test_ReferenceTypeToPythonWithChildCardinality():
                 ),
             ],
         ),
-        Mock(),
-        Mock(),
+        Mock(), # name
         Cardinality.CreateFromCode(3, 3),
         None,
         force_single_cardinality=False,

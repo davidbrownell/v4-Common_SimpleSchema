@@ -70,7 +70,6 @@ class Namespace(object):
     # ----------------------------------------------------------------------
     def __init__(
         self,
-        parse_state: ParseState,
         parent: Optional["Namespace"],
         visibility: Visibility,
         name: str,
@@ -82,7 +81,6 @@ class Namespace(object):
 
         self._parent_ref: Optional[WeakReferenceType[Namespace]]            = None if parent is None else ref(parent)
 
-        self.parse_state                    = parse_state
         self.visibility                     = visibility
         self.name                           = name
         self.statement                      = statement
@@ -168,7 +166,7 @@ class Namespace(object):
                         SimpleElement[str](child_type.range, child_type.display_type),
                         ancestor_identities,
                         fundamental_types,
-                    )
+                    )  # type: ignore
                     for child_type_index, child_type in enumerate(parse_type.types)
                 ],
             )
@@ -272,7 +270,6 @@ class Namespace(object):
 
             if statement.include_type == ParseIncludeStatementType.Module:
                 module_namespace = Namespace(
-                    self.parse_state,
                     self.parent,
                     Visibility.Private,
                     statement.filename.value.stem,
@@ -428,7 +425,7 @@ class Namespace(object):
                     ),
                     [],
                     fundamental_types,
-                ),
+                ),  # type: ignore
             )
 
             ReplaceElement(item_statement, new_statement)
@@ -490,8 +487,6 @@ class Namespace(object):
                                         ancestor_identities,
                                         fundamental_types,
                                     )
-
-                                potential_namespace_or_factory._structure_type_factory.ShallowIncrement()  # pylint: disable=protected-access
 
                             current_namespace = potential_namespace_or_factory
 

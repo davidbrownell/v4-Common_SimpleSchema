@@ -4,14 +4,14 @@
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
     display_type: String {>= 4 characters}
-    type:
-      __type__: StringType
-      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
-      min_length: 4
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
       value: Visibility.Public
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 11 -> Ln 1, Col 35>
+      min_length: 4
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 9>
@@ -80,15 +80,15 @@
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
     display_type: String {>= 4 characters, <= 10 characters}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 5, Col 10 -> Ln 5, Col 37>
       min_length: 4
       max_length: 10
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 5, Col 1 -> Ln 5, Col 8>
@@ -107,15 +107,15 @@
   - __type__: ReferenceType
     range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
     display_type: String {>= 4 characters, <= 11 characters}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 6, Col 1 -> Ln 6, Col 8>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 6, Col 10 -> Ln 6, Col 37>
       min_length: 4
       max_length: 11
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 6, Col 1 -> Ln 6, Col 8>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 6, Col 1 -> Ln 6, Col 8>
@@ -134,15 +134,15 @@
   - __type__: ReferenceType
     range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
     display_type: String {>= 4 characters, <= 12 characters}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 8>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 7, Col 10 -> Ln 7, Col 37>
       min_length: 4
       max_length: 12
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 7, Col 1 -> Ln 7, Col 8>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 7, Col 1 -> Ln 7, Col 8>
@@ -161,15 +161,15 @@
   - __type__: ReferenceType
     range: entry_point <Ln 9, Col 1 -> Ln 10, Col 1>
     display_type: String {>= 4 characters, <= 10 characters}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 20>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 9, Col 22 -> Ln 9, Col 62>
       min_length: 4
       max_length: 10
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 9, Col 1 -> Ln 9, Col 20>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 9, Col 1 -> Ln 9, Col 20>
@@ -202,15 +202,15 @@
   - __type__: ReferenceType
     range: entry_point <Ln 10, Col 1 -> Ln 11, Col 1>
     display_type: String {>= 4 characters, <= 11 characters}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 20>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 10, Col 22 -> Ln 10, Col 62>
       min_length: 4
       max_length: 11
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 10, Col 1 -> Ln 10, Col 20>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 10, Col 1 -> Ln 10, Col 20>
@@ -243,15 +243,15 @@
   - __type__: ReferenceType
     range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
     display_type: String {>= 4 characters, <= 12 characters}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 20>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 11, Col 22 -> Ln 11, Col 62>
       min_length: 4
       max_length: 12
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 11, Col 1 -> Ln 11, Col 20>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 11, Col 1 -> Ln 11, Col 20>
@@ -284,16 +284,16 @@
   - __type__: ReferenceType
     range: entry_point <Ln 13, Col 1 -> Ln 14, Col 1>
     display_type: String {>= 4 characters, <= 10 characters, 'foo'}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 13, Col 1 -> Ln 13, Col 14>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 13, Col 16 -> Ln 13, Col 56>
       min_length: 4
       max_length: 10
       validation_expression: foo
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 13, Col 1 -> Ln 13, Col 14>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 13, Col 1 -> Ln 13, Col 14>
@@ -312,16 +312,16 @@
   - __type__: ReferenceType
     range: entry_point <Ln 14, Col 1 -> Ln 15, Col 1>
     display_type: String {>= 4 characters, <= 10 characters, 'bar'}
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 14, Col 1 -> Ln 14, Col 26>
+      value: Visibility.Public
     type:
       __type__: StringType
       range: entry_point <Ln 14, Col 28 -> Ln 14, Col 95>
       min_length: 4
       max_length: 10
       validation_expression: bar
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 14, Col 1 -> Ln 14, Col 26>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 14, Col 1 -> Ln 14, Col 26>

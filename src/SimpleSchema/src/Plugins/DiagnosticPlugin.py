@@ -71,7 +71,7 @@ from SimpleSchema.Schema.Elements.Types.StructureType import StructureType
 from SimpleSchema.Schema.Elements.Types.TupleType import TupleType
 from SimpleSchema.Schema.Elements.Types.VariantType import VariantType
 
-from SimpleSchema.Schema.Visitor import Visitor, VisitResult
+from SimpleSchema.Schema.Visitors.Visitor import Visitor, VisitResult
 
 
 # ----------------------------------------------------------------------
@@ -492,18 +492,26 @@ class _Visitor(Visitor):
             if (element.flags & e.value) and not EnsureValid(e.name).endswith("Mask")
         ]
 
-        if element.resolved_metadata:
-            metadata: dict[str, dict[str, Any]] = {}
+        if element.is_metadata_resolved:
+            resolved_metadata = element.resolved_metadata
 
-            for k, v in element.resolved_metadata.items():
-                v.Accept(
-                    self,
-                    include_disabled=True,
-                )
+            if resolved_metadata:
+                metadata: dict[str, dict[str, Any]] = {}
 
-                metadata[k] = self._content_stack[-1].pop()
+                for k, v in resolved_metadata.items():
+                    v.Accept(
+                        self,
+                        include_disabled=True,
+                    )
 
-            d["metadata"] = metadata
+                    metadata[k] = self._content_stack[-1].pop()
+
+                d["metadata"] = metadata
+        else:
+            unresolved_metadata = element.unresolved_metadata
+
+            if unresolved_metadata is not None:
+                d["metadata"] = unresolved_metadata
 
         self._reference_type_stack.append(element)
         with ExitStack(self._reference_type_stack.pop):

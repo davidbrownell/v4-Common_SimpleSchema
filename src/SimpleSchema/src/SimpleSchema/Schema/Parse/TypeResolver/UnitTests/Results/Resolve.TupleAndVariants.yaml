@@ -15,6 +15,10 @@
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 8 -> Ln 1, Col 24>
       display_type: (String, Number, )
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: Visibility.Private
       type:
         __type__: TupleType
         range: entry_point <Ln 1, Col 8 -> Ln 1, Col 24>
@@ -22,14 +26,14 @@
         - __type__: ReferenceType
           range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
           display_type: String
-          type:
-            __type__: StringType
-            range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
-            min_length: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
             value: Visibility.Private
+          type:
+            __type__: StringType
+            range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
+            min_length: 1
           name:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 9 -> Ln 1, Col 15>
@@ -48,13 +52,13 @@
         - __type__: ReferenceType
           range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
           display_type: Number
-          type:
-            __type__: NumberType
-            range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
             value: Visibility.Private
+          type:
+            __type__: NumberType
+            range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
           name:
             __type__: SimpleElement
             range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
@@ -70,10 +74,6 @@
               __type__: IntegerExpression
               range: entry_point <Ln 1, Col 17 -> Ln 1, Col 23>
               value: 1
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-        value: Visibility.Private
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
@@ -103,6 +103,10 @@
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 10 -> Ln 2, Col 27>
       display_type: (String | Number)
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+        value: Visibility.Private
       type:
         __type__: VariantType
         range: entry_point <Ln 2, Col 10 -> Ln 2, Col 27>
@@ -110,14 +114,14 @@
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
           display_type: String
-          type:
-            __type__: StringType
-            range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
-            min_length: 1
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
             value: Visibility.Private
+          type:
+            __type__: StringType
+            range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
+            min_length: 1
           name:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 11 -> Ln 2, Col 17>
@@ -136,13 +140,13 @@
         - __type__: ReferenceType
           range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
           display_type: Number
-          type:
-            __type__: NumberType
-            range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
           visibility:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
             value: Visibility.Private
+          type:
+            __type__: NumberType
+            range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
           name:
             __type__: SimpleElement
             range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
@@ -158,10 +162,6 @@
               __type__: IntegerExpression
               range: entry_point <Ln 2, Col 20 -> Ln 2, Col 26>
               value: 1
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-        value: Visibility.Private
       name:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>

@@ -13,9 +13,15 @@
 # |  http://www.boost.org/LICENSE_1_0.txt.
 # |
 # ----------------------------------------------------------------------
-"""Contains the Visibility object"""
+"""Contains the Visibility and VisibilityTrait objects"""
 
+from dataclasses import dataclass
 from enum import auto, Enum
+
+from Common_Foundation.Types import overridemethod
+
+from .Element import Element
+from .SimpleElement import SimpleElement
 
 
 # ----------------------------------------------------------------------
@@ -25,3 +31,18 @@ class Visibility(Enum):
     Public                                  = auto()
     Protected                               = auto()
     Private                                 = auto()
+
+
+# ----------------------------------------------------------------------
+@dataclass(frozen=True)
+class VisibilityTrait(object):
+    """Trait for Elements that have a visibility attribute"""
+
+    visibility: SimpleElement[Visibility]
+
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
+        yield "visibility", self.visibility

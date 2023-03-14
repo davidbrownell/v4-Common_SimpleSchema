@@ -40,6 +40,10 @@
         - 1
         - two
         - 3.0
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 12, Col 1>
@@ -56,10 +60,6 @@
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 12, Col 1>
           value: _Structure-Struct-Ln1
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
-      value: Visibility.Public
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
