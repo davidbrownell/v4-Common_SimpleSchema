@@ -68,15 +68,20 @@ class ReferenceType(VisibilityTrait, BaseType):
         StructureRef                        = auto()
         ReferenceRef                        = auto()
 
-        BasicCollectionRef                  = auto()
-        StructureCollectionRef              = auto()
+        BasicRefWithCardinality             = auto()
+        StructureRefWithCardinality         = auto()
 
         _ReferencedTypeDelimiter            = auto()
 
-        # Miscellaneous
-        DynamicallyGenerated                = auto()
+        # Access
+        SingleAccess                        = auto()
+        SharedAccess                        = auto()
 
-        DefinedInline                       = auto()
+        _AccessDelimiter                    = auto()
+
+        # Miscellaneous
+        DynamicallyGenerated                = auto()    # Type generated from code whose range should not participate in exception call stacks
+        TypeDefinition                      = auto()    # Type is part of a type definition and should be generated inline by most plugins
 
         # ----------------------------------------------------------------------
         # |  Amalgamations
@@ -84,7 +89,8 @@ class ReferenceType(VisibilityTrait, BaseType):
 
         # Masks
         ReferenceCategoryMask               = _ReferenceCategoryDelimiter - 1
-        ReferencedTypeMask                  = (_ReferencedTypeDelimiter - 1) & (~ReferenceCategoryMask)
+        ReferencedTypeMask                  = (_ReferencedTypeDelimiter - 1) & ~(ReferenceCategoryMask)
+        AccessMask                          = (_AccessDelimiter - 1) & ~(ReferenceCategoryMask | ReferencedTypeMask)
 
     # ----------------------------------------------------------------------
     # |
@@ -110,8 +116,19 @@ class ReferenceType(VisibilityTrait, BaseType):
 
     flags: Flag                                         = field(init=False)
 
+    # Indicates that the cardinality should be used to create a new type rather than
+    # considering the type to be an alias.
     force_single_cardinality: InitVar[bool]             = field(kw_only=True)
+
+    # Indicates that the type was created via code; the range for this type will not be
+    # included in exception stacks.
     was_dynamically_generated: InitVar[bool]            = field(kw_only=True)
+
+    # Indicates that this reference was created as part of the definition of a larger type.
+    # Some plugins will use this information to determine if the content associated with
+    # the reference type should be generated along with this type or rather as a
+    # reference/pointer to a type defined elsewhere.
+    is_type_definition: InitVar[bool]                   = field(kw_only=True)
 
     # ----------------------------------------------------------------------
     # |
@@ -121,7 +138,6 @@ class ReferenceType(VisibilityTrait, BaseType):
     @classmethod
     def Create(
         cls,
-        range_value: Range,
         visibility: SimpleElement[Visibility],
         name: SimpleElement[str],
         the_type: Union[BasicType, "ReferenceType"],
@@ -129,11 +145,18 @@ class ReferenceType(VisibilityTrait, BaseType):
         metadata: Optional[Metadata],
         *,
         was_dynamically_generated: bool=False,
+        is_type_definition: bool=False,
+        range_value: Optional[Range]=None,
     ) -> "ReferenceType":
         if metadata and not metadata.items:
             metadata = None
 
+        if range_value is None:
+            range_value = the_type.range
+
         if isinstance(the_type, BasicType):
+            is_type_definition = True
+
             if cardinality.is_single:
                 referenced_type = the_type
             else:
@@ -148,7 +171,8 @@ class ReferenceType(VisibilityTrait, BaseType):
                     Cardinality(the_type.range, None, None),
                     None,
                     force_single_cardinality=True,
-                    was_dynamically_generated=True,
+                    was_dynamically_generated=was_dynamically_generated,
+                    is_type_definition=is_type_definition,
                 )
         else:
             referenced_type = the_type
@@ -162,6 +186,7 @@ class ReferenceType(VisibilityTrait, BaseType):
             metadata,
             force_single_cardinality=False,
             was_dynamically_generated=was_dynamically_generated,
+            is_type_definition=is_type_definition,
         )
 
     # ----------------------------------------------------------------------
@@ -169,13 +194,25 @@ class ReferenceType(VisibilityTrait, BaseType):
         self,
         force_single_cardinality: bool,
         was_dynamically_generated: bool,
+        is_type_definition: bool,
     ):
         super(ReferenceType, self).__post_init__()
 
         assert force_single_cardinality is False or self.cardinality.is_single
-        assert was_dynamically_generated is False or self.visibility.value == Visibility.Private
 
+        # Assume single access until we know otherwise
         flags = 0
+
+        if was_dynamically_generated:
+            assert (
+                self.visibility.value == Visibility.Private
+                and (self.range.begin.line == self.range.begin.column == self.range.end.line == self.range.end.column)
+            )
+
+            flags |= ReferenceType.Flag.DynamicallyGenerated
+
+        if is_type_definition:
+            flags |= ReferenceType.Flag.TypeDefinition
 
         # Reference Category
         if (
@@ -205,30 +242,14 @@ class ReferenceType(VisibilityTrait, BaseType):
         elif isinstance(self.type, ReferenceType):
             flags |= ReferenceType.Flag.ReferenceRef
 
-            if self.type.flags & ReferenceType.Flag.DynamicallyGenerated:
-                flags |= ReferenceType.Flag.BasicCollectionRef
+            if self.type.flags & ReferenceType.Flag.BasicRef:
+                flags |= ReferenceType.Flag.BasicRefWithCardinality
 
                 if self.type.flags & ReferenceType.Flag.StructureRef:
-                    flags |= ReferenceType.Flag.StructureCollectionRef
+                    flags |= ReferenceType.Flag.StructureRefWithCardinality
+
         else:
             assert False, self.type  # pragma: no cover
-
-        # Miscellaneous
-        if was_dynamically_generated:
-            flags |= ReferenceType.Flag.DynamicallyGenerated
-
-        # Add a flag that indicates that the type is defined inline
-        if (
-            # This is a type referencing a BasicType (meaning that it will not be defined externally)
-            (flags & ReferenceType.Flag.BasicRef)
-
-            # This is a type referencing a StructureType
-            or (
-                (flags & ReferenceType.Flag.Type)
-                and self.range == self.type.range
-            )
-        ):
-            flags |= ReferenceType.Flag.DefinedInline
 
         object.__setattr__(self, "flags", flags)
 
@@ -258,6 +279,20 @@ class ReferenceType(VisibilityTrait, BaseType):
         object.__setattr__(self, "_metadata", metadata)
 
     # ----------------------------------------------------------------------
+    def ResolveShared(
+        self,
+        *,
+        is_shared: bool,
+    ) -> None:
+        assert self.flags & ReferenceType.Flag.AccessMask == 0
+
+        flags = self.flags | (
+            ReferenceType.Flag.SharedAccess if is_shared else ReferenceType.Flag.SingleAccess
+        )
+
+        object.__setattr__(self, "flags", flags)
+
+    # ----------------------------------------------------------------------
     @contextmanager
     def Resolve(self) -> Iterator["ReferenceType"]:
         try:
@@ -273,7 +308,9 @@ class ReferenceType(VisibilityTrait, BaseType):
                 yield resolved_type
 
         except SimpleSchemaException as ex:
-            if not self.flags & ReferenceType.Flag.DynamicallyGenerated:
+            # Do not include redundant ranges in the exception if the type has been dynamically
+            # generated
+            if not self.flags & ReferenceType.Flag.DynamicallyGenerated and self.range not in ex.ranges:
                 ex.ranges.append(self.range)
 
             raise

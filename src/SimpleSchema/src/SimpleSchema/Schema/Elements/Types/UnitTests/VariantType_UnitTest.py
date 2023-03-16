@@ -65,8 +65,8 @@ def test_ElementCardinality():
     VariantType(
         Mock(),
         [
-            ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(0, 1), None),
-            ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(5, 5), None),
+            ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(0, 1), None),
+            ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(5, 5), None),
         ],
     )
 
@@ -91,12 +91,10 @@ def test_ReferenceTypeToPython():
     rt = ReferenceType.Create(
         Mock(),
         Mock(),
-        Mock(),
         VariantType(
             Mock(),
             [
                 ReferenceType.Create(
-                    Mock(),
                     Mock(),
                     Mock(),
                     _SimpleStringType(Mock()),
@@ -104,7 +102,6 @@ def test_ReferenceTypeToPython():
                     None,
                 ),
                 ReferenceType.Create(
-                    Mock(),
                     Mock(),
                     Mock(),
                     _SimpleIntegerType(Mock()),
@@ -123,31 +120,37 @@ def test_ReferenceTypeToPython():
 
 # ----------------------------------------------------------------------
 def test_ReferenceTypeToPythonWithChildCardinality():
+    range1 = Mock()
+    range2 = Mock()
+    range3 = Mock()
+
     rt = ReferenceType(
-        Mock(), # range
+        range1,
         Mock(), # visibility
         VariantType(
-            Mock(),
+            range1,
             [
                 ReferenceType(
+                    range2,
                     Mock(),
-                    Mock(),
-                    _SimpleStringType(Mock()),
+                    _SimpleStringType(range2),
                     Mock(),
                     Cardinality.CreateFromCode(2, 2),
                     None,
                     force_single_cardinality=False,
                     was_dynamically_generated=False,
+                    is_type_definition=False,
                 ),
                 ReferenceType(
+                    range3,
                     Mock(),
-                    Mock(),
-                    _SimpleIntegerType(Mock()),
+                    _SimpleIntegerType(range3),
                     Mock(),
                     Cardinality.CreateFromCode(2, 2),
                     None,
                     force_single_cardinality=False,
                     was_dynamically_generated=False,
+                    is_type_definition=False,
                 ),
             ],
         ),
@@ -156,6 +159,7 @@ def test_ReferenceTypeToPythonWithChildCardinality():
         None,
         force_single_cardinality=False,
         was_dynamically_generated=False,
+        is_type_definition=False,
     )
 
     assert rt.ToPython(
@@ -179,13 +183,11 @@ def test_ValidateChildCardinalityPython():
             ReferenceType.Create(
                 Mock(),
                 Mock(),
-                Mock(),
                 _SimpleStringType(Mock()),
                 Cardinality.CreateFromCode(2, 2),
                 None,
             ),
             ReferenceType.Create(
-                Mock(),
                 Mock(),
                 Mock(),
                 _SimpleIntegerType(Mock()),
@@ -208,13 +210,11 @@ def test_ValidateExpressionChildCardinality():
             ReferenceType.Create(
                 Mock(),
                 Mock(),
-                Mock(),
                 _SimpleStringType(Mock()),
                 Cardinality.CreateFromCode(2, 2),
                 None,
             ),
             ReferenceType.Create(
-                Mock(),
                 Mock(),
                 Mock(),
                 _SimpleIntegerType(Mock()),
@@ -251,12 +251,10 @@ def test_ToPythonSubtleCardinality():
     rt = ReferenceType.Create(
         Mock(),
         Mock(),
-        Mock(),
         VariantType(
             Mock(),
             [
                 ReferenceType.Create(
-                    Mock(),
                     Mock(),
                     Mock(),
                     _SimpleIntegerType(Mock()),
@@ -264,7 +262,6 @@ def test_ToPythonSubtleCardinality():
                     None,
                 ),
                 ReferenceType.Create(
-                    Mock(),
                     Mock(),
                     Mock(),
                     _SimpleStringType(Mock()),
@@ -321,8 +318,8 @@ def test_ErrorNoMatchesPython():
         VariantType(
             Mock(),
             [
-                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
-                ReferenceType.Create(Mock(), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(3.14)
 
@@ -351,8 +348,9 @@ def test_ErrorNoMatchesExpression():
         VariantType(
             Mock(),
             [
-                ReferenceType.Create(Range.Create(Path("filename"), 1, 2, 3, 4), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
-                ReferenceType.Create(Range.Create(Path("filename"), 11, 22, 33, 44), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+
+                ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Range.Create(Path("filename"), 1, 2, 3, 4)), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), _SimpleIntegerType(Range.Create(Path("filename"), 11, 22, 33, 44)), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(
             NumberExpression(
@@ -386,8 +384,8 @@ def test_ErrorNoMatchesExpressionChildCardinality():
         VariantType(
             Mock(),
             [
-                ReferenceType.Create(Range.Create(Path("filename"), 1, 2, 3, 4), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(2, 2), None),
-                ReferenceType.Create(Range.Create(Path("filename"), 10, 20, 30, 40), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Range.Create(Path("filename"), 1, 2, 3, 4)), Cardinality.CreateFromCode(2, 2), None),
+                ReferenceType.Create(Mock(), Mock(), _SimpleIntegerType(Range.Create(Path("filename"), 10, 20, 30, 40)), Cardinality.CreateFromCode(), None),
             ],
         ).ToPython(
             ListExpression(
@@ -410,26 +408,24 @@ def test_ErrorNoMatchesExpressionChildCardinalityViaReferenceType():
 
                     Additional Information:
                         SimpleString[2]
-                            At least 2 items were expected (1 item was found). (filename <Ln 1, Col 2 -> Ln 3, Col 4>)
+                            At least 2 items were expected (1 item was found). (filename <Ln 11, Col 22 -> Ln 33, Col 44>)
 
                         SimpleInteger
                             A list of items was not expected. (filename <Ln 10, Col 20 -> Ln 30, Col 40>)
 
                     - filename <Ln 100, Col 200 -> Ln 300, Col 400>
-                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
                 """,
             ),
         ),
     ):
         ReferenceType.Create(
-            Range.Create(Path("filename"), 1, 2, 3, 4),
             Mock(),
             Mock(),
             VariantType(
-                Mock(),
+                Range.Create(Path("filename"), 1, 2, 3, 4),
                 [
-                    ReferenceType.Create(Range.Create(Path("filename"), 1, 2, 3, 4), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(2, 2), None),
-                    ReferenceType.Create(Range.Create(Path("filename"), 10, 20, 30, 40), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                    ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Range.Create(Path("filename"), 11, 22, 33, 44)), Cardinality.CreateFromCode(2, 2), None),
+                    ReferenceType.Create(Mock(), Mock(), _SimpleIntegerType(Range.Create(Path("filename"), 10, 20, 30, 40)), Cardinality.CreateFromCode(), None),
                 ],
             ),
             Cardinality.CreateFromCode(),
@@ -461,24 +457,23 @@ def test_ErrorNoMatchesExpressionViaReferenceType():
                             A 'float' value cannot be converted to a 'SimpleInteger' type. (filename <Ln 111, Col 222 -> Ln 333, Col 444>)
 
                     - filename <Ln 100, Col 200 -> Ln 300, Col 400>
-                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
                 """,
             ),
         ),
     ):
         ReferenceType.Create(
-            Range.Create(Path("filename"), 1, 2, 3, 4),
             Mock(),
             Mock(),
             VariantType(
-                Mock(),
+                Range.Create(Path("filename"), 1, 2, 3, 4),
                 [
-                    ReferenceType.Create(Range.Create(Path("filename"), 11, 22, 33, 44), Mock(), Mock(), _SimpleStringType(Mock()), Cardinality.CreateFromCode(), None),
-                    ReferenceType.Create(Range.Create(Path("filename"), 111, 222, 333, 444), Mock(), Mock(), _SimpleIntegerType(Mock()), Cardinality.CreateFromCode(), None),
+                    ReferenceType.Create(Mock(), Mock(), _SimpleStringType(Range.Create(Path("filename"), 11, 22, 33, 44)), Cardinality.CreateFromCode(), None),
+                    ReferenceType.Create(Mock(), Mock(), _SimpleIntegerType(Range.Create(Path("filename"), 111, 222, 333, 444)), Cardinality.CreateFromCode(), None),
                 ],
             ),
             Cardinality.CreateFromCode(),
             None,
+            #range_value=range0,
         ).ToPython(NumberExpression(Range.Create(Path("filename"), 100, 200, 300, 400), 3.14))
 
 

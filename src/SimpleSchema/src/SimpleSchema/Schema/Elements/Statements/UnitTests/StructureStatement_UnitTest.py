@@ -40,13 +40,11 @@ with ExitStack(lambda: sys.path.pop(0)):
 # ----------------------------------------------------------------------
 def test_Standard():
     range_mock = Mock()
-    visibility_mock = Mock()
     name_mock = Mock()
 
-    ss = StructureStatement(range_mock, visibility_mock, name_mock, [], [])
+    ss = StructureStatement(range_mock, name_mock, [], [])
 
     assert ss.range is range_mock
-    assert ss.visibility is visibility_mock
     assert ss.name is name_mock
     assert ss.base_types == []
     assert ss.children == []

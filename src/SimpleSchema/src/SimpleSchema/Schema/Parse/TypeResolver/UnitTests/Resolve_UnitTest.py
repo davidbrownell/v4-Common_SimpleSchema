@@ -695,8 +695,8 @@ class TestStructure(object):
                     """\
                     Base types must be structure- or fundamental-types.
 
-                        - {entry_point} <Ln 3, Col 9 -> Ln 3, Col 20>
                         - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
+                        - {entry_point} <Ln 3, Col 9 -> Ln 3, Col 20>
                     """,
                 ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
             ),
@@ -721,9 +721,9 @@ class TestStructure(object):
                     """\
                     Base types must be structure types when multiple base types are specified.
 
-                        - {entry_point} <Ln 8, Col 17 -> Ln 8, Col 22>
                         - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
                         - {entry_point} <Ln 6, Col 1 -> Ln 8, Col 1>
+                        - {entry_point} <Ln 8, Col 17 -> Ln 8, Col 22>
                     """,
                 ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
             ),

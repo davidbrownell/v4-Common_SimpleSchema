@@ -10,7 +10,8 @@
     flags:
     - Alias
     - BasicRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StringType
@@ -28,6 +29,8 @@
     flags:
     - Alias
     - ReferenceRef
+    - BasicRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: StrAlias
     cardinality: <single>
@@ -42,6 +45,8 @@
     flags:
     - Type
     - ReferenceRef
+    - BasicRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: Strs
     cardinality: +
@@ -56,6 +61,7 @@
     flags:
     - Type
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: StrAliases
     cardinality: +
@@ -70,6 +76,8 @@
     flags:
     - Alias
     - ReferenceRef
+    - BasicRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: StrsItem
     cardinality: <single>
@@ -84,6 +92,7 @@
     flags:
     - Alias
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: StrAliasesItem
     cardinality: <single>
@@ -104,7 +113,8 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln31
       cardinality: <single>
@@ -125,7 +135,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln32
       cardinality: <single>
@@ -146,7 +156,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln34
       cardinality: +
@@ -167,7 +177,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln35
       cardinality: +
@@ -188,7 +198,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln37
       cardinality: <single>
@@ -209,7 +219,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln38
       cardinality: <single>
@@ -230,7 +240,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln40
       cardinality: '*'
@@ -251,7 +261,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln41
       cardinality: '*'
@@ -272,7 +282,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln43
       cardinality: '[3]'
@@ -293,7 +303,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln44
       cardinality: '[3]'
@@ -309,7 +319,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -321,7 +332,6 @@
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 50, Col 1 -> Ln 52, Col 1)
         unique_name: _Object-Struct-Ln50
-        visibility: Visibility.Private
         name: _Object-Struct-Ln50
         children:
         - __type__: ItemStatement
@@ -338,8 +348,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -359,6 +369,9 @@
     flags:
     - Alias
     - ReferenceRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: ObjectAlias
     cardinality: <single>
@@ -373,6 +386,9 @@
     flags:
     - Type
     - ReferenceRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: Objects
     cardinality: +
@@ -387,6 +403,7 @@
     flags:
     - Type
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: ObjectAliases
     cardinality: +
@@ -401,6 +418,9 @@
     flags:
     - Alias
     - ReferenceRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: ObjectsItem
     cardinality: <single>
@@ -415,6 +435,7 @@
     flags:
     - Alias
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: ObjectAliasesItem
     cardinality: <single>
@@ -435,7 +456,9 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln62
       cardinality: <single>
@@ -456,7 +479,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln63
       cardinality: <single>
@@ -477,7 +500,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln65
       cardinality: +
@@ -498,7 +521,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln66
       cardinality: +
@@ -519,7 +542,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln68
       cardinality: <single>
@@ -540,7 +563,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln69
       cardinality: <single>
@@ -561,7 +584,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln71
       cardinality: '*'
@@ -582,7 +605,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln72
       cardinality: '*'
@@ -603,7 +626,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln74
       cardinality: '[3]'
@@ -624,7 +647,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln75
       cardinality: '[3]'
@@ -639,9 +662,10 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
-    - StructureCollectionRef
-    - DefinedInline
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: ReferenceType
@@ -653,8 +677,8 @@
       - Type
       - BasicRef
       - StructureRef
-      - DynamicallyGenerated
-      - DefinedInline
+      - SharedAccess
+      - TypeDefinition
       visibility: Visibility.Private
       type:
         __type__: StructureType
@@ -666,7 +690,6 @@
           __disabled__: false
           range: Typedefs.SimpleSchema (Ln 81, Col 1 -> Ln 85, Col 1)
           unique_name: _OptionalObject-Struct-Ln81
-          visibility: Visibility.Private
           name: _OptionalObject-Struct-Ln81
           children:
           - __type__: ItemStatement
@@ -683,8 +706,8 @@
               flags:
               - Alias
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -706,6 +729,7 @@
     flags:
     - Alias
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: OptionalObjectAlias
     cardinality: '?'
@@ -720,8 +744,9 @@
     flags:
     - Alias
     - ReferenceRef
-    - BasicCollectionRef
-    - StructureCollectionRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SingleAccess
     visibility: Visibility.Public
     name: ConcreteOptionalObject
     cardinality: <single>
@@ -736,8 +761,9 @@
     flags:
     - Alias
     - ReferenceRef
-    - BasicCollectionRef
-    - StructureCollectionRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SingleAccess
     visibility: Visibility.Public
     name: ConcreteOptionalObjectAlias
     cardinality: <single>
@@ -752,6 +778,7 @@
     flags:
     - Type
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: OptionalObjects
     cardinality: +
@@ -766,6 +793,7 @@
     flags:
     - Type
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: OptionalObjectAliases
     cardinality: +
@@ -780,6 +808,7 @@
     flags:
     - Alias
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: OptionalObjectsItem
     cardinality: '?'
@@ -794,6 +823,7 @@
     flags:
     - Alias
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: OptionalObjectAliasesItem
     cardinality: '?'
@@ -808,8 +838,9 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
-    - StructureCollectionRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SingleAccess
     visibility: Visibility.Public
     name: ConcreteOptionalObjects
     cardinality: +
@@ -824,8 +855,9 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
-    - StructureCollectionRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SingleAccess
     visibility: Visibility.Public
     name: ConcreteOptionalObjectAliases
     cardinality: +
@@ -846,7 +878,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln100
       cardinality: '?'
@@ -867,7 +899,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln101
       cardinality: '?'
@@ -888,7 +920,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln103
       cardinality: +
@@ -909,7 +941,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln104
       cardinality: +
@@ -930,7 +962,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln106
       cardinality: '?'
@@ -951,7 +983,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln107
       cardinality: '?'
@@ -972,7 +1004,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln109
       cardinality: '*'
@@ -993,7 +1025,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln110
       cardinality: '*'
@@ -1014,7 +1046,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln112
       cardinality: '[3]'
@@ -1035,7 +1067,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln113
       cardinality: '[3]'
@@ -1051,7 +1083,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -1063,7 +1096,6 @@
         __disabled__: false
         range: Typedefs.SimpleSchema (Ln 119, Col 1 -> Ln 122, Col 1)
         unique_name: _NestedTypes-Struct-Ln119
-        visibility: Visibility.Private
         name: _NestedTypes-Struct-Ln119
         children:
         - __type__: ReferenceType
@@ -1074,7 +1106,8 @@
           flags:
           - Alias
           - BasicRef
-          - DefinedInline
+          - SharedAccess
+          - TypeDefinition
           visibility: Visibility.Public
           type:
             __type__: StringType
@@ -1092,6 +1125,8 @@
           flags:
           - Alias
           - ReferenceRef
+          - BasicRefWithCardinality
+          - SharedAccess
           visibility: Visibility.Public
           name: NestedStrAlias
           cardinality: <single>
@@ -1108,6 +1143,8 @@
     flags:
     - Alias
     - ReferenceRef
+    - BasicRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: NestedTypes_NestedStr
     cardinality: <single>
@@ -1122,6 +1159,7 @@
     flags:
     - Alias
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: NestedTypes_NestedStrAlias
     cardinality: <single>
@@ -1142,7 +1180,8 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln127
       cardinality: <single>
@@ -1163,7 +1202,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln128
       cardinality: <single>
@@ -1184,7 +1223,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln130
       cardinality: <single>
@@ -1205,7 +1244,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln131
       cardinality: <single>
@@ -1220,8 +1259,9 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
-    - DefinedInline
+    - BasicRefWithCardinality
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: ReferenceType
@@ -1232,8 +1272,8 @@
       flags:
       - Type
       - BasicRef
-      - DynamicallyGenerated
-      - DefinedInline
+      - SharedAccess
+      - TypeDefinition
       visibility: Visibility.Private
       type:
         __type__: IntegerType
@@ -1253,6 +1293,7 @@
     flags:
     - Type
     - ReferenceRef
+    - SharedAccess
     visibility: Visibility.Public
     name: Containers
     cardinality: '*'
@@ -1267,7 +1308,8 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
+    - BasicRefWithCardinality
+    - SharedAccess
     visibility: Visibility.Public
     name: AlteredContainers
     cardinality: '[10]'
@@ -1288,7 +1330,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln141
       cardinality: +
@@ -1309,7 +1351,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln142
       cardinality: '*'
@@ -1330,7 +1372,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln143
       cardinality: '[10]'
@@ -1351,8 +1393,8 @@
       flags:
       - Type
       - ReferenceRef
-      - BasicCollectionRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln144
       cardinality: '[20]'

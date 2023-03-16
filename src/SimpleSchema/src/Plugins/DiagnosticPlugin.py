@@ -184,12 +184,12 @@ class _Visitor(Visitor):
     ):
         super(_Visitor, self).__init__()
 
-        self._plugin                                    = plugin
+        self._plugin                                                        = plugin
 
-        self._content: list[dict[str, Any]]             = []
-
+        self._content: list[dict[str, Any]]                                 = []
         self._content_stack: list[list[dict[str, Any]]]                     = [self._content, ]
-        self._reference_type_stack: list[ReferenceType]                     = []
+
+        self._display_type_as_reference: bool                               = False
 
     # ----------------------------------------------------------------------
     @property
@@ -513,11 +513,12 @@ class _Visitor(Visitor):
             if unresolved_metadata is not None:
                 d["metadata"] = unresolved_metadata
 
-        self._reference_type_stack.append(element)
-        with ExitStack(self._reference_type_stack.pop):
-            yield
+        display_type_as_reference = not element.flags & ReferenceType.Flag.TypeDefinition
 
-        if not (element.flags & ReferenceType.Flag.DefinedInline):
+        self._display_type_as_reference = display_type_as_reference
+        yield
+
+        if display_type_as_reference:
             d["reference"] = {
                 "unique_name": element.type.unique_name,
                 "range": self.__class__._ToString(element.type.range),  # pylint: disable=protected-access
@@ -531,14 +532,9 @@ class _Visitor(Visitor):
         *,
         include_disabled: bool,
     ) -> Optional[VisitResult]:
-        assert self._reference_type_stack
-        reference_type = self._reference_type_stack[-1]
-
-        if not (reference_type.flags & ReferenceType.Flag.DefinedInline):
-            # Don't follow this type if it isn't defined inline. We check here rather than
-            # preventing visitation in OnReferenceType because we want do display the other
-            # details of the reference type (which wouldn't happen if we skipped everything).
-            return
+        if self._display_type_as_reference:
+            self._display_type_as_reference = False
+            return None
 
         return self._DefaultDetailMethod("type", element_or_elements, include_disabled=include_disabled)
 

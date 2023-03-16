@@ -489,9 +489,9 @@ class TestToPython(object):
         return TupleType(
             Mock(),
             [
-                ReferenceType.Create(Range.Create(Path("TupleElement0"), 1, 2, 3, 4), Mock(), SimpleElement[str](Mock(), "Tuple Element 0"), cls._SimpleStringType(Range.CreateFromCode()), Cardinality.CreateFromCode(), None),
-                ReferenceType.Create(Range.Create(Path("TupleElement1"), 1, 2, 3, 4), Mock(), SimpleElement[str](Mock(), "Tuple Element 1"), cls._SimpleIntegerType(Range.CreateFromCode()), Cardinality.CreateFromCode(2, 2), None),
-                ReferenceType.Create(Range.Create(Path("TupleElement2"), 1, 2, 3, 4), Mock(), SimpleElement[str](Mock(), "Tuple Element 2"), cls._SimpleStringType(Range.CreateFromCode()), Cardinality.CreateFromCode(0, 1), None),
+                ReferenceType.Create(Mock(), SimpleElement[str](Mock(), "Tuple Element 0"), cls._SimpleStringType(Range.Create(Path("TupleElement0"), 1, 2, 3, 4)), Cardinality.CreateFromCode(), None),
+                ReferenceType.Create(Mock(), SimpleElement[str](Mock(), "Tuple Element 1"), cls._SimpleIntegerType(Range.Create(Path("TupleElement1"), 1, 2, 3, 4)), Cardinality.CreateFromCode(2, 2), None),
+                ReferenceType.Create(Mock(), SimpleElement[str](Mock(), "Tuple Element 2"), cls._SimpleStringType(Range.Create(Path("TupleElement2"), 1, 2, 3, 4)), Cardinality.CreateFromCode(0, 1), None),
             ],
         )
 
@@ -501,47 +501,41 @@ class TestToPython(object):
     def _nested_tuple_type(cls):
         # (String, (Integer[2], (String, )))+
         return ReferenceType.Create(
-            Range.Create(Path("NestedTuple0"), 1, 2, 3, 4),
             Mock(),
             Mock(),
             TupleType(
-                Mock(),
+                Range.Create(Path("NestedTuple0"), 1, 2, 3, 4),
                 [
                     ReferenceType.Create(
-                        Range.Create(Path("NestedTuple1"), 1, 2, 3, 4),
                         Mock(),
                         Mock(),
-                        cls._SimpleStringType(Range.CreateFromCode()),
+                        cls._SimpleStringType(Range.Create(Path("NestedTuple1"), 1, 2, 3, 4)),
                         Cardinality.CreateFromCode(),
                         None,
                     ),
                     ReferenceType.Create(
-                        Range.Create(Path("NestedTuple2"), 1, 2, 3, 4),
                         Mock(),
                         Mock(),
                         TupleType(
-                            Range.Create(Path("NestedTuple3"), 1, 2, 3, 4),
+                            Range.Create(Path("NestedTuple2"), 1, 2, 3, 4),
                             [
                                 ReferenceType.Create(
-                                    Range.Create(Path("NestedTuple4"), 1, 2, 3, 4),
                                     Mock(),
                                     Mock(),
-                                    cls._SimpleIntegerType(Range.CreateFromCode()),
+                                    cls._SimpleIntegerType(Range.Create(Path("NestedTuple4"), 1, 2, 3, 4)),
                                     Cardinality.CreateFromCode(2, 2),
                                     None,
                                 ),
                                 ReferenceType.Create(
-                                    Range.Create(Path("NestedTuple5"), 1, 2, 3, 4),
                                     Mock(),
                                     Mock(),
                                     TupleType(
-                                        Range.Create(Path("NestedTuple6"), 1, 2, 3, 4),
+                                        Range.Create(Path("NestedTuple5"), 1, 2, 3, 4),
                                         [
                                             ReferenceType.Create(
-                                                Range.Create(Path("NestedTuple7"), 1, 2, 3, 4),
                                                 Mock(),
                                                 Mock(),
-                                                cls._SimpleStringType(Range.CreateFromCode()),
+                                                cls._SimpleStringType(Range.Create(Path("NestedTuple7"), 1, 2, 3, 4)),
                                                 Cardinality.CreateFromCode(),
                                                 None,
                                             ),

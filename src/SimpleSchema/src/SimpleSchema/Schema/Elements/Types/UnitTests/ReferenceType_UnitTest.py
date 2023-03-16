@@ -71,6 +71,7 @@ def test_Standard():
         metadata_mock,
         force_single_cardinality=False,
         was_dynamically_generated=False,
+        is_type_definition=False,
     )
 
     assert rt.range is range_mock
@@ -79,7 +80,7 @@ def test_Standard():
     assert rt.name is name_mock
     assert rt.cardinality is cardinality_mock
     assert rt.unresolved_metadata is metadata_mock
-    assert rt.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+    assert rt.flags == ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
 
 # ----------------------------------------------------------------------
@@ -89,11 +90,13 @@ class TestCreate(object):
         range_mock = Mock()
         visibility_mock = Mock()
         name_mock = Mock()
+
         type_mock = Mock(spec=BasicType)
+        type_mock.range = range_mock
+
         metadata_mock = Mock()
 
         rt = ReferenceType.Create(
-            range_mock,
             visibility_mock,
             name_mock,
             type_mock,
@@ -107,7 +110,7 @@ class TestCreate(object):
         assert rt.name is name_mock
         assert rt.cardinality.is_single
         assert rt.unresolved_metadata is metadata_mock
-        assert rt.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+        assert rt.flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
     def test_MultipleBasic(self):
@@ -118,14 +121,13 @@ class TestCreate(object):
         name_mock.value = "The type name"
 
         type_mock = Mock(spec=BasicType)
-        type_mock.range = Mock()
+        type_mock.range = range_mock
 
         metadata_mock = Mock()
 
         cardinality = Cardinality.CreateFromCode(1, None)
 
         rt = ReferenceType.Create(
-            range_mock,
             visibility_mock,
             name_mock,
             type_mock,
@@ -138,7 +140,7 @@ class TestCreate(object):
         assert rt.name is name_mock
         assert rt.cardinality is cardinality
         assert rt.unresolved_metadata is metadata_mock
-        assert rt.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicCollectionRef | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
+        assert rt.flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRefWithCardinality | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
 
         assert isinstance(rt.type, ReferenceType), rt.type
 
@@ -148,7 +150,7 @@ class TestCreate(object):
         assert rt.type.name.value != name_mock.value
         assert rt.type.cardinality.is_single
         assert rt.type.unresolved_metadata is None
-        assert rt.type.flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.DynamicallyGenerated | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
+        assert rt.type.flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
 
     # ----------------------------------------------------------------------
     def test_SingleReference(self):
@@ -160,9 +162,9 @@ class TestCreate(object):
         type_mock = Mock(spec=ReferenceType)
         type_mock.flags = 0
         type_mock.cardinality = Mock()
+        type_mock.range = range_mock
 
         rt = ReferenceType.Create(
-            range_mock,
             visibility_mock,
             name_mock,
             type_mock,
@@ -186,12 +188,11 @@ class TestCreate(object):
 
         type_mock = Mock(spec=ReferenceType)
         type_mock.flags = 0
-        type_mock.range = Mock()
+        type_mock.range = range_mock
 
         metadata_mock = Mock()
 
         rt = ReferenceType.Create(
-            range_mock,
             visibility_mock,
             name_mock,
             type_mock,
@@ -209,11 +210,13 @@ class TestCreate(object):
 
     # ----------------------------------------------------------------------
     def test_MetadataReplacement(self):
+        basic_type_mock = Mock(spec=BasicType)
+        basic_type_mock.range = Mock()
+
         rt = ReferenceType.Create(
             Mock(),
             Mock(),
-            Mock(),
-            Mock(spec=BasicType),
+            basic_type_mock,
             Cardinality.CreateFromCode(),
             Metadata(Mock(), []),
         )
@@ -228,21 +231,21 @@ class TestFlags(object):
         assert _Create(
             Mock(spec=BasicType),
             Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+        ).flags == ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
     def test_MultipleBasic(self):
         assert _Create(
             Mock(spec=BasicType),
             Cardinality.CreateFromCode(0, None),
-        ).flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
+        ).flags == ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
 
     # ----------------------------------------------------------------------
     def test_ReferenceStructure(self):
         assert _Create(
             Mock(spec=StructureType),
             Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.DefinedInline | ReferenceType.Flag.StructureRef | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+        ).flags == ReferenceType.Flag.StructureRef | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
     def test_Reference(self):
@@ -256,26 +259,48 @@ class TestFlags(object):
         ).flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
-    def test_DynamicallyGeneratedReference (self):
+    def test_CollectionReference (self):
         reference_mock = Mock(spec=ReferenceType)
-        reference_mock.flags = ReferenceType.Flag.DynamicallyGenerated
+        reference_mock.flags = ReferenceType.Flag.BasicRef
         reference_mock.cardinality = Mock()
 
         assert _Create(
             reference_mock,
             Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.BasicCollectionRef | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
+        ).flags == ReferenceType.Flag.BasicRefWithCardinality | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
 
     # ----------------------------------------------------------------------
-    def test_DynamicallyGeneratedReferenceToStructure(self):
+    def test_CollectionReferenceToStructure(self):
         reference_mock = Mock(spec=ReferenceType)
-        reference_mock.flags = ReferenceType.Flag.DynamicallyGenerated | ReferenceType.Flag.StructureRef
+        reference_mock.flags = ReferenceType.Flag.BasicRef | ReferenceType.Flag.StructureRef
         reference_mock.cardinality = Mock()
 
         assert _Create(
             reference_mock,
             Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.StructureCollectionRef | ReferenceType.Flag.BasicCollectionRef | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
+        ).flags == ReferenceType.Flag.StructureRefWithCardinality | ReferenceType.Flag.BasicRefWithCardinality | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
+
+    # ----------------------------------------------------------------------
+    def test_TypeDefinition(self):
+        reference_mock = Mock(spec=BasicType)
+
+        assert _Create(
+            reference_mock,
+            Cardinality.CreateFromCode(),
+            is_type_definition=True,
+        ).flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+
+    # ----------------------------------------------------------------------
+    def test_DynamicGeneration(self):
+        reference_mock = Mock(spec=BasicType)
+
+        assert _Create(
+            reference_mock,
+            Cardinality.CreateFromCode(),
+            was_dynamically_generated=True,
+            visibility=Visibility.Private,
+            range_value=Range.CreateFromCode(),
+        ).flags == ReferenceType.Flag.DynamicallyGenerated | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
 
 
 # ----------------------------------------------------------------------
@@ -613,7 +638,7 @@ def test_ErrorOptionalToOptional():
 
 
 # ----------------------------------------------------------------------
-def test_Resolve():
+def test_ResolveMetadata():
     rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(), metadata=None)
 
     assert rt.is_metadata_resolved is False
@@ -635,6 +660,26 @@ def test_Resolve():
 
 
 # ----------------------------------------------------------------------
+@pytest.mark.parametrize("is_shared", [True, False])
+def test_ResolveAccess(
+    is_shared: bool,
+):
+    rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode())
+
+    assert rt.flags & ReferenceType.Flag.AccessMask == 0
+
+    rt.ResolveShared(is_shared=is_shared)
+
+    if is_shared:
+        assert rt.flags & ReferenceType.Flag.SharedAccess
+    else:
+        assert rt.flags & ReferenceType.Flag.SingleAccess
+
+    with pytest.raises(AssertionError):
+        rt.ResolveShared(is_shared=is_shared)
+
+
+# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _Create(
@@ -643,16 +688,25 @@ def _Create(
     *,
     force_single_cardinality: bool=False,
     was_dynamically_generated: bool=False,
+    is_type_definition: bool=False,
     range_value: Optional[Range]=None,
     metadata: Union[DoesNotExist, None, Metadata]=DoesNotExist.instance,
+    visibility: Optional[Visibility]=None,
 ) -> ReferenceType:
+    if visibility is not None:
+        visibility_value = Mock()
+        visibility_value.value = visibility
+    else:
+        visibility_value = Mock()
+
     return ReferenceType(
         range_value or Mock(),
-        Mock(),
+        visibility_value,
         the_type,
         Mock(),
         cardinality,
         Mock() if metadata is DoesNotExist.instance else metadata,
         force_single_cardinality=force_single_cardinality,
         was_dynamically_generated=was_dynamically_generated,
+        is_type_definition=is_type_definition,
     )

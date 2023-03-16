@@ -11,7 +11,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -23,7 +24,6 @@
         __disabled__: false
         range: TuplesAndVariants.SimpleSchema (Ln 19, Col 1 -> Ln 44, Col 1)
         unique_name: _Tuples-Struct-Ln19
-        visibility: Visibility.Private
         name: _Tuples-Struct-Ln19
         children:
         - __type__: ReferenceType
@@ -35,7 +35,8 @@
           - Alias
           - BasicRef
           - StructureRef
-          - DefinedInline
+          - SingleAccess
+          - TypeDefinition
           metadata:
             import_statements:
               __type__: ListExpression
@@ -61,7 +62,6 @@
               __disabled__: false
               range: TuplesAndVariants.SimpleSchema (Ln 20, Col 5 -> Ln 27, Col 5)
               unique_name: _Tuples-Struct-Ln19.___Python__-Struct-Ln20
-              visibility: Visibility.Private
               name: ___Python__-Struct-Ln20
           name: __Python__
           cardinality: <single>
@@ -79,8 +79,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: TupleType
@@ -96,8 +96,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -123,8 +123,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: TupleType
@@ -140,8 +140,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -159,8 +159,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: IntegerType
@@ -177,8 +177,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: NumberType
@@ -203,9 +203,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -216,8 +216,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: TupleType
@@ -233,8 +233,8 @@
                   flags:
                   - Alias
                   - BasicRef
-                  - DynamicallyGenerated
-                  - DefinedInline
+                  - SingleAccess
+                  - TypeDefinition
                   visibility: Visibility.Private
                   type:
                     __type__: StringType
@@ -252,8 +252,8 @@
                   flags:
                   - Alias
                   - BasicRef
-                  - DynamicallyGenerated
-                  - DefinedInline
+                  - SingleAccess
+                  - TypeDefinition
                   visibility: Visibility.Private
                   type:
                     __type__: IntegerType
@@ -270,8 +270,8 @@
                   flags:
                   - Alias
                   - BasicRef
-                  - DynamicallyGenerated
-                  - DefinedInline
+                  - SingleAccess
+                  - TypeDefinition
                   visibility: Visibility.Private
                   type:
                     __type__: NumberType
@@ -298,8 +298,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: TupleType
@@ -315,8 +315,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -334,8 +334,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: IntegerType
@@ -353,8 +353,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: NumberType
@@ -380,8 +380,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: TupleType
@@ -397,8 +397,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -416,8 +416,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: TupleType
@@ -433,8 +433,8 @@
                     flags:
                     - Alias
                     - BasicRef
-                    - DynamicallyGenerated
-                    - DefinedInline
+                    - SingleAccess
+                    - TypeDefinition
                     visibility: Visibility.Private
                     type:
                       __type__: StringType
@@ -452,8 +452,8 @@
                     flags:
                     - Alias
                     - BasicRef
-                    - DynamicallyGenerated
-                    - DefinedInline
+                    - SingleAccess
+                    - TypeDefinition
                     visibility: Visibility.Private
                     type:
                       __type__: IntegerType
@@ -472,8 +472,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: NumberType
@@ -490,8 +490,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: TupleType
@@ -507,8 +507,8 @@
                     flags:
                     - Alias
                     - BasicRef
-                    - DynamicallyGenerated
-                    - DefinedInline
+                    - SingleAccess
+                    - TypeDefinition
                     visibility: Visibility.Private
                     type:
                       __type__: StringType
@@ -526,8 +526,8 @@
                     flags:
                     - Alias
                     - BasicRef
-                    - DynamicallyGenerated
-                    - DefinedInline
+                    - SingleAccess
+                    - TypeDefinition
                     visibility: Visibility.Private
                     type:
                       __type__: TupleType
@@ -543,8 +543,8 @@
                         flags:
                         - Alias
                         - BasicRef
-                        - DynamicallyGenerated
-                        - DefinedInline
+                        - SingleAccess
+                        - TypeDefinition
                         visibility: Visibility.Private
                         type:
                           __type__: NumberType
@@ -576,7 +576,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln45
       cardinality: '?'
@@ -592,7 +594,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -604,7 +607,6 @@
         __disabled__: false
         range: TuplesAndVariants.SimpleSchema (Ln 49, Col 1 -> Ln 62, Col 1)
         unique_name: _Variants-Struct-Ln49
-        visibility: Visibility.Private
         name: _Variants-Struct-Ln49
         children:
         - __type__: ItemStatement
@@ -621,8 +623,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: VariantType
@@ -638,8 +640,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -657,8 +659,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: NumberType
@@ -683,8 +685,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: VariantType
@@ -700,8 +702,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -719,8 +721,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: IntegerType
@@ -738,8 +740,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: NumberType
@@ -765,8 +767,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: VariantType
@@ -782,8 +784,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: StringType
@@ -801,8 +803,8 @@
                 flags:
                 - Alias
                 - BasicRef
-                - DynamicallyGenerated
-                - DefinedInline
+                - SingleAccess
+                - TypeDefinition
                 visibility: Visibility.Private
                 type:
                   __type__: TupleType
@@ -818,8 +820,8 @@
                     flags:
                     - Alias
                     - BasicRef
-                    - DynamicallyGenerated
-                    - DefinedInline
+                    - SingleAccess
+                    - TypeDefinition
                     visibility: Visibility.Private
                     type:
                       __type__: IntegerType
@@ -837,8 +839,8 @@
                     flags:
                     - Alias
                     - BasicRef
-                    - DynamicallyGenerated
-                    - DefinedInline
+                    - SingleAccess
+                    - TypeDefinition
                     visibility: Visibility.Private
                     type:
                       __type__: NumberType
@@ -867,7 +869,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln63
       cardinality: '?'

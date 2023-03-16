@@ -11,7 +11,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -23,7 +24,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 19, Col 1 -> Ln 33, Col 1)
         unique_name: _FundamentalTypes-Struct-Ln19
-        visibility: Visibility.Private
         name: _FundamentalTypes-Struct-Ln19
         children:
         - __type__: ItemStatement
@@ -40,8 +40,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: BooleanType
@@ -64,8 +64,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: DateTimeType
@@ -88,8 +88,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: DateType
@@ -112,8 +112,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: DirectoryType
@@ -137,8 +137,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: DurationType
@@ -161,8 +161,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: EnumType
@@ -193,8 +193,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: FilenameType
@@ -219,8 +219,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: GuidType
@@ -243,8 +243,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: IntegerType
@@ -267,8 +267,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: NumberType
@@ -291,8 +291,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -316,8 +316,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: TimeType
@@ -340,8 +340,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: UriType
@@ -366,7 +366,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln34
       cardinality: '?'
@@ -382,7 +384,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -394,7 +397,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 38, Col 1 -> Ln 41, Col 1)
         unique_name: _DirectoryCustomizations-Struct-Ln38
-        visibility: Visibility.Private
         name: _DirectoryCustomizations-Struct-Ln38
         children:
         - __type__: ItemStatement
@@ -411,8 +413,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: DirectoryType
@@ -436,8 +438,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: DirectoryType
@@ -463,7 +465,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln42
       cardinality: '?'
@@ -479,7 +483,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -491,7 +496,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 46, Col 1 -> Ln 52, Col 1)
         unique_name: _EnumCustomizations-Struct-Ln46
-        visibility: Visibility.Private
         name: _EnumCustomizations-Struct-Ln46
         children:
         - __type__: ItemStatement
@@ -508,8 +512,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: EnumType
@@ -540,8 +544,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: EnumType
@@ -572,8 +576,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: EnumType
@@ -604,8 +608,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: EnumType
@@ -636,8 +640,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: EnumType
@@ -670,7 +674,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln53
       cardinality: '?'
@@ -686,7 +692,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -698,7 +705,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 57, Col 1 -> Ln 61, Col 1)
         unique_name: _FilenameCustomizations-Struct-Ln57
-        visibility: Visibility.Private
         name: _FilenameCustomizations-Struct-Ln57
         children:
         - __type__: ItemStatement
@@ -715,8 +721,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: FilenameType
@@ -741,8 +747,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: FilenameType
@@ -766,8 +772,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: FilenameType
@@ -794,7 +800,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln62
       cardinality: '?'
@@ -810,7 +818,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -822,7 +831,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 66, Col 1 -> Ln 72, Col 1)
         unique_name: _IntegerCustomizations-Struct-Ln66
-        visibility: Visibility.Private
         name: _IntegerCustomizations-Struct-Ln66
         children:
         - __type__: ItemStatement
@@ -839,8 +847,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: IntegerType
@@ -863,8 +871,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: IntegerType
@@ -888,8 +896,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: IntegerType
@@ -913,8 +921,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: IntegerType
@@ -939,8 +947,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: IntegerType
@@ -966,7 +974,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln73
       cardinality: '?'
@@ -982,7 +992,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -994,7 +1005,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 77, Col 1 -> Ln 83, Col 1)
         unique_name: _NumberCustomizations-Struct-Ln77
-        visibility: Visibility.Private
         name: _NumberCustomizations-Struct-Ln77
         children:
         - __type__: ItemStatement
@@ -1011,8 +1021,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: NumberType
@@ -1035,8 +1045,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: NumberType
@@ -1060,8 +1070,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: NumberType
@@ -1085,8 +1095,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: NumberType
@@ -1111,8 +1121,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: NumberType
@@ -1138,7 +1148,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln84
       cardinality: '?'
@@ -1154,7 +1166,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -1166,7 +1179,6 @@
         __disabled__: false
         range: FundamentalTypes.SimpleSchema (Ln 88, Col 1 -> Ln 94, Col 1)
         unique_name: _StringCustomizations-Struct-Ln88
-        visibility: Visibility.Private
         name: _StringCustomizations-Struct-Ln88
         children:
         - __type__: ItemStatement
@@ -1183,8 +1195,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -1208,8 +1220,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -1233,8 +1245,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -1259,8 +1271,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -1285,8 +1297,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -1313,7 +1325,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln95
       cardinality: '?'

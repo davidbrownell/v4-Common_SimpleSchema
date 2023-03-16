@@ -573,7 +573,6 @@ class TestMetadata(object):
             basic_type: BasicType,
         ) -> ReferenceType:
             return ReferenceType.Create(
-                Range.CreateFromCode(),
                 SimpleElement[Visibility](Range.CreateFromCode(), Visibility.Private),
                 SimpleElement[str](Range.CreateFromCode(), "Type"),
                 basic_type,
@@ -1522,6 +1521,58 @@ def test_Recursive():
                 directories: Directory*
 
             root: Directory
+            """,
+        ),
+    )
+
+
+# ----------------------------------------------------------------------
+def test_PseudoElement():
+    _Test(
+        textwrap.dedent(
+            """\
+            structure ->
+                value1: String
+
+            structures ->
+                value2: Number
+            +
+
+            optional_structure ->
+                value3: Date
+            ?
+            """,
+        ),
+    )
+
+
+# ----------------------------------------------------------------------
+def test_DisableUnusedRootElement():
+    _Test(
+        textwrap.dedent(
+            """\
+            _NeverUsed ->
+                pass
+
+            Used ->
+                pass
+            """,
+        ),
+    )
+
+
+# ----------------------------------------------------------------------
+@pytest.mark.skip("TODO")
+def test_DisableElementUsedFromUnused():
+    _Test(
+        textwrap.dedent(
+            """\
+            MaybeUsed ->
+                # This should not disappear because it is part of a public type
+                Type: String
+
+            _Unused ->
+                value: MaybeUsed.Type
             """,
         ),
     )

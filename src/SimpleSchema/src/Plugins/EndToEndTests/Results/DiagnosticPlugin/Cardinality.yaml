@@ -11,7 +11,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -23,7 +24,6 @@
         __disabled__: false
         range: Cardinality.SimpleSchema (Ln 19, Col 1 -> Ln 29, Col 1)
         unique_name: _Cardinality-Struct-Ln19
-        visibility: Visibility.Private
         name: _Cardinality-Struct-Ln19
         children:
         - __type__: ItemStatement
@@ -40,8 +40,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -65,9 +65,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -78,8 +78,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -105,9 +105,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -118,8 +118,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -145,9 +145,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -158,8 +158,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -185,9 +185,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -198,8 +198,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -225,9 +225,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -238,8 +238,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -265,9 +265,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             metadata:
               default: foo
             visibility: Visibility.Private
@@ -280,8 +280,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -309,7 +309,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln30
       cardinality: '?'
@@ -324,9 +326,10 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
-    - StructureCollectionRef
-    - DefinedInline
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: ReferenceType
@@ -338,8 +341,8 @@
       - Type
       - BasicRef
       - StructureRef
-      - DynamicallyGenerated
-      - DefinedInline
+      - SingleAccess
+      - TypeDefinition
       visibility: Visibility.Private
       type:
         __type__: StructureType
@@ -351,7 +354,6 @@
           __disabled__: false
           range: Cardinality.SimpleSchema (Ln 34, Col 1 -> Ln 38, Col 1)
           unique_name: _OptionalObject-Struct-Ln34
-          visibility: Visibility.Private
           name: _OptionalObject-Struct-Ln34
           children:
           - __type__: ItemStatement
@@ -368,8 +370,8 @@
               flags:
               - Alias
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -397,7 +399,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln38
       cardinality: '?'
