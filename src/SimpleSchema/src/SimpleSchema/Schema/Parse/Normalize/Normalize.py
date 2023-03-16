@@ -21,12 +21,14 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import auto, Enum, IntFlag
 from pathlib import Path
-from typing import cast, Iterator, Optional, Union
+from typing import cast, Iterable, Iterator, Optional, Union
 
 from Common_Foundation.Streams.DoneManager import DoneManager
 from Common_Foundation.Types import overridemethod
 
 from Common_FoundationEx import ExecuteTasks
+
+from ..Common import PSEUDO_TYPE_NAME_PREFIX
 
 from ..ParseState.ParseState import ParseState
 
@@ -49,6 +51,8 @@ from ...Elements.Statements.StructureStatement import StructureStatement
 from ...Elements.Types.BasicType import BasicType
 from ...Elements.Types.ReferenceType import ReferenceType
 from ...Elements.Types.StructureType import StructureType
+from ...Elements.Types.TupleType import TupleType
+from ...Elements.Types.VariantType import VariantType
 
 from ...Visitors.DescendantVisitor import DescendantVisitor
 from ...Visitors.NonRecursiveVisitor import NonRecursiveVisitor, VisitResult
@@ -79,8 +83,6 @@ class Flag(IntFlag):
 
     DisableEmptyStructures                  = auto()
     FlattenStructureHierarchies             = auto()
-
-    # TODO: CollapseTypesWhenPossible               = auto()
 
     # Amalgamations
     AlwaysDisableUnsupported                = (
@@ -126,7 +128,6 @@ def Normalize(
             metadata_attribute,
             _METADATA_ATTRIBUTE_REALIZED_TYPE_ATTRIBUTE_NAME,
             ReferenceType.Create(
-                metadata_attribute.type.range,
                 SimpleElement[Visibility](metadata_attribute.type.range, Visibility.Private),
                 SimpleElement[str](metadata_attribute.type.range, "Type"),
                 metadata_attribute.type,
@@ -159,13 +160,15 @@ def Normalize(
 
         root.Accept(visitor)
 
+        root_elements = visitor.root_elements
+
         # Step 2
         status.OnProgress(Steps.Step2.value, "Step 2...")
 
         visitor = _Step2Visitor(
             metadata_attributes,
             flags,
-            visitor.root_elements,
+            root_elements,
             visitor.inherited_metadata_info_items,
         )
 
@@ -174,7 +177,7 @@ def Normalize(
         # Step 3
         status.OnProgress(Steps.Step3.value, "Step 3...")
 
-        root.Accept(_Step3Visitor(flags))
+        root.Accept(_Step3Visitor(flags, root_elements))
 
     # ----------------------------------------------------------------------
 
@@ -206,10 +209,7 @@ class _Step1Visitor(NonRecursiveVisitor):
     # Pass 1:
     #     - Create element map
     #     - Create unique type names
-    #     - Validate element usage based on flags
-    #         * Extensions
-    #         * ItemStatements
-    #         * StructureStatements
+    #     - Validate extension statements
     #     - Resolve inherited metadata
     #     - Flatten any structures that can be flattened
 
@@ -245,6 +245,23 @@ class _Step1Visitor(NonRecursiveVisitor):
     @contextmanager
     @overridemethod
     def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
+        # Calculate the root status before we bail if seeing the element for a second time
+        # (which is what super's OnElement will do). This ensures that the calculation is valid
+        # in scenarios where the element is referenced before it is defined.
+        element_key = id(element)
+
+        if (
+            element_key not in self._root_elements
+            and (
+                len(self.element_stack) == 1  # RootStatement
+                or (
+                    isinstance(element, StructureStatement)
+                    and not any(isinstance(stack_item, StructureStatement) for stack_item in self.element_stack)
+                )
+            )
+        ):
+            self._root_elements.add(element_key)
+
         with super(_Step1Visitor, self).OnElement(element) as visit_result:
             if visit_result is not None:
                 yield visit_result
@@ -292,73 +309,12 @@ class _Step1Visitor(NonRecursiveVisitor):
                 element.name.value,
             )
 
-        is_root = len(self.element_stack) == 2  # RootStatement and this Element
-
-        if is_root:
-            self._root_elements.add(id(element))
-
-        yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        is_root = len(self.element_stack) == 2  # RootStatement and this Element
-
-        if is_root:
-            self._root_elements.add(id(element))
-
-            if not self._flags & Flag.AllowRootItems:
-                if self._flags & Flag.DisableUnsupportedRootElements:
-                    element.Disable()
-                else:
-                    raise Errors.NormalizeInvalidRootItem.Create(element.range)
-
-        if not is_root and not self._flags & Flag.AllowNestedItems:
-            if self._flags & Flag.DisableUnsupportedNestedElements:
-                element.Disable()
-            else:
-                raise Errors.NormalizeInvalidNestedItem.Create(element.range)
-
         yield
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-        # ----------------------------------------------------------------------
-        def IsRoot() -> bool:
-            # Determine if we are at the root by the number of structure statements that are on the stack
-            stack_count = 0
-
-            for stack_element in self.element_stack:
-                if isinstance(stack_element, StructureStatement):
-                    stack_count += 1
-
-                if stack_count == 2:
-                    break
-
-            return stack_count == 1
-
-        # ----------------------------------------------------------------------
-
-        is_root = IsRoot()
-
-        if is_root:
-            self._root_elements.add(id(element))
-
-            if not self._flags & Flag.AllowRootStructures:
-                if self._flags & Flag.DisableUnsupportedRootElements:
-                    element.Disable()
-                else:
-                    raise Errors.NormalizeInvalidRootStructure.Create(element.range)
-
-        if not is_root and not self._flags & Flag.AllowNestedStructures:
-            if self._flags & Flag.DisableUnsupportedNestedElements:
-                element.Disable()
-            else:
-                raise Errors.NormalizeInvalidNestedStructure.Create(element.range)
-
         yield
 
         # Flatten
@@ -418,14 +374,6 @@ class _Step1Visitor(NonRecursiveVisitor):
     @contextmanager
     @overridemethod
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-        is_root = len(self.element_stack) == 2  # RootStatement and this Element
-
-        if is_root:
-            self._root_elements.add(id(element))
-
-        # Note that we don't yet have a way to determine the context of this type, so we will
-        # validate in a later pass.
-
         # Create the inherited metadata
         inherited_metadata_key = id(element)
         assert inherited_metadata_key not in self._inherited_metadata_info
@@ -462,7 +410,11 @@ class _Step1Visitor(NonRecursiveVisitor):
 class _Step2Visitor(NonRecursiveVisitor):
     # Pass 2:
     #     - Validate the metadata generated in pass 1
-    #     - Reduce elements
+    #     - Validate element usage based on flags
+    #         * ItemStatements
+    #         * StructureStatements
+    #         * ReferenceTypes
+    #     - Collapse Pseudo elements (since they will never be shared)
 
     # ----------------------------------------------------------------------
     def __init__(
@@ -485,13 +437,60 @@ class _Step2Visitor(NonRecursiveVisitor):
     @contextmanager
     @overridemethod
     def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
+        # Determine if the element placement is valid
+        if id(element) in self._root_elements:
+            if not self._flags & Flag.AllowRootItems:
+                if self._flags & Flag.DisableUnsupportedRootElements:
+                    element.Disable()
+                else:
+                    raise Errors.NormalizeInvalidRootItem.Create(element.range)
+        else:
+            if not self._flags & Flag.AllowNestedItems:
+                if self._flags & Flag.DisableUnsupportedNestedElements:
+                    element.Disable()
+                else:
+                    raise Errors.NormalizeInvalidNestedItem.Create(element.range)
+
         self._ApplyResolvedMetadata(element.type, MetadataAttribute.Flag.Item, element)
         yield
+
+        # Collapse pseudo elements since they will never be shared
+        if (
+            isinstance(element.type, ReferenceType)
+            and isinstance(element.type.type, ReferenceType)
+            and element.type.type.name.value.startswith(PSEUDO_TYPE_NAME_PREFIX)
+        ):
+            assert element.type.flags & ReferenceType.Flag.Alias
+
+            if element.type.cardinality.is_single:
+                element.type.type.Disable()
+                object.__setattr__(element, "type", element.type.type.type)
+            else:
+                assert isinstance(element.type.type.type, ReferenceType)
+
+                element.type.type.Disable()
+                element.type.type.type.Disable()
+
+                object.__setattr__(element.type, "flags", element.type.type.flags)
+                object.__setattr__(element.type, "type", element.type.type.type.type)
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
+        if id(element) in self._root_elements:
+            if not self._flags & Flag.AllowRootStructures:
+                if self._flags & Flag.DisableUnsupportedRootElements:
+                    element.Disable()
+                else:
+                    raise Errors.NormalizeInvalidRootStructure.Create(element.range)
+        else:
+            if not self._flags & Flag.AllowNestedStructures:
+                if self._flags & Flag.DisableUnsupportedNestedElements:
+                    element.Disable()
+                else:
+                    raise Errors.NormalizeInvalidNestedStructure.Create(element.range)
+
         if element.base_types:
             for base_type in element.base_types:
                 self._ApplyResolvedMetadata(
@@ -510,7 +509,7 @@ class _Step2Visitor(NonRecursiveVisitor):
         if self._metadata_items_map.get(id(element), None) is not None:
             if (
                 (element.flags & ReferenceType.Flag.StructureRef)
-                or (element.flags & ReferenceType.Flag.StructureCollectionRef)
+                or (element.flags & ReferenceType.Flag.StructureRefWithCardinality)
             ):
                 reference_type_category = MetadataAttribute.Flag.Structure
 
@@ -518,7 +517,7 @@ class _Step2Visitor(NonRecursiveVisitor):
                     assert isinstance(element.type, StructureType), element.type
                     referenced_element = element.type.structure
 
-                elif element.flags & ReferenceType.Flag.StructureCollectionRef:
+                elif element.flags & ReferenceType.Flag.StructureRefWithCardinality:
                     assert isinstance(element.type, ReferenceType), element.type
                     assert isinstance(element.type.type, StructureType), element.type.type
 
@@ -528,21 +527,18 @@ class _Step2Visitor(NonRecursiveVisitor):
                     assert False, element.flags  # pragma: no cover
 
             else:
-                # We now have enough context to know that this is a typedef. Validate that
-                # these are supported.
-                is_root = id(element) in self._root_elements
-
-                if is_root and not self._flags & Flag.AllowRootTypes:
-                    if self._flags & Flag.DisableUnsupportedRootElements:
-                        element.Disable()
-                    else:
-                        raise Errors.NormalizeInvalidRootType.Create(element.range)
-
-                if not is_root and not self._flags & Flag.AllowNestedTypes:
-                    if self._flags & Flag.DisableUnsupportedNestedElements:
-                        element.Disable()
-                    else:
-                        raise Errors.NormalizeInvalidNestedType.Create(element.range)
+                if id(element) in self._root_elements:
+                    if not self._flags & Flag.AllowRootTypes:
+                        if self._flags & Flag.DisableUnsupportedRootElements:
+                            element.Disable()
+                        else:
+                            raise Errors.NormalizeInvalidRootType.Create(element.range)
+                else:
+                    if not self._flags & Flag.AllowNestedTypes:
+                        if self._flags & Flag.DisableUnsupportedNestedElements:
+                            element.Disable()
+                        else:
+                            raise Errors.NormalizeInvalidNestedType.Create(element.range)
 
                 reference_type_category = MetadataAttribute.Flag.Type
                 referenced_element = element
@@ -770,15 +766,18 @@ class _Step3Visitor(NonRecursiveVisitor):
     # Pass3:
     #     - Remove empty structures
     #     - Remove items that are no longer referenced
+    #     - Collapse reference types where possible
 
     # ----------------------------------------------------------------------
     def __init__(
         self,
         flags: Flag,
+        root_elements: set[int],
     ):
         super(_Step3Visitor, self).__init__()
 
         self._flags                         = flags
+        self._root_elements                 = root_elements
 
         self._nodes: dict[int, _Step3Visitor._ElementNode]                  = {}
 
@@ -786,30 +785,30 @@ class _Step3Visitor(NonRecursiveVisitor):
     @contextmanager
     @overridemethod
     def OnElement(self, element: Element) -> Iterator[Optional[VisitResult]]:
-        referencing_element = None if not self.element_stack else self.element_stack[-1]
+        if isinstance(element, (Cardinality, SimpleElement)):
+            yield VisitResult.SkipAll
+            return
+
+        # Call the super version after we add information about the reference relationships, as we
+        # want to make sure that the information is available before we potentially bail if we have
+        # seen the element before.
+
+        element_key = id(element)
+
+        element_node = self._nodes.get(element_key, None)
+        if element_node is None:
+            element_node = _Step3Visitor._ElementNode(element)
+            self._nodes[element_key] = element_node
+
+        if self.element_stack:
+            referencing_element_id = id(self.element_stack[-1])
+
+            element_node.referenced_by[referencing_element_id] = self._nodes[referencing_element_id]
 
         with super(_Step3Visitor, self).OnElement(element) as visit_result:
             if visit_result is not None:
                 yield visit_result
                 return
-
-            element_key = id(element)
-
-            element_node = self._nodes.get(element_key, None)
-            if element_node is None:
-                element_node = _Step3Visitor._ElementNode(element)
-                self._nodes[element_key] = element_node
-
-            # Maintain the references if....
-            if (
-                referencing_element                                         # ...this element is not the root element
-                and (                                                       # ...and...
-                    not isinstance(referencing_element, RootStatement)      # ...it is not at the root...
-                    or not isinstance(element, VisibilityTrait)             # ...or isn't based on VisibilityTrait...
-                    or element.visibility.value == Visibility.Public        # ...or has a visibility and the visibility is public
-                )
-            ):
-                element_node.referenced_by[id(referencing_element)] = referencing_element
 
             yield
 
@@ -819,7 +818,50 @@ class _Step3Visitor(NonRecursiveVisitor):
     def OnRootStatement(self, element: RootStatement) -> Iterator[Optional[VisitResult]]:
         yield
 
-        queue: list[Element] = [node.element for node in self._nodes.values()]
+        self._DisableUnusedRootElements(element)
+        self._DisableUnreferencedElements(element)
+        self._ResolveReferenceTypeSharedState(element)
+
+    # ----------------------------------------------------------------------
+    # |  Private Types
+    @dataclass(frozen=True)
+    class _ElementNode(object):
+        # ----------------------------------------------------------------------
+        element: Element
+
+        referenced_by: dict[int, "_Step3Visitor._ElementNode"]              = field(init=False, default_factory=dict)
+
+    # ----------------------------------------------------------------------
+    # |  Private Methods
+    def _DisableUnusedRootElements(
+        self,
+        root: RootStatement,
+    ) -> None:
+        for child in root.statements:
+            # Disable the child if...
+            if (
+                not child.is_disabled                                       # ...it isn't already disabled...
+                and len(self._nodes[id(child)].referenced_by) == 1          # ...and the root is the only thing that references it...
+                and isinstance(child, VisibilityTrait)                      # ...and it has a VisibilityTrait...
+                and child.visibility.value != Visibility.Public             # ...and the visibility is not public.
+            ):
+                child.Disable()
+
+    # ----------------------------------------------------------------------
+    def _DisableUnreferencedElements(
+        self,
+        root: RootStatement,
+    ) -> None:
+        queue: dict[int, Element] = {}
+
+        # ----------------------------------------------------------------------
+        def Enqueue(
+            element: Element,
+        ) -> None:
+            element_key = id(element)
+
+            if element_key not in queue:
+                queue[element_key] = element
 
         # ----------------------------------------------------------------------
         def AreAllDescendantsDisabled(
@@ -869,6 +911,9 @@ class _Step3Visitor(NonRecursiveVisitor):
             def OnElement(
                 descendant: Element,
             ) -> Optional[VisitResult]:
+                if isinstance(descendant, (Cardinality, SimpleElement)):
+                    return VisitResult.SkipAll
+
                 descendants.append(descendant)
                 return None
 
@@ -881,14 +926,19 @@ class _Step3Visitor(NonRecursiveVisitor):
                 descendant.Disable()
 
                 nonlocal queue
-                queue += self._nodes[id(descendant)].referenced_by.values()
+
+                for referenced_by in self._nodes[id(descendant)].referenced_by.values():
+                    Enqueue(referenced_by.element)
 
         # ----------------------------------------------------------------------
 
-        while queue:
-            this_element = queue.pop(0)
+        for node in self._nodes.values():
+            Enqueue(node.element)
 
-            if this_element is element:
+        while queue:
+            this_element = queue.pop(next(iter(queue.keys())))
+
+            if this_element is root:
                 continue
 
             if this_element.is_disabled:
@@ -902,7 +952,7 @@ class _Step3Visitor(NonRecursiveVisitor):
             # Disable this element if everything that references it is disabled
             if (
                 should_disable is False
-                and all(referenced_by.is_disabled for referenced_by in node.referenced_by.values())
+                and all(referenced_by.element.is_disabled for referenced_by in node.referenced_by.values())
             ):
                 should_disable = True
 
@@ -921,9 +971,37 @@ class _Step3Visitor(NonRecursiveVisitor):
                 DisableElement(node.element)
 
     # ----------------------------------------------------------------------
-    # |  Private Types
-    @dataclass(frozen=True)
-    class _ElementNode(object):
-        element: Element
+    def _ResolveReferenceTypeSharedState(
+        self,
+        root: Element,
+    ) -> None:
+        # ----------------------------------------------------------------------
+        def IsShared(
+            ref_elements: Iterable[Element],
+        ) -> bool:
+            count = 0
 
-        referenced_by: dict[int, Element]   = field(init=False, default_factory=dict)
+            for ref_element in ref_elements:
+                if ref_element.is_disabled:
+                    continue
+
+                count += 1
+                if count == 2:
+                    return True
+
+            return False
+
+        # ----------------------------------------------------------------------
+
+        for node in self._nodes.values():
+            if node.element.is_disabled:
+                continue
+
+            if not isinstance(node.element, ReferenceType):
+                continue
+
+            assert node.referenced_by
+
+            node.element.ResolveShared(
+                is_shared=IsShared(ref_node.element for ref_node in node.referenced_by.values()),
+            )

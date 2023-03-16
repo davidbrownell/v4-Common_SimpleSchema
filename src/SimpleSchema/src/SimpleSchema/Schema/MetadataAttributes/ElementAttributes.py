@@ -77,7 +77,6 @@ class DefaultMetadataAttribute(MetadataAttribute):
             cardinality: Optional[Cardinality]=None,
         ) -> ReferenceType:
             return ReferenceType.Create(
-                Range.CreateFromCode(),
                 SimpleElement[Visibility](Range.CreateFromCode(), Visibility.Private),
                 SimpleElement[str](Range.CreateFromCode(), basic_type.NAME),
                 basic_type,

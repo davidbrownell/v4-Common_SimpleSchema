@@ -16,7 +16,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln18
       cardinality: <single>
@@ -32,7 +32,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -44,7 +45,6 @@
         __disabled__: false
         range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
         unique_name: _DefinedLater-Struct-Ln20
-        visibility: Visibility.Private
         name: _DefinedLater-Struct-Ln20
         children:
         - __type__: ReferenceType
@@ -55,7 +55,8 @@
           flags:
           - Alias
           - BasicRef
-          - DefinedInline
+          - SharedAccess
+          - TypeDefinition
           visibility: Visibility.Private
           type:
             __type__: StringType
@@ -73,6 +74,8 @@
           flags:
           - Alias
           - ReferenceRef
+          - BasicRefWithCardinality
+          - SharedAccess
           visibility: Visibility.Public
           name: InnerType
           cardinality: <single>

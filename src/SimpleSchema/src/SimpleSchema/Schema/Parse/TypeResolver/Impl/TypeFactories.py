@@ -27,8 +27,6 @@ from Common_Foundation.Types import extensionmethod, overridemethod
 from ...ANTLR.Elements.Statements.ParseItemStatement import ParseItemStatement
 from ...ANTLR.Elements.Statements.ParseStructureStatement import ParseStructureStatement
 
-from ...ParseState.ParseState import ParseState
-
 from ....Elements.Common.SimpleElement import SimpleElement
 from ....Elements.Common.Visibility import Visibility
 
@@ -190,22 +188,20 @@ class StructureTypeFactory(_TypeFactory):
                             not isinstance(resolved_base_type.type, FundamentalType)
                             and not isinstance(resolved_base_type.type, StructureType)
                         ):
-                            raise Errors.TypeFactoryInvalidBaseType.Create(base.range)
+                            raise Errors.TypeFactoryInvalidBaseType.Create(resolved_base_type.range)
 
                         if len(statement.bases) > 1 and not isinstance(resolved_base_type.type, StructureType):
-                            raise Errors.TypeFactoryInvalidBaseTypeMultiInheritance.Create(base.range)
+                            raise Errors.TypeFactoryInvalidBaseTypeMultiInheritance.Create(resolved_base_type.range)
 
                     base_types.append(base_type)
 
         result = ReferenceType.Create(
-            statement.range,
             statement.name.visibility,
             statement.name.ToSimpleElement(),
             StructureType(
                 statement.range,
                 StructureStatement(
                     statement.range,
-                    SimpleElement[Visibility](statement.range, Visibility.Private),
                     SimpleElement[str](
                         statement.range,
                         "_{}-Struct-Ln{}".format(statement.name.value, statement.range.begin.line),
@@ -216,7 +212,7 @@ class StructureTypeFactory(_TypeFactory):
             ),
             statement.cardinality,
             statement.unresolved_metadata,
-            was_dynamically_generated=False,
+            is_type_definition=True,
         )
 
         return result
@@ -256,6 +252,5 @@ class ReferenceTypeFactory(_TypeFactory):
             name_element,
             ancestor_identities,
             fundamental_types,
-            is_dynamically_generated=False,
             range_value=statement.range,
         )

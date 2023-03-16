@@ -30,6 +30,8 @@ from ..ANTLR.Elements.Statements.ParseItemStatement import ParseItemStatement
 from ..ANTLR.Elements.Statements.ParseStructureStatement import ParseStructureStatement
 from ..ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 
+from ..Common import PSEUDO_TYPE_NAME_PREFIX
+
 from ..ParseState.ParseState import ParseState
 from ..Visitor import Visitor, VisitResult
 
@@ -221,7 +223,7 @@ class _CreateNamespacesVisitor(Visitor):
                 raise Errors.ResolveStructureStatementEmptyPseudoElement.Create(element.range)
 
             # Create a pseudo element for this Typedef
-            unique_type_name = "_PseudoType-Ln{}".format(element.range.begin.line)
+            unique_type_name = "{}-Ln{}".format(PSEUDO_TYPE_NAME_PREFIX, element.range.begin.line)
 
             new_structure = ParseStructureStatement(
                 element.range,

@@ -17,10 +17,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
         unique_name: _Structure-Struct-Ln1
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>

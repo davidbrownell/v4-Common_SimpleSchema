@@ -22,10 +22,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
         unique_name: _Structure-Struct-Ln1
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
@@ -52,10 +48,6 @@
               __type__: StructureStatement
               range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>
               unique_name: _Structure-Struct-Ln1._Nested-Struct-Ln2
-              visibility:
-                __type__: SimpleElement
-                range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>
-                value: Visibility.Private
               name:
                 __type__: SimpleElement
                 range: entry_point <Ln 2, Col 5 -> Ln 4, Col 5>

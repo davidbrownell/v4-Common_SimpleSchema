@@ -11,7 +11,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     metadata:
       name: The object
       description: A description of the object
@@ -26,7 +27,6 @@
         __disabled__: false
         range: Metadata.SimpleSchema (Ln 18, Col 1 -> Ln 28, Col 1)
         unique_name: _Object-Struct-Ln18
-        visibility: Visibility.Private
         name: _Object-Struct-Ln18
         children:
         - __type__: ItemStatement
@@ -43,8 +43,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             metadata:
               name: A value
               description: A description of a value
@@ -67,6 +67,9 @@
     flags:
     - Type
     - ReferenceRef
+    - BasicRefWithCardinality
+    - StructureRefWithCardinality
+    - SharedAccess
     metadata:
       name: The objects (name)
       description: A description of the objects
@@ -91,7 +94,9 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln34
       cardinality: <single>
@@ -112,7 +117,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln35
       cardinality: '[10]'
@@ -133,7 +138,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln36
       cardinality: '[5]'
@@ -154,7 +159,9 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       metadata:
         name: A object
       visibility: Visibility.Private
@@ -177,7 +184,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       metadata:
         name: A typedef
       visibility: Visibility.Private
@@ -200,7 +207,7 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       metadata:
         name: 2d Objects
       visibility: Visibility.Private
@@ -217,8 +224,9 @@
     flags:
     - Type
     - ReferenceRef
-    - BasicCollectionRef
-    - DefinedInline
+    - BasicRefWithCardinality
+    - SharedAccess
+    - TypeDefinition
     metadata:
       default: 'null'
     visibility: Visibility.Public
@@ -231,8 +239,8 @@
       flags:
       - Type
       - BasicRef
-      - DynamicallyGenerated
-      - DefinedInline
+      - SingleAccess
+      - TypeDefinition
       visibility: Visibility.Private
       type:
         __type__: StringType
@@ -258,7 +266,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       metadata:
         default: 'null'
       visibility: Visibility.Private
@@ -281,7 +289,7 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - SingleAccess
       metadata:
         default: NONE
       visibility: Visibility.Private
@@ -299,7 +307,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     metadata:
       boolean:
         __type__: BooleanExpression
@@ -366,7 +375,6 @@
         __disabled__: false
         range: Metadata.SimpleSchema (Ln 49, Col 1 -> Ln 60, Col 1)
         unique_name: _MetadataTypes-Struct-Ln49
-        visibility: Visibility.Private
         name: _MetadataTypes-Struct-Ln49
     name: MetadataTypes
     cardinality: <single>

@@ -11,7 +11,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -23,7 +24,6 @@
         __disabled__: false
         range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
         unique_name: _Directory-Struct-Ln19
-        visibility: Visibility.Private
         name: _Directory-Struct-Ln19
         children:
         - __type__: ItemStatement
@@ -40,8 +40,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -65,9 +65,9 @@
             flags:
             - Type
             - ReferenceRef
-            - BasicCollectionRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - BasicRefWithCardinality
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: ReferenceType
@@ -78,8 +78,8 @@
               flags:
               - Type
               - BasicRef
-              - DynamicallyGenerated
-              - DefinedInline
+              - SingleAccess
+              - TypeDefinition
               visibility: Visibility.Private
               type:
                 __type__: StringType
@@ -105,7 +105,9 @@
             flags:
             - Type
             - ReferenceRef
-            - DynamicallyGenerated
+            - BasicRefWithCardinality
+            - StructureRefWithCardinality
+            - SingleAccess
             visibility: Visibility.Private
             name: _ItemStatement-Ln23
             cardinality: '*'
@@ -128,7 +130,9 @@
       flags:
       - Type
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln25
       cardinality: '*'

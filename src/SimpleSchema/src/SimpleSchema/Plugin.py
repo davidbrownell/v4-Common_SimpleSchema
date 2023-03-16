@@ -83,9 +83,8 @@ class Plugin(PluginBase):
                 metadata_attribute,
                 "_type",
                 ReferenceType.Create(
-                    Range.CreateFromCode(),
-                    SimpleElement[Visibility](Range.CreateFromCode(), Visibility.Private),
-                    SimpleElement[str](Range.CreateFromCode(), "Type"),
+                    SimpleElement[Visibility](metadata_attribute.type.range, Visibility.Private),
+                    SimpleElement[str](metadata_attribute.type.range, "Type"),
                     metadata_attribute.type,
                     metadata_attribute.cardinality,
                     None,

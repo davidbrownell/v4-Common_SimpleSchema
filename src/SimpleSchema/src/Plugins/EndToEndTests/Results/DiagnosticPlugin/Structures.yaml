@@ -11,7 +11,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -23,7 +24,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
         unique_name: _BasicStructure-Struct-Ln19
-        visibility: Visibility.Private
         name: _BasicStructure-Struct-Ln19
         children:
         - __type__: ItemStatement
@@ -40,8 +40,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -62,7 +62,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -74,7 +75,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 28, Col 73)
         unique_name: _EmptyStructure-Struct-Ln24
-        visibility: Visibility.Private
         name: _EmptyStructure-Struct-Ln24
     name: EmptyStructure
     cardinality: <single>
@@ -87,7 +87,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -99,7 +100,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 29, Col 1 -> Ln 32, Col 1)
         unique_name: _TypeOnly-Struct-Ln29
-        visibility: Visibility.Private
         name: _TypeOnly-Struct-Ln29
         children:
         - __type__: ReferenceType
@@ -110,7 +110,8 @@
           flags:
           - Alias
           - BasicRef
-          - DefinedInline
+          - SharedAccess
+          - TypeDefinition
           visibility: Visibility.Public
           type:
             __type__: StringType
@@ -137,7 +138,8 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln33
       cardinality: <single>
@@ -153,7 +155,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SharedAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -165,7 +168,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 37, Col 1 -> Ln 54, Col 1)
         unique_name: _Nested0-Struct-Ln37
-        visibility: Visibility.Private
         name: _Nested0-Struct-Ln37
         children:
         - __type__: ItemStatement
@@ -182,8 +184,8 @@
             flags:
             - Alias
             - BasicRef
-            - DynamicallyGenerated
-            - DefinedInline
+            - SingleAccess
+            - TypeDefinition
             visibility: Visibility.Private
             type:
               __type__: StringType
@@ -202,7 +204,8 @@
           - Alias
           - BasicRef
           - StructureRef
-          - DefinedInline
+          - SharedAccess
+          - TypeDefinition
           visibility: Visibility.Public
           type:
             __type__: StructureType
@@ -214,7 +217,6 @@
               __disabled__: false
               range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
               unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40
-              visibility: Visibility.Private
               name: _Nested1-Struct-Ln40
               children:
               - __type__: ItemStatement
@@ -231,8 +233,8 @@
                   flags:
                   - Alias
                   - BasicRef
-                  - DynamicallyGenerated
-                  - DefinedInline
+                  - SingleAccess
+                  - TypeDefinition
                   visibility: Visibility.Private
                   type:
                     __type__: StringType
@@ -251,7 +253,8 @@
                 - Alias
                 - BasicRef
                 - StructureRef
-                - DefinedInline
+                - SharedAccess
+                - TypeDefinition
                 visibility: Visibility.Public
                 type:
                   __type__: StructureType
@@ -263,7 +266,6 @@
                     __disabled__: false
                     range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
                     unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43
-                    visibility: Visibility.Private
                     name: _Nested2-Struct-Ln43
                     children:
                     - __type__: ItemStatement
@@ -280,8 +282,8 @@
                         flags:
                         - Alias
                         - BasicRef
-                        - DynamicallyGenerated
-                        - DefinedInline
+                        - SingleAccess
+                        - TypeDefinition
                         visibility: Visibility.Private
                         type:
                           __type__: StringType
@@ -300,7 +302,8 @@
                       - Alias
                       - BasicRef
                       - StructureRef
-                      - DefinedInline
+                      - SharedAccess
+                      - TypeDefinition
                       visibility: Visibility.Public
                       type:
                         __type__: StructureType
@@ -312,7 +315,6 @@
                           __disabled__: false
                           range: Structures.SimpleSchema (Ln 46, Col 13 -> Ln 48, Col 1)
                           unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46
-                          visibility: Visibility.Private
                           name: _Nested3-Struct-Ln46
                           children:
                           - __type__: ItemStatement
@@ -329,8 +331,8 @@
                               flags:
                               - Alias
                               - BasicRef
-                              - DynamicallyGenerated
-                              - DefinedInline
+                              - SingleAccess
+                              - TypeDefinition
                               visibility: Visibility.Private
                               type:
                                 __type__: StringType
@@ -356,7 +358,9 @@
                         flags:
                         - Alias
                         - ReferenceRef
-                        - DynamicallyGenerated
+                        - BasicRefWithCardinality
+                        - StructureRefWithCardinality
+                        - SingleAccess
                         visibility: Visibility.Private
                         name: _ItemStatement-Ln49
                         cardinality: <single>
@@ -379,7 +383,9 @@
                   flags:
                   - Alias
                   - ReferenceRef
-                  - DynamicallyGenerated
+                  - BasicRefWithCardinality
+                  - StructureRefWithCardinality
+                  - SingleAccess
                   visibility: Visibility.Private
                   name: _ItemStatement-Ln51
                   cardinality: <single>
@@ -402,7 +408,9 @@
             flags:
             - Alias
             - ReferenceRef
-            - DynamicallyGenerated
+            - BasicRefWithCardinality
+            - StructureRefWithCardinality
+            - SingleAccess
             visibility: Visibility.Private
             name: _ItemStatement-Ln53
             cardinality: <single>
@@ -425,7 +433,9 @@
       flags:
       - Alias
       - ReferenceRef
-      - DynamicallyGenerated
+      - BasicRefWithCardinality
+      - StructureRefWithCardinality
+      - SingleAccess
       visibility: Visibility.Private
       name: _ItemStatement-Ln55
       cardinality: <single>
@@ -441,7 +451,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -453,7 +464,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 59, Col 1 -> Ln 63, Col 73)
         unique_name: _SingleBasicBase-Struct-Ln59
-        visibility: Visibility.Private
         name: _SingleBasicBase-Struct-Ln59
         base_types:
         - __type__: ReferenceType
@@ -464,8 +474,8 @@
           flags:
           - Alias
           - BasicRef
-          - DynamicallyGenerated
-          - DefinedInline
+          - SingleAccess
+          - TypeDefinition
           visibility: Visibility.Private
           type:
             __type__: StringType
@@ -487,7 +497,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -499,7 +510,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 64, Col 1 -> Ln 68, Col 73)
         unique_name: _SingleStructureBase-Struct-Ln64
-        visibility: Visibility.Private
         name: _SingleStructureBase-Struct-Ln64
         base_types:
         - __type__: ReferenceType
@@ -510,7 +520,9 @@
           flags:
           - Alias
           - ReferenceRef
-          - DynamicallyGenerated
+          - BasicRefWithCardinality
+          - StructureRefWithCardinality
+          - SingleAccess
           visibility: Visibility.Private
           name: _Base0
           cardinality: <single>
@@ -528,7 +540,8 @@
     - Alias
     - BasicRef
     - StructureRef
-    - DefinedInline
+    - SingleAccess
+    - TypeDefinition
     visibility: Visibility.Public
     type:
       __type__: StructureType
@@ -540,7 +553,6 @@
         __disabled__: false
         range: Structures.SimpleSchema (Ln 69, Col 1 -> Ln 71, Col 1)
         unique_name: _MultipleStructureBase-Struct-Ln69
-        visibility: Visibility.Private
         name: _MultipleStructureBase-Struct-Ln69
         base_types:
         - __type__: ReferenceType
@@ -551,7 +563,9 @@
           flags:
           - Alias
           - ReferenceRef
-          - DynamicallyGenerated
+          - BasicRefWithCardinality
+          - StructureRefWithCardinality
+          - SingleAccess
           visibility: Visibility.Private
           name: _Base0
           cardinality: <single>
@@ -566,7 +580,9 @@
           flags:
           - Alias
           - ReferenceRef
-          - DynamicallyGenerated
+          - BasicRefWithCardinality
+          - StructureRefWithCardinality
+          - SingleAccess
           visibility: Visibility.Private
           name: _Base1
           cardinality: <single>
@@ -581,7 +597,9 @@
           flags:
           - Alias
           - ReferenceRef
-          - DynamicallyGenerated
+          - BasicRefWithCardinality
+          - StructureRefWithCardinality
+          - SingleAccess
           visibility: Visibility.Private
           name: _Base2
           cardinality: <single>

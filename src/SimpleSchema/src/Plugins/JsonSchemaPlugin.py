@@ -419,7 +419,10 @@ class _Visitor(Visitor):
 
         if (
             isinstance(schema_info.element, ReferenceType)
-            and schema_info.element.flags & ReferenceType.Flag.DynamicallyGenerated
+            and (
+                schema_info.element.flags & ReferenceType.Flag.TypeDefinition
+                or not schema_info.element.flags & ReferenceType.Flag.SharedAccess
+            )
         ):
             schema_info = self._schema_info_lookup.pop(schema_info_lookup_key)
 
@@ -686,7 +689,7 @@ class _Visitor(Visitor):
             if element.flags & ReferenceType.Flag.StructureRef:
                 assert isinstance(element.type, StructureType)
                 structure_statement = element.type.structure
-            elif element.flags & ReferenceType.Flag.StructureCollectionRef:
+            elif element.flags & ReferenceType.Flag.StructureRefWithCardinality:
                 assert isinstance(element.type, ReferenceType)
                 assert isinstance(element.type.type, StructureType)
                 structure_statement = element.type.type.structure

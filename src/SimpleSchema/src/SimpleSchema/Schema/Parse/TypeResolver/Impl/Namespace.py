@@ -115,7 +115,6 @@ class Namespace(object):
         ancestor_identities: list[SimpleElement[str]],
         fundamental_types: dict[str, PythonType[FundamentalType]],
         *,
-        is_dynamically_generated: bool=True,
         range_value: Optional[Range]=None,
     ) -> ReferenceType:
         if identity in ancestor_identities:
@@ -138,7 +137,6 @@ class Namespace(object):
                     parse_type,
                     ancestor_identities,
                     fundamental_types,
-                    is_dynamically_generated=is_dynamically_generated,
                     range_value=range_value,
                 )
 
@@ -172,13 +170,12 @@ class Namespace(object):
             )
 
             return ReferenceType.Create(
-                range_value or parse_type.range,
                 visibility,
                 type_name,
                 basic_type,
                 parse_type.cardinality,
                 parse_type.unresolved_metadata,
-                was_dynamically_generated=is_dynamically_generated,
+                range_value=range_value or parse_type.range,
             )
 
     # ----------------------------------------------------------------------
@@ -456,7 +453,6 @@ class Namespace(object):
         ancestor_identities: list[SimpleElement[str]],
         fundamental_types: dict[str, PythonType[FundamentalType]],
         *,
-        is_dynamically_generated: bool,
         range_value: Optional[Range],
     ) -> ReferenceType:
         if parse_type.is_global_reference is None:
@@ -556,13 +552,12 @@ class Namespace(object):
                             )
 
                 return ReferenceType.Create(
-                    range_value or parse_type.range,
                     visibility,
                     name,
                     namespace_type,
                     parse_type.cardinality,
                     parse_type.unresolved_metadata,
-                    was_dynamically_generated=is_dynamically_generated,
+                    range_value=range_value or parse_type.range,
                 )
 
         if len(parse_type.identifiers) == 1:
@@ -575,13 +570,12 @@ class Namespace(object):
                 #       the metadata is the same.
 
                 return ReferenceType.Create(
-                    range_value or parse_type.range,
                     visibility,
                     name,
                     fundamental_class.CreateFromMetadata(parse_type.range, parse_type.unresolved_metadata),
                     parse_type.cardinality,
                     parse_type.unresolved_metadata,
-                    was_dynamically_generated=is_dynamically_generated,
+                    range_value=range_value or parse_type.range,
                 )
 
         raise Errors.NamespaceInvalidType.Create(

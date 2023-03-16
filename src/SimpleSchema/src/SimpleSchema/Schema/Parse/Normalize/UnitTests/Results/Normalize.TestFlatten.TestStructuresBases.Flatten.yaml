@@ -17,10 +17,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
         unique_name: _Base1-Struct-Ln1
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -134,10 +130,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
         unique_name: _Base2-Struct-Ln5
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -212,10 +204,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
         unique_name: _Base3-Struct-Ln8
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 8, Col 1 -> Ln 10, Col 1>
@@ -328,10 +316,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
         unique_name: _NoItems-Struct-Ln11
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 11, Col 1 -> Ln 13, Col 1>
@@ -483,10 +467,6 @@
         __type__: StructureStatement
         range: entry_point <Ln 14, Col 1 -> Ln 16, Col 1>
         unique_name: _WithItems-Struct-Ln14
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 14, Col 1 -> Ln 16, Col 1>
-          value: Visibility.Private
         name:
           __type__: SimpleElement
           range: entry_point <Ln 14, Col 1 -> Ln 16, Col 1>

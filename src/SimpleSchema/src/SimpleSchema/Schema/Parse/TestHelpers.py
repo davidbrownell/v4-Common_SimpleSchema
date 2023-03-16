@@ -294,7 +294,8 @@ class _ToPythonDictVisitor(Visitor):
         self.include_disabled_status        = include_disabled_status
 
         self._stack: list[dict[str, Any]]               = []
-        self._reference_type_stack: list[ReferenceType] = []
+
+        self._display_type_as_reference: bool           = False
 
     # ----------------------------------------------------------------------
     @property
@@ -562,11 +563,12 @@ class _ToPythonDictVisitor(Visitor):
             if metadata:
                 self._stack[-1]["metadata"] = metadata
 
-        self._reference_type_stack.append(element)
-        with ExitStack(self._reference_type_stack.pop):
-            yield
+        display_type_as_reference = not element.flags & ReferenceType.Flag.TypeDefinition
 
-        if not (element.flags & ReferenceType.Flag.DefinedInline):
+        self._display_type_as_reference = display_type_as_reference
+        yield
+
+        if display_type_as_reference:
             if element.flags & ReferenceType.Flag.BasicRef:
                 name = element.type.display_type
             else:
@@ -586,14 +588,9 @@ class _ToPythonDictVisitor(Visitor):
         *,
         include_disabled: bool,
     ) -> Optional[VisitResult]:
-        assert self._reference_type_stack
-        reference_type = self._reference_type_stack[-1]
-
-        if not (reference_type.flags & ReferenceType.Flag.DefinedInline):
-            # Don't follow this type if it isn't defined inline. We check here rather than
-            # preventing visitation in OnReferenceType because we want do display the other
-            # details of the reference type (which wouldn't happen if we skipped everything).
-            return
+        if self._display_type_as_reference:
+            self._display_type_as_reference = False
+            return None
 
         return self._DefaultDetailMethod("type", element_or_elements, include_disabled=include_disabled)
 

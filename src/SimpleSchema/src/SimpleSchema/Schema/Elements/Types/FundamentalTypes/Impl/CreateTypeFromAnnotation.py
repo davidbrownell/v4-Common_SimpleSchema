@@ -115,9 +115,8 @@ def CreateTypeFromAnnotation(
             raise Exception(Errors.create_type_from_annotation_invalid_type.format(value=python_type_annotation))
 
     return ReferenceType.Create(
-        Range.CreateFromCode(),
-        SimpleElement[Visibility](Range.CreateFromCode(), Visibility.Private),
-        SimpleElement[str](Range.CreateFromCode(), basic_type.NAME),
+        SimpleElement[Visibility](basic_type.range, Visibility.Private),
+        SimpleElement[str](basic_type.range, basic_type.NAME),
         basic_type,
         Cardinality.CreateFromCode(cardinality_min, cardinality_max),
         None,
