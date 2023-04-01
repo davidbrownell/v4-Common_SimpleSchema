@@ -99,7 +99,7 @@ setup(
     description=SimpleSchemaMain.__doc__,
     executables=[
         Executable(
-            PathEx.EnsureFile(Path(__file__).parent / "src" / "EntryPoint" / "__main__.py"),
+            PathEx.EnsureFile(_this_dir / "src" / "EntryPoint" / "__main__.py"),
             base=None,
             copyright=textwrap.dedent(
                 """\
