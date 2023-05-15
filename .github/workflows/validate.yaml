@@ -53,7 +53,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
 
-    uses: davidbrownell/v4-Common_Foundation/.github/workflows/callable_validate.yaml@CI-latest
+    uses: davidbrownell/v4-Common_Foundation/.github/workflows/callable_validate.yaml@CI-v1
     with:
       job_name_prefix: "Common_SimpleSchema"
       repo_name: davidbrownell/v4-Common_SimpleSchema
@@ -95,7 +95,7 @@ jobs:
   # ----------------------------------------------------------------------
   _61804fa1-d9d9-47bc-890f-838f95197a1d:
     name: "Build and Test: dev"
-    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-latest
+    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-v1
     with:
       job_name_prefix: "Common_SimpleSchema"
       repo_name: davidbrownell/v4-Common_SimpleSchema
@@ -177,7 +177,7 @@ jobs:
       #
       - name: Unbundle Build Artifacts
         id: unbundle
-        uses: davidbrownell/v4-Common_Foundation/.github/actions/unbundle_builder_artifacts@CI-latest
+        uses: davidbrownell/v4-Common_Foundation/.github/actions/unbundle_builder_artifacts@CI-v1
         with:
           archive_prefix: ${{ steps.checkout_source.outputs.archive_prefix }}
           artifacts_path: src/SimpleSchema/Build
@@ -198,7 +198,7 @@ jobs:
   # ----------------------------------------------------------------------
   _7a76a3ae-1aab-4649-ba80-00b7f6b4f5cf:
     name: "Build and Test: dev"
-    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-latest
+    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-v1
     with:
       job_name_prefix: "Common_SimpleSchema"
       repo_name: davidbrownell/v4-Common_SimpleSchema
@@ -280,7 +280,7 @@ jobs:
       #
       - name: Unbundle Build Artifacts
         id: unbundle
-        uses: davidbrownell/v4-Common_Foundation/.github/actions/unbundle_builder_artifacts@CI-latest
+        uses: davidbrownell/v4-Common_Foundation/.github/actions/unbundle_builder_artifacts@CI-v1
         with:
           archive_prefix: ${{ steps.checkout_source.outputs.archive_prefix }}
           artifacts_path: src/SimpleSchema/Build
@@ -301,7 +301,7 @@ jobs:
   # ----------------------------------------------------------------------
   _bbf0a875-46b3-463a-b037-5ac1f70bfdd7:
     name: "Build and Test: dev"
-    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-latest
+    uses: davidbrownell/v4-Common_PythonDevelopment/.github/workflows/callable_validate.yaml@CI-v1
     with:
       job_name_prefix: "Common_SimpleSchema"
       repo_name: davidbrownell/v4-Common_SimpleSchema
@@ -383,7 +383,7 @@ jobs:
       #
       - name: Unbundle Build Artifacts
         id: unbundle
-        uses: davidbrownell/v4-Common_Foundation/.github/actions/unbundle_builder_artifacts@CI-latest
+        uses: davidbrownell/v4-Common_Foundation/.github/actions/unbundle_builder_artifacts@CI-v1
         with:
           archive_prefix: ${{ steps.checkout_source.outputs.archive_prefix }}
           artifacts_path: src/SimpleSchema/Build
@@ -396,4 +396,3 @@ jobs:
       - name: Run Test
         run: |
           python3 "${{ steps.checkout_source.outputs.repo_dir }}/src/SimpleSchema/src/SimpleSchema/TestFiles/Binary_BuildVerificationTest.py" "${{ steps.unbundle.outputs.artifacts_dir }}"
-
