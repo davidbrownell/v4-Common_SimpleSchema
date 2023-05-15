@@ -24,13 +24,13 @@ on:
 jobs:
   _99a33188-53af-4ee5-a99d-4ecb33878b11:
     name: "Validate (target: ${{ github.base_ref }})"
-    uses: davidbrownell/v4-Common_SimpleSchema/.github/workflows/validate.yaml@CI-latest
+    uses: davidbrownell/v4-Common_SimpleSchema/.github/workflows/validate.yaml@CI-v1
     with:
       repo_branch: ${{ github.head_ref }}
 
   _fc68e2fb-f282-4f22-aa12-b6ac8e628bc9:
     name: "Validate Pull Request (target: ${{ github.base_ref }})"
-    uses: davidbrownell/v4-Common_Foundation/.github/workflows/callable_validate_pull_request.yaml@CI-latest
+    uses: davidbrownell/v4-Common_Foundation/.github/workflows/callable_validate_pull_request.yaml@CI-v1
     with:
       job_name_prefix: Common_SimpleSchema
       repo_name: davidbrownell/v4-Common_SimpleSchema
