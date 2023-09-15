@@ -2,13 +2,7 @@
   "$schema" : "https://json-schema.org/draft/2020-12/schema#",
   "$defs" : {
     "Object" : {
-      "$ref" : "#/$defs/_Object-Struct-Ln18",
-      "title" : "The object",
-      "description" : "A description of the object"
-    },
-    "_Object-Struct-Ln18" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value" : {
           "type" : "string",
@@ -19,7 +13,10 @@
       },
       "required" : [
         "value"
-      ]
+      ],
+      "title" : "The object",
+      "description" : "A description of the object",
+      "additionalProperties" : false
     },
     "Typedef" : {
       "type" : "array",
@@ -32,12 +29,9 @@
       "description" : "A description of the objects"
     },
     "DefaultObject" : {
-      "$ref" : "#/$defs/_DefaultObject-Item-Ln42",
-      "default" : "null"
-    },
-    "_DefaultObject-Item-Ln42" : {
       "type" : "string",
-      "minLength" : 1
+      "minLength" : 1,
+      "default" : "null"
     }
   },
   "type" : "object",

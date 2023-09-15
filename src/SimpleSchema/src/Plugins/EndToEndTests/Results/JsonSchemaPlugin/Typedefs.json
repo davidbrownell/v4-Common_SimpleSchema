@@ -22,18 +22,8 @@
       },
       "minItems" : 1
     },
-    "StrsItem" : {
-      "$ref" : "#/$defs/Str"
-    },
-    "StrAliasesItem" : {
-      "$ref" : "#/$defs/StrAlias"
-    },
     "Object" : {
-      "$ref" : "#/$defs/_Object-Struct-Ln50"
-    },
-    "_Object-Struct-Ln50" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value" : {
           "type" : "string",
@@ -42,7 +32,8 @@
       },
       "required" : [
         "value"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "ObjectAlias" : {
       "$ref" : "#/$defs/Object"
@@ -61,21 +52,8 @@
       },
       "minItems" : 1
     },
-    "ObjectsItem" : {
-      "$ref" : "#/$defs/Object"
-    },
-    "ObjectAliasesItem" : {
-      "$ref" : "#/$defs/ObjectAlias"
-    },
     "OptionalObject" : {
-      "$ref" : "#/$defs/_OptionalObject-Item-Ln81"
-    },
-    "_OptionalObject-Item-Ln81" : {
-      "$ref" : "#/$defs/_OptionalObject-Struct-Ln81"
-    },
-    "_OptionalObject-Struct-Ln81" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value" : {
           "type" : "string",
@@ -84,16 +62,11 @@
       },
       "required" : [
         "value"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "OptionalObjectAlias" : {
       "$ref" : "#/$defs/OptionalObject"
-    },
-    "ConcreteOptionalObject" : {
-      "$ref" : "#/$defs/_OptionalObject-Item-Ln81"
-    },
-    "ConcreteOptionalObjectAlias" : {
-      "$ref" : "#/$defs/_OptionalObject-Item-Ln81"
     },
     "OptionalObjects" : {
       "type" : "array",
@@ -109,72 +82,38 @@
       },
       "minItems" : 1
     },
-    "OptionalObjectsItem" : {
-      "$ref" : "#/$defs/OptionalObject"
-    },
-    "OptionalObjectAliasesItem" : {
-      "$ref" : "#/$defs/OptionalObjectAlias"
-    },
-    "ConcreteOptionalObjects" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/_OptionalObject-Item-Ln81"
-      },
-      "minItems" : 1
-    },
-    "ConcreteOptionalObjectAliases" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/_OptionalObject-Item-Ln81"
-      },
-      "minItems" : 1
-    },
-    "NestedTypes" : {
-      "$ref" : "#/$defs/_NestedTypes-Struct-Ln119"
-    },
-    "_NestedTypes-Struct-Ln119.NestedStr" : {
+    "NestedTypesStruct.NestedStr" : {
       "type" : "string",
       "minLength" : 1
     },
-    "_NestedTypes-Struct-Ln119.NestedStrAlias" : {
-      "$ref" : "#/$defs/_NestedTypes-Struct-Ln119.NestedStr"
+    "NestedTypesStruct.NestedStrAlias" : {
+      "$ref" : "#/$defs/NestedTypesStruct.NestedStr"
     },
-    "_NestedTypes-Struct-Ln119" : {
+    "NestedTypes" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {},
-      "required" : []
+      "required" : [],
+      "additionalProperties" : false
     },
     "NestedTypes_NestedStr" : {
-      "$ref" : "#/$defs/_NestedTypes-Struct-Ln119.NestedStr"
+      "$ref" : "#/$defs/NestedTypesStruct.NestedStr"
     },
     "NestedTypes_NestedStrAlias" : {
-      "$ref" : "#/$defs/_NestedTypes-Struct-Ln119.NestedStrAlias"
+      "$ref" : "#/$defs/NestedTypesStruct.NestedStrAlias"
     },
     "Container" : {
       "type" : "array",
       "items" : {
-        "$ref" : "#/$defs/_Container-Item-Ln137"
+        "type" : "integer",
+        "minimum" : 0
       },
       "minItems" : 1
-    },
-    "_Container-Item-Ln137" : {
-      "type" : "integer",
-      "minimum" : 0
     },
     "Containers" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/$defs/Container"
       }
-    },
-    "AlteredContainers" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/_Container-Item-Ln137"
-      },
-      "minItems" : 10,
-      "maxItems" : 10
     }
   },
   "type" : "object",
@@ -192,12 +131,6 @@
     "str_aliases" : {
       "$ref" : "#/$defs/StrAliases"
     },
-    "strs_item" : {
-      "$ref" : "#/$defs/StrsItem"
-    },
-    "str_aliases_item" : {
-      "$ref" : "#/$defs/StrAliasesItem"
-    },
     "strs_container" : {
       "type" : "array",
       "items" : {
@@ -209,22 +142,6 @@
       "items" : {
         "$ref" : "#/$defs/StrAliases"
       }
-    },
-    "strs_item_container" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/StrsItem"
-      },
-      "minItems" : 3,
-      "maxItems" : 3
-    },
-    "str_aliases_item_container" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/StrAliasesItem"
-      },
-      "minItems" : 3,
-      "maxItems" : 3
     },
     "object" : {
       "$ref" : "#/$defs/Object"
@@ -238,12 +155,6 @@
     "object_aliases" : {
       "$ref" : "#/$defs/ObjectAliases"
     },
-    "objects_item" : {
-      "$ref" : "#/$defs/ObjectsItem"
-    },
-    "objects_aliases_item" : {
-      "$ref" : "#/$defs/ObjectAliasesItem"
-    },
     "objects_container" : {
       "type" : "array",
       "items" : {
@@ -255,22 +166,6 @@
       "items" : {
         "$ref" : "#/$defs/ObjectAliases"
       }
-    },
-    "objects_item_container" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/ObjectsItem"
-      },
-      "minItems" : 3,
-      "maxItems" : 3
-    },
-    "object_aliases_item_container" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/ObjectAliasesItem"
-      },
-      "minItems" : 3,
-      "maxItems" : 3
     },
     "optional_object" : {
       "$ref" : "#/$defs/OptionalObject"
@@ -284,12 +179,6 @@
     "optional_object_aliases" : {
       "$ref" : "#/$defs/OptionalObjectAliases"
     },
-    "optional_objects_item" : {
-      "$ref" : "#/$defs/OptionalObjectsItem"
-    },
-    "optional_objects_aliases_item" : {
-      "$ref" : "#/$defs/OptionalObjectAliasesItem"
-    },
     "optional_objects_container" : {
       "type" : "array",
       "items" : {
@@ -302,27 +191,11 @@
         "$ref" : "#/$defs/OptionalObjectAliases"
       }
     },
-    "optional_objects_item_container" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/OptionalObjectsItem"
-      },
-      "minItems" : 3,
-      "maxItems" : 3
-    },
-    "optional_object_aliases_item_container" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/OptionalObjectAliasesItem"
-      },
-      "minItems" : 3,
-      "maxItems" : 3
-    },
     "nested_types_nested_str" : {
-      "$ref" : "#/$defs/_NestedTypes-Struct-Ln119.NestedStr"
+      "$ref" : "#/$defs/NestedTypesStruct.NestedStr"
     },
     "nested_types_nested_str_alias" : {
-      "$ref" : "#/$defs/_NestedTypes-Struct-Ln119.NestedStrAlias"
+      "$ref" : "#/$defs/NestedTypesStruct.NestedStrAlias"
     },
     "nested_types_nested_str_type" : {
       "$ref" : "#/$defs/NestedTypes_NestedStr"
@@ -335,17 +208,6 @@
     },
     "containers" : {
       "$ref" : "#/$defs/Containers"
-    },
-    "altered_containers" : {
-      "$ref" : "#/$defs/AlteredContainers"
-    },
-    "altered_altered_Containers" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/_Container-Item-Ln137"
-      },
-      "minItems" : 20,
-      "maxItems" : 20
     }
   },
   "required" : [
@@ -353,35 +215,16 @@
     "str_alias",
     "strs",
     "str_aliases",
-    "strs_item",
-    "str_aliases_item",
-    "strs_container",
-    "str_aliases_container",
-    "strs_item_container",
-    "str_aliases_item_container",
     "object",
     "object_alias",
     "objects",
     "object_aliases",
-    "objects_item",
-    "objects_aliases_item",
-    "objects_container",
-    "object_aliases_container",
-    "objects_item_container",
-    "object_aliases_item_container",
     "optional_objects",
     "optional_object_aliases",
-    "optional_objects_container",
-    "optional_object_aliases_container",
-    "optional_objects_item_container",
-    "optional_object_aliases_item_container",
     "nested_types_nested_str",
     "nested_types_nested_str_alias",
     "nested_types_nested_str_type",
     "nested_types_nested_str_alias_type",
-    "container",
-    "containers",
-    "altered_containers",
-    "altered_altered_Containers"
+    "container"
   ]
 }

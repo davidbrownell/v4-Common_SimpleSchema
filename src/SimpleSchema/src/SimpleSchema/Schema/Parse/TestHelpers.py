@@ -51,6 +51,7 @@ from ..Elements.Expressions.TupleExpression import TupleExpression
 
 from ..Elements.Statements.RootStatement import RootStatement
 
+from ..Elements.Types.BasicType import BasicType
 from ..Elements.Types.FundamentalTypes.DirectoryType import DirectoryType
 from ..Elements.Types.FundamentalTypes.EnumType import EnumType
 from ..Elements.Types.FundamentalTypes.FilenameType import FilenameType
@@ -563,17 +564,21 @@ class _ToPythonDictVisitor(Visitor):
             if metadata:
                 self._stack[-1]["metadata"] = metadata
 
-        display_type_as_reference = not element.flags & ReferenceType.Flag.TypeDefinition
+        display_type_as_reference = element.category != ReferenceType.Category.Source
 
         self._display_type_as_reference = display_type_as_reference
+
         yield
 
         if display_type_as_reference:
-            if element.flags & ReferenceType.Flag.BasicRef:
+            if element.is_unique_name_normalized:
+                name = element.unique_name
+            elif isinstance(element.type, BasicType):
                 name = element.type.display_type
-            else:
-                assert isinstance(element.type, ReferenceType)
+            elif isinstance(element.type, ReferenceType):
                 name = element.type.name.value
+            else:
+                assert False, element.type  # pragma: no cover
 
             self._stack[-1]["reference"] = {
                 "name": name,
@@ -616,5 +621,3 @@ class _ToPythonDictVisitor(Visitor):
 
         if element.is_global_reference:
             self._stack[-1]["is_global_reference"] = str(element.is_global_reference)
-        if element.is_item_reference:
-            self._stack[-1]["is_item_reference"] = str(element.is_item_reference)

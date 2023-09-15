@@ -234,9 +234,8 @@ parse_type:                                 (
                                                 | parse_identifier_type
                                             ) cardinality_clause? metadata_clause?;
 
-parse_identifier_type:                      parse_identifier_type_global? identifier ('.' identifier)* parse_identifier_type_item?;
+parse_identifier_type:                      parse_identifier_type_global? identifier ('.' identifier)*;
 parse_identifier_type_global:               '::';
-parse_identifier_type_item:                 '::item';
 
 parse_tuple_type:                           LPAREN (parse_tuple_type_single_item__ | parse_tuple_type_multi_item__) RPAREN;
 parse_tuple_type_single_item__:             parse_type ',';

@@ -38,7 +38,6 @@ class ParseIdentifierType(ParseType):
     # ----------------------------------------------------------------------
     identifiers: list[ParseIdentifier]
     is_global_reference: Optional[Range]
-    is_item_reference: Optional[Range]
 
     # ----------------------------------------------------------------------
     def __post_init__(self):
@@ -65,9 +64,8 @@ class ParseIdentifierType(ParseType):
     @property
     @overridemethod
     def _display_type(self) -> str:
-        return "{global_value}{identifiers}{item}{cardinality}".format(
+        return "{global_value}{identifiers}{cardinality}".format(
             global_value="::" if self.is_global_reference else "",
             identifiers=".".join(identifier.value for identifier in self.identifiers),
-            item="::item" if self.is_item_reference else "",
             cardinality=self.cardinality,
         )

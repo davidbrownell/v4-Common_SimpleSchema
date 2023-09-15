@@ -1,0 +1,67 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 7, Col 1>
+  statements:
+  - __type__: ReferenceType
+    range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+    unique_name: MaybeUsed
+    display_type: MaybeUsedStruct
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: MaybeUsed
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+        value: 1
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+      unique_name: MaybeUsedStruct
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+        unique_name: MaybeUsedStruct
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+          value: MaybeUsedStruct
+        children:
+        - __type__: ReferenceType
+          range: entry_point <Ln 3, Col 5 -> Ln 4, Col 1>
+          unique_name: MaybeUsedStruct.Type
+          display_type: String
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 5 -> Ln 3, Col 9>
+            value: Visibility.Public
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 3, Col 5 -> Ln 3, Col 9>
+            value: Type
+          cardinality:
+            __type__: Cardinality
+            range: entry_point <Ln 3, Col 11 -> Ln 3, Col 17>
+            min:
+              __type__: IntegerExpression
+              range: entry_point <Ln 3, Col 11 -> Ln 3, Col 17>
+              value: 1
+            max:
+              __type__: IntegerExpression
+              range: entry_point <Ln 3, Col 11 -> Ln 3, Col 17>
+              value: 1
+          type:
+            __type__: StringType
+            range: entry_point <Ln 3, Col 11 -> Ln 3, Col 17>
+            unique_name: MaybeUsedStruct.String-Ln3Col11
+            min_length: 1

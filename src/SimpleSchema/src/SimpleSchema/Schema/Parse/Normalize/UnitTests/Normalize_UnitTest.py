@@ -64,7 +64,6 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Parse import TestHelpers
     from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse
     from SimpleSchema.Schema.Parse.Normalize.Normalize import Normalize, Flag as NormalizeFlag
-    from SimpleSchema.Schema.Parse.ParseState.ParseState import ParseState
     from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve
 
 
@@ -578,7 +577,6 @@ class TestMetadata(object):
                 basic_type,
                 Cardinality.CreateFromCode(1, 1),
                 None,
-                was_dynamically_generated=False,
             )
 
         # ----------------------------------------------------------------------
@@ -1562,7 +1560,6 @@ def test_DisableUnusedRootElement():
 
 
 # ----------------------------------------------------------------------
-@pytest.mark.skip("TODO")
 def test_DisableElementUsedFromUnused():
     _Test(
         textwrap.dedent(
@@ -1573,6 +1570,153 @@ def test_DisableElementUsedFromUnused():
 
             _Unused ->
                 value: MaybeUsed.Type
+            """,
+        ),
+    )
+
+
+# ----------------------------------------------------------------------
+class TestCollapse(object):
+    # ----------------------------------------------------------------------
+    def test_MultipleBasic(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                value: String[3] { min_length: 2 }
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_MultipleOptional(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                value: String? { min_length: 10 }
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_MultipleStructure(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                values ->
+                    item: String
+                [4]
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_PrivateRootTypedefs(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                _Private: String[10]
+                _Unused: String[10]
+
+                value: _Private
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_NoCollapseWhenRoot(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Strings: String[10] { min_length: 123 }
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_CollapseWhenPrivate(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Structure ->
+                    _Private: String[10]
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_NoCollapseWhenPublic(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Structure ->
+                    Public: String[10]
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_NoCollapseWhenProtected(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Structure ->
+                    @Protected: String[10]
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_NoCollapseWhenShared(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                _Private: String[10]
+                Public: _Private
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_TupleShared(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Strings: String[10]
+
+                Tuple: (Strings, )
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_Tuple(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Tuple: (String[10], )
+                """,
+            ),
+        )
+
+    # ----------------------------------------------------------------------
+    def test_Variant(self):
+        _Test(
+            textwrap.dedent(
+                """\
+                Variant: (Integer | String[10])
+                """,
+            ),
+        )
+
+
+# ----------------------------------------------------------------------
+def test_ItemReference():
+    _Test(
+        textwrap.dedent(
+            """\
+            Container: String+ { min_length: 10 }
+            ContainerAlias: Container
+            Containers: Container+
             """,
         ),
     )
@@ -1631,11 +1775,9 @@ def _TestEx(
         }
 
     dm_and_sink = iter(GenerateDoneManagerAndSink())
-    parse_state = ParseState()
 
     resolve_results = Resolve(
         cast(DoneManager, next(dm_and_sink)),
-        parse_state,
         results,
         single_threaded=single_threaded,
         quiet=quiet,
@@ -1648,7 +1790,6 @@ def _TestEx(
 
     normalize_results = Normalize(
         cast(DoneManager, next(dm_and_sink)),
-        parse_state,
         results,
         metadata_attributes or [],
         supported_extension_names or set(),

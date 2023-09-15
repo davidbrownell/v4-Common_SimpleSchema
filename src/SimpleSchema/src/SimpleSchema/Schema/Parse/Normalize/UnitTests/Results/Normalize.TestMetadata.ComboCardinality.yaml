@@ -14,7 +14,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
-      unique_name: _ItemStatement-Ln1
+      unique_name: ItemStatement-Ln1Col1
       display_type: String
       metadata:
         integer:
@@ -25,15 +25,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
         value: Visibility.Private
-      type:
-        __type__: StringType
-        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
-        unique_name: String-Ln1
-        min_length: 1
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-        value: _ItemStatement-Ln1
+        value: ItemStatement-Ln1Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
@@ -45,6 +40,11 @@
           __type__: IntegerExpression
           range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
           value: 1
+      type:
+        __type__: StringType
+        range: entry_point <Ln 1, Col 7 -> Ln 1, Col 28>
+        unique_name: String-Ln1Col7
+        min_length: 1
   - __type__: ItemStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
     visibility:
@@ -58,7 +58,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-      unique_name: _ItemStatement-Ln2
+      unique_name: ItemStatement-Ln2Col1
       display_type: String[3]
       metadata:
         integer:
@@ -69,39 +69,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
         value: Visibility.Private
-      type:
-        __type__: ReferenceType
-        range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-        unique_name: __ItemStatement-Ln2-Item-Ln2
-        display_type: String
-        visibility:
-          __type__: SimpleElement
-          range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-          value: Visibility.Private
-        type:
-          __type__: StringType
-          range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-          unique_name: String-Ln2
-          min_length: 1
-        name:
-          __type__: SimpleElement
-          range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-          value: __ItemStatement-Ln2-Item-Ln2
-        cardinality:
-          __type__: Cardinality
-          range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-          min:
-            __type__: IntegerExpression
-            range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-            value: 1
-          max:
-            __type__: IntegerExpression
-            range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
-            value: 1
       name:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-        value: _ItemStatement-Ln2
+        value: ItemStatement-Ln2Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 2, Col 13 -> Ln 2, Col 16>
@@ -113,3 +84,8 @@
           __type__: IntegerExpression
           range: entry_point <Ln 2, Col 14 -> Ln 2, Col 15>
           value: 3
+      type:
+        __type__: StringType
+        range: entry_point <Ln 2, Col 7 -> Ln 2, Col 31>
+        unique_name: String-Ln2Col7
+        min_length: 1

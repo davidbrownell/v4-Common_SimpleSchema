@@ -35,8 +35,6 @@ from ...ANTLR.Elements.Types.ParseTupleType import ParseTupleType
 from ...ANTLR.Elements.Types.ParseType import ParseType
 from ...ANTLR.Elements.Types.ParseVariantType import ParseVariantType
 
-from ...ParseState.ParseState import ParseState
-
 from ....Elements.Common.Element import Element
 from ....Elements.Common.Metadata import Metadata, MetadataItem
 from ....Elements.Common.SimpleElement import SimpleElement
@@ -49,6 +47,7 @@ from ....Elements.Statements.Statement import Statement
 from ....Elements.Types.BasicType import BasicType
 from ....Elements.Types.FundamentalType import FundamentalType
 from ....Elements.Types.ReferenceType import ReferenceType
+from ....Elements.Types.StructureType import StructureType
 from ....Elements.Types.TupleType import TupleType
 from ....Elements.Types.VariantType import VariantType
 
@@ -154,9 +153,10 @@ class Namespace(object):
                         SimpleElement[Visibility](child_type.range, Visibility.Private),
                         SimpleElement[str](
                             child_type.range,
-                            "_{}-Ln{}_Type{}".format(
+                            "{}_Ln{}Col{}_Type{}".format(
                                 basic_type_class.NAME,
                                 parse_type.range.begin.line,
+                                parse_type.range.begin.column,
                                 child_type_index,
                             ),
                         ),
@@ -413,7 +413,10 @@ class Namespace(object):
                     SimpleElement[Visibility](item_statement.range, Visibility.Private),
                     SimpleElement[str](
                         item_statement.range,
-                        "_ItemStatement-Ln{}".format(item_statement.range.begin.line),
+                        "ItemStatement-Ln{}Col{}".format(
+                            item_statement.range.begin.line,
+                            item_statement.range.begin.column,
+                        ),
                     ),
                     item_statement.type,
                     SimpleElement[str](
@@ -517,39 +520,30 @@ class Namespace(object):
             namespace_type = GetNamespaceType()
 
             if namespace_type is not None:
-                with namespace_type.Resolve() as resolved_type:
-                    if parse_type.is_item_reference is not None:
-                        if resolved_type.cardinality.is_single:
-                            raise Errors.NamespaceInvalidItemReference.Create(
-                                parse_type.is_item_reference,
-                                namespace_type.name.value,
-                            )
+                # Determine if there is type-altering metadata present
+                if parse_type.unresolved_metadata is not None:
+                    with namespace_type.Resolve() as resolved_type:
+                        if (
+                            isinstance(resolved_type.type, BasicType)
+                            and not isinstance(resolved_type.type, StructureType)
+                        ):
+                            basic_type = resolved_type.type
 
-                        namespace_type = resolved_type.type
-                        assert isinstance(namespace_type, ReferenceType), namespace_type
+                            type_metadata_items: list[MetadataItem] = []
 
-                    # Determine if there is type-altering metadata present
-                    if (
-                        parse_type.unresolved_metadata is not None
-                        and resolved_type.flags & ReferenceType.Flag.BasicRef
-                        and not resolved_type.flags & ReferenceType.Flag.StructureRef
-                    ):
-                        basic_type = resolved_type.type
-                        assert isinstance(basic_type, BasicType), basic_type
+                            for metadata_item in list(parse_type.unresolved_metadata.items.values()):
+                                if metadata_item.name.value in basic_type.FIELDS:
+                                    type_metadata_items.append(
+                                        parse_type.unresolved_metadata.items.pop(metadata_item.name.value),
+                                    )
 
-                        type_metadata_items: list[MetadataItem] = []
+                            if type_metadata_items:
+                                # TODO: Potentially use fundamental type cache
 
-                        for metadata_item in list(parse_type.unresolved_metadata.items.values()):
-                            if metadata_item.name.value in basic_type.FIELDS:
-                                type_metadata_items.append(
-                                    parse_type.unresolved_metadata.items.pop(metadata_item.name.value),
+                                namespace_type = basic_type.DeriveNewType(
+                                    parse_type.range,
+                                    Metadata(parse_type.range, type_metadata_items),
                                 )
-
-                        if type_metadata_items:
-                            namespace_type = basic_type.DeriveNewType(
-                                parse_type.range,
-                                Metadata(parse_type.range, type_metadata_items),
-                            )
 
                 return ReferenceType.Create(
                     visibility,
@@ -563,9 +557,6 @@ class Namespace(object):
         if len(parse_type.identifiers) == 1:
             fundamental_class = fundamental_types.get(parse_type.identifiers[0].value, None)
             if fundamental_class is not None:
-                if parse_type.is_item_reference:
-                    raise Errors.NamespaceFundamentalItemReference.Create(parse_type.is_item_reference)
-
                 # TODO: Opt-in functionality to cache fundamental types created when
                 #       the metadata is the same.
 

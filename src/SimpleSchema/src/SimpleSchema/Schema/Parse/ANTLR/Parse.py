@@ -284,7 +284,7 @@ def Parse(
 
                 enqueue_func(
                     str(filename),
-                    lambda _: Step1(
+                    lambda on_simple_status_func: Step1(
                         workspace,
                         relative_path,
                         GetContent,
@@ -378,7 +378,7 @@ def Parse(
                 for relative_path, content_func in sources.items():
                     enqueue_func(
                         str(relative_path if is_single_workspace else workspace_root / relative_path),
-                        lambda _, workspace_root=workspace_root, relative_path=relative_path, content_func=content_func: Step1(
+                        lambda on_simple_status_func, workspace_root=workspace_root, relative_path=relative_path, content_func=content_func: Step1(
                             workspace_root,
                             relative_path,
                             content_func,
@@ -1052,7 +1052,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
 
         identifiers: list[ParseIdentifier] = []
         is_global: Optional[Range] = None
-        is_item: Optional[Range] = None
 
         for child_index, child in enumerate(children):
             if isinstance(child, ParseIdentifier):
@@ -1065,9 +1064,6 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 if child_index == 0:
                     assert is_global is None, (is_global, child)
                     is_global = child
-                else:
-                    assert is_item is None, (is_item, child)
-                    is_item = child
 
             else:
                 assert False, child  # pragma: no cover
@@ -1081,18 +1077,11 @@ class _Visitor(SimpleSchemaVisitor, _VisitorMixin):
                 metadata,
                 identifiers,
                 is_global,
-                is_item,
             ),
         )
 
     # ----------------------------------------------------------------------
     def visitParse_identifier_type_global(self, ctx:SimpleSchemaParser.Parse_identifier_type_globalContext):
-        # It is enough to add a range value, as that will signal that the modifier exists when
-        # creating the type.
-        self._stack.append(self.CreateRange(ctx))
-
-    # ----------------------------------------------------------------------
-    def visitParse_identifier_type_item(self, ctx:SimpleSchemaParser.Parse_identifier_type_itemContext):
         # It is enough to add a range value, as that will signal that the modifier exists when
         # creating the type.
         self._stack.append(self.CreateRange(ctx))

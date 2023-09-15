@@ -1,0 +1,55 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+  statements:
+  - __type__: ReferenceType
+    range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
+    unique_name: Public
+    display_type: String[10]
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 7>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 2, Col 1 -> Ln 2, Col 7>
+      value: Public
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 17 -> Ln 1, Col 21>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 18 -> Ln 1, Col 20>
+        value: 10
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 18 -> Ln 1, Col 20>
+        value: 10
+    type:
+      __type__: ReferenceType
+      range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+      unique_name: _Private-Item-Ln1Col11
+      display_type: String
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+        value: _Private-Item-Ln1Col11
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+          value: 1
+      type:
+        __type__: StringType
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 21>
+        unique_name: String-Ln1Col11
+        min_length: 1

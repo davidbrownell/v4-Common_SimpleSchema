@@ -8,10 +8,6 @@
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
       value: Visibility.Public
-    type:
-      __type__: StringType
-      range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
-      min_length: 2
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 8>
@@ -27,6 +23,10 @@
         __type__: IntegerExpression
         range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
         value: 1
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 10 -> Ln 1, Col 34>
+      min_length: 2
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
     display_type: <String {>= 2 characters}>+

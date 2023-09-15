@@ -6,25 +6,22 @@
     __disabled__: false
     range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
     unique_name: BasicStructure
-    display_type: _BasicStructure-Struct-Ln19
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: BasicStructureStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: BasicStructure
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
-      unique_name: _BasicStructure-Struct-Ln19
+      unique_name: BasicStructureStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 19, Col 1 -> Ln 23, Col 73)
-        unique_name: _BasicStructure-Struct-Ln19
-        name: _BasicStructure-Struct-Ln19
+        unique_name: BasicStructureStruct
+        name: BasicStructureStruct
         children:
         - __type__: ItemStatement
           __disabled__: false
@@ -35,95 +32,75 @@
             __type__: ReferenceType
             __disabled__: false
             range: Structures.SimpleSchema (Ln 20, Col 12 -> Ln 20, Col 18)
-            unique_name: _BasicStructure-Struct-Ln19._ItemStatement-Ln20
+            unique_name: BasicStructureStruct.ItemStatement-Ln20Col5
             display_type: String
-            flags:
-            - Alias
-            - BasicRef
-            - SingleAccess
-            - TypeDefinition
+            category: Category.Source
             visibility: Visibility.Private
+            name: ItemStatement-Ln20Col5
+            cardinality: <single>
             type:
               __type__: StringType
               __disabled__: false
               range: Structures.SimpleSchema (Ln 20, Col 12 -> Ln 20, Col 18)
-              unique_name: _BasicStructure-Struct-Ln19.String-Ln20
+              unique_name: BasicStructureStruct.String-Ln20Col12
               min_length: 1
-            name: _ItemStatement-Ln20
-            cardinality: <single>
-    name: BasicStructure
-    cardinality: <single>
   - __type__: ReferenceType
     __disabled__: false
     range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 28, Col 73)
     unique_name: EmptyStructure
-    display_type: _EmptyStructure-Struct-Ln24
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: EmptyStructureStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: EmptyStructure
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 28, Col 73)
-      unique_name: _EmptyStructure-Struct-Ln24
+      unique_name: EmptyStructureStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 24, Col 1 -> Ln 28, Col 73)
-        unique_name: _EmptyStructure-Struct-Ln24
-        name: _EmptyStructure-Struct-Ln24
-    name: EmptyStructure
-    cardinality: <single>
+        unique_name: EmptyStructureStruct
+        name: EmptyStructureStruct
   - __type__: ReferenceType
     __disabled__: false
     range: Structures.SimpleSchema (Ln 29, Col 1 -> Ln 32, Col 1)
     unique_name: TypeOnly
-    display_type: _TypeOnly-Struct-Ln29
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: TypeOnlyStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: TypeOnly
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 29, Col 1 -> Ln 32, Col 1)
-      unique_name: _TypeOnly-Struct-Ln29
+      unique_name: TypeOnlyStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 29, Col 1 -> Ln 32, Col 1)
-        unique_name: _TypeOnly-Struct-Ln29
-        name: _TypeOnly-Struct-Ln29
+        unique_name: TypeOnlyStruct
+        name: TypeOnlyStruct
         children:
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 30, Col 5 -> Ln 32, Col 1)
-          unique_name: _TypeOnly-Struct-Ln29.StringRef
+          unique_name: TypeOnlyStruct.StringRef
           display_type: String {<= 10 characters}
-          flags:
-          - Alias
-          - BasicRef
-          - SharedAccess
-          - TypeDefinition
+          category: Category.Source
           visibility: Visibility.Public
+          name: StringRef
+          cardinality: <single>
           type:
             __type__: StringType
             __disabled__: false
             range: Structures.SimpleSchema (Ln 30, Col 16 -> Ln 30, Col 41)
-            unique_name: _TypeOnly-Struct-Ln29.String-Ln30
+            unique_name: TypeOnlyStruct.String-Ln30Col16
             min_length: 1
             max_length: 10
-          name: StringRef
-          cardinality: <single>
-    name: TypeOnly
-    cardinality: <single>
   - __type__: ItemStatement
     __disabled__: false
     range: Structures.SimpleSchema (Ln 33, Col 1 -> Ln 37, Col 1)
@@ -133,42 +110,35 @@
       __type__: ReferenceType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 33, Col 19 -> Ln 33, Col 37)
-      unique_name: _ItemStatement-Ln33
+      unique_name: ItemStatement-Ln33Col1
       display_type: String {<= 10 characters}
-      flags:
-      - Alias
-      - ReferenceRef
-      - BasicRefWithCardinality
-      - SingleAccess
+      category: Category.Alias
       visibility: Visibility.Private
-      name: _ItemStatement-Ln33
+      name: ItemStatement-Ln33Col1
       cardinality: <single>
       reference:
-        unique_name: _TypeOnly-Struct-Ln29.StringRef
+        unique_name: TypeOnlyStruct.StringRef
         range: Structures.SimpleSchema (Ln 30, Col 5 -> Ln 32, Col 1)
   - __type__: ReferenceType
     __disabled__: false
     range: Structures.SimpleSchema (Ln 37, Col 1 -> Ln 54, Col 1)
     unique_name: Nested0
-    display_type: _Nested0-Struct-Ln37
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SharedAccess
-    - TypeDefinition
+    display_type: Nested0Struct
+    category: Category.Source
     visibility: Visibility.Public
+    name: Nested0
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 37, Col 1 -> Ln 54, Col 1)
-      unique_name: _Nested0-Struct-Ln37
+      unique_name: Nested0Struct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 37, Col 1 -> Ln 54, Col 1)
-        unique_name: _Nested0-Struct-Ln37
-        name: _Nested0-Struct-Ln37
+        unique_name: Nested0Struct
+        name: Nested0Struct
         children:
         - __type__: ItemStatement
           __disabled__: false
@@ -179,45 +149,38 @@
             __type__: ReferenceType
             __disabled__: false
             range: Structures.SimpleSchema (Ln 38, Col 13 -> Ln 38, Col 19)
-            unique_name: _Nested0-Struct-Ln37._ItemStatement-Ln38
+            unique_name: Nested0Struct.ItemStatement-Ln38Col5
             display_type: String
-            flags:
-            - Alias
-            - BasicRef
-            - SingleAccess
-            - TypeDefinition
+            category: Category.Source
             visibility: Visibility.Private
+            name: ItemStatement-Ln38Col5
+            cardinality: <single>
             type:
               __type__: StringType
               __disabled__: false
               range: Structures.SimpleSchema (Ln 38, Col 13 -> Ln 38, Col 19)
-              unique_name: _Nested0-Struct-Ln37.String-Ln38
+              unique_name: Nested0Struct.String-Ln38Col13
               min_length: 1
-            name: _ItemStatement-Ln38
-            cardinality: <single>
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
-          unique_name: _Nested0-Struct-Ln37.Nested1
-          display_type: _Nested1-Struct-Ln40
-          flags:
-          - Alias
-          - BasicRef
-          - StructureRef
-          - SharedAccess
-          - TypeDefinition
+          unique_name: Nested0Struct.Nested1
+          display_type: Nested1Struct
+          category: Category.Source
           visibility: Visibility.Public
+          name: Nested1
+          cardinality: <single>
           type:
             __type__: StructureType
             __disabled__: false
             range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
-            unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40
+            unique_name: Nested0Struct.Nested1Struct
             structure:
               __type__: StructureStatement
               __disabled__: false
               range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
-              unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40
-              name: _Nested1-Struct-Ln40
+              unique_name: Nested0Struct.Nested1Struct
+              name: Nested1Struct
               children:
               - __type__: ItemStatement
                 __disabled__: false
@@ -228,45 +191,38 @@
                   __type__: ReferenceType
                   __disabled__: false
                   range: Structures.SimpleSchema (Ln 41, Col 17 -> Ln 41, Col 23)
-                  unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._ItemStatement-Ln41
+                  unique_name: Nested0Struct.Nested1Struct.ItemStatement-Ln41Col9
                   display_type: String
-                  flags:
-                  - Alias
-                  - BasicRef
-                  - SingleAccess
-                  - TypeDefinition
+                  category: Category.Source
                   visibility: Visibility.Private
+                  name: ItemStatement-Ln41Col9
+                  cardinality: <single>
                   type:
                     __type__: StringType
                     __disabled__: false
                     range: Structures.SimpleSchema (Ln 41, Col 17 -> Ln 41, Col 23)
-                    unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.String-Ln41
+                    unique_name: Nested0Struct.Nested1Struct.String-Ln41Col17
                     min_length: 1
-                  name: _ItemStatement-Ln41
-                  cardinality: <single>
               - __type__: ReferenceType
                 __disabled__: false
                 range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-                unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
-                display_type: _Nested2-Struct-Ln43
-                flags:
-                - Alias
-                - BasicRef
-                - StructureRef
-                - SharedAccess
-                - TypeDefinition
+                unique_name: Nested0Struct.Nested1Struct.Nested2
+                display_type: Nested2Struct
+                category: Category.Source
                 visibility: Visibility.Public
+                name: Nested2
+                cardinality: <single>
                 type:
                   __type__: StructureType
                   __disabled__: false
                   range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-                  unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43
+                  unique_name: Nested0Struct.Nested1Struct.Nested2Struct
                   structure:
                     __type__: StructureStatement
                     __disabled__: false
                     range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-                    unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43
-                    name: _Nested2-Struct-Ln43
+                    unique_name: Nested0Struct.Nested1Struct.Nested2Struct
+                    name: Nested2Struct
                     children:
                     - __type__: ItemStatement
                       __disabled__: false
@@ -277,45 +233,38 @@
                         __type__: ReferenceType
                         __disabled__: false
                         range: Structures.SimpleSchema (Ln 44, Col 21 -> Ln 44, Col 27)
-                        unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._ItemStatement-Ln44
+                        unique_name: Nested0Struct.Nested1Struct.Nested2Struct.ItemStatement-Ln44Col13
                         display_type: String
-                        flags:
-                        - Alias
-                        - BasicRef
-                        - SingleAccess
-                        - TypeDefinition
+                        category: Category.Source
                         visibility: Visibility.Private
+                        name: ItemStatement-Ln44Col13
+                        cardinality: <single>
                         type:
                           __type__: StringType
                           __disabled__: false
                           range: Structures.SimpleSchema (Ln 44, Col 21 -> Ln 44, Col 27)
-                          unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.String-Ln44
+                          unique_name: Nested0Struct.Nested1Struct.Nested2Struct.String-Ln44Col21
                           min_length: 1
-                        name: _ItemStatement-Ln44
-                        cardinality: <single>
                     - __type__: ReferenceType
                       __disabled__: false
                       range: Structures.SimpleSchema (Ln 46, Col 13 -> Ln 48, Col 1)
-                      unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3
-                      display_type: _Nested3-Struct-Ln46
-                      flags:
-                      - Alias
-                      - BasicRef
-                      - StructureRef
-                      - SharedAccess
-                      - TypeDefinition
+                      unique_name: Nested0Struct.Nested1Struct.Nested2Struct.Nested3
+                      display_type: Nested3Struct
+                      category: Category.Source
                       visibility: Visibility.Public
+                      name: Nested3
+                      cardinality: <single>
                       type:
                         __type__: StructureType
                         __disabled__: false
                         range: Structures.SimpleSchema (Ln 46, Col 13 -> Ln 48, Col 1)
-                        unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46
+                        unique_name: Nested0Struct.Nested1Struct.Nested2Struct.Nested3Struct
                         structure:
                           __type__: StructureStatement
                           __disabled__: false
                           range: Structures.SimpleSchema (Ln 46, Col 13 -> Ln 48, Col 1)
-                          unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46
-                          name: _Nested3-Struct-Ln46
+                          unique_name: Nested0Struct.Nested1Struct.Nested2Struct.Nested3Struct
+                          name: Nested3Struct
                           children:
                           - __type__: ItemStatement
                             __disabled__: false
@@ -326,24 +275,18 @@
                               __type__: ReferenceType
                               __disabled__: false
                               range: Structures.SimpleSchema (Ln 47, Col 25 -> Ln 47, Col 31)
-                              unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46._ItemStatement-Ln47
+                              unique_name: Nested0Struct.Nested1Struct.Nested2Struct.Nested3Struct.ItemStatement-Ln47Col17
                               display_type: String
-                              flags:
-                              - Alias
-                              - BasicRef
-                              - SingleAccess
-                              - TypeDefinition
+                              category: Category.Source
                               visibility: Visibility.Private
+                              name: ItemStatement-Ln47Col17
+                              cardinality: <single>
                               type:
                                 __type__: StringType
                                 __disabled__: false
                                 range: Structures.SimpleSchema (Ln 47, Col 25 -> Ln 47, Col 31)
-                                unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46.String-Ln47
+                                unique_name: Nested0Struct.Nested1Struct.Nested2Struct.Nested3Struct.String-Ln47Col25
                                 min_length: 1
-                              name: _ItemStatement-Ln47
-                              cardinality: <single>
-                      name: Nested3
-                      cardinality: <single>
                     - __type__: ItemStatement
                       __disabled__: false
                       range: Structures.SimpleSchema (Ln 49, Col 13 -> Ln 50, Col 1)
@@ -353,22 +296,15 @@
                         __type__: ReferenceType
                         __disabled__: false
                         range: Structures.SimpleSchema (Ln 49, Col 28 -> Ln 49, Col 35)
-                        unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._ItemStatement-Ln49
-                        display_type: _Nested3-Struct-Ln46
-                        flags:
-                        - Alias
-                        - ReferenceRef
-                        - BasicRefWithCardinality
-                        - StructureRefWithCardinality
-                        - SingleAccess
+                        unique_name: Nested0Struct.Nested1Struct.Nested2Struct.ItemStatement-Ln49Col13
+                        display_type: Nested3Struct
+                        category: Category.Alias
                         visibility: Visibility.Private
-                        name: _ItemStatement-Ln49
+                        name: ItemStatement-Ln49Col13
                         cardinality: <single>
                         reference:
-                          unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3
+                          unique_name: Nested0Struct.Nested1Struct.Nested2Struct.Nested3
                           range: Structures.SimpleSchema (Ln 46, Col 13 -> Ln 48, Col 1)
-                name: Nested2
-                cardinality: <single>
               - __type__: ItemStatement
                 __disabled__: false
                 range: Structures.SimpleSchema (Ln 51, Col 9 -> Ln 52, Col 1)
@@ -378,22 +314,15 @@
                   __type__: ReferenceType
                   __disabled__: false
                   range: Structures.SimpleSchema (Ln 51, Col 24 -> Ln 51, Col 31)
-                  unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40._ItemStatement-Ln51
-                  display_type: _Nested2-Struct-Ln43
-                  flags:
-                  - Alias
-                  - ReferenceRef
-                  - BasicRefWithCardinality
-                  - StructureRefWithCardinality
-                  - SingleAccess
+                  unique_name: Nested0Struct.Nested1Struct.ItemStatement-Ln51Col9
+                  display_type: Nested2Struct
+                  category: Category.Alias
                   visibility: Visibility.Private
-                  name: _ItemStatement-Ln51
+                  name: ItemStatement-Ln51Col9
                   cardinality: <single>
                   reference:
-                    unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
+                    unique_name: Nested0Struct.Nested1Struct.Nested2
                     range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-          name: Nested1
-          cardinality: <single>
         - __type__: ItemStatement
           __disabled__: false
           range: Structures.SimpleSchema (Ln 53, Col 5 -> Ln 54, Col 1)
@@ -403,22 +332,15 @@
             __type__: ReferenceType
             __disabled__: false
             range: Structures.SimpleSchema (Ln 53, Col 20 -> Ln 53, Col 27)
-            unique_name: _Nested0-Struct-Ln37._ItemStatement-Ln53
-            display_type: _Nested1-Struct-Ln40
-            flags:
-            - Alias
-            - ReferenceRef
-            - BasicRefWithCardinality
-            - StructureRefWithCardinality
-            - SingleAccess
+            unique_name: Nested0Struct.ItemStatement-Ln53Col5
+            display_type: Nested1Struct
+            category: Category.Alias
             visibility: Visibility.Private
-            name: _ItemStatement-Ln53
+            name: ItemStatement-Ln53Col5
             cardinality: <single>
             reference:
-              unique_name: _Nested0-Struct-Ln37.Nested1
+              unique_name: Nested0Struct.Nested1
               range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
-    name: Nested0
-    cardinality: <single>
   - __type__: ItemStatement
     __disabled__: false
     range: Structures.SimpleSchema (Ln 55, Col 1 -> Ln 59, Col 1)
@@ -428,16 +350,11 @@
       __type__: ReferenceType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 55, Col 16 -> Ln 55, Col 23)
-      unique_name: _ItemStatement-Ln55
-      display_type: _Nested0-Struct-Ln37
-      flags:
-      - Alias
-      - ReferenceRef
-      - BasicRefWithCardinality
-      - StructureRefWithCardinality
-      - SingleAccess
+      unique_name: ItemStatement-Ln55Col1
+      display_type: Nested0Struct
+      category: Category.Alias
       visibility: Visibility.Private
-      name: _ItemStatement-Ln55
+      name: ItemStatement-Ln55Col1
       cardinality: <single>
       reference:
         unique_name: Nested0
@@ -446,128 +363,101 @@
     __disabled__: false
     range: Structures.SimpleSchema (Ln 59, Col 1 -> Ln 63, Col 73)
     unique_name: SingleBasicBase
-    display_type: _SingleBasicBase-Struct-Ln59
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: SingleBasicBaseStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: SingleBasicBase
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 59, Col 1 -> Ln 63, Col 73)
-      unique_name: _SingleBasicBase-Struct-Ln59
+      unique_name: SingleBasicBaseStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 59, Col 1 -> Ln 63, Col 73)
-        unique_name: _SingleBasicBase-Struct-Ln59
-        name: _SingleBasicBase-Struct-Ln59
+        unique_name: SingleBasicBaseStruct
+        name: SingleBasicBaseStruct
         base_types:
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 59, Col 18 -> Ln 59, Col 43)
-          unique_name: _SingleBasicBase-Struct-Ln59._Base0
+          unique_name: SingleBasicBaseStruct.Base0
           display_type: String {<= 10 characters}
-          flags:
-          - Alias
-          - BasicRef
-          - SingleAccess
-          - TypeDefinition
+          category: Category.Source
           visibility: Visibility.Private
+          name: Base0
+          cardinality: <single>
           type:
             __type__: StringType
             __disabled__: false
             range: Structures.SimpleSchema (Ln 59, Col 18 -> Ln 59, Col 43)
-            unique_name: _SingleBasicBase-Struct-Ln59.String-Ln59
+            unique_name: SingleBasicBaseStruct.String-Ln59Col18
             min_length: 1
             max_length: 10
-          name: _Base0
-          cardinality: <single>
-    name: SingleBasicBase
-    cardinality: <single>
   - __type__: ReferenceType
     __disabled__: false
     range: Structures.SimpleSchema (Ln 64, Col 1 -> Ln 68, Col 73)
     unique_name: SingleStructureBase
-    display_type: _SingleStructureBase-Struct-Ln64
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: SingleStructureBaseStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: SingleStructureBase
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 64, Col 1 -> Ln 68, Col 73)
-      unique_name: _SingleStructureBase-Struct-Ln64
+      unique_name: SingleStructureBaseStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 64, Col 1 -> Ln 68, Col 73)
-        unique_name: _SingleStructureBase-Struct-Ln64
-        name: _SingleStructureBase-Struct-Ln64
+        unique_name: SingleStructureBaseStruct
+        name: SingleStructureBaseStruct
         base_types:
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 64, Col 22 -> Ln 64, Col 45)
-          unique_name: _SingleStructureBase-Struct-Ln64._Base0
-          display_type: _Nested2-Struct-Ln43
-          flags:
-          - Alias
-          - ReferenceRef
-          - BasicRefWithCardinality
-          - StructureRefWithCardinality
-          - SingleAccess
+          unique_name: SingleStructureBaseStruct.Base0
+          display_type: Nested2Struct
+          category: Category.Alias
           visibility: Visibility.Private
-          name: _Base0
+          name: Base0
           cardinality: <single>
           reference:
-            unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
+            unique_name: Nested0Struct.Nested1Struct.Nested2
             range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-    name: SingleStructureBase
-    cardinality: <single>
   - __type__: ReferenceType
     __disabled__: false
     range: Structures.SimpleSchema (Ln 69, Col 1 -> Ln 71, Col 1)
     unique_name: MultipleStructureBase
-    display_type: _MultipleStructureBase-Struct-Ln69
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: MultipleStructureBaseStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: MultipleStructureBase
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Structures.SimpleSchema (Ln 69, Col 1 -> Ln 71, Col 1)
-      unique_name: _MultipleStructureBase-Struct-Ln69
+      unique_name: MultipleStructureBaseStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Structures.SimpleSchema (Ln 69, Col 1 -> Ln 71, Col 1)
-        unique_name: _MultipleStructureBase-Struct-Ln69
-        name: _MultipleStructureBase-Struct-Ln69
+        unique_name: MultipleStructureBaseStruct
+        name: MultipleStructureBaseStruct
         base_types:
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 69, Col 24 -> Ln 69, Col 31)
-          unique_name: _MultipleStructureBase-Struct-Ln69._Base0
-          display_type: _Nested0-Struct-Ln37
-          flags:
-          - Alias
-          - ReferenceRef
-          - BasicRefWithCardinality
-          - StructureRefWithCardinality
-          - SingleAccess
+          unique_name: MultipleStructureBaseStruct.Base0
+          display_type: Nested0Struct
+          category: Category.Alias
           visibility: Visibility.Private
-          name: _Base0
+          name: Base0
           cardinality: <single>
           reference:
             unique_name: Nested0
@@ -575,36 +465,24 @@
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 69, Col 33 -> Ln 69, Col 48)
-          unique_name: _MultipleStructureBase-Struct-Ln69._Base1
-          display_type: _Nested1-Struct-Ln40
-          flags:
-          - Alias
-          - ReferenceRef
-          - BasicRefWithCardinality
-          - StructureRefWithCardinality
-          - SingleAccess
+          unique_name: MultipleStructureBaseStruct.Base1
+          display_type: Nested1Struct
+          category: Category.Alias
           visibility: Visibility.Private
-          name: _Base1
+          name: Base1
           cardinality: <single>
           reference:
-            unique_name: _Nested0-Struct-Ln37.Nested1
+            unique_name: Nested0Struct.Nested1
             range: Structures.SimpleSchema (Ln 40, Col 5 -> Ln 52, Col 1)
         - __type__: ReferenceType
           __disabled__: false
           range: Structures.SimpleSchema (Ln 69, Col 50 -> Ln 69, Col 73)
-          unique_name: _MultipleStructureBase-Struct-Ln69._Base2
-          display_type: _Nested2-Struct-Ln43
-          flags:
-          - Alias
-          - ReferenceRef
-          - BasicRefWithCardinality
-          - StructureRefWithCardinality
-          - SingleAccess
+          unique_name: MultipleStructureBaseStruct.Base2
+          display_type: Nested2Struct
+          category: Category.Alias
           visibility: Visibility.Private
-          name: _Base2
+          name: Base2
           cardinality: <single>
           reference:
-            unique_name: _Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2
+            unique_name: Nested0Struct.Nested1Struct.Nested2
             range: Structures.SimpleSchema (Ln 43, Col 9 -> Ln 50, Col 1)
-    name: MultipleStructureBase
-    cardinality: <single>

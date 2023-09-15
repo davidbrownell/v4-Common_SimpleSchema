@@ -19,13 +19,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
         value: Visibility.Private
-      type:
-        __type__: IntegerType
-        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 18>
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
-        value: _ItemStatement-Ln1
+        value: ItemStatement-Ln1Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 11 -> Ln 1, Col 18>
@@ -37,6 +34,9 @@
           __type__: IntegerExpression
           range: entry_point <Ln 1, Col 11 -> Ln 1, Col 18>
           value: 1
+      type:
+        __type__: IntegerType
+        range: entry_point <Ln 1, Col 11 -> Ln 1, Col 18>
   - __type__: ItemStatement
     range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
     visibility:
@@ -55,14 +55,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
         value: Visibility.Private
-      type:
-        __type__: IntegerType
-        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 30>
-        min: 10
       name:
         __type__: SimpleElement
         range: entry_point <Ln 2, Col 1 -> Ln 3, Col 1>
-        value: _ItemStatement-Ln2
+        value: ItemStatement-Ln2Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 2, Col 11 -> Ln 2, Col 30>
@@ -74,6 +70,10 @@
           __type__: IntegerExpression
           range: entry_point <Ln 2, Col 11 -> Ln 2, Col 30>
           value: 1
+      type:
+        __type__: IntegerType
+        range: entry_point <Ln 2, Col 11 -> Ln 2, Col 30>
+        min: 10
   - __type__: ItemStatement
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
     visibility:
@@ -92,14 +92,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
         value: Visibility.Private
-      type:
-        __type__: IntegerType
-        range: entry_point <Ln 3, Col 11 -> Ln 3, Col 30>
-        max: 20
       name:
         __type__: SimpleElement
         range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
-        value: _ItemStatement-Ln3
+        value: ItemStatement-Ln3Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 3, Col 11 -> Ln 3, Col 30>
@@ -111,6 +107,10 @@
           __type__: IntegerExpression
           range: entry_point <Ln 3, Col 11 -> Ln 3, Col 30>
           value: 1
+      type:
+        __type__: IntegerType
+        range: entry_point <Ln 3, Col 11 -> Ln 3, Col 30>
+        max: 20
   - __type__: ItemStatement
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
     visibility:
@@ -129,15 +129,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
         value: Visibility.Private
-      type:
-        __type__: IntegerType
-        range: entry_point <Ln 4, Col 19 -> Ln 4, Col 47>
-        min: 10
-        max: 20
       name:
         __type__: SimpleElement
         range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
-        value: _ItemStatement-Ln4
+        value: ItemStatement-Ln4Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 4, Col 19 -> Ln 4, Col 47>
@@ -149,6 +144,11 @@
           __type__: IntegerExpression
           range: entry_point <Ln 4, Col 19 -> Ln 4, Col 47>
           value: 1
+      type:
+        __type__: IntegerType
+        range: entry_point <Ln 4, Col 19 -> Ln 4, Col 47>
+        min: 10
+        max: 20
   - __type__: ItemStatement
     range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
     visibility:
@@ -167,14 +167,10 @@
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
         value: Visibility.Private
-      type:
-        __type__: IntegerType
-        range: entry_point <Ln 5, Col 7 -> Ln 5, Col 34>
-        bits: BitsEnum.Value64
       name:
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-        value: _ItemStatement-Ln5
+        value: ItemStatement-Ln5Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 5, Col 7 -> Ln 5, Col 34>
@@ -186,3 +182,7 @@
           __type__: IntegerExpression
           range: entry_point <Ln 5, Col 7 -> Ln 5, Col 34>
           value: 1
+      type:
+        __type__: IntegerType
+        range: entry_point <Ln 5, Col 7 -> Ln 5, Col 34>
+        bits: BitsEnum.Value64

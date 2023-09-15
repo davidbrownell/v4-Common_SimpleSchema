@@ -120,5 +120,5 @@ def CreateTypeFromAnnotation(
         basic_type,
         Cardinality.CreateFromCode(cardinality_min, cardinality_max),
         None,
-        was_dynamically_generated=True,
+        suppress_range_in_exceptions=True,
     )

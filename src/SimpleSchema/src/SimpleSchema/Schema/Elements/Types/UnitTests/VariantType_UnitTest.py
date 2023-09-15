@@ -137,9 +137,6 @@ def test_ReferenceTypeToPythonWithChildCardinality():
                     Mock(),
                     Cardinality.CreateFromCode(2, 2),
                     None,
-                    force_single_cardinality=False,
-                    was_dynamically_generated=False,
-                    is_type_definition=False,
                 ),
                 ReferenceType(
                     range3,
@@ -148,18 +145,12 @@ def test_ReferenceTypeToPythonWithChildCardinality():
                     Mock(),
                     Cardinality.CreateFromCode(2, 2),
                     None,
-                    force_single_cardinality=False,
-                    was_dynamically_generated=False,
-                    is_type_definition=False,
                 ),
             ],
         ),
         Mock(), # name
         Cardinality.CreateFromCode(3, 3),
         None,
-        force_single_cardinality=False,
-        was_dynamically_generated=False,
-        is_type_definition=False,
     )
 
     assert rt.ToPython(

@@ -165,10 +165,7 @@ class StructureTypeFactory(_TypeFactory):
                 for base_index, base in enumerate(statement.bases):
                     base_type = active_namespace.ParseTypeToType(
                         SimpleElement[Visibility](base.range, Visibility.Private),
-                        SimpleElement[str](
-                            base.range,
-                            "_Base{}".format(base_index),
-                        ),
+                        SimpleElement[str](base.range, "Base{}".format(base_index)),
                         base,
                         SimpleElement[str](
                             base.range,
@@ -202,17 +199,13 @@ class StructureTypeFactory(_TypeFactory):
                 statement.range,
                 StructureStatement(
                     statement.range,
-                    SimpleElement[str](
-                        statement.range,
-                        "_{}-Struct-Ln{}".format(statement.name.value, statement.range.begin.line),
-                    ),
+                    SimpleElement[str](statement.range,  "{}Struct".format(statement.name.value)),
                     base_types,  # type: ignore
                     [], # The children will be populated during Finalize
                 ),  # type: ignore
             ),
             statement.cardinality,
             statement.unresolved_metadata,
-            is_type_definition=True,
         )
 
         return result

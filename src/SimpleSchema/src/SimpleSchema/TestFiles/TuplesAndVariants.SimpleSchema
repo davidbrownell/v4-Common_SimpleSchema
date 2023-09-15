@@ -61,3 +61,15 @@ Variants ->
     )
 
 variants: Variants?
+
+
+# ----------------------------------------------------------------------
+MyClass ->
+    value: String
+
+tuple_with_class: (String, MyClass, Integer)
+variant_with_class: (MyClass | String | Integer)
+
+
+# ----------------------------------------------------------------------
+different_num_elements: (String[3] | Integer+ | Number*)

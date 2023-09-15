@@ -1,0 +1,38 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+  statements:
+  - __type__: ReferenceType
+    range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+    unique_name: Structure
+    display_type: StructureStruct
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
+      value: Structure
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        value: 1
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      unique_name: StructureStruct
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        unique_name: StructureStruct
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+          value: StructureStruct

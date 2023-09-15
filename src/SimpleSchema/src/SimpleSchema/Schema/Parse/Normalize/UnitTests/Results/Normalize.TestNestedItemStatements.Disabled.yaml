@@ -4,24 +4,11 @@
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
     unique_name: Structure
-    display_type: _Structure-Struct-Ln1
+    display_type: StructureStruct
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
       value: Visibility.Public
-    type:
-      __type__: StructureType
-      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-      unique_name: _Structure-Struct-Ln1
-      structure:
-        __type__: StructureStatement
-        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-        unique_name: _Structure-Struct-Ln1
-        name:
-          __type__: SimpleElement
-          range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-          value: _Structure-Struct-Ln1
-        children: []
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
@@ -37,3 +24,16 @@
         __type__: IntegerExpression
         range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
         value: 1
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      unique_name: StructureStruct
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+        unique_name: StructureStruct
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+          value: StructureStruct
+        children: []

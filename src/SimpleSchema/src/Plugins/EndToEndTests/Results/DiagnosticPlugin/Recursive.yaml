@@ -6,25 +6,22 @@
     __disabled__: false
     range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
     unique_name: Directory
-    display_type: _Directory-Struct-Ln19
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SharedAccess
-    - TypeDefinition
+    display_type: DirectoryStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: Directory
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
-      unique_name: _Directory-Struct-Ln19
+      unique_name: DirectoryStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
-        unique_name: _Directory-Struct-Ln19
-        name: _Directory-Struct-Ln19
+        unique_name: DirectoryStruct
+        name: DirectoryStruct
         children:
         - __type__: ItemStatement
           __disabled__: false
@@ -35,22 +32,18 @@
             __type__: ReferenceType
             __disabled__: false
             range: Recursive.SimpleSchema (Ln 20, Col 11 -> Ln 20, Col 17)
-            unique_name: _Directory-Struct-Ln19._ItemStatement-Ln20
+            unique_name: DirectoryStruct.ItemStatement-Ln20Col5
             display_type: String
-            flags:
-            - Alias
-            - BasicRef
-            - SingleAccess
-            - TypeDefinition
+            category: Category.Source
             visibility: Visibility.Private
+            name: ItemStatement-Ln20Col5
+            cardinality: <single>
             type:
               __type__: StringType
               __disabled__: false
               range: Recursive.SimpleSchema (Ln 20, Col 11 -> Ln 20, Col 17)
-              unique_name: _Directory-Struct-Ln19.String-Ln20
+              unique_name: DirectoryStruct.String-Ln20Col11
               min_length: 1
-            name: _ItemStatement-Ln20
-            cardinality: <single>
         - __type__: ItemStatement
           __disabled__: false
           range: Recursive.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 5)
@@ -60,37 +53,18 @@
             __type__: ReferenceType
             __disabled__: false
             range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
-            unique_name: _Directory-Struct-Ln19._ItemStatement-Ln22
+            unique_name: DirectoryStruct.ItemStatement-Ln22Col5
             display_type: String*
-            flags:
-            - Type
-            - ReferenceRef
-            - BasicRefWithCardinality
-            - SingleAccess
-            - TypeDefinition
+            category: Category.Source
             visibility: Visibility.Private
+            name: ItemStatement-Ln22Col5
+            cardinality: '*'
             type:
-              __type__: ReferenceType
+              __type__: StringType
               __disabled__: false
               range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
-              unique_name: _Directory-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22
-              display_type: String
-              flags:
-              - Type
-              - BasicRef
-              - SingleAccess
-              - TypeDefinition
-              visibility: Visibility.Private
-              type:
-                __type__: StringType
-                __disabled__: false
-                range: Recursive.SimpleSchema (Ln 22, Col 12 -> Ln 22, Col 19)
-                unique_name: _Directory-Struct-Ln19.String-Ln22
-                min_length: 1
-              name: __ItemStatement-Ln22-Item-Ln22
-              cardinality: <single>
-            name: _ItemStatement-Ln22
-            cardinality: '*'
+              unique_name: DirectoryStruct.String-Ln22Col12
+              min_length: 1
         - __type__: ItemStatement
           __disabled__: false
           range: Recursive.SimpleSchema (Ln 23, Col 5 -> Ln 24, Col 1)
@@ -100,22 +74,15 @@
             __type__: ReferenceType
             __disabled__: false
             range: Recursive.SimpleSchema (Ln 23, Col 18 -> Ln 23, Col 28)
-            unique_name: _Directory-Struct-Ln19._ItemStatement-Ln23
-            display_type: _Directory-Struct-Ln19*
-            flags:
-            - Type
-            - ReferenceRef
-            - BasicRefWithCardinality
-            - StructureRefWithCardinality
-            - SingleAccess
+            unique_name: DirectoryStruct.ItemStatement-Ln23Col5
+            display_type: DirectoryStruct*
+            category: Category.Reference
             visibility: Visibility.Private
-            name: _ItemStatement-Ln23
+            name: ItemStatement-Ln23Col5
             cardinality: '*'
             reference:
               unique_name: Directory
               range: Recursive.SimpleSchema (Ln 19, Col 1 -> Ln 24, Col 1)
-    name: Directory
-    cardinality: <single>
   - __type__: ItemStatement
     __disabled__: false
     range: Recursive.SimpleSchema (Ln 25, Col 1 -> Ln 26, Col 1)
@@ -125,16 +92,11 @@
       __type__: ReferenceType
       __disabled__: false
       range: Recursive.SimpleSchema (Ln 25, Col 14 -> Ln 25, Col 24)
-      unique_name: _ItemStatement-Ln25
-      display_type: _Directory-Struct-Ln19*
-      flags:
-      - Type
-      - ReferenceRef
-      - BasicRefWithCardinality
-      - StructureRefWithCardinality
-      - SingleAccess
+      unique_name: ItemStatement-Ln25Col1
+      display_type: DirectoryStruct*
+      category: Category.Reference
       visibility: Visibility.Private
-      name: _ItemStatement-Ln25
+      name: ItemStatement-Ln25Col1
       cardinality: '*'
       reference:
         unique_name: Directory

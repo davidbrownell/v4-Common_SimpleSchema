@@ -60,8 +60,8 @@ def test_DisplayType():
         Cardinality.CreateFromCode(1, 2),
         None,
         [
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(0, 1), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(0, 1), None, [ParseIdentifier(Mock(), "Name2"), ], None),
         ],
     ).display_type == "(Name1 | Name2?)[1, 2]"
 
@@ -70,9 +70,9 @@ def test_DisplayType():
         Cardinality.CreateFromCode(),
         None,
         [
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None),
         ],
     ).display_type == "(Name1 | Name2 | Name3)"
 

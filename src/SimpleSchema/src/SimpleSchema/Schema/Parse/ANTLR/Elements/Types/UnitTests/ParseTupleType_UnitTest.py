@@ -66,7 +66,6 @@ def test_DisplayType():
                 None,
                 [ParseIdentifier(Mock(), "Name"), ],
                 None,
-                None,
             ),
         ],
     ).display_type == "(Name[2], )?"
@@ -76,9 +75,9 @@ def test_DisplayType():
         Cardinality.CreateFromCode(),
         None,
         [
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None, None),
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None, None),
-            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None, None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name1"), ], None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name2"), ], None),
+            ParseIdentifierType(Mock(), Cardinality.CreateFromCode(), None, [ParseIdentifier(Mock(), "Name3"), ], None),
         ],
     ).display_type == "(Name1, Name2, Name3, )"
 

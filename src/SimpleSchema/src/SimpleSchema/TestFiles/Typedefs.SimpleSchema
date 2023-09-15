@@ -24,24 +24,14 @@ StrAlias: Str
 Strs: Str+
 StrAliases: StrAlias+
 
-StrsItem: Strs::item
-StrAliasesItem: StrAliases::item
-
-
 str: Str
 str_alias: StrAlias
 
 strs: Strs
 str_aliases: StrAliases
 
-strs_item: StrsItem
-str_aliases_item: StrAliasesItem
-
 strs_container: Strs*
 str_aliases_container: StrAliases*
-
-strs_item_container: StrsItem[3]
-str_aliases_item_container: StrAliasesItem[3]
 
 
 # ----------------------------------------------------------------------
@@ -55,24 +45,14 @@ ObjectAlias: Object
 Objects: Object+
 ObjectAliases: ObjectAlias+
 
-ObjectsItem: Objects::item
-ObjectAliasesItem: ObjectAliases::item
-
-
 object: Object
 object_alias: ObjectAlias
 
 objects: Objects
 object_aliases: ObjectAliases
 
-objects_item: ObjectsItem
-objects_aliases_item: ObjectAliasesItem
-
 objects_container: Objects*
 object_aliases_container: ObjectAliases*
-
-objects_item_container: ObjectsItem[3]
-object_aliases_item_container: ObjectAliasesItem[3]
 
 
 # ----------------------------------------------------------------------
@@ -84,18 +64,8 @@ OptionalObject ->
 
 OptionalObjectAlias: OptionalObject
 
-ConcreteOptionalObject: OptionalObject::item
-ConcreteOptionalObjectAlias: OptionalObjectAlias::item
-
 OptionalObjects: OptionalObject+
 OptionalObjectAliases: OptionalObjectAlias+
-
-OptionalObjectsItem: OptionalObjects::item
-OptionalObjectAliasesItem: OptionalObjectAliases::item
-
-ConcreteOptionalObjects: OptionalObject::item+
-ConcreteOptionalObjectAliases: OptionalObjectAlias::item+
-
 
 optional_object: OptionalObject
 optional_object_alias: OptionalObjectAlias
@@ -103,14 +73,8 @@ optional_object_alias: OptionalObjectAlias
 optional_objects: OptionalObjects
 optional_object_aliases: OptionalObjectAliases
 
-optional_objects_item: OptionalObjectsItem
-optional_objects_aliases_item: OptionalObjectAliasesItem
-
 optional_objects_container: OptionalObjects*
 optional_object_aliases_container: OptionalObjectAliases*
-
-optional_objects_item_container: OptionalObjectsItem[3]
-optional_object_aliases_item_container: OptionalObjectAliasesItem[3]
 
 
 # ----------------------------------------------------------------------
@@ -122,7 +86,6 @@ NestedTypes ->
 
 NestedTypes_NestedStr: NestedTypes.NestedStr
 NestedTypes_NestedStrAlias: NestedTypes.NestedStrAlias
-
 
 nested_types_nested_str: NestedTypes.NestedStr
 nested_types_nested_str_alias: NestedTypes.NestedStrAlias
@@ -136,9 +99,6 @@ nested_types_nested_str_alias_type: NestedTypes_NestedStrAlias
 # ----------------------------------------------------------------------
 Container: Integer+ { min: 0 }
 Containers: Container*
-AlteredContainers: Container::item[10]
 
 container: Container
 containers: Containers
-altered_containers: AlteredContainers
-altered_altered_Containers: AlteredContainers::item[20]

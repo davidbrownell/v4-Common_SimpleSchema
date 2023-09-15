@@ -3,7 +3,7 @@
 # |  JsonSchemaPlugin.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-02-21 08:22:05
+# |      2023-05-08 06:45:23
 # |
 # ----------------------------------------------------------------------
 # |
@@ -19,14 +19,14 @@ import json
 
 from contextlib import contextmanager
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
-from typing import Any, Callable, ClassVar, Iterator, Optional, Union
+from typing import Any, Callable, ClassVar, Iterator, Optional
 
 from Common_Foundation import RegularExpression
 from Common_Foundation.Types import overridemethod
 
 from Common_FoundationEx import TyperEx
-
 
 # ----------------------------------------------------------------------
 # pylint: disable=import-error
@@ -35,6 +35,7 @@ from SimpleSchema.Common.Range import Range
 from SimpleSchema.Plugin import Plugin as PluginBase
 
 from SimpleSchema.Schema.Elements.Common.Cardinality import Cardinality
+from SimpleSchema.Schema.Elements.Common.Element import Element
 from SimpleSchema.Schema.Elements.Common.Metadata import Metadata, MetadataItem
 from SimpleSchema.Schema.Elements.Common.SimpleElement import SimpleElement
 
@@ -79,6 +80,9 @@ from SimpleSchema.Schema.Visitors.Visitor import Visitor, VisitResult
 
 
 # ----------------------------------------------------------------------
+# pylint: disable=invalid-name
+
+# ----------------------------------------------------------------------
 @dataclass(frozen=True)
 class AllowAdditionalDataMetadataAttribute(MetadataAttribute):
     """\
@@ -96,8 +100,7 @@ class AllowAdditionalDataMetadataAttribute(MetadataAttribute):
 
 
 # ----------------------------------------------------------------------
-class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
-
+class Plugin(PluginBase):
     # ----------------------------------------------------------------------
     # |
     # |  Public Properties
@@ -111,7 +114,7 @@ class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
     @property
     @overridemethod
     def description(self) -> str:
-        return "Generates a JSON Schema (https://json-schema.org/)."
+        return "Generates a JSON Schema (https://json-schema.org)"
 
     # ----------------------------------------------------------------------
     # |
@@ -161,20 +164,20 @@ class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
                     help="Description of the schema.",
                 ),
             ),
-            "allow_additional_data": TyperEx.TypeDefinitionItem(
-                bool,
-                TyperEx.typer.Option(
-                    False,
-                    "--allow-additional-data",
-                    help="If True, additional data in any content validation against the generated schema will not cause validation errors.",
-                ),
-            ),
             "schema_version": TyperEx.TypeDefinitionItem(
                 str,
                 TyperEx.typer.Option(
                     "https://json-schema.org/draft/2020-12/schema#",
                     "--schema-version",
                     help="JSON Schema version.",
+                ),
+            ),
+            "allow_additional_data": TyperEx.TypeDefinitionItem(
+                bool,
+                TyperEx.typer.Option(
+                    False,
+                    "--allow-additional-data",
+                    help="If True, unrecognized data in all structures will not cause validation errors.",
                 ),
             ),
         }
@@ -235,8 +238,6 @@ class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
 
             schema[dest_attribute_name] = command_line_value
 
-        schema["$defs"] = {}  # placeholder
-
         visitor = _Visitor(
             self,
             allow_additional_data=command_line_args["allow_additional_data"],
@@ -248,9 +249,8 @@ class Plugin(PluginBase):  # pylint: disable=missing-class-docstring
         for k, v in visitor.schema.items():
             schema[k] = v
 
+        # Write the schema file
         on_status_update_func("Writing schema...")
-
-        output_filename.parent.mkdir(parents=True, exist_ok=True)
 
         with output_filename.open("w") as f:
             content = json.dumps(
@@ -283,23 +283,35 @@ class _Visitor(Visitor):
     ):
         super(_Visitor, self).__init__()
 
-        self._plugin                                                        = plugin
-        self._allow_additional_data                                         = allow_additional_data
+        self._plugin                                    = plugin
+        self._allow_additional_data                     = allow_additional_data
 
-        self._schema_stack: list[dict[str, Any]]                            = []
-        self._schema: Optional[dict[str, Any]]                              = None
+        self._schema_stack: list[dict[str, Any]]        = [
+            {
+                "$defs": {},  # placeholder populated by the schema property
+                "type": "object",
+                "additionalProperties": self._allow_additional_data,
+                "properties": {},
+                "required": [],
+            },
+        ]
 
-        self._schema_info_lookup: dict[int, _Visitor._SchemaInfo]           = {}
-
-        self._suppress_cardinality: bool                                    = False
+        self._definitions: dict[str, Any]               = {}
+        self._display_type_as_reference: bool           = False
 
     # ----------------------------------------------------------------------
-    @property
+    @cached_property
     def schema(self) -> dict[str, Any]:
-        assert not self._schema_stack
-        assert self._schema is not None
+        assert len(self._schema_stack) == 1, self._schema_stack
 
-        return self._schema
+        schema = self._schema_stack[0]
+
+        if self._definitions:
+            schema["$defs"] = self._definitions
+        else:
+            del schema["$defs"]
+
+        return schema
 
     # ----------------------------------------------------------------------
     # |
@@ -309,27 +321,13 @@ class _Visitor(Visitor):
     @contextmanager
     @overridemethod
     def OnCardinality(self, element: Cardinality) -> Iterator[Optional[VisitResult]]:
-        if self._suppress_cardinality:
-            self._suppress_cardinality = False
-        elif element.is_container:
-            new_schema: dict[str, Any] = {
-                "type": "array",
-                "items": self._schema_stack.pop(),
-            }
-
-            if element.min.value != 0:
-                new_schema["minItems"] = element.min.value
-            if element.max is not None:
-                new_schema["maxItems"] = element.max.value
-
-            self._schema_stack.append(new_schema)
-
-        yield VisitResult.SkipAll
+        raise Exception("This should never be called.")  # pragma: no cover
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnMetadata(self, element: Metadata) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
+        # Metadata is handled inline
         yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
@@ -410,79 +408,35 @@ class _Visitor(Visitor):
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:
-        yield
+    def OnItemStatement(self, element: ItemStatement) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
+        yield None
 
-        schema_info_lookup_key = id(element.type)
+        self._schema_stack[-1]["properties"][element.name.value] = self._definitions.pop(element.type.unique_name)
 
-        schema_info = self._schema_info_lookup[schema_info_lookup_key]
-
-        if (
-            isinstance(schema_info.element, ReferenceType)
-            and (
-                schema_info.element.flags & ReferenceType.Flag.TypeDefinition
-                or not schema_info.element.flags & ReferenceType.Flag.SharedAccess
-            )
-        ):
-            schema_info = self._schema_info_lookup.pop(schema_info_lookup_key)
-
-        # Process the data generated when the type was visited
-        properties = self._schema_stack[-1]["properties"]
-
-        assert element.name.value not in properties, (element.name.value, properties)
-        properties[element.name.value] = schema_info.schema
-
-        if not element.type.cardinality.is_optional:
+        if element.type.cardinality.min.value != 0:
             self._schema_stack[-1]["required"].append(element.name.value)
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnRootStatement(self, element: RootStatement) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        self._schema_stack.append(
-            {
-                "type": "object",
-                "additionalProperties": self._allow_additional_data,
-                "properties": {},
-                "required": [],
-            },
-        )
-
-        yield
-
-        self._schema = self._schema_stack.pop()
-        assert not self._schema_stack
-
-        self._schema["$defs"] = {
-            schema_info.element.unique_name: schema_info.schema
-            for schema_info in self._schema_info_lookup.values()
-        }
+        yield None
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]:
-        schema_info_lookup_key = id(element)
-
-        if schema_info_lookup_key in self._schema_info_lookup:
-            yield VisitResult.SkipAll
-            return
-
+    def OnStructureStatement(self, element: StructureStatement) -> Iterator[Optional[VisitResult]]: # pylint: disable=unused-argument
         self._schema_stack.append(
             {
                 "type": "object",
-                "additionalProperties": self._allow_additional_data,
-                "properties": {},
+                "properties" : {},
                 "required": [],
             },
         )
 
         yield
 
-        self._schema_info_lookup[schema_info_lookup_key] = _Visitor._SchemaInfo(
-            element,
-            self._schema_stack.pop(),
-        )
+        self._definitions[element.unique_name] = self._schema_stack.pop()
 
     # ----------------------------------------------------------------------
     # |
@@ -491,112 +445,111 @@ class _Visitor(Visitor):
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnBooleanType(self, element: BooleanType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
+    def OnBooleanType(self, element: BooleanType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "boolean",
+        }
 
-        d["type"] = "boolean"
-
-        yield
-
-    # ----------------------------------------------------------------------
-    @contextmanager
-    @overridemethod
-    def OnDateTimeType(self, element: DateTimeType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
-
-        d["type"] = "string"
-        d["format"] = "date-time" # ISO 8601
-
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnDateType(self, element: DateType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
+    def OnDateTimeType(self, element: DateTimeType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "format": "date-time", # ISO 8601
+        }
 
-        d["type"] = "string"
-        d["format"] = "date" # ISO 8601
+        yield VisitResult.SkipAll
 
-        yield
+    # ----------------------------------------------------------------------
+    @contextmanager
+    @overridemethod
+    def OnDateType(self, element: DateType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "format": "date", # ISO 8601
+        }
+
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnDirectoryType(self, element: DirectoryType) -> Iterator[Optional[VisitResult]]:
-        d = self._schema_stack[-1]
-
-        d["type"] = "string"
-        d["minLength"] = 1
-
-        d[self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME] = {
-            "ensure_exists": element.ensure_exists,
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "minLength": 1,
+            self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME: {
+                "ensure_exists": element.ensure_exists,
+            },
         }
 
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnDurationType(self, element: DurationType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
+    def OnDurationType(self, element: DurationType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "format": "duration", # RFC 3339
+        }
 
-        d["type"] = "string"
-        d["format"] = "duration" # RFC 3339
-
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnFilenameType(self, element: FilenameType) -> Iterator[Optional[VisitResult]]:
-        d = self._schema_stack[-1]
-
-        d["type"] = "string"
-        d["minLength"] = 1
-
-        d[self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME] = {
-            "ensure_exists": element.ensure_exists,
+        d: dict[str, Any] = {
+            "type": "string",
+            "minLength": 1,
+            self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME: {
+                "ensure_exists": element.ensure_exists,
+            }
         }
 
         if element.ensure_exists:
             d[self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME]["match_any"] = element.match_any
 
-        yield
+        self._definitions[element.unique_name] = d
+
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnEnumType(self, element: EnumType) -> Iterator[Optional[VisitResult]]:
-        d = self._schema_stack[-1]
-
-        d["type"] = "string"
-        d["enum"] = [e.name for e in element.EnumClass]  # type: ignore
-
-        d[self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME] = {
-            "values": [e.value for e in element.EnumClass],  # type: ignore
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "enum": [e.name for e in element.EnumClass],  # type: ignore
+            self.__class__.ADDITIONAL_METADATA_ATTRIBUTE_NAME:  {
+                "values": [e.value for e in element.EnumClass],  # type: ignore
+            },
         }
 
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnGuidType(self, element: GuidType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
+    def OnGuidType(self, element: GuidType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "format": "uuid", # RFC 4122
+        }
 
-        d["type"] = "string"
-        d["format"] = "uuid" # RFC 4122
-
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnIntegerType(self, element: IntegerType) -> Iterator[Optional[VisitResult]]:
-        d = self._schema_stack[-1]
-
-        d["type"] = "integer"
+        d: dict[str, Any] = {
+            "type": "integer",
+        }
 
         if element.min is not None:
             d["minimum"] = element.min
@@ -608,15 +561,17 @@ class _Visitor(Visitor):
                 "bits": str(element.bits),
             }
 
-        yield
+        self._definitions[element.unique_name] = d
+
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnNumberType(self, element: NumberType) -> Iterator[Optional[VisitResult]]:
-        d = self._schema_stack[-1]
-
-        d["type"] = "number"
+        d: dict[str, Any] = {
+            "type": "number",
+        }
 
         if element.min is not None:
             d["minimum"] = element.min
@@ -628,36 +583,42 @@ class _Visitor(Visitor):
                 "bits": str(element.bits),
             }
 
-        yield
+        self._definitions[element.unique_name] = d
+
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
-        schema_info_lookup_key = id(element)
+        display_type_as_reference = element.category != ReferenceType.Category.Source
+        self._display_type_as_reference = display_type_as_reference
 
-        if schema_info_lookup_key in self._schema_info_lookup:
-            yield VisitResult.SkipAll
-            return
+        yield None
 
-        # Prevent infinite recursion by adding an element to the lookup now and populating it later
-        self._schema_info_lookup[schema_info_lookup_key] = _Visitor._SchemaInfo(element, {})
-
-        self._schema_stack.append({})
+        # Get the type
+        if element.category == ReferenceType.Category.Source:
+            d = self._definitions.pop(element.type.unique_name)
+        else:
+            d = {
+                "$ref": "#/$defs/{}".format(element.type.unique_name),
+            }
 
         if (
-            not (element.flags & ReferenceType.Flag.BasicRef)
-            or (element.flags & ReferenceType.Flag.StructureRef)
+            element.category != ReferenceType.Category.Alias
+            and element.cardinality.is_container
         ):
-            self._schema_stack[-1]["$ref"] = "#/$defs/{}".format(element.type.unique_name)
+            d = {
+                "type": "array",
+                "items": d,
+            }
 
-        if element.flags & ReferenceType.Flag.Alias:
-            self._suppress_cardinality = True
+            if element.cardinality.min.value != 0:
+                d["minItems"] = element.cardinality.min.value
+            if element.cardinality.max is not None:
+                d["maxItems"] = element.cardinality.max.value
 
-        yield
-
-        new_schema = self._schema_stack.pop()
-
+        # Process the metadata
         resolved_metadata = element.resolved_metadata
 
         title = resolved_metadata.get(
@@ -669,47 +630,59 @@ class _Visitor(Visitor):
         )
 
         if title is not None:
-            new_schema["title"] = title.value
+            d["title"] = title.value
 
         description = resolved_metadata.get(DescriptionMetadataAttribute.name, None)
         if description is not None:
-            new_schema["description"] = description.value
+            d["description"] = description.value
 
         default_value = resolved_metadata.get(DefaultMetadataAttribute.name, None)
         if default_value is not None:
-            new_schema["default"] = default_value.value
+            d["default"] = default_value.value
 
-        assert not self._schema_info_lookup[schema_info_lookup_key].schema
-        self._schema_info_lookup[schema_info_lookup_key].schema.update(new_schema)
+        # Check if we allow additional data for structures
+        if isinstance(element.type, StructureType):
+            allow_additional_data = element.resolved_metadata.get(AllowAdditionalDataMetadataAttribute.name, None)
+            allow_additional_data = allow_additional_data.value if allow_additional_data is not None else self._allow_additional_data
 
-        # Augment the structure definition with the additional data attribute (if necessary)
-        if AllowAdditionalDataMetadataAttribute.name in resolved_metadata:
-            structure_statement: Optional[StructureStatement] = None
+            d["additionalProperties"] = allow_additional_data
 
-            if element.flags & ReferenceType.Flag.StructureRef:
-                assert isinstance(element.type, StructureType)
-                structure_statement = element.type.structure
-            elif element.flags & ReferenceType.Flag.StructureRefWithCardinality:
-                assert isinstance(element.type, ReferenceType)
-                assert isinstance(element.type.type, StructureType)
-                structure_statement = element.type.type.structure
+        # Apply the schema
+        self._definitions[element.unique_name] = d
 
-            if structure_statement is not None:
-                schema_info_lookup_key = id(structure_statement)
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def OnReferenceType__cardinality(
+        self,
+        element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType,   # pylint: disable=unused-argument
+        *,
+        include_disabled: bool,                                                 # pylint: disable=unused-argument
+    ) -> Optional[VisitResult]:
+        # Handle the cardinality once the ReferenceType has been fully processed
+        return None
 
-                schema_info = self._schema_info_lookup.get(schema_info_lookup_key, None)
-                assert schema_info is not None
+    # ----------------------------------------------------------------------
+    @overridemethod
+    def OnReferenceType__type(
+        self,
+        element_or_elements: Element.GenerateAcceptDetailsGeneratorItemsType,
+        *,
+        include_disabled: bool,
+    ) -> Optional[VisitResult]:
+        if self._display_type_as_reference:
+            self._display_type_as_reference = False
+            return VisitResult.SkipAll
 
-                schema_info.schema["additionalProperties"] = resolved_metadata[AllowAdditionalDataMetadataAttribute.name].value
+        return self._DefaultDetailMethod("type", element_or_elements, include_disabled=include_disabled)
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnStringType(self, element: StringType) -> Iterator[Optional[VisitResult]]:
-        d = self._schema_stack[-1]
-
-        d["type"] = "string"
-        d["minLength"] = element.min_length
+        d: dict[str, Any] = {
+            "type": "string",
+            "minLength": element.min_length,
+        }
 
         if element.max_length is not None:
             d["maxLength"] = element.max_length
@@ -720,78 +693,68 @@ class _Visitor(Visitor):
                 element.validation_expression,
             )
 
-        yield
+        self._definitions[element.unique_name] = d
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnStructureType(self, element: StructureType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        yield
+    def OnStructureType(self, element: StructureType) -> Iterator[Optional[VisitResult]]:
+        yield None
 
+        self._definitions[element.unique_name] = self._definitions.pop(element.structure.unique_name)
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnTimeType(self, element: TimeType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
+    def OnTimeType(self, element: TimeType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "format": "time", # RFC 3339
+        }
 
-        d["type"] = "string"
-        d["format"] = "time" # RFC 3339
-
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnTupleType(self, element: TupleType) -> Iterator[Optional[VisitResult]]:
-        yield
+        yield None
 
         schemas: list[dict[str, Any]] = []
 
         for child_type in element.types:
-            schema_info = self._schema_info_lookup.pop(id(child_type))
-            schemas.append(schema_info.schema)
+            schemas.append(self._definitions.pop(child_type.unique_name))
 
-        d = self._schema_stack[-1]
-
-        d["type"] = "array"
-        d["items"] = schemas
-        d["minItems"] = len(element.types)
-        d["maxItems"] = len(element.types)
+        self._definitions[element.unique_name] = {
+            "type": "array",
+            "items": schemas,
+            "minItems": len(element.types),
+            "maxItems": len(element.types),
+        }
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
-    def OnUriType(self, element: UriType) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
-        d = self._schema_stack[-1]
+    def OnUriType(self, element: UriType) -> Iterator[Optional[VisitResult]]:
+        self._definitions[element.unique_name] = {
+            "type": "string",
+            "format": "uri", # RFC 3986
+        }
 
-        d["type"] = "string"
-        d["format"] = "uri" # RFC 3986
-
-        yield
+        yield VisitResult.SkipAll
 
     # ----------------------------------------------------------------------
     @contextmanager
     @overridemethod
     def OnVariantType(self, element: VariantType) -> Iterator[Optional[VisitResult]]:
-        yield
+        yield None
 
         schemas: list[dict[str, Any]] = []
 
         for child_type in element.types:
-            schema_info = self._schema_info_lookup.pop(id(child_type))
-            schemas.append(schema_info.schema)
+            schemas.append(self._definitions.pop(child_type.unique_name))
 
-        d = self._schema_stack[-1]
-
-        d["oneOf"] = schemas
-
-    # ----------------------------------------------------------------------
-    # |
-    # |  Private Types
-    # |
-    # ----------------------------------------------------------------------
-    @dataclass(frozen=True)
-    class _SchemaInfo(object):
-        element: Union[BasicType, ReferenceType, StructureStatement]
-        schema: dict[str, Any]
+        self._definitions[element.unique_name] = {
+            "oneOf": schemas,
+        }

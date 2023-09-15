@@ -2,11 +2,7 @@
   "$schema" : "https://json-schema.org/draft/2020-12/schema#",
   "$defs" : {
     "BasicStructure" : {
-      "$ref" : "#/$defs/_BasicStructure-Struct-Ln19"
-    },
-    "_BasicStructure-Struct-Ln19" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value" : {
           "type" : "string",
@@ -15,37 +11,22 @@
       },
       "required" : [
         "value"
-      ]
+      ],
+      "additionalProperties" : false
     },
-    "TypeOnly" : {
-      "$ref" : "#/$defs/_TypeOnly-Struct-Ln29"
-    },
-    "_TypeOnly-Struct-Ln29.StringRef" : {
+    "TypeOnlyStruct.StringRef" : {
       "type" : "string",
       "minLength" : 1,
       "maxLength" : 10
     },
-    "_TypeOnly-Struct-Ln29" : {
+    "TypeOnly" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {},
-      "required" : []
+      "required" : [],
+      "additionalProperties" : false
     },
-    "Nested0" : {
-      "$ref" : "#/$defs/_Nested0-Struct-Ln37"
-    },
-    "_Nested0-Struct-Ln37.Nested1" : {
-      "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40"
-    },
-    "_Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2" : {
-      "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43"
-    },
-    "_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3" : {
-      "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46"
-    },
-    "_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43._Nested3-Struct-Ln46" : {
+    "Nested0Struct.Nested1Struct.Nested2Struct.Nested3" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value3" : {
           "type" : "string",
@@ -54,65 +35,62 @@
       },
       "required" : [
         "value3"
-      ]
+      ],
+      "additionalProperties" : false
     },
-    "_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43" : {
+    "Nested0Struct.Nested1Struct.Nested2" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value2" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value3" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3"
+          "$ref" : "#/$defs/Nested0Struct.Nested1Struct.Nested2Struct.Nested3"
         }
       },
       "required" : [
         "value2",
         "nested_value3"
-      ]
+      ],
+      "additionalProperties" : false
     },
-    "_Nested0-Struct-Ln37._Nested1-Struct-Ln40" : {
+    "Nested0Struct.Nested1" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value1" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value2" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2"
+          "$ref" : "#/$defs/Nested0Struct.Nested1Struct.Nested2"
         }
       },
       "required" : [
         "value1",
         "nested_value2"
-      ]
+      ],
+      "additionalProperties" : false
     },
-    "_Nested0-Struct-Ln37" : {
+    "Nested0" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value0" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value1" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37.Nested1"
+          "$ref" : "#/$defs/Nested0Struct.Nested1"
         }
       },
       "required" : [
         "value0",
         "nested_value1"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "SingleBasicBase" : {
-      "$ref" : "#/$defs/_SingleBasicBase-Struct-Ln59"
-    },
-    "_SingleBasicBase-Struct-Ln59" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "__value__" : {
           "type" : "string",
@@ -122,55 +100,49 @@
       },
       "required" : [
         "__value__"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "SingleStructureBase" : {
-      "$ref" : "#/$defs/_SingleStructureBase-Struct-Ln64"
-    },
-    "_SingleStructureBase-Struct-Ln64" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value2" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value3" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3"
+          "$ref" : "#/$defs/Nested0Struct.Nested1Struct.Nested2Struct.Nested3"
         }
       },
       "required" : [
         "value2",
         "nested_value3"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "MultipleStructureBase" : {
-      "$ref" : "#/$defs/_MultipleStructureBase-Struct-Ln69"
-    },
-    "_MultipleStructureBase-Struct-Ln69" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value0" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value1" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37.Nested1"
+          "$ref" : "#/$defs/Nested0Struct.Nested1"
         },
         "value1" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value2" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40.Nested2"
+          "$ref" : "#/$defs/Nested0Struct.Nested1Struct.Nested2"
         },
         "value2" : {
           "type" : "string",
           "minLength" : 1
         },
         "nested_value3" : {
-          "$ref" : "#/$defs/_Nested0-Struct-Ln37._Nested1-Struct-Ln40._Nested2-Struct-Ln43.Nested3"
+          "$ref" : "#/$defs/Nested0Struct.Nested1Struct.Nested2Struct.Nested3"
         }
       },
       "required" : [
@@ -180,14 +152,15 @@
         "nested_value2",
         "value2",
         "nested_value3"
-      ]
+      ],
+      "additionalProperties" : false
     }
   },
   "type" : "object",
   "additionalProperties" : false,
   "properties" : {
     "type_only_string" : {
-      "$ref" : "#/$defs/_TypeOnly-Struct-Ln29.StringRef"
+      "$ref" : "#/$defs/TypeOnlyStruct.StringRef"
     },
     "nested_value0" : {
       "$ref" : "#/$defs/Nested0"

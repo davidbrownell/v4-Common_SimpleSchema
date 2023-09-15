@@ -30,8 +30,6 @@ from Common_FoundationEx import ExecuteTasks
 
 from ..Common import PSEUDO_TYPE_NAME_PREFIX
 
-from ..ParseState.ParseState import ParseState
-
 from ...MetadataAttributes.MetadataAttribute import MetadataAttribute
 
 from ...Elements.Common.Cardinality import Cardinality
@@ -100,7 +98,6 @@ class Flag(IntFlag):
 # ----------------------------------------------------------------------
 def Normalize(
     dm: DoneManager,
-    parse_state: ParseState,
     roots: dict[Path, RootStatement],
     metadata_attributes: list[MetadataAttribute],
     supported_extension_names: set[str],
@@ -152,7 +149,6 @@ def Normalize(
         status.OnProgress(Steps.Step1.value, "Step 1...")
 
         visitor = _Step1Visitor(
-            parse_state,
             inherited_attribute_names,
             supported_extension_names,
             flags,
@@ -216,14 +212,12 @@ class _Step1Visitor(NonRecursiveVisitor):
     # ----------------------------------------------------------------------
     def __init__(
         self,
-        parse_state: ParseState,
         inherited_attribute_names: set[str],
         supported_extension_names: set[str],
         flags: Flag,
     ):
         super(_Step1Visitor, self).__init__()
 
-        self._parse_state                   = parse_state
         self._inherited_attribute_names     = inherited_attribute_names
         self._supported_extension_names     = supported_extension_names
         self._flags                         = flags
@@ -278,7 +272,11 @@ class _Step1Visitor(NonRecursiveVisitor):
                     type_name_parts.append(element.display_type)
                 elif isinstance(element, BasicType):
                     type_name_parts.append(
-                        "{}-Ln{}".format(element.NAME, element.range.begin.line),
+                        "{}-Ln{}Col{}".format(
+                            element.NAME,
+                            element.range.begin.line,
+                            element.range.begin.column,
+                        ),
                     )
                 elif isinstance(element, ReferenceType):
                     type_name_parts.append(element.name.value)
@@ -328,27 +326,24 @@ class _Step1Visitor(NonRecursiveVisitor):
                 assert not base_type.is_disabled
 
                 with base_type.Resolve() as resolved_base_type:
-                    if resolved_base_type.flags & ReferenceType.Flag.StructureRef:
-                        assert isinstance(resolved_base_type.type, StructureType), resolved_base_type.type
-
+                    if isinstance(resolved_base_type.type, StructureType):
                         for child in resolved_base_type.type.structure.children:
                             if child.is_disabled or not isinstance(child, ItemStatement):
                                 continue
 
                             items_to_add.append(child)
 
-                    elif resolved_base_type.flags & ReferenceType.Flag.BasicRef:
+                    elif isinstance(resolved_base_type.type, BasicType):
                         item_statement = ItemStatement(
                             base_type.range,
                             SimpleElement[Visibility](base_type.range, Visibility.Public),
                             SimpleElement[str](base_type.range, "__value__"),
-                            resolved_base_type,  # type: ignore
+                            resolved_base_type,
                         )
 
                         items_to_add.append(item_statement)
-
                     else:
-                        assert False, resolved_base_type.flags  # pragma: no cover
+                        assert False, resolved_base_type  # pragma: no cover
 
             item_lookup: dict[str, ItemStatement] = {
                 child.name.value: child
@@ -396,7 +391,7 @@ class _Step1Visitor(NonRecursiveVisitor):
 
                     metadata_items[k] = v
 
-            if ptr.flags & ReferenceType.Flag.Type:
+            if ptr.category != ReferenceType.Category.Alias:
                 break
 
             ptr = ptr.type
@@ -460,19 +455,18 @@ class _Step2Visitor(NonRecursiveVisitor):
             and isinstance(element.type.type, ReferenceType)
             and element.type.type.name.value.startswith(PSEUDO_TYPE_NAME_PREFIX)
         ):
-            assert element.type.flags & ReferenceType.Flag.Alias
+            # Disable the pseudo element and convert the alias associated with the item statement
+            # into a type that references the generated pseudo element.
+            source_type = element.type.type
+            dest_type = element.type
 
-            if element.type.cardinality.is_single:
-                element.type.type.Disable()
-                object.__setattr__(element, "type", element.type.type.type)
-            else:
-                assert isinstance(element.type.type.type, ReferenceType)
+            assert source_type.category == ReferenceType.Category.Source, source_type.category
+            assert dest_type.category == ReferenceType.Category.Alias, dest_type.category
 
-                element.type.type.Disable()
-                element.type.type.type.Disable()
+            object.__setattr__(dest_type, "category", source_type.category)
+            object.__setattr__(dest_type, "type", source_type.type)
 
-                object.__setattr__(element.type, "flags", element.type.type.flags)
-                object.__setattr__(element.type, "type", element.type.type.type.type)
+            source_type.Disable()
 
     # ----------------------------------------------------------------------
     @contextmanager
@@ -506,25 +500,45 @@ class _Step2Visitor(NonRecursiveVisitor):
     @contextmanager
     @overridemethod
     def OnReferenceType(self, element: ReferenceType) -> Iterator[Optional[VisitResult]]:
+        # ----------------------------------------------------------------------
+        def IsStructure(
+            element: ReferenceType,
+        ) -> bool:
+            return (
+                isinstance(element.type, StructureType)
+                and element.cardinality.is_single
+                and element.category == ReferenceType.Category.Source
+            )
+
+        # ----------------------------------------------------------------------
+        def IsStructureContainer(
+            element: ReferenceType,
+        ) -> bool:
+            return (
+                isinstance(element.type, ReferenceType)
+                and not element.cardinality.is_single
+                and element.category == ReferenceType.Category.Source
+                and IsStructure(element.type)
+            )
+
+        # ----------------------------------------------------------------------
+
         if self._metadata_items_map.get(id(element), None) is not None:
-            if (
-                (element.flags & ReferenceType.Flag.StructureRef)
-                or (element.flags & ReferenceType.Flag.StructureRefWithCardinality)
-            ):
+            if IsStructure(element) or IsStructureContainer(element):
                 reference_type_category = MetadataAttribute.Flag.Structure
 
-                if element.flags & ReferenceType.Flag.StructureRef:
+                if IsStructure(element):
                     assert isinstance(element.type, StructureType), element.type
                     referenced_element = element.type.structure
 
-                elif element.flags & ReferenceType.Flag.StructureRefWithCardinality:
+                elif IsStructureContainer(element):
                     assert isinstance(element.type, ReferenceType), element.type
                     assert isinstance(element.type.type, StructureType), element.type.type
 
                     referenced_element = element.type.type.structure
 
                 else:
-                    assert False, element.flags  # pragma: no cover
+                    assert False, element.type  # pragma: no cover
 
             else:
                 if id(element) in self._root_elements:
@@ -822,6 +836,8 @@ class _Step3Visitor(NonRecursiveVisitor):
         self._DisableUnreferencedElements(element)
         self._ResolveReferenceTypeSharedState(element)
 
+        self._CollapseTypes(element)
+
     # ----------------------------------------------------------------------
     # |  Private Types
     @dataclass(frozen=True)
@@ -914,6 +930,9 @@ class _Step3Visitor(NonRecursiveVisitor):
                 if isinstance(descendant, (Cardinality, SimpleElement)):
                     return VisitResult.SkipAll
 
+                if isinstance(descendant, ReferenceType) and descendant.category == ReferenceType.Category.Alias:
+                    return VisitResult.SkipAll
+
                 descendants.append(descendant)
                 return None
 
@@ -956,7 +975,7 @@ class _Step3Visitor(NonRecursiveVisitor):
             ):
                 should_disable = True
 
-            # Disable things whose descendants are disabled?
+            # Disable things whose descendants are disabled
             if (
                 should_disable is False
                 and AreAllDescendantsDisabled(node.element)
@@ -973,7 +992,7 @@ class _Step3Visitor(NonRecursiveVisitor):
     # ----------------------------------------------------------------------
     def _ResolveReferenceTypeSharedState(
         self,
-        root: Element,
+        root: Element,  # pylint: disable=unused-argument
     ) -> None:
         # ----------------------------------------------------------------------
         def IsShared(
@@ -983,6 +1002,9 @@ class _Step3Visitor(NonRecursiveVisitor):
 
             for ref_element in ref_elements:
                 if ref_element.is_disabled:
+                    continue
+
+                if isinstance(ref_element, ReferenceType) and ref_element.category == ReferenceType.Category.Alias:
                     continue
 
                 count += 1
@@ -1002,6 +1024,69 @@ class _Step3Visitor(NonRecursiveVisitor):
 
             assert node.referenced_by
 
-            node.element.ResolveShared(
-                is_shared=IsShared(ref_node.element for ref_node in node.referenced_by.values()),
+            node.element.ResolveIsShared(
+                IsShared(ref_node.element for ref_node in node.referenced_by.values()),
             )
+
+    # ----------------------------------------------------------------------
+    def _CollapseTypes(
+        self,
+        root: Element,  # pylint: disable=unused-argument
+    ) -> None:
+        for node in self._nodes.values():
+            if node.element.is_disabled:
+                continue
+
+            if not (
+                isinstance(node.element, ReferenceType)
+                and node.element.category == ReferenceType.Category.Source
+                and not node.element.is_shared
+                and isinstance(node.element.type, ReferenceType)
+            ):
+                continue
+
+            assert not node.element.cardinality.is_single
+            assert node.element.type.cardinality.is_single
+
+            if id(node.element) in self._root_elements and node.element.visibility.value != Visibility.Private:
+                continue
+
+            for ref_by in node.referenced_by.values():
+                if ref_by.element.is_disabled:
+                    continue
+
+                if isinstance(ref_by.element, ItemStatement):
+                    assert not ref_by.element.type.cardinality.is_single
+
+                    node.element.type.Disable()
+                    object.__setattr__(ref_by.element.type, "type", node.element.type.type)
+
+                elif isinstance(ref_by.element, ReferenceType):
+                    assert ref_by.element.category == ReferenceType.Category.Alias, ref_by.element.category
+
+                    node.element.Disable()
+
+                    object.__setattr__(ref_by.element, "category", node.element.category)
+                    object.__setattr__(ref_by.element, "type", node.element.type)
+
+                elif isinstance(ref_by.element, (RootStatement, StructureStatement)):
+                    if node.element.visibility.value != Visibility.Private:
+                        continue
+
+                    children = getattr(ref_by.element, ref_by.element.CHILDREN_NAME)
+
+                    for statement_index, statement in enumerate(children):
+                        if statement is node.element:
+                            del children[statement_index]
+                            break
+
+                elif isinstance(ref_by.element, (TupleType, VariantType)):
+                    types = ref_by.element.types
+
+                    for the_type in types:
+                        if the_type is node.element:
+                            object.__setattr__(the_type, "type", node.element.type.type)
+                            break
+
+                else:
+                    assert False, ref_by.element  # pragma: no cover
