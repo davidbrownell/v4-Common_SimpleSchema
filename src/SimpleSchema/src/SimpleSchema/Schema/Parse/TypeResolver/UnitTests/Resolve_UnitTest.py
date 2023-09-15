@@ -44,7 +44,6 @@ with ExitStack(lambda: sys.path.pop(0)):
     from SimpleSchema.Schema.Elements.Statements.RootStatement import RootStatement
     from SimpleSchema.Schema.Parse import TestHelpers
     from SimpleSchema.Schema.Parse.ANTLR.Parse import Parse
-    from SimpleSchema.Schema.Parse.ParseState.ParseState import ParseState
     from SimpleSchema.Schema.Parse.TypeResolver.Resolve import Resolve
 
 
@@ -196,20 +195,6 @@ class TestFundamentalTypes(object):
                 ),
             )
 
-    # ----------------------------------------------------------------------
-    def test_ErrorInvalidItemReference(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape("Item references to fundamental types are not valid (as they are already item references). ({} <Ln 1, Col 13 -> Ln 1, Col 19>)".format(TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point")),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    type: String::item
-                    """,
-                ),
-            )
-
 
 # ----------------------------------------------------------------------
 def test_TupleAndVariants():
@@ -278,63 +263,11 @@ class TestTypedef(object):
                 """\
                 Container: String+ { min_length: 10, custom_value: "10" }
 
-                Container1: Container
-                ContainerItem: Container::item
-                ContainerItemWithMods: Container::item[2] { custom_value: "2" }
+                ContainerAlias: Container
+                ContainerAliases: ContainerAlias*
                 """,
             ),
         )
-
-    # ----------------------------------------------------------------------
-    def test_ErrorItemReferenceStructure(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape(
-                textwrap.dedent(
-                    """\
-                    The type 'Structure' is not a container or optional and cannot be used with an item reference.
-
-                        - {entry_point} <Ln 4, Col 30 -> Ln 4, Col 36>
-                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
-                    """,
-                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
-            ),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    Structure ->
-                        pass
-
-                    bad_structure_item: Structure::item
-                    """,
-                ),
-            )
-
-    # ----------------------------------------------------------------------
-    def test_ErrorItemReferenceOnSingleItem(self):
-        with pytest.raises(
-            SimpleSchemaException,
-            match=re.escape(
-                textwrap.dedent(
-                    """\
-                    The type 'SingleItem' is not a container or optional and cannot be used with an item reference.
-
-                        - {entry_point} <Ln 3, Col 21 -> Ln 3, Col 27>
-                        - {entry_point} <Ln 1, Col 1 -> Ln 3, Col 1>
-                    """,
-                ).format(entry_point=TestHelpers.DEFAULT_WORKSPACE_PATH / "entry_point"),
-            ),
-        ):
-            _Test(
-                textwrap.dedent(
-                    """\
-                    SingleItem: String
-
-                    bad_item: SingleItem::item
-                    """,
-                ),
-            )
 
     # ----------------------------------------------------------------------
     def test_NestedReferences(self):
@@ -1091,11 +1024,9 @@ def _TestEx(
         }
 
     dm_and_sink = iter(GenerateDoneManagerAndSink())
-    parse_state = ParseState()
 
     resolve_results = Resolve(
         cast(DoneManager, next(dm_and_sink)),
-        parse_state,
         results,
         single_threaded=single_threaded,
         quiet=quiet,

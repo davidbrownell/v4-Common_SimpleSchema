@@ -2,11 +2,7 @@
   "$schema" : "https://json-schema.org/draft/2020-12/schema#",
   "$defs" : {
     "FundamentalTypes" : {
-      "$ref" : "#/$defs/_FundamentalTypes-Struct-Ln19"
-    },
-    "_FundamentalTypes-Struct-Ln19" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "boolean" : {
           "type" : "boolean"
@@ -90,14 +86,11 @@
         "string",
         "time",
         "uri"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "DirectoryCustomizations" : {
-      "$ref" : "#/$defs/_DirectoryCustomizations-Struct-Ln38"
-    },
-    "_DirectoryCustomizations-Struct-Ln38" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "default" : {
           "type" : "string",
@@ -117,14 +110,11 @@
       "required" : [
         "default",
         "no_ensure_exists"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "EnumCustomizations" : {
-      "$ref" : "#/$defs/_EnumCustomizations-Struct-Ln46"
-    },
-    "_EnumCustomizations-Struct-Ln46" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "enum1" : {
           "type" : "string",
@@ -208,14 +198,11 @@
         "enum3",
         "enum4",
         "enum5"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "FilenameCustomizations" : {
-      "$ref" : "#/$defs/_FilenameCustomizations-Struct-Ln57"
-    },
-    "_FilenameCustomizations-Struct-Ln57" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "default" : {
           "type" : "string",
@@ -245,14 +232,11 @@
         "default",
         "no_ensure_exists",
         "match_any"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "IntegerCustomizations" : {
-      "$ref" : "#/$defs/_IntegerCustomizations-Struct-Ln66"
-    },
-    "_IntegerCustomizations-Struct-Ln66" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "default" : {
           "type" : "integer"
@@ -283,14 +267,11 @@
         "max",
         "min_and_max",
         "with_bits"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "NumberCustomizations" : {
-      "$ref" : "#/$defs/_NumberCustomizations-Struct-Ln77"
-    },
-    "_NumberCustomizations-Struct-Ln77" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "default" : {
           "type" : "number"
@@ -321,14 +302,11 @@
         "max",
         "min_and_max",
         "with_bits"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "StringCustomizations" : {
-      "$ref" : "#/$defs/_StringCustomizations-Struct-Ln88"
-    },
-    "_StringCustomizations-Struct-Ln88" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "default" : {
           "type" : "string",
@@ -360,7 +338,8 @@
         "max_length",
         "min_and_max_length",
         "validation_expression"
-      ]
+      ],
+      "additionalProperties" : false
     }
   },
   "type" : "object",

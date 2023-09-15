@@ -2,35 +2,7 @@
   "$schema" : "https://json-schema.org/draft/2020-12/schema#",
   "$defs" : {
     "Cardinality" : {
-      "$ref" : "#/$defs/_Cardinality-Struct-Ln19"
-    },
-    "_Cardinality-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22" : {
-      "type" : "string",
-      "minLength" : 1
-    },
-    "_Cardinality-Struct-Ln19.__ItemStatement-Ln23-Item-Ln23" : {
-      "type" : "string",
-      "minLength" : 1
-    },
-    "_Cardinality-Struct-Ln19.__ItemStatement-Ln24-Item-Ln24" : {
-      "type" : "string",
-      "minLength" : 1
-    },
-    "_Cardinality-Struct-Ln19.__ItemStatement-Ln25-Item-Ln25" : {
-      "type" : "string",
-      "minLength" : 1
-    },
-    "_Cardinality-Struct-Ln19.__ItemStatement-Ln27-Item-Ln27" : {
-      "type" : "string",
-      "minLength" : 1
-    },
-    "_Cardinality-Struct-Ln19.__ItemStatement-Ln28-Item-Ln28" : {
-      "type" : "string",
-      "minLength" : 1
-    },
-    "_Cardinality-Struct-Ln19" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "standard" : {
           "type" : "string",
@@ -39,20 +11,23 @@
         "zero_or_more" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/_Cardinality-Struct-Ln19.__ItemStatement-Ln22-Item-Ln22"
+            "type" : "string",
+            "minLength" : 1
           }
         },
         "one_or_more" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/_Cardinality-Struct-Ln19.__ItemStatement-Ln23-Item-Ln23"
+            "type" : "string",
+            "minLength" : 1
           },
           "minItems" : 1
         },
         "constrained" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/_Cardinality-Struct-Ln19.__ItemStatement-Ln24-Item-Ln24"
+            "type" : "string",
+            "minLength" : 1
           },
           "minItems" : 3,
           "maxItems" : 10
@@ -60,36 +35,32 @@
         "fixed" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/_Cardinality-Struct-Ln19.__ItemStatement-Ln25-Item-Ln25"
+            "type" : "string",
+            "minLength" : 1
           },
           "minItems" : 3,
           "maxItems" : 3
         },
         "optional" : {
-          "$ref" : "#/$defs/_Cardinality-Struct-Ln19.__ItemStatement-Ln27-Item-Ln27"
+          "type" : "string",
+          "minLength" : 1
         },
         "optional_with_default" : {
-          "$ref" : "#/$defs/_Cardinality-Struct-Ln19.__ItemStatement-Ln28-Item-Ln28",
+          "type" : "string",
+          "minLength" : 1,
           "default" : "foo"
         }
       },
       "required" : [
         "standard",
-        "zero_or_more",
         "one_or_more",
         "constrained",
         "fixed"
-      ]
+      ],
+      "additionalProperties" : false
     },
     "OptionalObject" : {
-      "$ref" : "#/$defs/_OptionalObject-Item-Ln34"
-    },
-    "_OptionalObject-Item-Ln34" : {
-      "$ref" : "#/$defs/_OptionalObject-Struct-Ln34"
-    },
-    "_OptionalObject-Struct-Ln34" : {
       "type" : "object",
-      "additionalProperties" : false,
       "properties" : {
         "value" : {
           "type" : "string",
@@ -98,7 +69,8 @@
       },
       "required" : [
         "value"
-      ]
+      ],
+      "additionalProperties" : false
     }
   },
   "type" : "object",

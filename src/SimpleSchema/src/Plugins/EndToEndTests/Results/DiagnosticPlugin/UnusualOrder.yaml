@@ -11,14 +11,11 @@
       __type__: ReferenceType
       __disabled__: false
       range: UnusualOrder.SimpleSchema (Ln 18, Col 13 -> Ln 18, Col 35)
-      unique_name: _ItemStatement-Ln18
+      unique_name: ItemStatement-Ln18Col1
       display_type: String
-      flags:
-      - Alias
-      - ReferenceRef
-      - SingleAccess
+      category: Category.Alias
       visibility: Visibility.Private
-      name: _ItemStatement-Ln18
+      name: ItemStatement-Ln18Col1
       cardinality: <single>
       reference:
         unique_name: InnerType
@@ -27,60 +24,47 @@
     __disabled__: false
     range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
     unique_name: DefinedLater
-    display_type: _DefinedLater-Struct-Ln20
-    flags:
-    - Alias
-    - BasicRef
-    - StructureRef
-    - SingleAccess
-    - TypeDefinition
+    display_type: DefinedLaterStruct
+    category: Category.Source
     visibility: Visibility.Public
+    name: DefinedLater
+    cardinality: <single>
     type:
       __type__: StructureType
       __disabled__: false
       range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
-      unique_name: _DefinedLater-Struct-Ln20
+      unique_name: DefinedLaterStruct
       structure:
         __type__: StructureStatement
         __disabled__: false
         range: UnusualOrder.SimpleSchema (Ln 20, Col 1 -> Ln 23, Col 1)
-        unique_name: _DefinedLater-Struct-Ln20
-        name: _DefinedLater-Struct-Ln20
+        unique_name: DefinedLaterStruct
+        name: DefinedLaterStruct
         children:
         - __type__: ReferenceType
           __disabled__: false
           range: UnusualOrder.SimpleSchema (Ln 21, Col 5 -> Ln 22, Col 5)
           unique_name: _PrivateType
           display_type: String
-          flags:
-          - Alias
-          - BasicRef
-          - SharedAccess
-          - TypeDefinition
+          category: Category.Source
           visibility: Visibility.Private
+          name: _PrivateType
+          cardinality: <single>
           type:
             __type__: StringType
             __disabled__: false
             range: UnusualOrder.SimpleSchema (Ln 21, Col 19 -> Ln 21, Col 25)
-            unique_name: String-Ln21
+            unique_name: String-Ln21Col19
             min_length: 1
-          name: _PrivateType
-          cardinality: <single>
         - __type__: ReferenceType
           __disabled__: false
           range: UnusualOrder.SimpleSchema (Ln 22, Col 5 -> Ln 23, Col 1)
           unique_name: InnerType
           display_type: String
-          flags:
-          - Alias
-          - ReferenceRef
-          - BasicRefWithCardinality
-          - SharedAccess
+          category: Category.Alias
           visibility: Visibility.Public
           name: InnerType
           cardinality: <single>
           reference:
             unique_name: _PrivateType
             range: UnusualOrder.SimpleSchema (Ln 21, Col 5 -> Ln 22, Col 5)
-    name: DefinedLater
-    cardinality: <single>

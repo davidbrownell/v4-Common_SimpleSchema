@@ -45,7 +45,6 @@ def test_Standard():
     metadata_mock = Mock()
     identifiers_mock = Mock()
     is_global_reference_mock = Mock()
-    is_item_reference_mock = Mock()
 
     pit = ParseIdentifierType(
         range_mock,
@@ -53,7 +52,6 @@ def test_Standard():
         metadata_mock,
         identifiers_mock,
         is_global_reference_mock,
-        is_item_reference_mock,
     )
 
     assert pit.range is range_mock
@@ -61,7 +59,6 @@ def test_Standard():
     assert pit.unresolved_metadata is metadata_mock
     assert pit.identifiers is identifiers_mock
     assert pit.is_global_reference is is_global_reference_mock
-    assert pit.is_item_reference is is_item_reference_mock
 
 
 # ----------------------------------------------------------------------
@@ -74,7 +71,6 @@ def test_DisplayTypeSingle():
             ParseIdentifier(Mock(), "Name"),
         ],
         None,
-        None,
     ).display_type == "Name[2]"
 
     assert ParseIdentifierType(
@@ -85,7 +81,6 @@ def test_DisplayTypeSingle():
             ParseIdentifier(Mock(), "Name"),
         ],
         Mock(),
-        None,
     ).display_type == "::Name?"
 
     assert ParseIdentifierType(
@@ -96,8 +91,7 @@ def test_DisplayTypeSingle():
             ParseIdentifier(Mock(), "Name"),
         ],
         None,
-        Mock(),
-    ).display_type == "Name::item+"
+    ).display_type == "Name+"
 
     assert ParseIdentifierType(
         Mock(),
@@ -107,8 +101,7 @@ def test_DisplayTypeSingle():
             ParseIdentifier(Mock(), "Name"),
         ],
         Mock(),
-        Mock(),
-    ).display_type == "::Name::item[1, 2]"
+    ).display_type == "::Name[1, 2]"
 
 
 # ----------------------------------------------------------------------
@@ -123,7 +116,6 @@ def test_DisplayTypeMultiple():
             ParseIdentifier(Mock(), "Name3"),
         ],
         None,
-        None,
     ).display_type == "Name1.Name2.Name3?"
 
     assert ParseIdentifierType(
@@ -136,8 +128,7 @@ def test_DisplayTypeMultiple():
             ParseIdentifier(Mock(), "Name3"),
         ],
         None,
-        Mock(),
-    ).display_type == "Name1.Name2.Name3::item[2+]"
+    ).display_type == "Name1.Name2.Name3[2+]"
 
 
 # ----------------------------------------------------------------------
@@ -151,7 +142,6 @@ def test_ErrorEmpty():
             Mock(),
             None,
             [],
-            None,
             None,
         )
 
@@ -171,7 +161,6 @@ def test_ErrorNotAType():
                 ParseIdentifier(Range.Create(Path("a f_i_l_e"), 1, 2, 3, 4), "name2"),
             ],
             None,
-            None,
         )
 
 
@@ -190,5 +179,4 @@ def test_ErrorInvalidGlobal():
                 ParseIdentifier(Mock(), "Name2"),
             ],
             Range.Create(Path("a f_i_l_e"), 1, 2, 3, 4),
-            None,
         )

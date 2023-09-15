@@ -4,23 +4,11 @@
   - __type__: ReferenceType
     range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
     unique_name: Used
-    display_type: _Used-Struct-Ln4
+    display_type: UsedStruct
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 4, Col 1 -> Ln 4, Col 5>
       value: Visibility.Public
-    type:
-      __type__: StructureType
-      range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
-      unique_name: _Used-Struct-Ln4
-      structure:
-        __type__: StructureStatement
-        range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
-        unique_name: _Used-Struct-Ln4
-        name:
-          __type__: SimpleElement
-          range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
-          value: _Used-Struct-Ln4
     name:
       __type__: SimpleElement
       range: entry_point <Ln 4, Col 1 -> Ln 4, Col 5>
@@ -36,3 +24,15 @@
         __type__: IntegerExpression
         range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
         value: 1
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+      unique_name: UsedStruct
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+        unique_name: UsedStruct
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 4, Col 1 -> Ln 6, Col 1>
+          value: UsedStruct

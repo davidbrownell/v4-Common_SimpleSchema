@@ -53,7 +53,6 @@ def test_Standard(has_base, has_metadata, has_children):
             None,
             [Mock(), ],
             None,
-            None,
         ),
     ] if has_base else None
 

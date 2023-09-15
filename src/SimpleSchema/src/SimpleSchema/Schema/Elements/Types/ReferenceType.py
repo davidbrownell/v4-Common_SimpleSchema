@@ -3,7 +3,7 @@
 # |  ReferenceType.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-02-13 11:44:11
+# |      2023-04-01 09:37:40
 # |
 # ----------------------------------------------------------------------
 # |
@@ -17,7 +17,7 @@
 
 from contextlib import contextmanager
 from dataclasses import dataclass, field, InitVar
-from enum import auto, IntFlag
+from enum import auto, Enum
 from types import NoneType
 from typing import Any, cast, ClassVar, Iterator, Optional, Union
 from weakref import ref, ReferenceType as WeakReferenceType
@@ -38,7 +38,7 @@ from ..Expressions.Expression import Expression
 from ..Expressions.ListExpression import ListExpression
 from ..Expressions.NoneExpression import NoneExpression
 
-from ..Types.StructureType import StructureType
+from ..Types.BasicType import BasicType
 from ..Types.VariantType import VariantType
 
 from ....Common import Errors
@@ -49,86 +49,52 @@ from ....Common.SimpleSchemaException import SimpleSchemaException
 # ----------------------------------------------------------------------
 @dataclass(frozen=True)
 class ReferenceType(VisibilityTrait, BaseType):
-    """A type that has cardinality and metadata"""
+    """A type that references another type, but adds specific cardinality and/or metadata"""
 
     # ----------------------------------------------------------------------
     # |
     # |  Public Types
     # |
     # ----------------------------------------------------------------------
-    class Flag(IntFlag):
-        # Reference Category
-        Type                                = auto()
-        Alias                               = auto()
-
-        _ReferenceCategoryDelimiter         = auto()
-
-        # Referenced Type
-        BasicRef                            = auto()
-        StructureRef                        = auto()
-        ReferenceRef                        = auto()
-
-        BasicRefWithCardinality             = auto()
-        StructureRefWithCardinality         = auto()
-
-        _ReferencedTypeDelimiter            = auto()
-
-        # Access
-        SingleAccess                        = auto()
-        SharedAccess                        = auto()
-
-        _AccessDelimiter                    = auto()
-
-        # Miscellaneous
-        DynamicallyGenerated                = auto()    # Type generated from code whose range should not participate in exception call stacks
-        TypeDefinition                      = auto()    # Type is part of a type definition and should be generated inline by most plugins
-
-        # ----------------------------------------------------------------------
-        # |  Amalgamations
-        # ----------------------------------------------------------------------
-
-        # Masks
-        ReferenceCategoryMask               = _ReferenceCategoryDelimiter - 1
-        ReferencedTypeMask                  = (_ReferencedTypeDelimiter - 1) & ~(ReferenceCategoryMask)
-        AccessMask                          = (_AccessDelimiter - 1) & ~(ReferenceCategoryMask | ReferencedTypeMask)
+    class Category(Enum):
+        Source                              = auto()    # Reference wrapper for the original source
+        Reference                           = auto()    # References the type in the creation of a new type (perhaps a container or optional)
+        Alias                               = auto()    # The reference's cardinality value is the same as the type that it references
 
     # ----------------------------------------------------------------------
     # |
     # |  Public Data
     # |
     # ----------------------------------------------------------------------
-    NAME: ClassVar[str]                                 = "Reference"
+    NAME: ClassVar[str]                     = "Reference"
 
     type: Union[BasicType, "ReferenceType"]
     name: SimpleElement[str]
+
     cardinality: Cardinality
 
     _metadata: Union[
-        Optional[Metadata],                 # Before ResolveMetadata is called
-        dict[
+        Optional[Metadata],                 # Valid before `ResolveMetadata` is called
+        dict[                               # Valid after `ResolveMetadata` is called
             str,
             Union[
                 SimpleElement,              # Metadata item that was recognized and resolved
                 Expression,                 # Metadata item that was not recognized and therefore not resolved
-            ]
-        ],                                  # After ResolveMetadata is called
+            ],
+        ],
     ]
 
-    flags: Flag                                         = field(init=False)
+    category: Category                      = field(init=False)
 
-    # Indicates that the cardinality should be used to create a new type rather than
-    # considering the type to be an alias.
-    force_single_cardinality: InitVar[bool]             = field(kw_only=True)
+    # Valid after `ResolvedIsShared` is called
+    _is_shared: Optional[bool]              = field(init=False, default=None)
 
-    # Indicates that the type was created via code; the range for this type will not be
-    # included in exception stacks.
-    was_dynamically_generated: InitVar[bool]            = field(kw_only=True)
+    is_source: InitVar[bool]                = field(kw_only=True, default=False)
 
-    # Indicates that this reference was created as part of the definition of a larger type.
-    # Some plugins will use this information to determine if the content associated with
-    # the reference type should be generated along with this type or rather as a
-    # reference/pointer to a type defined elsewhere.
-    is_type_definition: InitVar[bool]                   = field(kw_only=True)
+    # Indicate that is reference's range should not be added in the exceptions range stack.
+    # This will generally be used when the type associated with the reference were dynamically
+    # created in code and will not be meaningful to the caller.
+    suppress_range_in_exceptions: bool      = field(kw_only=True, default=False)
 
     # ----------------------------------------------------------------------
     # |
@@ -144,9 +110,8 @@ class ReferenceType(VisibilityTrait, BaseType):
         cardinality: Cardinality,
         metadata: Optional[Metadata],
         *,
-        was_dynamically_generated: bool=False,
-        is_type_definition: bool=False,
         range_value: Optional[Range]=None,
+        suppress_range_in_exceptions: bool=False,
     ) -> "ReferenceType":
         if metadata and not metadata.items:
             metadata = None
@@ -155,10 +120,12 @@ class ReferenceType(VisibilityTrait, BaseType):
             range_value = the_type.range
 
         if isinstance(the_type, BasicType):
-            is_type_definition = True
+            is_source = True
 
             if cardinality.is_single:
                 referenced_type = the_type
+                assert is_source
+
             else:
                 referenced_type = cls(
                     range_value,
@@ -166,15 +133,20 @@ class ReferenceType(VisibilityTrait, BaseType):
                     the_type,
                     SimpleElement[str](
                         the_type.range,
-                        "_{}-Item-Ln{}".format(name.value, the_type.range.begin.line),
+                        "{}-Item-Ln{}Col{}".format(
+                            name.value,
+                            the_type.range.begin.line,
+                            the_type.range.begin.column,
+                        ),
                     ),
                     Cardinality(the_type.range, None, None),
                     None,
-                    force_single_cardinality=True,
-                    was_dynamically_generated=was_dynamically_generated,
-                    is_type_definition=is_type_definition,
+                    is_source=True,
+                    suppress_range_in_exceptions=suppress_range_in_exceptions,
                 )
         else:
+            is_source = False
+
             referenced_type = the_type
 
         return cls(
@@ -184,74 +156,36 @@ class ReferenceType(VisibilityTrait, BaseType):
             name,
             cardinality,
             metadata,
-            force_single_cardinality=False,
-            was_dynamically_generated=was_dynamically_generated,
-            is_type_definition=is_type_definition,
+            is_source=is_source,
+            suppress_range_in_exceptions=suppress_range_in_exceptions,
         )
 
     # ----------------------------------------------------------------------
     def __post_init__(
         self,
-        force_single_cardinality: bool,
-        was_dynamically_generated: bool,
-        is_type_definition: bool,
+        is_source: bool,
     ):
         super(ReferenceType, self).__post_init__()
 
-        assert force_single_cardinality is False or self.cardinality.is_single
+        # Category
+        if is_source:
+            category = ReferenceType.Category.Source
 
-        # Assume single access until we know otherwise
-        flags = 0
-
-        if was_dynamically_generated:
-            assert (
-                self.visibility.value == Visibility.Private
-                and (self.range.begin.line == self.range.begin.column == self.range.end.line == self.range.end.column)
-            )
-
-            flags |= ReferenceType.Flag.DynamicallyGenerated
-
-        if is_type_definition:
-            flags |= ReferenceType.Flag.TypeDefinition
-
-        # Reference Category
-        if (
-            force_single_cardinality
-            or not self.cardinality.is_single
-        ):
-            flags |= ReferenceType.Flag.Type
-
-            if self.cardinality.is_optional and isinstance(self.type, ReferenceType):
-                with self.type.Resolve() as resolved_type:
-                    if resolved_type.cardinality.is_optional:
-                        raise Errors.ReferenceTypeOptionalToOptional.Create(self.range)
-
-        else:
-            flags |= ReferenceType.Flag.Alias
+        elif self.cardinality.is_single:
+            category = ReferenceType.Category.Alias
 
             if isinstance(self.type, ReferenceType):
                 object.__setattr__(self, "cardinality", self.type.cardinality)
 
-        # Reference Type
-        if isinstance(self.type, BasicType):
-            flags |= ReferenceType.Flag.BasicRef
-
-            if isinstance(self.type, StructureType):
-                flags |= ReferenceType.Flag.StructureRef
-
-        elif isinstance(self.type, ReferenceType):
-            flags |= ReferenceType.Flag.ReferenceRef
-
-            if self.type.flags & ReferenceType.Flag.BasicRef:
-                flags |= ReferenceType.Flag.BasicRefWithCardinality
-
-                if self.type.flags & ReferenceType.Flag.StructureRef:
-                    flags |= ReferenceType.Flag.StructureRefWithCardinality
-
         else:
-            assert False, self.type  # pragma: no cover
+            category = ReferenceType.Category.Reference
 
-        object.__setattr__(self, "flags", flags)
+            if self.cardinality.is_optional and isinstance(self.type, ReferenceType):
+                with self.type.Resolve() as resolved_type:
+                    if resolved_type.cardinality.is_optional:
+                        raise Errors.ReferenceTypeOptionalToOptional.Create(self.cardinality.range)
+
+        object.__setattr__(self, "category", category)
 
     # ----------------------------------------------------------------------
     @property
@@ -260,14 +194,16 @@ class ReferenceType(VisibilityTrait, BaseType):
 
     @property
     def unresolved_metadata(self) -> Optional[Metadata]:
-        # Valid before ResolveMetadata is called
-        assert not isinstance(self._metadata, dict)
+        if isinstance(self._metadata, dict):
+            raise RuntimeError("Metadata has been resolved.")
+
         return self._metadata
 
     @property
     def resolved_metadata(self) -> dict[str, Union[SimpleElement, Expression]]:
-        # Valid after ResolveMetadata is called
-        assert isinstance(self._metadata, dict)
+        if self._metadata is None or isinstance(self._metadata, Metadata):
+            raise RuntimeError("Metadata has not yet been resolved.")
+
         return self._metadata
 
     # ----------------------------------------------------------------------
@@ -275,42 +211,47 @@ class ReferenceType(VisibilityTrait, BaseType):
         self,
         metadata: dict[str, Union[SimpleElement, Expression]],
     ) -> None:
-        assert not isinstance(self._metadata, dict)
+        if self.is_metadata_resolved:
+            raise RuntimeError("Metadata has already been resolved.")
+
         object.__setattr__(self, "_metadata", metadata)
 
     # ----------------------------------------------------------------------
-    def ResolveShared(
+    @property
+    def is_shared_resolved(self) -> bool:
+        return self._is_shared is not None
+
+    @property
+    def is_shared(self) -> bool:
+        if self._is_shared is None:
+            raise RuntimeError("Shared status has not been resolved.")
+
+        return self._is_shared
+
+    # ----------------------------------------------------------------------
+    def ResolveIsShared(
         self,
-        *,
         is_shared: bool,
     ) -> None:
-        assert self.flags & ReferenceType.Flag.AccessMask == 0
+        if self.is_shared_resolved:
+            raise RuntimeError("Shared status has already been resolved.")
 
-        flags = self.flags | (
-            ReferenceType.Flag.SharedAccess if is_shared else ReferenceType.Flag.SingleAccess
-        )
-
-        object.__setattr__(self, "flags", flags)
+        object.__setattr__(self, "_is_shared", is_shared)
 
     # ----------------------------------------------------------------------
     @contextmanager
     def Resolve(self) -> Iterator["ReferenceType"]:
         try:
-            if (
-                (self.flags & ReferenceType.Flag.Type)
-                or (self.flags & ReferenceType.Flag.BasicRef)
-            ):
+            if self.category != ReferenceType.Category.Alias or isinstance(self.type, BasicType):
                 yield self
                 return
 
             assert isinstance(self.type, ReferenceType), self.type
-            with self.type.Resolve() as resolved_type:  # pylint: disable=no-member
+            with self.type.Resolve() as resolved_type:
                 yield resolved_type
 
         except SimpleSchemaException as ex:
-            # Do not include redundant ranges in the exception if the type has been dynamically
-            # generated
-            if not self.flags & ReferenceType.Flag.DynamicallyGenerated and self.range not in ex.ranges:
+            if not self.suppress_range_in_exceptions and self.range not in ex.ranges:
                 ex.ranges.append(self.range)
 
             raise
@@ -324,21 +265,19 @@ class ReferenceType(VisibilityTrait, BaseType):
         self,
         expression_or_value: Union[Expression, Any],
     ) -> Any:
+        if isinstance(expression_or_value, (NoneExpression, NoneType)):
+            self.cardinality.Validate(expression_or_value)
+            return None
+
+        if self.cardinality.is_optional:
+            return self.type.ToPython(expression_or_value)
+
         with self.Resolve() as resolved_type:
-            if isinstance(expression_or_value, (NoneExpression, NoneType)):
-                self.cardinality.Validate(expression_or_value)
-                return None
-
-            if self.cardinality.is_optional:
-                return self.type.ToPython(expression_or_value)
-
-            if (
-                (resolved_type.flags & ReferenceType.Flag.BasicRef)
-                and isinstance(resolved_type.type, VariantType)
-            ):
-                variant_type = cast(VariantType, resolved_type.type)
-
-                return variant_type.ToPythonReferenceOverride(  # pylint: disable=no-member
+            # Variants are special in that the subtypes may be collections or individual types.
+            # If we are looking at a Variant, let it handle the cardinality stuff using its
+            # own custom logic.
+            if isinstance(resolved_type.type, VariantType):
+                return resolved_type.type.ToPythonReferenceOverride(
                     resolved_type,
                     expression_or_value,
                 )
@@ -350,23 +289,24 @@ class ReferenceType(VisibilityTrait, BaseType):
         self,
         expression_or_value: Union[Expression, Any],
     ) -> Any:
+        # This function is called during normal operations or when a VariantType has
+        # determined that special cardinality rules are not in play.
         assert not isinstance(expression_or_value, (NoneExpression, NoneType))
 
         self.cardinality.Validate(expression_or_value)
 
-        if isinstance(expression_or_value, (ListExpression, list)):
-            if isinstance(expression_or_value, ListExpression):
-                items = expression_or_value.value
-            elif isinstance(expression_or_value, list):
-                items = expression_or_value
-            else:
-                assert False, expression_or_value  # pragma: no cover
+        items: Optional[list] = None
 
+        if isinstance(expression_or_value, ListExpression):
+            items = expression_or_value.value
+        elif isinstance(expression_or_value, list):
+            items = expression_or_value
+
+        if items is not None:
             return [self.type.ToPython(item) for item in items]
 
         return self.type.ToPython(expression_or_value)
 
-    # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
@@ -378,7 +318,7 @@ class ReferenceType(VisibilityTrait, BaseType):
         if not self.cardinality.is_single and display.endswith("}"):
             display = "<{}>".format(display)
 
-        if self.flags & ReferenceType.Flag.Type:
+        if self.category != ReferenceType.Category.Alias:
             display = "{}{}".format(display, self.cardinality)
 
         return display
@@ -388,9 +328,10 @@ class ReferenceType(VisibilityTrait, BaseType):
     def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsGeneratorType:  # pragma: no cover
         yield from VisibilityTrait._GenerateAcceptDetails(self)
 
-        yield "type", cast(WeakReferenceType[Element], ref(self.type))
         yield "name", self.name
         yield "cardinality", self.cardinality
 
         if isinstance(self._metadata, Metadata):
             yield "metadata", self._metadata
+
+        yield "type", cast(WeakReferenceType[Element], ref(self.type))

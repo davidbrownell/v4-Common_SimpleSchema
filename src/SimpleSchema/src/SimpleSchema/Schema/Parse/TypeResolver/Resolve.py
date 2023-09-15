@@ -32,7 +32,6 @@ from ..ANTLR.Elements.Types.ParseIdentifierType import ParseIdentifierType
 
 from ..Common import PSEUDO_TYPE_NAME_PREFIX
 
-from ..ParseState.ParseState import ParseState
 from ..Visitor import Visitor, VisitResult
 
 from ...Elements.Common.Cardinality import Cardinality
@@ -50,7 +49,6 @@ from ....Common.ExecuteInParallel import ExecuteInParallel as ExecuteInParallelI
 # ----------------------------------------------------------------------
 def Resolve(
     dm: DoneManager,
-    parse_state: ParseState,  # pylint: disable=unused-argument
     roots: dict[Path, RootStatement],
     *,
     single_threaded: bool=False,
@@ -223,7 +221,11 @@ class _CreateNamespacesVisitor(Visitor):
                 raise Errors.ResolveStructureStatementEmptyPseudoElement.Create(element.range)
 
             # Create a pseudo element for this Typedef
-            unique_type_name = "{}-Ln{}".format(PSEUDO_TYPE_NAME_PREFIX, element.range.begin.line)
+            unique_type_name = "{}-Ln{}Col{}".format(
+                PSEUDO_TYPE_NAME_PREFIX,
+                element.range.begin.line,
+                element.range.begin.column,
+            )
 
             new_structure = ParseStructureStatement(
                 element.range,
@@ -244,7 +246,6 @@ class _CreateNamespacesVisitor(Visitor):
                     [
                         ParseIdentifier(element.range, unique_type_name),
                     ],
-                    None,
                     None,
                 ),
             )

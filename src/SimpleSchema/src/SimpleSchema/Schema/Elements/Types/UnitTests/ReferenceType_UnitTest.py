@@ -3,7 +3,7 @@
 # |  ReferenceType_UnitTest.py
 # |
 # |  David Brownell <db@DavidBrownell.com>
-# |      2023-02-17 13:35:06
+# |      2023-04-01 09:36:06
 # |
 # ----------------------------------------------------------------------
 # |
@@ -22,6 +22,7 @@ import textwrap
 from pathlib import Path
 from unittest.mock import MagicMock as Mock
 from typing import Optional, Union
+
 import pytest
 
 from Common_Foundation.ContextlibEx import ExitStack
@@ -32,6 +33,8 @@ from Common_Foundation.Types import DoesNotExist
 # ----------------------------------------------------------------------
 sys.path.insert(0, str(PathEx.EnsureDir(Path(__file__).parent.parent.parent.parent.parent.parent)))
 with ExitStack(lambda: sys.path.pop(0)):
+    from SimpleSchema.Schema.Elements.Types.ReferenceType import ReferenceType
+
     from SimpleSchema.Common.Range import Range
     from SimpleSchema.Common.SimpleSchemaException import SimpleSchemaException
 
@@ -54,12 +57,25 @@ with ExitStack(lambda: sys.path.pop(0)):
 
 
 # ----------------------------------------------------------------------
-def test_Standard():
+@pytest.mark.parametrize("is_source", [False, True])
+@pytest.mark.parametrize("suppress_range_in_exceptions", [False, True])
+@pytest.mark.parametrize(
+    "cardinality",
+    [
+        Cardinality.CreateFromCode(),
+        Cardinality.CreateFromCode(0, 1),
+        Cardinality.CreateFromCode(0),
+    ],
+)
+def test_Standard(
+    cardinality: Cardinality,
+    is_source: bool,
+    suppress_range_in_exceptions: bool,
+):
     range_mock = Mock()
     type_mock = Mock(spec=BasicType)
     visibility_mock = Mock()
     name_mock = Mock()
-    cardinality_mock = Mock()
     metadata_mock = Mock()
 
     rt = ReferenceType(
@@ -67,65 +83,50 @@ def test_Standard():
         visibility_mock,
         type_mock,
         name_mock,
-        cardinality_mock,
+        cardinality,
         metadata_mock,
-        force_single_cardinality=False,
-        was_dynamically_generated=False,
-        is_type_definition=False,
+        is_source=is_source,
+        suppress_range_in_exceptions=suppress_range_in_exceptions,
     )
 
     assert rt.range is range_mock
     assert rt.type is type_mock
     assert rt.visibility is visibility_mock
     assert rt.name is name_mock
-    assert rt.cardinality is cardinality_mock
+    assert rt.cardinality is cardinality
     assert rt.unresolved_metadata is metadata_mock
-    assert rt.flags == ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+    assert rt.suppress_range_in_exceptions == suppress_range_in_exceptions
+
+    if is_source:
+        assert rt.category == ReferenceType.Category.Source
+    elif cardinality.is_single:
+        assert rt.category == ReferenceType.Category.Alias
+    else:
+        assert rt.category == ReferenceType.Category.Reference
 
 
 # ----------------------------------------------------------------------
 class TestCreate(object):
     # ----------------------------------------------------------------------
-    def test_SingleBasic(self):
-        range_mock = Mock()
-        visibility_mock = Mock()
-        name_mock = Mock()
-
-        type_mock = Mock(spec=BasicType)
-        type_mock.range = range_mock
-
-        metadata_mock = Mock()
-
-        rt = ReferenceType.Create(
-            visibility_mock,
-            name_mock,
-            type_mock,
+    @pytest.mark.parametrize(
+        "cardinality",
+        [
             Cardinality.CreateFromCode(),
-            metadata_mock,
-        )
-
-        assert rt.range is range_mock
-        assert rt.type is type_mock
-        assert rt.visibility is visibility_mock
-        assert rt.name is name_mock
-        assert rt.cardinality.is_single
-        assert rt.unresolved_metadata is metadata_mock
-        assert rt.flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
-
-    # ----------------------------------------------------------------------
-    def test_MultipleBasic(self):
+            Cardinality.CreateFromCode(0),
+        ],
+    )
+    def test_Basic(
+        self,
+        cardinality: Cardinality,
+    ):
         range_mock = Mock()
         visibility_mock = Mock()
-
         name_mock = Mock()
-        name_mock.value = "The type name"
 
         type_mock = Mock(spec=BasicType)
         type_mock.range = range_mock
 
         metadata_mock = Mock()
-
-        cardinality = Cardinality.CreateFromCode(1, None)
 
         rt = ReferenceType.Create(
             visibility_mock,
@@ -140,55 +141,36 @@ class TestCreate(object):
         assert rt.name is name_mock
         assert rt.cardinality is cardinality
         assert rt.unresolved_metadata is metadata_mock
-        assert rt.flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRefWithCardinality | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
 
-        assert isinstance(rt.type, ReferenceType), rt.type
+        assert rt.category == ReferenceType.Category.Source
 
-        assert rt.type.range is range_mock
-        assert rt.type.type is type_mock
-        assert rt.type.visibility == SimpleElement[Visibility](type_mock.range, Visibility.Private)
-        assert rt.type.name.value != name_mock.value
-        assert rt.type.cardinality.is_single
-        assert rt.type.unresolved_metadata is None
-        assert rt.type.flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
+        if cardinality.is_single:
+            assert rt.type is type_mock
+        else:
+            assert isinstance(rt.type, ReferenceType)
+            assert rt.type.category == ReferenceType.Category.Source
+            assert rt.type.type is type_mock
 
     # ----------------------------------------------------------------------
-    def test_SingleReference(self):
+    @pytest.mark.parametrize(
+        "cardinality",
+        [
+            Cardinality.CreateFromCode(),
+            Cardinality.CreateFromCode(0),
+        ],
+    )
+    def test_Reference(
+        self,
+        cardinality: Cardinality,
+    ):
         range_mock = Mock()
         visibility_mock = Mock()
         name_mock = Mock()
-        metadata_mock = Mock()
 
         type_mock = Mock(spec=ReferenceType)
-        type_mock.flags = 0
+        type_mock.range = range_mock
         type_mock.cardinality = Mock()
-        type_mock.range = range_mock
-
-        rt = ReferenceType.Create(
-            visibility_mock,
-            name_mock,
-            type_mock,
-            Cardinality.CreateFromCode(),
-            metadata_mock,
-        )
-
-        assert rt.range is range_mock
-        assert rt.visibility is visibility_mock
-        assert rt.name is name_mock
-        assert rt.type is type_mock
-        assert rt.cardinality.is_single
-        assert rt.unresolved_metadata is metadata_mock
-        assert rt.flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
-
-    # ----------------------------------------------------------------------
-    def test_ContainerReference(self):
-        range_mock = Mock()
-        visibility_mock = Mock()
-        name_mock = Mock()
-
-        type_mock = Mock(spec=ReferenceType)
-        type_mock.flags = 0
-        type_mock.range = range_mock
+        type_mock.category = ReferenceType.Category.Reference
 
         metadata_mock = Mock()
 
@@ -196,28 +178,32 @@ class TestCreate(object):
             visibility_mock,
             name_mock,
             type_mock,
-            Cardinality.CreateFromCode(0, 10),
+            cardinality,
             metadata_mock,
         )
 
         assert rt.range is range_mock
         assert rt.visibility is visibility_mock
         assert rt.name is name_mock
-        assert rt.type is type_mock
-        assert rt.cardinality.is_container
         assert rt.unresolved_metadata is metadata_mock
-        assert rt.flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Type
+
+        assert isinstance(rt.type, ReferenceType)
+        assert rt.type.category == ReferenceType.Category.Reference
+        assert rt.type is type_mock
+
+        if cardinality.is_single:
+            assert rt.cardinality is type_mock.cardinality
+            assert rt.category == ReferenceType.Category.Alias
+        else:
+            assert rt.cardinality is cardinality
 
     # ----------------------------------------------------------------------
-    def test_MetadataReplacement(self):
-        basic_type_mock = Mock(spec=BasicType)
-        basic_type_mock.range = Mock()
-
+    def test_MetadataSimplification(self):
         rt = ReferenceType.Create(
-            Mock(),
-            Mock(),
-            basic_type_mock,
-            Cardinality.CreateFromCode(),
+            Mock(),  # visibility
+            Mock(),  # name
+            Mock(),  # the_type
+            Mock(),  # cardinality
             Metadata(Mock(), []),
         )
 
@@ -225,141 +211,137 @@ class TestCreate(object):
 
 
 # ----------------------------------------------------------------------
-class TestFlags(object):
-    # ----------------------------------------------------------------------
-    def test_SingleBasic(self):
-        assert _Create(
-            Mock(spec=BasicType),
-            Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+def test_ErrorOptionalToOptional():
+    referenced_type = Mock(spec=BasicType)
+    referenced_type.range = Mock()
 
-    # ----------------------------------------------------------------------
-    def test_MultipleBasic(self):
-        assert _Create(
-            Mock(spec=BasicType),
-            Cardinality.CreateFromCode(0, None),
-        ).flags == ReferenceType.Flag.BasicRef | ReferenceType.Flag.Type
+    optional_type = _Create(referenced_type, Cardinality.CreateFromCode(0, 1), range_value=Range.Create(Path("filename"), 1, 2, 3, 4))
 
-    # ----------------------------------------------------------------------
-    def test_ReferenceStructure(self):
-        assert _Create(
-            Mock(spec=StructureType),
-            Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.StructureRef | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+    with pytest.raises(
+        SimpleSchemaException,
+        match=re.escape(
+            textwrap.dedent(
+                """\
+                Optional reference types may not reference optional reference types.
 
-    # ----------------------------------------------------------------------
-    def test_Reference(self):
-        reference_mock = Mock(spec=ReferenceType)
-        reference_mock.flags = 0
-        reference_mock.cardinality = Mock()
+                    - filename <Ln 10, Col 20 -> Ln 30, Col 40>
+                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
+                """,
+            ),
+        )
+    ):
+        _Create(
+            optional_type,
+            Cardinality.CreateFromCode(
+                0,
+                1,
+                range_value=Range.Create(Path("filename"), 10, 20, 30, 40),
+            ),
+        )
 
-        assert _Create(
-            reference_mock,
-            Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
 
-    # ----------------------------------------------------------------------
-    def test_CollectionReference (self):
-        reference_mock = Mock(spec=ReferenceType)
-        reference_mock.flags = ReferenceType.Flag.BasicRef
-        reference_mock.cardinality = Mock()
+# ----------------------------------------------------------------------
+def test_ResolveMetadata():
+    rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(), metadata=None)
 
-        assert _Create(
-            reference_mock,
-            Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.BasicRefWithCardinality | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
+    assert rt.is_metadata_resolved is False
+    assert rt.unresolved_metadata is None
 
-    # ----------------------------------------------------------------------
-    def test_CollectionReferenceToStructure(self):
-        reference_mock = Mock(spec=ReferenceType)
-        reference_mock.flags = ReferenceType.Flag.BasicRef | ReferenceType.Flag.StructureRef
-        reference_mock.cardinality = Mock()
+    with pytest.raises(
+        RuntimeError,
+        match=re.escape("Metadata has not yet been resolved."),
+    ):
+        rt.resolved_metadata
 
-        assert _Create(
-            reference_mock,
-            Cardinality.CreateFromCode(),
-        ).flags == ReferenceType.Flag.StructureRefWithCardinality | ReferenceType.Flag.BasicRefWithCardinality | ReferenceType.Flag.ReferenceRef | ReferenceType.Flag.Alias
+    rt.ResolveMetadata({})
 
-    # ----------------------------------------------------------------------
-    def test_TypeDefinition(self):
-        reference_mock = Mock(spec=BasicType)
+    assert rt.is_metadata_resolved is True
+    assert rt.resolved_metadata == {}
 
-        assert _Create(
-            reference_mock,
-            Cardinality.CreateFromCode(),
-            is_type_definition=True,
-        ).flags == ReferenceType.Flag.TypeDefinition | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+    with pytest.raises(
+        RuntimeError,
+        match=re.escape("Metadata has been resolved."),
+    ):
+        rt.unresolved_metadata
 
-    # ----------------------------------------------------------------------
-    def test_DynamicGeneration(self):
-        reference_mock = Mock(spec=BasicType)
+    with pytest.raises(
+        RuntimeError,
+        match=re.escape("Metadata has already been resolved."),
+    ):
+        rt.ResolveMetadata({})
 
-        assert _Create(
-            reference_mock,
-            Cardinality.CreateFromCode(),
-            was_dynamically_generated=True,
-            visibility=Visibility.Private,
-            range_value=Range.CreateFromCode(),
-        ).flags == ReferenceType.Flag.DynamicallyGenerated | ReferenceType.Flag.BasicRef | ReferenceType.Flag.Alias
+
+# ----------------------------------------------------------------------
+def test_IsShared():
+    rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode())
+
+    assert rt.is_shared_resolved is False
+
+    with pytest.raises(
+        RuntimeError,
+        match=re.escape("Shared status has not been resolved."),
+    ):
+        rt.is_shared
+
+    rt.ResolveIsShared(True)
+
+    assert rt.is_shared_resolved is True
+    assert rt.is_shared is True
+
+    with pytest.raises(
+        RuntimeError,
+        match=re.escape("Shared status has already been resolved."),
+    ):
+        rt.ResolveIsShared(True)
 
 
 # ----------------------------------------------------------------------
 class TestResolve(object):
     # ----------------------------------------------------------------------
-    def test_SingleBasic(self):
-        rt = _Create(
-            Mock(spec=BasicType),
+    @pytest.mark.parametrize(
+        "cardinality",
+        [
             Cardinality.CreateFromCode(),
-        )
+            Cardinality.CreateFromCode(0),
+            Cardinality.CreateFromCode(0, 1),
+        ],
+    )
+    def test_Basic(
+        self,
+        cardinality: Cardinality,
+    ):
+        basic_type = Mock(spec=BasicType)
+        basic_type.range = Mock()
 
-        with rt.Resolve() as resolved_type:
-            assert resolved_type is rt
-
-    # ----------------------------------------------------------------------
-    def test_MultipleBasic(self):
-        rt = _Create(
-            Mock(spec=BasicType),
-            Cardinality.CreateFromCode(10, 10),
-        )
-
-        with rt.Resolve() as resolved_type:
-            assert resolved_type is rt
-
-    # ----------------------------------------------------------------------
-    def test_ReferenceStructure(self):
-        rt = _Create(
-            Mock(spec=StructureType),
-            Cardinality.CreateFromCode(),
-        )
+        rt = _Create(basic_type, cardinality)
 
         with rt.Resolve() as resolved_type:
             assert resolved_type is rt
 
     # ----------------------------------------------------------------------
     def test_SingleReference(self):
-        referenced_type = _Create(
-            Mock(spec=BasicType),
-            Cardinality.CreateFromCode(),
-        )
+        referenced_type = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode())
 
-        rt = _Create(
-            referenced_type,
-            Cardinality.CreateFromCode(),
-        )
+        rt = _Create(referenced_type, Cardinality.CreateFromCode())
 
         with rt.Resolve() as resolved_type:
             assert resolved_type is referenced_type
 
     # ----------------------------------------------------------------------
-    def test_MultipleReference(self):
-        referenced_mock = Mock(spec=ReferenceType)
-        referenced_mock.range = Mock()
-        referenced_mock.flags = 0
+    @pytest.mark.parametrize(
+        "cardinality",
+        [
+            Cardinality.CreateFromCode(0),
+            Cardinality.CreateFromCode(0, 1),
+        ],
+    )
+    def test_MultipleReference(
+        self,
+        cardinality: Cardinality,
+    ):
+        referenced_type = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode())
 
-        rt = _Create(
-            referenced_mock,
-            Cardinality.CreateFromCode(10, 10),
-        )
+        rt = _Create(referenced_type, cardinality)
 
         with rt.Resolve() as resolved_type:
             assert resolved_type is rt
@@ -396,7 +378,7 @@ class TestResolve(object):
                 raise SimpleSchemaException(Range.Create(Path("This unique file"), 1, 2, 3, 4), "An error")
 
     # ----------------------------------------------------------------------
-    def test_ErrorReferenceReferenceStructure(self):
+    def test_ErrorReference(self):
         rt = _Create(
             _Create(
                 Mock(spec=BasicType),
@@ -618,80 +600,16 @@ class TestDisplayType(object):
 
 
 # ----------------------------------------------------------------------
-def test_ErrorOptionalToOptional():
-    referenced_type = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(0, 1), range_value=Range.Create(Path("filename"), 1, 2, 3, 4))
-
-    with pytest.raises(
-        SimpleSchemaException,
-        match=re.escape(
-            textwrap.dedent(
-                """\
-                Optional reference types may not reference optional reference types.
-
-                    - filename <Ln 10, Col 20 -> Ln 30, Col 40>
-                    - filename <Ln 1, Col 2 -> Ln 3, Col 4>
-                """,
-            ),
-        )
-    ):
-        _Create(referenced_type, Cardinality.CreateFromCode(0, 1), range_value=Range.Create(Path("filename"), 10, 20, 30, 40))
-
-
-# ----------------------------------------------------------------------
-def test_ResolveMetadata():
-    rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode(), metadata=None)
-
-    assert rt.is_metadata_resolved is False
-    assert rt.unresolved_metadata is None
-
-    with pytest.raises(AssertionError):
-        rt.resolved_metadata
-
-    rt.ResolveMetadata({})
-
-    assert rt.is_metadata_resolved is True
-    assert rt.resolved_metadata == {}
-
-    with pytest.raises(AssertionError):
-        rt.unresolved_metadata
-
-    with pytest.raises(AssertionError):
-        rt.ResolveMetadata({})
-
-
-# ----------------------------------------------------------------------
-@pytest.mark.parametrize("is_shared", [True, False])
-def test_ResolveAccess(
-    is_shared: bool,
-):
-    rt = _Create(Mock(spec=BasicType), Cardinality.CreateFromCode())
-
-    assert rt.flags & ReferenceType.Flag.AccessMask == 0
-
-    rt.ResolveShared(is_shared=is_shared)
-
-    if is_shared:
-        assert rt.flags & ReferenceType.Flag.SharedAccess
-    else:
-        assert rt.flags & ReferenceType.Flag.SingleAccess
-
-    with pytest.raises(AssertionError):
-        rt.ResolveShared(is_shared=is_shared)
-
-
-# ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
 def _Create(
     the_type: Union[BasicType, ReferenceType],
     cardinality: Cardinality,
     *,
-    force_single_cardinality: bool=False,
-    was_dynamically_generated: bool=False,
-    is_type_definition: bool=False,
     range_value: Optional[Range]=None,
-    metadata: Union[DoesNotExist, None, Metadata]=DoesNotExist.instance,
     visibility: Optional[Visibility]=None,
+    metadata: Union[DoesNotExist, None, Metadata]=DoesNotExist.instance,
+    suppress_range_in_exceptions: bool=False,
 ) -> ReferenceType:
     if visibility is not None:
         visibility_value = Mock()
@@ -699,14 +617,12 @@ def _Create(
     else:
         visibility_value = Mock()
 
-    return ReferenceType(
-        range_value or Mock(),
+    return ReferenceType.Create(
         visibility_value,
+        Mock(), # name
         the_type,
-        Mock(),
         cardinality,
         Mock() if metadata is DoesNotExist.instance else metadata,
-        force_single_cardinality=force_single_cardinality,
-        was_dynamically_generated=was_dynamically_generated,
-        is_type_definition=is_type_definition,
+        range_value=range_value or Mock(),
+        suppress_range_in_exceptions=suppress_range_in_exceptions,
     )

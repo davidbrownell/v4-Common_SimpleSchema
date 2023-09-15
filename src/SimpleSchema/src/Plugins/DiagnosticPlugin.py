@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterator, Optional
 
 from Common_Foundation.ContextlibEx import ExitStack
-from Common_Foundation.Types import EnsureValid, overridemethod
+from Common_Foundation.Types import overridemethod
 
 from Common_FoundationEx import TyperEx
 
@@ -284,8 +284,10 @@ class _Visitor(Visitor):
     def OnSimpleElement(self, element: SimpleElement) -> Iterator[Optional[VisitResult]]:  # pylint: disable=unused-argument
         value = element.value
 
-        if isinstance(element.value, (Enum, Path)):
+        if isinstance(value, Enum):
             value = str(value)
+        elif isinstance(value, Path):
+            value = value.as_posix()
 
         self._content_stack[-1].pop()
         self._content_stack[-1].append(value)  # type: ignore
@@ -486,11 +488,7 @@ class _Visitor(Visitor):
         d = self._content_stack[-1][-1]
 
         d["display_type"] = element.display_type
-        d["flags"] = [
-            e.name
-            for e in ReferenceType.Flag
-            if (element.flags & e.value) and not EnsureValid(e.name).endswith("Mask")
-        ]
+        d["category"] = str(element.category)
 
         if element.is_metadata_resolved:
             resolved_metadata = element.resolved_metadata
@@ -513,7 +511,7 @@ class _Visitor(Visitor):
             if unresolved_metadata is not None:
                 d["metadata"] = unresolved_metadata
 
-        display_type_as_reference = not element.flags & ReferenceType.Flag.TypeDefinition
+        display_type_as_reference = element.category != ReferenceType.Category.Source
 
         self._display_type_as_reference = display_type_as_reference
         yield

@@ -328,9 +328,7 @@ class TestTypes(object):
             textwrap.dedent(
                 """\
                 value1: One.Two.Three
-                value2: One::item
-                value3: One.Two.Three::item
-                value4: ::Global
+                value2: ::Global
                 """,
             ),
         )

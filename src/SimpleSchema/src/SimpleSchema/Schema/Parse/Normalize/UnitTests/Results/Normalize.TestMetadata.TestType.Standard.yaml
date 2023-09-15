@@ -14,11 +14,6 @@
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
       value: Visibility.Public
-    type:
-      __type__: StringType
-      range: entry_point <Ln 1, Col 8 -> Ln 1, Col 26>
-      unique_name: String-Ln1
-      min_length: 1
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
@@ -34,60 +29,19 @@
         __type__: IntegerExpression
         range: entry_point <Ln 1, Col 8 -> Ln 1, Col 26>
         value: 1
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 8 -> Ln 1, Col 26>
+      unique_name: String-Ln1Col8
+      min_length: 1
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
     unique_name: Structure
-    display_type: _Structure-Struct-Ln3
+    display_type: StructureStruct
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
       value: Visibility.Public
-    type:
-      __type__: StructureType
-      range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-      unique_name: _Structure-Struct-Ln3
-      structure:
-        __type__: StructureStatement
-        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-        unique_name: _Structure-Struct-Ln3
-        name:
-          __type__: SimpleElement
-          range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
-          value: _Structure-Struct-Ln3
-        children:
-        - __type__: ReferenceType
-          range: entry_point <Ln 4, Col 5 -> Ln 5, Col 1>
-          unique_name: _Structure-Struct-Ln3.Type2
-          display_type: String
-          metadata:
-            nested:
-              __type__: SimpleElement
-              range: entry_point <Ln 4, Col 29 -> Ln 4, Col 32>
-              value: 100
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 10>
-            value: Visibility.Public
-          type:
-            __type__: StringType
-            range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
-            unique_name: _Structure-Struct-Ln3.String-Ln4
-            min_length: 1
-          name:
-            __type__: SimpleElement
-            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 10>
-            value: Type2
-          cardinality:
-            __type__: Cardinality
-            range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
-            min:
-              __type__: IntegerExpression
-              range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
-              value: 1
-            max:
-              __type__: IntegerExpression
-              range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
-              value: 1
     name:
       __type__: SimpleElement
       range: entry_point <Ln 3, Col 1 -> Ln 3, Col 10>
@@ -103,3 +57,49 @@
         __type__: IntegerExpression
         range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
         value: 1
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+      unique_name: StructureStruct
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+        unique_name: StructureStruct
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 3, Col 1 -> Ln 5, Col 1>
+          value: StructureStruct
+        children:
+        - __type__: ReferenceType
+          range: entry_point <Ln 4, Col 5 -> Ln 5, Col 1>
+          unique_name: StructureStruct.Type2
+          display_type: String
+          metadata:
+            nested:
+              __type__: SimpleElement
+              range: entry_point <Ln 4, Col 29 -> Ln 4, Col 32>
+              value: 100
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 10>
+            value: Visibility.Public
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 4, Col 5 -> Ln 4, Col 10>
+            value: Type2
+          cardinality:
+            __type__: Cardinality
+            range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
+            min:
+              __type__: IntegerExpression
+              range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
+              value: 1
+            max:
+              __type__: IntegerExpression
+              range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
+              value: 1
+          type:
+            __type__: StringType
+            range: entry_point <Ln 4, Col 12 -> Ln 4, Col 34>
+            unique_name: StructureStruct.String-Ln4Col12
+            min_length: 1

@@ -1,0 +1,42 @@
+- __type__: RootStatement
+  range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+  statements:
+  - __type__: ItemStatement
+    range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+    visibility:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
+      value: Visibility.Public
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
+      value: value
+    type:
+      __type__: ReferenceType
+      range: entry_point <Ln 1, Col 8 -> Ln 1, Col 34>
+      unique_name: ItemStatement-Ln1Col1
+      display_type: <String {>= 10 characters}>?
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 1 -> Ln 2, Col 1>
+        value: ItemStatement-Ln1Col1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 14 -> Ln 1, Col 15>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 14 -> Ln 1, Col 15>
+          value: 0
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 14 -> Ln 1, Col 15>
+          value: 1
+      type:
+        __type__: StringType
+        range: entry_point <Ln 1, Col 8 -> Ln 1, Col 34>
+        unique_name: String-Ln1Col8
+        min_length: 10

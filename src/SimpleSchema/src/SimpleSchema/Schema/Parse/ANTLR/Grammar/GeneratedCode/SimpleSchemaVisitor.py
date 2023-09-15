@@ -1,4 +1,4 @@
-# Generated from C:\Code\v4\Common\SimpleSchema\src\SimpleSchema\src\SimpleSchema\Schema\Parse\ANTLR\Grammar\SimpleSchema.g4 by ANTLR 4.11.1
+# Generated from C:\Code\GitHub\davidbrownell\Common\SimpleSchema\src\SimpleSchema\src\SimpleSchema\Schema\Parse\ANTLR\Grammar\SimpleSchema.g4 by ANTLR 4.11.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .SimpleSchemaParser import SimpleSchemaParser
@@ -221,11 +221,6 @@ class SimpleSchemaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SimpleSchemaParser#parse_identifier_type_global.
     def visitParse_identifier_type_global(self, ctx:SimpleSchemaParser.Parse_identifier_type_globalContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SimpleSchemaParser#parse_identifier_type_item.
-    def visitParse_identifier_type_item(self, ctx:SimpleSchemaParser.Parse_identifier_type_itemContext):
         return self.visitChildren(ctx)
 
 

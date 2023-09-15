@@ -1,5 +1,5 @@
 - __type__: RootStatement
-  range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
+  range: entry_point <Ln 1, Col 1 -> Ln 5, Col 1>
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
@@ -8,33 +8,6 @@
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
       value: Visibility.Public
-    type:
-      __type__: ReferenceType
-      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-      display_type: String {>= 10 characters}
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        value: Visibility.Private
-      type:
-        __type__: StringType
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        min_length: 10
-      name:
-        __type__: SimpleElement
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        value: _Container-Item-Ln1
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-          value: 1
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 10>
@@ -60,17 +33,44 @@
           __type__: StringExpression
           range: entry_point <Ln 1, Col 52 -> Ln 1, Col 56>
           value: '10'
+    type:
+      __type__: ReferenceType
+      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      display_type: String {>= 10 characters}
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+        value: Container-Item-Ln1Col12
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+          value: 1
+      type:
+        __type__: StringType
+        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+        min_length: 10
   - __type__: ReferenceType
     range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>
     display_type: <String {>= 10 characters}>+
     visibility:
       __type__: SimpleElement
-      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 11>
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 15>
       value: Visibility.Public
     name:
       __type__: SimpleElement
-      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 11>
-      value: Container1
+      range: entry_point <Ln 3, Col 1 -> Ln 3, Col 15>
+      value: ContainerAlias
     cardinality:
       __type__: Cardinality
       range: entry_point <Ln 1, Col 18 -> Ln 1, Col 19>
@@ -83,65 +83,22 @@
       range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 4, Col 1 -> Ln 5, Col 1>
-    display_type: String {>= 10 characters}
+    display_type: <String {>= 10 characters}>+*
     visibility:
       __type__: SimpleElement
-      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 14>
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 17>
       value: Visibility.Public
     name:
       __type__: SimpleElement
-      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 14>
-      value: ContainerItem
+      range: entry_point <Ln 4, Col 1 -> Ln 4, Col 17>
+      value: ContainerAliases
     cardinality:
       __type__: Cardinality
-      range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
+      range: entry_point <Ln 4, Col 33 -> Ln 4, Col 34>
       min:
         __type__: IntegerExpression
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 1, Col 12 -> Ln 1, Col 58>
-        value: 1
+        range: entry_point <Ln 4, Col 33 -> Ln 4, Col 34>
+        value: 0
     reference:
-      name: _Container-Item-Ln1
-      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
-  - __type__: ReferenceType
-    range: entry_point <Ln 5, Col 1 -> Ln 6, Col 1>
-    display_type: <String {>= 10 characters}>[2]
-    visibility:
-      __type__: SimpleElement
-      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 22>
-      value: Visibility.Public
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 5, Col 1 -> Ln 5, Col 22>
-      value: ContainerItemWithMods
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 5, Col 39 -> Ln 5, Col 42>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 5, Col 40 -> Ln 5, Col 41>
-        value: 2
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 5, Col 40 -> Ln 5, Col 41>
-        value: 2
-    metadata:
-      __type__: Metadata
-      range: entry_point <Ln 5, Col 43 -> Ln 5, Col 64>
-      items:
-      - __type__: MetadataItem
-        range: entry_point <Ln 5, Col 45 -> Ln 5, Col 62>
-        name:
-          __type__: SimpleElement
-          range: entry_point <Ln 5, Col 45 -> Ln 5, Col 57>
-          value: custom_value
-        expression:
-          __type__: StringExpression
-          range: entry_point <Ln 5, Col 59 -> Ln 5, Col 62>
-          value: '2'
-    reference:
-      name: _Container-Item-Ln1
-      range: entry_point <Ln 1, Col 1 -> Ln 3, Col 1>
+      name: ContainerAlias
+      range: entry_point <Ln 3, Col 1 -> Ln 4, Col 1>

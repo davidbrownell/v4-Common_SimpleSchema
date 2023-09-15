@@ -18,11 +18,6 @@
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
       value: Visibility.Public
-    type:
-      __type__: StringType
-      range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
-      unique_name: String-Ln1
-      min_length: 1
     name:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 6>
@@ -38,6 +33,11 @@
         __type__: IntegerExpression
         range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
         value: 1
+    type:
+      __type__: StringType
+      range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
+      unique_name: String-Ln1Col8
+      min_length: 1
   - __type__: ReferenceType
     range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
     unique_name: Type2
@@ -67,7 +67,7 @@
         range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
         value: 1
     reference:
-      name: Type1
+      name: Type2
       range: entry_point <Ln 1, Col 1 -> Ln 6, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>
@@ -98,7 +98,7 @@
         range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
         value: 1
     reference:
-      name: Type2
+      name: Type3
       range: entry_point <Ln 6, Col 1 -> Ln 7, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 9, Col 1 -> Ln 13, Col 1>
@@ -133,5 +133,5 @@
         range: entry_point <Ln 1, Col 8 -> Ln 4, Col 2>
         value: 1
     reference:
-      name: Type3
+      name: Type4
       range: entry_point <Ln 7, Col 1 -> Ln 9, Col 1>

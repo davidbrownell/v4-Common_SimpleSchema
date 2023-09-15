@@ -59,10 +59,8 @@ MetadataItemDuplicated                      = DynamicSimpleSchemaException.Creat
 
 NamespaceCycle                              = DynamicSimpleSchemaException.CreateType("A cycle was detected in the definition of '{name}':\n\n{ancestors_str}", name=str, ancestors_str=str, ancestors=list[Tuple[str, Range]])
 NamespaceDuplicateTypeName                  = DynamicSimpleSchemaException.CreateType("The type '{name}' has already been defined at '{original_range}'.", name=str, original_range=Range)
-NamespaceFundamentalItemReference           = DynamicSimpleSchemaException.CreateType("Item references to fundamental types are not valid (as they are already item references).")
 NamespaceInvalidIncludeItem                 = DynamicSimpleSchemaException.CreateType("The included item '{name}' does not exist.", name=str)
 NamespaceInvalidIncludeItemVisibility       = DynamicSimpleSchemaException.CreateType("The included item '{name}' exists but is not accessible due to its visibility.", name=str)
-NamespaceInvalidItemReference               = DynamicSimpleSchemaException.CreateType("The type '{name}' is not a container or optional and cannot be used with an item reference.", name=str)
 
 NamespaceInvalidType                        = DynamicSimpleSchemaException.CreateType("The type '{name}' was not found.", name=str)
 NamespaceVisibilityError                    = DynamicSimpleSchemaException.CreateType("The visibility 'protected' is not valid for root elements.")

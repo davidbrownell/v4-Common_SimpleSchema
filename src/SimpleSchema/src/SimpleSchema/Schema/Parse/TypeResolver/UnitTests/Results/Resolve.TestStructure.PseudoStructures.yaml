@@ -3,11 +3,26 @@
   statements:
   - __type__: ReferenceType
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-    display_type: __PseudoType#^-Ln1-Struct-Ln1
+    display_type: _PseudoType#^-Ln1Col1Struct
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 1, Col 1 -> Ln 1, Col 2>
       value: Visibility.Private
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+      value: _PseudoType#^-Ln1Col1
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
+        value: 1
     type:
       __type__: StructureType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -17,7 +32,7 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-          value: __PseudoType#^-Ln1-Struct-Ln1
+          value: _PseudoType#^-Ln1Col1Struct
         children:
         - __type__: ItemStatement
           range: entry_point <Ln 2, Col 5 -> Ln 3, Col 5>
@@ -37,14 +52,10 @@
               __type__: SimpleElement
               range: entry_point <Ln 2, Col 5 -> Ln 3, Col 5>
               value: Visibility.Private
-            type:
-              __type__: StringType
-              range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
-              min_length: 1
             name:
               __type__: SimpleElement
               range: entry_point <Ln 2, Col 5 -> Ln 3, Col 5>
-              value: _ItemStatement-Ln2
+              value: ItemStatement-Ln2Col5
             cardinality:
               __type__: Cardinality
               range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
@@ -56,6 +67,10 @@
                 __type__: IntegerExpression
                 range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
                 value: 1
+            type:
+              __type__: StringType
+              range: entry_point <Ln 2, Col 13 -> Ln 2, Col 19>
+              min_length: 1
         - __type__: ItemStatement
           range: entry_point <Ln 3, Col 5 -> Ln 4, Col 1>
           visibility:
@@ -74,13 +89,10 @@
               __type__: SimpleElement
               range: entry_point <Ln 3, Col 5 -> Ln 4, Col 1>
               value: Visibility.Private
-            type:
-              __type__: NumberType
-              range: entry_point <Ln 3, Col 13 -> Ln 3, Col 19>
             name:
               __type__: SimpleElement
               range: entry_point <Ln 3, Col 5 -> Ln 4, Col 1>
-              value: _ItemStatement-Ln3
+              value: ItemStatement-Ln3Col5
             cardinality:
               __type__: Cardinality
               range: entry_point <Ln 3, Col 13 -> Ln 3, Col 19>
@@ -92,21 +104,9 @@
                 __type__: IntegerExpression
                 range: entry_point <Ln 3, Col 13 -> Ln 3, Col 19>
                 value: 1
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      value: _PseudoType#^-Ln1
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-        value: 1
+            type:
+              __type__: NumberType
+              range: entry_point <Ln 3, Col 13 -> Ln 3, Col 19>
   - __type__: ItemStatement
     range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
     visibility:
@@ -120,7 +120,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-      display_type: __PseudoType#^-Ln1-Struct-Ln1
+      display_type: _PseudoType#^-Ln1Col1Struct
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -128,7 +128,7 @@
       name:
         __type__: SimpleElement
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
-        value: _ItemStatement-Ln1
+        value: ItemStatement-Ln1Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
@@ -141,15 +141,30 @@
           range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
           value: 1
       reference:
-        name: _PseudoType#^-Ln1
+        name: _PseudoType#^-Ln1Col1
         range: entry_point <Ln 1, Col 1 -> Ln 4, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-    display_type: __PseudoType#^-Ln5-Struct-Ln5
+    display_type: _PseudoType#^-Ln5Col1Struct
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 5, Col 1 -> Ln 5, Col 2>
       value: Visibility.Private
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+      value: _PseudoType#^-Ln5Col1
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+        value: 1
+      max:
+        __type__: IntegerExpression
+        range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
+        value: 1
     type:
       __type__: StructureType
       range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -159,7 +174,7 @@
         name:
           __type__: SimpleElement
           range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-          value: __PseudoType#^-Ln5-Struct-Ln5
+          value: _PseudoType#^-Ln5Col1Struct
         base_types:
         - __type__: ReferenceType
           range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
@@ -168,14 +183,10 @@
             __type__: SimpleElement
             range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
             value: Visibility.Private
-          type:
-            __type__: StringType
-            range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
-            min_length: 1
           name:
             __type__: SimpleElement
             range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
-            value: _Base0
+            value: Base0
           cardinality:
             __type__: Cardinality
             range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
@@ -187,6 +198,10 @@
               __type__: IntegerExpression
               range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
               value: 1
+          type:
+            __type__: StringType
+            range: entry_point <Ln 5, Col 12 -> Ln 5, Col 18>
+            min_length: 1
         children:
         - __type__: ItemStatement
           range: entry_point <Ln 6, Col 5 -> Ln 7, Col 1>
@@ -206,14 +221,10 @@
               __type__: SimpleElement
               range: entry_point <Ln 6, Col 5 -> Ln 7, Col 1>
               value: Visibility.Private
-            type:
-              __type__: StringType
-              range: entry_point <Ln 6, Col 13 -> Ln 6, Col 19>
-              min_length: 1
             name:
               __type__: SimpleElement
               range: entry_point <Ln 6, Col 5 -> Ln 7, Col 1>
-              value: _ItemStatement-Ln6
+              value: ItemStatement-Ln6Col5
             cardinality:
               __type__: Cardinality
               range: entry_point <Ln 6, Col 13 -> Ln 6, Col 19>
@@ -225,21 +236,10 @@
                 __type__: IntegerExpression
                 range: entry_point <Ln 6, Col 13 -> Ln 6, Col 19>
                 value: 1
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-      value: _PseudoType#^-Ln5
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-        value: 1
-      max:
-        __type__: IntegerExpression
-        range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-        value: 1
+            type:
+              __type__: StringType
+              range: entry_point <Ln 6, Col 13 -> Ln 6, Col 19>
+              min_length: 1
   - __type__: ItemStatement
     range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
     visibility:
@@ -253,7 +253,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-      display_type: __PseudoType#^-Ln5-Struct-Ln5
+      display_type: _PseudoType#^-Ln5Col1Struct
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -261,7 +261,7 @@
       name:
         __type__: SimpleElement
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
-        value: _ItemStatement-Ln5
+        value: ItemStatement-Ln5Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
@@ -274,67 +274,19 @@
           range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
           value: 1
       reference:
-        name: _PseudoType#^-Ln5
+        name: _PseudoType#^-Ln5Col1
         range: entry_point <Ln 5, Col 1 -> Ln 7, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-    display_type: __PseudoType#^-Ln8-Struct-Ln8
+    display_type: _PseudoType#^-Ln8Col1Struct
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 8, Col 1 -> Ln 8, Col 2>
       value: Visibility.Private
-    type:
-      __type__: StructureType
-      range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-      structure:
-        __type__: StructureStatement
-        range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-        name:
-          __type__: SimpleElement
-          range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-          value: __PseudoType#^-Ln8-Struct-Ln8
-        children:
-        - __type__: ItemStatement
-          range: entry_point <Ln 9, Col 5 -> Ln 9, Col 19>
-          visibility:
-            __type__: SimpleElement
-            range: entry_point <Ln 9, Col 5 -> Ln 9, Col 11>
-            value: Visibility.Public
-          name:
-            __type__: SimpleElement
-            range: entry_point <Ln 9, Col 5 -> Ln 9, Col 11>
-            value: value1
-          type:
-            __type__: ReferenceType
-            range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-            display_type: String
-            visibility:
-              __type__: SimpleElement
-              range: entry_point <Ln 9, Col 5 -> Ln 9, Col 19>
-              value: Visibility.Private
-            type:
-              __type__: StringType
-              range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-              min_length: 1
-            name:
-              __type__: SimpleElement
-              range: entry_point <Ln 9, Col 5 -> Ln 9, Col 19>
-              value: _ItemStatement-Ln9
-            cardinality:
-              __type__: Cardinality
-              range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-              min:
-                __type__: IntegerExpression
-                range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-                value: 1
-              max:
-                __type__: IntegerExpression
-                range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
-                value: 1
     name:
       __type__: SimpleElement
       range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-      value: _PseudoType#^-Ln8
+      value: _PseudoType#^-Ln8Col1
     cardinality:
       __type__: Cardinality
       range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
@@ -360,6 +312,54 @@
           __type__: IntegerExpression
           range: entry_point <Ln 11, Col 20 -> Ln 11, Col 22>
           value: 10
+    type:
+      __type__: StructureType
+      range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
+      structure:
+        __type__: StructureStatement
+        range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
+        name:
+          __type__: SimpleElement
+          range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
+          value: _PseudoType#^-Ln8Col1Struct
+        children:
+        - __type__: ItemStatement
+          range: entry_point <Ln 9, Col 5 -> Ln 9, Col 19>
+          visibility:
+            __type__: SimpleElement
+            range: entry_point <Ln 9, Col 5 -> Ln 9, Col 11>
+            value: Visibility.Public
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 9, Col 5 -> Ln 9, Col 11>
+            value: value1
+          type:
+            __type__: ReferenceType
+            range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
+            display_type: String
+            visibility:
+              __type__: SimpleElement
+              range: entry_point <Ln 9, Col 5 -> Ln 9, Col 19>
+              value: Visibility.Private
+            name:
+              __type__: SimpleElement
+              range: entry_point <Ln 9, Col 5 -> Ln 9, Col 19>
+              value: ItemStatement-Ln9Col5
+            cardinality:
+              __type__: Cardinality
+              range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
+              min:
+                __type__: IntegerExpression
+                range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
+                value: 1
+              max:
+                __type__: IntegerExpression
+                range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
+                value: 1
+            type:
+              __type__: StringType
+              range: entry_point <Ln 9, Col 13 -> Ln 9, Col 19>
+              min_length: 1
   - __type__: ItemStatement
     range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
     visibility:
@@ -373,7 +373,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-      display_type: __PseudoType#^-Ln8-Struct-Ln8
+      display_type: _PseudoType#^-Ln8Col1Struct
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
@@ -381,7 +381,7 @@
       name:
         __type__: SimpleElement
         range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
-        value: _ItemStatement-Ln8
+        value: ItemStatement-Ln8Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
@@ -394,23 +394,49 @@
           range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
           value: 1
       reference:
-        name: _PseudoType#^-Ln8
+        name: _PseudoType#^-Ln8Col1
         range: entry_point <Ln 8, Col 1 -> Ln 14, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-    display_type: __PseudoType#^-Ln14-Struct-Ln14*
+    display_type: _PseudoType#^-Ln14Col1Struct*
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 14, Col 1 -> Ln 14, Col 2>
       value: Visibility.Private
+    name:
+      __type__: SimpleElement
+      range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
+      value: _PseudoType#^-Ln14Col1
+    cardinality:
+      __type__: Cardinality
+      range: entry_point <Ln 16, Col 1 -> Ln 16, Col 2>
+      min:
+        __type__: IntegerExpression
+        range: entry_point <Ln 16, Col 1 -> Ln 16, Col 2>
+        value: 0
     type:
       __type__: ReferenceType
       range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-      display_type: __PseudoType#^-Ln14-Struct-Ln14
+      display_type: _PseudoType#^-Ln14Col1Struct
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
         value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
+        value: _PseudoType#^-Ln14Col1-Item-Ln14Col1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
+          value: 1
       type:
         __type__: StructureType
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
@@ -420,7 +446,7 @@
           name:
             __type__: SimpleElement
             range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-            value: __PseudoType#^-Ln14-Struct-Ln14
+            value: _PseudoType#^-Ln14Col1Struct
           children:
           - __type__: ItemStatement
             range: entry_point <Ln 15, Col 5 -> Ln 15, Col 20>
@@ -440,13 +466,10 @@
                 __type__: SimpleElement
                 range: entry_point <Ln 15, Col 5 -> Ln 15, Col 20>
                 value: Visibility.Private
-              type:
-                __type__: BooleanType
-                range: entry_point <Ln 15, Col 13 -> Ln 15, Col 20>
               name:
                 __type__: SimpleElement
                 range: entry_point <Ln 15, Col 5 -> Ln 15, Col 20>
-                value: _ItemStatement-Ln15
+                value: ItemStatement-Ln15Col5
               cardinality:
                 __type__: Cardinality
                 range: entry_point <Ln 15, Col 13 -> Ln 15, Col 20>
@@ -458,32 +481,9 @@
                   __type__: IntegerExpression
                   range: entry_point <Ln 15, Col 13 -> Ln 15, Col 20>
                   value: 1
-      name:
-        __type__: SimpleElement
-        range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-        value: __PseudoType#^-Ln14-Item-Ln14
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-          value: 1
-    name:
-      __type__: SimpleElement
-      range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-      value: _PseudoType#^-Ln14
-    cardinality:
-      __type__: Cardinality
-      range: entry_point <Ln 16, Col 1 -> Ln 16, Col 2>
-      min:
-        __type__: IntegerExpression
-        range: entry_point <Ln 16, Col 1 -> Ln 16, Col 2>
-        value: 0
+              type:
+                __type__: BooleanType
+                range: entry_point <Ln 15, Col 13 -> Ln 15, Col 20>
   - __type__: ItemStatement
     range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
     visibility:
@@ -497,7 +497,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-      display_type: __PseudoType#^-Ln14-Struct-Ln14*
+      display_type: _PseudoType#^-Ln14Col1Struct*
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
@@ -505,7 +505,7 @@
       name:
         __type__: SimpleElement
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
-        value: _ItemStatement-Ln14
+        value: ItemStatement-Ln14Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 16, Col 1 -> Ln 16, Col 2>
@@ -514,116 +514,19 @@
           range: entry_point <Ln 16, Col 1 -> Ln 16, Col 2>
           value: 0
       reference:
-        name: _PseudoType#^-Ln14
+        name: _PseudoType#^-Ln14Col1
         range: entry_point <Ln 14, Col 1 -> Ln 18, Col 1>
   - __type__: ReferenceType
     range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-    display_type: __PseudoType#^-Ln18-Struct-Ln18?
+    display_type: _PseudoType#^-Ln18Col1Struct?
     visibility:
       __type__: SimpleElement
       range: entry_point <Ln 18, Col 1 -> Ln 18, Col 2>
       value: Visibility.Private
-    type:
-      __type__: ReferenceType
-      range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-      display_type: __PseudoType#^-Ln18-Struct-Ln18
-      visibility:
-        __type__: SimpleElement
-        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-        value: Visibility.Private
-      type:
-        __type__: StructureType
-        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-        structure:
-          __type__: StructureStatement
-          range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-          name:
-            __type__: SimpleElement
-            range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-            value: __PseudoType#^-Ln18-Struct-Ln18
-          base_types:
-          - __type__: ReferenceType
-            range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-            display_type: String
-            visibility:
-              __type__: SimpleElement
-              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-              value: Visibility.Private
-            type:
-              __type__: StringType
-              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-              min_length: 1
-            name:
-              __type__: SimpleElement
-              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-              value: _Base0
-            cardinality:
-              __type__: Cardinality
-              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-              min:
-                __type__: IntegerExpression
-                range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-                value: 1
-              max:
-                __type__: IntegerExpression
-                range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
-                value: 1
-          children:
-          - __type__: ItemStatement
-            range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
-            visibility:
-              __type__: SimpleElement
-              range: entry_point <Ln 19, Col 5 -> Ln 19, Col 11>
-              value: Visibility.Public
-            name:
-              __type__: SimpleElement
-              range: entry_point <Ln 19, Col 5 -> Ln 19, Col 11>
-              value: value1
-            type:
-              __type__: ReferenceType
-              range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-              display_type: Boolean
-              visibility:
-                __type__: SimpleElement
-                range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
-                value: Visibility.Private
-              type:
-                __type__: BooleanType
-                range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-              name:
-                __type__: SimpleElement
-                range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
-                value: _ItemStatement-Ln19
-              cardinality:
-                __type__: Cardinality
-                range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-                min:
-                  __type__: IntegerExpression
-                  range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-                  value: 1
-                max:
-                  __type__: IntegerExpression
-                  range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
-                  value: 1
-      name:
-        __type__: SimpleElement
-        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-        value: __PseudoType#^-Ln18-Item-Ln18
-      cardinality:
-        __type__: Cardinality
-        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-        min:
-          __type__: IntegerExpression
-          range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-          value: 1
-        max:
-          __type__: IntegerExpression
-          range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-          value: 1
     name:
       __type__: SimpleElement
       range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-      value: _PseudoType#^-Ln18
+      value: _PseudoType#^-Ln18Col1
     cardinality:
       __type__: Cardinality
       range: entry_point <Ln 20, Col 1 -> Ln 20, Col 2>
@@ -659,6 +562,103 @@
           __type__: IntegerExpression
           range: entry_point <Ln 23, Col 20 -> Ln 23, Col 22>
           value: 20
+    type:
+      __type__: ReferenceType
+      range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+      display_type: _PseudoType#^-Ln18Col1Struct
+      visibility:
+        __type__: SimpleElement
+        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+        value: Visibility.Private
+      name:
+        __type__: SimpleElement
+        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+        value: _PseudoType#^-Ln18Col1-Item-Ln18Col1
+      cardinality:
+        __type__: Cardinality
+        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+        min:
+          __type__: IntegerExpression
+          range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+          value: 1
+        max:
+          __type__: IntegerExpression
+          range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+          value: 1
+      type:
+        __type__: StructureType
+        range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+        structure:
+          __type__: StructureStatement
+          range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+          name:
+            __type__: SimpleElement
+            range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
+            value: _PseudoType#^-Ln18Col1Struct
+          base_types:
+          - __type__: ReferenceType
+            range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+            display_type: String
+            visibility:
+              __type__: SimpleElement
+              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+              value: Visibility.Private
+            name:
+              __type__: SimpleElement
+              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+              value: Base0
+            cardinality:
+              __type__: Cardinality
+              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+              min:
+                __type__: IntegerExpression
+                range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+                value: 1
+              max:
+                __type__: IntegerExpression
+                range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+                value: 1
+            type:
+              __type__: StringType
+              range: entry_point <Ln 18, Col 13 -> Ln 18, Col 19>
+              min_length: 1
+          children:
+          - __type__: ItemStatement
+            range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
+            visibility:
+              __type__: SimpleElement
+              range: entry_point <Ln 19, Col 5 -> Ln 19, Col 11>
+              value: Visibility.Public
+            name:
+              __type__: SimpleElement
+              range: entry_point <Ln 19, Col 5 -> Ln 19, Col 11>
+              value: value1
+            type:
+              __type__: ReferenceType
+              range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
+              display_type: Boolean
+              visibility:
+                __type__: SimpleElement
+                range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
+                value: Visibility.Private
+              name:
+                __type__: SimpleElement
+                range: entry_point <Ln 19, Col 5 -> Ln 19, Col 20>
+                value: ItemStatement-Ln19Col5
+              cardinality:
+                __type__: Cardinality
+                range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
+                min:
+                  __type__: IntegerExpression
+                  range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
+                  value: 1
+                max:
+                  __type__: IntegerExpression
+                  range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
+                  value: 1
+              type:
+                __type__: BooleanType
+                range: entry_point <Ln 19, Col 13 -> Ln 19, Col 20>
   - __type__: ItemStatement
     range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
     visibility:
@@ -672,7 +672,7 @@
     type:
       __type__: ReferenceType
       range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-      display_type: __PseudoType#^-Ln18-Struct-Ln18?
+      display_type: _PseudoType#^-Ln18Col1Struct?
       visibility:
         __type__: SimpleElement
         range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
@@ -680,7 +680,7 @@
       name:
         __type__: SimpleElement
         range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
-        value: _ItemStatement-Ln18
+        value: ItemStatement-Ln18Col1
       cardinality:
         __type__: Cardinality
         range: entry_point <Ln 20, Col 1 -> Ln 20, Col 2>
@@ -693,5 +693,5 @@
           range: entry_point <Ln 20, Col 1 -> Ln 20, Col 2>
           value: 1
       reference:
-        name: _PseudoType#^-Ln18
+        name: _PseudoType#^-Ln18Col1
         range: entry_point <Ln 18, Col 1 -> Ln 25, Col 1>
