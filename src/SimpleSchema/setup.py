@@ -78,7 +78,7 @@ include_files: list[Tuple[str, str]] = []
 
 for child in Path("src/Plugins").iterdir():
     if (
-        not child.is_file
+        not child.is_file()
         or child.suffix != ".py"
         or child.stem == "__init__"
     ):
